@@ -178,16 +178,40 @@ wrong, not the theorem):
 Negative controls (MUST be classified as shown, with the reason attached):
 
 - N1  the AIX template (`step` hypothesis, custom `Tower.declInv`) ->
-      `conditional`, hypothesis listed, custom constant unanchored.
+      `stated`: the anchor rule catches it before status ever reaches
+      the hypotheses, because the statement is about an unanchored private
+      predicate. (`conditional` remains the status for sorry-free proofs
+      whose premises are named claim ids; the run showed it is not what
+      catches this template.)
 - N2  `def Claim : Prop := True; theorem t : Claim := trivial` -> `stated`,
       reason: type reduces to `True`; no Mathlib anchor.
 - N3  a proof resting on an uninterpreted `axiom` -> axiom gate FAIL.
 - N4  Crouzeix with constant 1 -> `refuted`, by P2's witness.
-- N5  prose projection pinned to a stale statement (lock changed, label
-      not) -> notes/drift gate FAIL.
+- N5  a claim file whose recorded lock differs from the recomputed lock
+      (the statement changed, the prose did not) -> drift gate FAIL.
 
 Pass criterion: 3/3 positives `proven`, 5/5 negatives as listed. Only then
 does the Millennium registry get imported.
+
+RUN 2026-09-06 (scripts/calibrate.py, calib/RESULTS.json, claims/*.yml,
+every gate output stored in ket by CID): PASS 8/8, 5m17s.
+- P1 proven: Jin's build 2m34s from cache; axiom set exactly the triple;
+  lean4checker on FinalTheorems 17 s; lock
+  edcf6289...; three custom constants in the type, six rfl anchors; the
+  `[Nonempty n]` mutant killed (instance synthesis fails, goals unsolved).
+- P2 proven from scratch (calib/Quod/P2.lean): `2 * sup <= ||J||` at the
+  2x2 nilpotent with p = X, via `||J|| >= 1` (e1 -> e0) and
+  `|conj(x0) x1| <= 1/2`; N4's negation follows.
+- P3: the restated theorem's lock equals `Nat.exists_infinite_primes`'s
+  lock bit for bit; one node.
+- N1 stated (unanchored `Tower.declInv`); N2 stated (type unfolds to
+  `True`; unanchored); N3 axiom-fail (`oracle`); N4 refuted by
+  `QuodP2.N4_refuted`; N5 drift-fail.
+- Self-test that the gates can fail: with the anchor table emptied, P1
+  computes `stated`, not `proven`.
+- Observation kept: lean4checker exits 0 on N3 and N4. It certifies
+  kernel consistency of the environment, not axiom freedom; the axiom
+  gate is a separate check by necessity, not by taste.
 
 ## 8. Millennium program (after calibration)
 
