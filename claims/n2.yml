@@ -1,0 +1,16 @@
+id: N2
+statement: A named proposition whose definition is True.
+lean: Quod.Controls.N2:p_vs_np
+lock: 4876adc70a8dde05b3ad791f838398d756d58cb88154c645f6cea3099cdbd0cb
+custom_constants:
+- PvsNPClaim
+controls:
+- negative
+status: stated
+reasons:
+- type unfolds to True
+- unanchored ['PvsNPClaim']
+evidence:
+  lock_cid: a3d032e33b68da1f76510102b27445523b7be494d8ebc0eb60ffb9dcd27c42a5
+  axioms_cid: 0a83df1a301f55ec29539a42323909f008dc1c7e02d9aa72edfbdc969e0af106
+  checker_cid: 58e870f91da86a10478db04953e10e23fba3c998cd0b13018ce79842b366c533

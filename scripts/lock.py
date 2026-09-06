@@ -48,6 +48,10 @@ run_meta do
   IO.println "LOCKTYPE-BEGIN"
   IO.println (toString fmt)
   IO.println "LOCKTYPE-END"
+  -- unfold the head of the statement through every definition: a claim whose
+  -- type is `True` behind a name is not a claim
+  let tw ← withTransparency .all (whnf ci.type)
+  IO.println s!"WHNF-IS-TRUE {{tw.isConstOf ``True}}"
   let consts := t.getUsedConstants
   for c in consts do
     let m := (env.getModuleFor? c).getD `_local
@@ -91,11 +95,12 @@ def main() -> int:
     custom = [{"name": c, "module": m} for c, m, k in consts if k == "custom"]
     res = {"decl": decl, "module": module, "kind": kind, "lock": h, "hash": algo,
            "canonical_type": canon, "constants": len(consts), "custom_constants": custom,
-           "reduces_to_True": canon in ("True", "true")}
+           "reduces_to_True": "WHNF-IS-TRUE true" in out}
     if "--json" in sys.argv:
         print(json.dumps(res, indent=1, ensure_ascii=False))
     else:
-        print(f"lock {h} ({algo}) {decl} [{kind}] constants {len(consts)} custom {len(custom)}")
+        print(f"lock {h} ({algo}) {decl} [{kind}] constants {len(consts)} custom {len(custom)}"
+              + ("  TYPE UNFOLDS TO True" if res["reduces_to_True"] else ""))
         for c in custom: print(f"  custom {c['name']}  ({c['module']})")
     return 0
 

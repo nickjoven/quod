@@ -7,4 +7,5 @@ package «quod-calib»
 require «crouzeix-conjecture» from "jin/Lean"
 
 @[default_target]
-lean_lib Quod
+lean_lib Quod where
+  globs := #[.submodules `Quod]
