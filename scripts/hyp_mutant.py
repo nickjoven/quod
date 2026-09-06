@@ -23,7 +23,9 @@ def compiles(proj, src):
         r = subprocess.run(["lake", "env", "lean", path], cwd=proj, capture_output=True, text=True)
     finally:
         os.unlink(path)
-    return r.returncode == 0, (r.stdout + r.stderr)[-1500:]
+    # the temp file name is random: scrub it so the evidence record is deterministic
+    log = (r.stdout + r.stderr).replace(path, "<mutant>")
+    return r.returncode == 0, log[-1500:]
 
 
 def main() -> int:

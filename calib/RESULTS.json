@@ -16,10 +16,15 @@
    "evidence": {
     "lock_cid": "a96acda00bc170e660a9a7c09cc9cbf40afb7d43c588dbb039cdd9f90ced0a9f",
     "axioms_cid": "b7e78f6ee3a0fd8d44d144435246ba2c2f871b4ecaec143e2016d8904bec1645",
-    "anchor_CrouzeixConjecture.SquareMatrix": "7a1f26033025494f5c76724c4b5d6a1c669a5ccbec7ee98684c300be99a7b8b6",
-    "anchor_CrouzeixConjecture.polynomialEval": "bbe66703bbee5024edf5f6c654a8a4be8a07a18fb54e4a03e7733f00b928955d",
-    "anchor_CrouzeixConjecture.maxPolynomialModulusOnNumericalRange": "c4374502aef2c6adcc6dd4e0daeec9f136418e68a53948db25bb44e700588e5d",
-    "mutant_[Nonempty n]": "f5e7d4672f7066ec1f262df83300b211d881c3e29a7ec3a111d9642958542703",
+    "anchor_shape_CrouzeixConjecture.SquareMatrix": "720fc4652f71e725ce3d8926b43ee2c660465442359b42e2555aa87f87843ab3",
+    "anchor_axioms_CrouzeixConjecture.SquareMatrix": "7a1f26033025494f5c76724c4b5d6a1c669a5ccbec7ee98684c300be99a7b8b6",
+    "anchor_shape_CrouzeixConjecture.polynomialEval": "5c2d3ff1b6424b22154047941370bd88bd683c637a847593fc3fb4cc80f5d127",
+    "anchor_axioms_CrouzeixConjecture.polynomialEval": "bbe66703bbee5024edf5f6c654a8a4be8a07a18fb54e4a03e7733f00b928955d",
+    "anchor_shape_CrouzeixConjecture.maxPolynomialModulusOnNumericalRange": "cda750f77b6c7d66e6594c922d23d467a667b7e22378b028e9db3a58f3dd7d3a",
+    "anchor_axioms_CrouzeixConjecture.maxPolynomialModulusOnNumericalRange": "c4374502aef2c6adcc6dd4e0daeec9f136418e68a53948db25bb44e700588e5d",
+    "anchor_shape_CrouzeixConjecture.numericalRange": "2c341efde8e552c8d0fe8bf841f0515884fd7b9c2344a0df61f835df1c2fabc0",
+    "anchor_axioms_CrouzeixConjecture.numericalRange": "bc7c0a50bd2833deadf781f274eab84c4d6d3b47670ad1de16270e467f2e6b8c",
+    "mutant_[Nonempty n]": "f0001abfa15912675ae2844cd0ebbca9ab5cde5a0a936f7f312531bc0129c743",
     "checker_cid": "6e75bb06cb8577bab445c0b441ef7eba418bdb02652fe9d9e12da1cd0b19e297"
    },
    "reasons": [],
@@ -53,10 +58,16 @@
    "evidence": {
     "lock_cid": "3aa0e012311ca90aabb0fc399e852af85c94246ebb9303615cba486e2c81f7a1",
     "axioms_cid": "b03fc3fceeed2f97d573cf11f9fc629d93f208dae16184d98844d25809733f05",
-    "anchor_CrouzeixConjecture.maxPolynomialModulusOnNumericalRange": "c4374502aef2c6adcc6dd4e0daeec9f136418e68a53948db25bb44e700588e5d",
-    "anchor_QuodP2.J": "0ca5916de704c3176a25c20711a79cda8e5b9e2d1906c5e6ff30a4fe991a0099",
-    "anchor_CrouzeixConjecture.SquareMatrix": "7a1f26033025494f5c76724c4b5d6a1c669a5ccbec7ee98684c300be99a7b8b6",
-    "anchor_CrouzeixConjecture.polynomialEval": "bbe66703bbee5024edf5f6c654a8a4be8a07a18fb54e4a03e7733f00b928955d",
+    "anchor_shape_CrouzeixConjecture.maxPolynomialModulusOnNumericalRange": "cda750f77b6c7d66e6594c922d23d467a667b7e22378b028e9db3a58f3dd7d3a",
+    "anchor_axioms_CrouzeixConjecture.maxPolynomialModulusOnNumericalRange": "c4374502aef2c6adcc6dd4e0daeec9f136418e68a53948db25bb44e700588e5d",
+    "anchor_shape_CrouzeixConjecture.numericalRange": "2c341efde8e552c8d0fe8bf841f0515884fd7b9c2344a0df61f835df1c2fabc0",
+    "anchor_axioms_CrouzeixConjecture.numericalRange": "bc7c0a50bd2833deadf781f274eab84c4d6d3b47670ad1de16270e467f2e6b8c",
+    "anchor_shape_QuodP2.J": "3ddbc028c1c83b5ed65fc0671cfb23d76a0b10ba26a2f3ff0dc398763e7ce831",
+    "anchor_axioms_QuodP2.J": "0ca5916de704c3176a25c20711a79cda8e5b9e2d1906c5e6ff30a4fe991a0099",
+    "anchor_shape_CrouzeixConjecture.SquareMatrix": "720fc4652f71e725ce3d8926b43ee2c660465442359b42e2555aa87f87843ab3",
+    "anchor_axioms_CrouzeixConjecture.SquareMatrix": "7a1f26033025494f5c76724c4b5d6a1c669a5ccbec7ee98684c300be99a7b8b6",
+    "anchor_shape_CrouzeixConjecture.polynomialEval": "5c2d3ff1b6424b22154047941370bd88bd683c637a847593fc3fb4cc80f5d127",
+    "anchor_axioms_CrouzeixConjecture.polynomialEval": "bbe66703bbee5024edf5f6c654a8a4be8a07a18fb54e4a03e7733f00b928955d",
     "checker_cid": "3187b9e41b79c5207aed4c37d3fec3d0885810bf97c5b095a7364dcef3097c67"
    },
    "reasons": [],
@@ -183,9 +194,14 @@
    "evidence": {
     "lock_cid": "87e2e371315bd892a5a807dbc946a306a3a579e54b74ef166693f610debe44e5",
     "axioms_cid": "d62d0ff11f87e94619afbd734f9d1b5cd6600216824d695bbac51c876a47d380",
-    "anchor_CrouzeixConjecture.SquareMatrix": "7a1f26033025494f5c76724c4b5d6a1c669a5ccbec7ee98684c300be99a7b8b6",
-    "anchor_CrouzeixConjecture.polynomialEval": "bbe66703bbee5024edf5f6c654a8a4be8a07a18fb54e4a03e7733f00b928955d",
-    "anchor_CrouzeixConjecture.maxPolynomialModulusOnNumericalRange": "c4374502aef2c6adcc6dd4e0daeec9f136418e68a53948db25bb44e700588e5d",
+    "anchor_shape_CrouzeixConjecture.SquareMatrix": "720fc4652f71e725ce3d8926b43ee2c660465442359b42e2555aa87f87843ab3",
+    "anchor_axioms_CrouzeixConjecture.SquareMatrix": "7a1f26033025494f5c76724c4b5d6a1c669a5ccbec7ee98684c300be99a7b8b6",
+    "anchor_shape_CrouzeixConjecture.polynomialEval": "5c2d3ff1b6424b22154047941370bd88bd683c637a847593fc3fb4cc80f5d127",
+    "anchor_axioms_CrouzeixConjecture.polynomialEval": "bbe66703bbee5024edf5f6c654a8a4be8a07a18fb54e4a03e7733f00b928955d",
+    "anchor_shape_CrouzeixConjecture.maxPolynomialModulusOnNumericalRange": "cda750f77b6c7d66e6594c922d23d467a667b7e22378b028e9db3a58f3dd7d3a",
+    "anchor_axioms_CrouzeixConjecture.maxPolynomialModulusOnNumericalRange": "c4374502aef2c6adcc6dd4e0daeec9f136418e68a53948db25bb44e700588e5d",
+    "anchor_shape_CrouzeixConjecture.numericalRange": "2c341efde8e552c8d0fe8bf841f0515884fd7b9c2344a0df61f835df1c2fabc0",
+    "anchor_axioms_CrouzeixConjecture.numericalRange": "bc7c0a50bd2833deadf781f274eab84c4d6d3b47670ad1de16270e467f2e6b8c",
     "checker_cid": "a6b3643bdc36273abaafb60d726c63a0905f636e4779257d3a890bee8ba1af55",
     "refutation_cid": "6e891b2b18bb5fd3ed8010ef9c4c616242072e0da07e93a0dcd94eb03f82f2bd"
    },
@@ -210,6 +226,55 @@
    "ok": true
   },
   {
+   "id": "N6",
+   "polarity": "negative",
+   "required": "stated",
+   "decl": "navier_stokes",
+   "module": "Quod.Controls.N1",
+   "evidence": {
+    "lock_cid": "e9f0314a724f03f545c546ce3236372c0b12b39a3466ec70e7bf51ac2698c885",
+    "axioms_cid": "ed9f07f14b2e995c508210a11b547a573aa18e62093c61e33465b40b34253218",
+    "anchor_shape_Tower.declInv": "617641e14a30e7cbe432be88e267e2981c03dac93193e7472913c5d0c497bb36",
+    "checker_cid": "662a5a0ad01b4299a80174ec5564741a0f40114694ebfc2e918b4998f0254def"
+   },
+   "reasons": [
+    "unanchored ['Tower.declInv (ANCHOR-BAD lhs head is QuodP2.J not Tower.declInv)']"
+   ],
+   "lock": "dc7e7a5cd146a4d1f21add7613385c61d86951050fe348877dfdc60a4c2eb053",
+   "custom_constants": [
+    "Tower.declInv"
+   ],
+   "axioms": [],
+   "checker_rc": 0,
+   "status": "stated",
+   "ok": true
+  },
+  {
+   "id": "N7",
+   "polarity": "negative",
+   "required": "stated",
+   "decl": "navier_stokes_laundered",
+   "module": "Quod.Controls.N7",
+   "evidence": {
+    "lock_cid": "fd0a2100de1ccf51b060c57eba9b9958c0543c22fff3675095349ecf1ec57873",
+    "axioms_cid": "cde3cce95a7436d38a41cd748e52e010c28c18387fda95ba431ad050c0ffc687",
+    "anchor_shape_Tower7.declInv": "1f959ca793aa56f315452896bde709b14662d611d61cf44184ff3134988a7c53",
+    "anchor_axioms_Tower7.declInv": "be49ebea5b75ea7d1641990925643c73d7bcfb9d27dcadd978962f27de18cabc",
+    "checker_cid": "6b942802a2415510fe05c767ae41fa1e030dcfaf51371f79efcaceb03d67c65d"
+   },
+   "reasons": [
+    "unanchored [\"Tower7.declInv via Tower7.declInv'\"]"
+   ],
+   "lock": "537ff272787c05346293265b2d67a8145f6f46f34e179a38e5b84fa357d10beb",
+   "custom_constants": [
+    "Tower7.declInv"
+   ],
+   "axioms": [],
+   "checker_rc": 0,
+   "status": "stated",
+   "ok": true
+  },
+  {
    "id": "N5",
    "polarity": "negative",
    "required": "drift-fail",
@@ -218,9 +283,14 @@
    "evidence": {
     "lock_cid": "a96acda00bc170e660a9a7c09cc9cbf40afb7d43c588dbb039cdd9f90ced0a9f",
     "axioms_cid": "b7e78f6ee3a0fd8d44d144435246ba2c2f871b4ecaec143e2016d8904bec1645",
-    "anchor_CrouzeixConjecture.SquareMatrix": "7a1f26033025494f5c76724c4b5d6a1c669a5ccbec7ee98684c300be99a7b8b6",
-    "anchor_CrouzeixConjecture.polynomialEval": "bbe66703bbee5024edf5f6c654a8a4be8a07a18fb54e4a03e7733f00b928955d",
-    "anchor_CrouzeixConjecture.maxPolynomialModulusOnNumericalRange": "c4374502aef2c6adcc6dd4e0daeec9f136418e68a53948db25bb44e700588e5d"
+    "anchor_shape_CrouzeixConjecture.SquareMatrix": "720fc4652f71e725ce3d8926b43ee2c660465442359b42e2555aa87f87843ab3",
+    "anchor_axioms_CrouzeixConjecture.SquareMatrix": "7a1f26033025494f5c76724c4b5d6a1c669a5ccbec7ee98684c300be99a7b8b6",
+    "anchor_shape_CrouzeixConjecture.polynomialEval": "5c2d3ff1b6424b22154047941370bd88bd683c637a847593fc3fb4cc80f5d127",
+    "anchor_axioms_CrouzeixConjecture.polynomialEval": "bbe66703bbee5024edf5f6c654a8a4be8a07a18fb54e4a03e7733f00b928955d",
+    "anchor_shape_CrouzeixConjecture.maxPolynomialModulusOnNumericalRange": "cda750f77b6c7d66e6594c922d23d467a667b7e22378b028e9db3a58f3dd7d3a",
+    "anchor_axioms_CrouzeixConjecture.maxPolynomialModulusOnNumericalRange": "c4374502aef2c6adcc6dd4e0daeec9f136418e68a53948db25bb44e700588e5d",
+    "anchor_shape_CrouzeixConjecture.numericalRange": "2c341efde8e552c8d0fe8bf841f0515884fd7b9c2344a0df61f835df1c2fabc0",
+    "anchor_axioms_CrouzeixConjecture.numericalRange": "bc7c0a50bd2833deadf781f274eab84c4d6d3b47670ad1de16270e467f2e6b8c"
    },
    "reasons": [
     "recorded lock differs from recomputed lock"

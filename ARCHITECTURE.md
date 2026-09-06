@@ -62,9 +62,18 @@ node.
 `def Claim : Prop := True` case). So the lock also records the transitive
 set of constants in the type that are NOT in pinned Mathlib. Each such
 constant needs an **anchor**: a checked `Iff` or `=` lemma relating it to a
-Mathlib notion, or a reviewed definition edge in the corpus. A claim whose
-type depends on an unanchored custom constant can be at most `stated`,
-never `proven`, whatever its proof does.
+Mathlib notion. A claim whose type depends on an unanchored custom constant
+can be at most `stated`, never `proven`, whatever its proof does.
+
+An anchor row in the table is a nomination, not a fact. The shape gate
+(`scripts/anchor_check.py`) admits a nominated lemma only if, under its
+binders, it reads `c x₁ … xₖ = rhs` or `c x₁ … xₖ ↔ rhs` with the xᵢ
+distinct bound variables and `rhs` free of `c`; every custom constant in
+`rhs` must be anchored in turn, cycles count as unanchored, so the chain
+ends in the pinned libraries or the claim stays `stated`. This was added
+after the recheck of 2026-09-06 found that without it a single forged row
+(any rfl lemma under any name) turned the AIX template into `proven`
+(N6, N7 below).
 
 **Target fidelity for the Millennium problems**: the registry types are the
 lean-dojo `clay_prize_*` declarations at the pinned revision. A claim
@@ -107,8 +116,9 @@ Statuses, in order of strength:
 - satisfiability witness: an `example` instantiating all hypotheses must
   compile (kills theorems true only because their premises are
   contradictory, `[Fact (1 = 2)]` and its subtler cousins).
-- anchor mutants: for each custom constant, the anchor lemma must compile
-  and must fail if the constant's definition is replaced by `True`/`False`.
+- anchor gate: for each custom constant, the nominated anchor must pass
+  the shape gate, its axiom set must be the triple, and its right-hand
+  side's custom constants must be anchored recursively.
 
 The proslambenomenos verify gate already runs every mutant in a script's
 known set and requires each to fail; that gate ports with the mutant
@@ -189,8 +199,14 @@ Negative controls (MUST be classified as shown, with the reason attached):
 - N4  Crouzeix with constant 1 -> `refuted`, by P2's witness.
 - N5  a claim file whose recorded lock differs from the recomputed lock
       (the statement changed, the prose did not) -> drift gate FAIL.
+- N6  N1 with a forged anchor row: `Tower.declInv` nominated to an
+      unrelated rfl lemma (`QuodP2.anchor_J`) -> `stated`, reason: anchor
+      lhs head is not the constant.
+- N7  N1 with an anchor of admissible shape whose right-hand side is
+      another private constant (`Tower7.declInv ↔ Tower7.declInv'`) ->
+      `stated`, reason: unanchored via the chain.
 
-Pass criterion: 3/3 positives `proven`, 5/5 negatives as listed. Only then
+Pass criterion: 3/3 positives `proven`, 7/7 negatives as listed. Only then
 does the Millennium registry get imported.
 
 RUN 2026-09-06 (scripts/calibrate.py, calib/RESULTS.json, claims/*.yml,
@@ -212,6 +228,19 @@ every gate output stored in ket by CID): PASS 8/8, 5m17s.
 - Observation kept: lean4checker exits 0 on N3 and N4. It certifies
   kernel consistency of the environment, not axiom freedom; the axiom
   gate is a separate check by necessity, not by taste.
+
+RECHECK 2026-09-06 (same day, fresh shell). Clean re-run of the 8-control
+set: PASS 8/8, every status and every evidence CID identical to the first
+run except the P1 mutant output, whose CID differed because the random
+temp file name leaked into the compile error (fixed: scrubbed to
+`<mutant>`). Then a probe the self-test had not covered: one forged row
+in the anchor table (`Tower.declInv` -> `QuodP2.anchor_J`) turned N1
+into `proven`. The anchor table was a hand-typed map that nothing
+checked. Fix: `scripts/anchor_check.py` (shape gate) plus recursion
+through anchor right-hand sides in `calibrate.py`; controls N6 (forged
+row) and N7 (laundering chain) added. Run with the gate: PASS 10/10,
+9m36s. P1's chain now reads maxPolynomialModulusOnNumericalRange ->
+numericalRange -> Mathlib and is checked, not assumed.
 
 ## 8. Millennium program (after calibration)
 
