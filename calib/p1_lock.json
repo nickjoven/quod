@@ -1,0 +1,24 @@
+{
+ "decl": "CrouzeixConjecture.crouzeixConjecture",
+ "module": "CrouzeixConjecture",
+ "kind": "theorem",
+ "lock": "edcf628966cc72941b57a6909736c7e69e323566a7653ae8eb2668ac443444bf",
+ "hash": "blake3",
+ "canonical_type": "∀ {_ : Type u_0} [__1 : Fintype.{u_0} _] [__2 : DecidableEq.{u_0 + 1} _] [__3 : Nonempty.{u_0 + 1} _] (__4 : CrouzeixConjecture.SquareMatrix.{u_0} _) (__5 : @Polynomial.{0} Complex Complex.instSemiring), @LE.le.{0} Real Real.instLE (@Norm.norm.{u_0} (CrouzeixConjecture.SquareMatrix.{u_0} _) (@NormedRing.toNorm.{u_0} (CrouzeixConjecture.SquareMatrix.{u_0} _) (@Matrix.instL2OpNormedRing.{0, u_0} Complex _ Complex.instRCLike __1 __2)) (@CrouzeixConjecture.polynomialEval.{u_0} _ __1 __2 __5 __4)) (@HMul.hMul.{0, 0, 0} Real Real Real (@instHMul.{0} Real Real.instMul) (@OfNat.ofNat.{0} Real (nat_lit 2) (@instOfNatAtLeastTwo.{0} Real (nat_lit 2) Real.instNatCast (@Nat.instAtLeastTwoHAddOfNat (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))) (@Nat.instNeZeroSucc (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))))))) (@CrouzeixConjecture.maxPolynomialModulusOnNumericalRange.{u_0} _ __1 __2 __4 __5))",
+ "constants": 26,
+ "custom_constants": [
+  {
+   "name": "CrouzeixConjecture.SquareMatrix",
+   "module": "CrouzeixConjecture.Euclidean"
+  },
+  {
+   "name": "CrouzeixConjecture.polynomialEval",
+   "module": "CrouzeixConjecture.Definitions"
+  },
+  {
+   "name": "CrouzeixConjecture.maxPolynomialModulusOnNumericalRange",
+   "module": "CrouzeixConjecture.Statements"
+  }
+ ],
+ "reduces_to_True": false
+}

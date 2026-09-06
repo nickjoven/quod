@@ -1,2 +1,4 @@
 calib/jin/
 calib/*.log
+calib/.lake/
+calib/lean4checker/
