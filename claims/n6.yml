@@ -5,13 +5,19 @@ lean: Quod.Controls.N1:navier_stokes
 lock: dc7e7a5cd146a4d1f21add7613385c61d86951050fe348877dfdc60a4c2eb053
 custom_constants:
 - Tower.declInv
+hypotheses:
+- name: step
+  type: '∀ (n : ℕ), Tower.declInv n → Tower.declInv (n + 1)'
+grounded: true
+registry_match: null
 controls:
 - negative
 status: stated
 reasons:
 - unanchored ['Tower.declInv (ANCHOR-BAD lhs head is QuodP2.J not Tower.declInv)']
 evidence:
-  lock_cid: e9f0314a724f03f545c546ce3236372c0b12b39a3466ec70e7bf51ac2698c885
+  lock_cid: 2831d89307ec790f1863557bb0372ade229a7f5df164a11ba385054c563c85cd
   axioms_cid: ed9f07f14b2e995c508210a11b547a573aa18e62093c61e33465b40b34253218
+  closure_cid: 7bdbe6864be653fe8457f887749a309533e2691131d1921178ddbd0042c00e8d
   anchor_shape_Tower.declInv: 617641e14a30e7cbe432be88e267e2981c03dac93193e7472913c5d0c497bb36
   checker_cid: 662a5a0ad01b4299a80174ec5564741a0f40114694ebfc2e918b4998f0254def

@@ -54,6 +54,8 @@ def main() -> int:
                  "lean": f"{module}:{decl}", "lock": rec.get("lock"),
                  "custom_constants": rec.get("custom_constants", []),
                  "anchors": {k: v[2] for k, v in anchors.items() if k in rec.get("custom_constants", [])},
+                 "hypotheses": rec.get("hypotheses", []), "grounded": rec.get("grounded"),
+                 "closure": rec.get("closure", {}),
                  "status": rec["status"], "reasons": rec["reasons"], "evidence": rec["evidence"]}
         with open(os.path.join(ROOT, "claims", "millennium", f"{slug}.yml"), "w") as f:
             yaml.safe_dump(claim, f, sort_keys=False, allow_unicode=True)

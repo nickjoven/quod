@@ -10,11 +10,20 @@ lock: 40684c09e9e7a0e3c8418f30d41eb7db455301dfaa52d84ce8c1b01fb87e1a3f
 custom_constants:
 - Millennium.ClayPVersusNPResolution
 anchors: {}
+hypotheses: []
+grounded: true
+closure:
+  Millennium.ClayPVersusNPResolution:
+    custom: 1
+    grounded: true
+    axioms: []
+    opaque: []
 status: stated
 reasons:
 - proof uses sorry
 - unanchored ['Millennium.ClayPVersusNPResolution']
 evidence:
-  lock_cid: cc5adffcc07285917a0eb48cae7ba172d4f0bc039704c54059f12b790895d5b4
+  lock_cid: 23a727f4cd5885748005b4246fea5312d141dc3fe43a40f5a50414bea6266710
   axioms_cid: 00cdac2c33c672641fa9eed23311feba1562065b496475f5ceb4ec193d35e6d9
+  closure_cid: fc8ed4a203d1a861ea859a0c6233ea956000caf06d654cd735efdcbbbb73b751
   checker_cid: 3551132206ab096199fbdfe78ffbd1786c67fb0d006f7681295f02dd53156b5c

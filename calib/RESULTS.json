@@ -14,8 +14,9 @@
    "decl": "CrouzeixConjecture.crouzeixConjecture",
    "module": "CrouzeixConjecture",
    "evidence": {
-    "lock_cid": "a96acda00bc170e660a9a7c09cc9cbf40afb7d43c588dbb039cdd9f90ced0a9f",
+    "lock_cid": "dfec83d0ace03c72f6986dcd224827f671f3881bce16e438fd81fc274b07be93",
     "axioms_cid": "b7e78f6ee3a0fd8d44d144435246ba2c2f871b4ecaec143e2016d8904bec1645",
+    "closure_cid": "88c472082e9fac234887ebb10d4b77f5e7d35e2838e4d4c5aab86b514aac9d2c",
     "anchor_shape_CrouzeixConjecture.SquareMatrix": "720fc4652f71e725ce3d8926b43ee2c660465442359b42e2555aa87f87843ab3",
     "anchor_axioms_CrouzeixConjecture.SquareMatrix": "7a1f26033025494f5c76724c4b5d6a1c669a5ccbec7ee98684c300be99a7b8b6",
     "anchor_shape_CrouzeixConjecture.polynomialEval": "5c2d3ff1b6424b22154047941370bd88bd683c637a847593fc3fb4cc80f5d127",
@@ -39,6 +40,29 @@
     "Quot.sound",
     "propext"
    ],
+   "hypotheses": [],
+   "registry_match": null,
+   "grounded": true,
+   "closure": {
+    "CrouzeixConjecture.SquareMatrix": {
+     "custom": 1,
+     "grounded": true,
+     "axioms": [],
+     "opaque": []
+    },
+    "CrouzeixConjecture.polynomialEval": {
+     "custom": 2,
+     "grounded": true,
+     "axioms": [],
+     "opaque": []
+    },
+    "CrouzeixConjecture.maxPolynomialModulusOnNumericalRange": {
+     "custom": 10,
+     "grounded": true,
+     "axioms": [],
+     "opaque": []
+    }
+   },
    "mutants": [
     {
      "delete": " [Nonempty n]",
@@ -56,8 +80,9 @@
    "decl": "QuodP2.sharp_two",
    "module": "Quod.P2",
    "evidence": {
-    "lock_cid": "3aa0e012311ca90aabb0fc399e852af85c94246ebb9303615cba486e2c81f7a1",
+    "lock_cid": "4907cc86fe8e2ac5a6d0162d241753407aa311a5d7dd82b12b0af0fca03133bb",
     "axioms_cid": "b03fc3fceeed2f97d573cf11f9fc629d93f208dae16184d98844d25809733f05",
+    "closure_cid": "f4e5956078deaf8ef864867b4042488077f352eb2c72b2df5c71e5cb5f269e8d",
     "anchor_shape_CrouzeixConjecture.maxPolynomialModulusOnNumericalRange": "cda750f77b6c7d66e6594c922d23d467a667b7e22378b028e9db3a58f3dd7d3a",
     "anchor_axioms_CrouzeixConjecture.maxPolynomialModulusOnNumericalRange": "c4374502aef2c6adcc6dd4e0daeec9f136418e68a53948db25bb44e700588e5d",
     "anchor_shape_CrouzeixConjecture.numericalRange": "2c341efde8e552c8d0fe8bf841f0515884fd7b9c2344a0df61f835df1c2fabc0",
@@ -83,6 +108,35 @@
     "Quot.sound",
     "propext"
    ],
+   "hypotheses": [],
+   "registry_match": null,
+   "grounded": true,
+   "closure": {
+    "CrouzeixConjecture.maxPolynomialModulusOnNumericalRange": {
+     "custom": 10,
+     "grounded": true,
+     "axioms": [],
+     "opaque": []
+    },
+    "QuodP2.J": {
+     "custom": 2,
+     "grounded": true,
+     "axioms": [],
+     "opaque": []
+    },
+    "CrouzeixConjecture.SquareMatrix": {
+     "custom": 1,
+     "grounded": true,
+     "axioms": [],
+     "opaque": []
+    },
+    "CrouzeixConjecture.polynomialEval": {
+     "custom": 2,
+     "grounded": true,
+     "axioms": [],
+     "opaque": []
+    }
+   },
    "checker_rc": 0,
    "status": "proven",
    "ok": true
@@ -94,7 +148,7 @@
    "decl": "QuodP3.infinitely_many_primes_again",
    "module": "Quod.P3",
    "evidence": {
-    "lock_cid": "3ff2c9cc4011a4379a743eac0de7bb3185dcd2186c5734b3fb8c47d3891a2aa6",
+    "lock_cid": "ce9874f9e2e654ad8e345edf6cba1bb7a2bde8ce0a0ddc679b0450bca037379c",
     "axioms_cid": "dd1f1fab86b86a2bd3a1de49b6ad8517dd5ddc87614b8d50d5db51a308df15f4",
     "checker_cid": "1a904a4446604929fa8893e24acf6be65a3fd9038f0ada7f71aa350301dfa1ab"
    },
@@ -106,6 +160,9 @@
     "Quot.sound",
     "propext"
    ],
+   "hypotheses": [],
+   "registry_match": null,
+   "grounded": true,
    "checker_rc": 0,
    "dedup": {
     "with": "Nat.exists_infinite_primes",
@@ -121,8 +178,9 @@
    "decl": "navier_stokes",
    "module": "Quod.Controls.N1",
    "evidence": {
-    "lock_cid": "e9f0314a724f03f545c546ce3236372c0b12b39a3466ec70e7bf51ac2698c885",
+    "lock_cid": "2831d89307ec790f1863557bb0372ade229a7f5df164a11ba385054c563c85cd",
     "axioms_cid": "ed9f07f14b2e995c508210a11b547a573aa18e62093c61e33465b40b34253218",
+    "closure_cid": "7bdbe6864be653fe8457f887749a309533e2691131d1921178ddbd0042c00e8d",
     "checker_cid": "662a5a0ad01b4299a80174ec5564741a0f40114694ebfc2e918b4998f0254def"
    },
    "reasons": [
@@ -133,6 +191,22 @@
     "Tower.declInv"
    ],
    "axioms": [],
+   "hypotheses": [
+    {
+     "name": "step",
+     "type": "\u2200 (n : \u2115), Tower.declInv n \u2192 Tower.declInv (n + 1)"
+    }
+   ],
+   "registry_match": null,
+   "grounded": true,
+   "closure": {
+    "Tower.declInv": {
+     "custom": 1,
+     "grounded": true,
+     "axioms": [],
+     "opaque": []
+    }
+   },
    "checker_rc": 0,
    "status": "stated",
    "ok": true
@@ -144,8 +218,9 @@
    "decl": "p_vs_np",
    "module": "Quod.Controls.N2",
    "evidence": {
-    "lock_cid": "a3d032e33b68da1f76510102b27445523b7be494d8ebc0eb60ffb9dcd27c42a5",
+    "lock_cid": "3fded70cdb625f4e77f21214dc5f102be15b1a489787d0965b7cf3e7057688c8",
     "axioms_cid": "0a83df1a301f55ec29539a42323909f008dc1c7e02d9aa72edfbdc969e0af106",
+    "closure_cid": "3bb0515c8f897ff324f14e492e9f3335ab98a2120208942caa503a2b5d6d68d0",
     "checker_cid": "58e870f91da86a10478db04953e10e23fba3c998cd0b13018ce79842b366c533"
    },
    "reasons": [
@@ -157,6 +232,17 @@
     "PvsNPClaim"
    ],
    "axioms": [],
+   "hypotheses": [],
+   "registry_match": null,
+   "grounded": true,
+   "closure": {
+    "PvsNPClaim": {
+     "custom": 1,
+     "grounded": true,
+     "axioms": [],
+     "opaque": []
+    }
+   },
    "checker_rc": 0,
    "status": "stated",
    "ok": true
@@ -168,7 +254,7 @@
    "decl": "all_primes_small",
    "module": "Quod.Controls.N3",
    "evidence": {
-    "lock_cid": "777ecae2eae270036c3726d366021a088d8353b9552f21e5d7fd85c82240d1b0",
+    "lock_cid": "733c2032c166038c3e95b0d248bf99b806b1efb6fba78113b921d06853717ffe",
     "axioms_cid": "f188b54a984cd56f03b3bfff55ccb21a62f7d72c1aaa5631da08351ae8ad745e",
     "checker_cid": "856348fefe775eaaddd903db07d32966cc7335172fdd272fc5403d2b115016fc"
    },
@@ -181,6 +267,14 @@
     "oracle",
     "propext"
    ],
+   "hypotheses": [
+    {
+     "name": "a._@._internal._hyg.0",
+     "type": "Nat.Prime n"
+    }
+   ],
+   "registry_match": null,
+   "grounded": true,
    "checker_rc": 0,
    "status": "axiom-fail",
    "ok": true
@@ -192,8 +286,9 @@
    "decl": "crouzeix_constant_one",
    "module": "Quod.Controls.N4",
    "evidence": {
-    "lock_cid": "944c2777ae9fba6dea91c160156d416cd3d3156afac647da366fac41cb23252b",
+    "lock_cid": "6747006184a0482128fbe63ea34e14b552b659d20c4fd13f946b1d4b8b207b92",
     "axioms_cid": "d62d0ff11f87e94619afbd734f9d1b5cd6600216824d695bbac51c876a47d380",
+    "closure_cid": "88c472082e9fac234887ebb10d4b77f5e7d35e2838e4d4c5aab86b514aac9d2c",
     "anchor_shape_CrouzeixConjecture.SquareMatrix": "720fc4652f71e725ce3d8926b43ee2c660465442359b42e2555aa87f87843ab3",
     "anchor_axioms_CrouzeixConjecture.SquareMatrix": "7a1f26033025494f5c76724c4b5d6a1c669a5ccbec7ee98684c300be99a7b8b6",
     "anchor_shape_CrouzeixConjecture.polynomialEval": "5c2d3ff1b6424b22154047941370bd88bd683c637a847593fc3fb4cc80f5d127",
@@ -222,6 +317,29 @@
     "propext",
     "sorryAx"
    ],
+   "hypotheses": [],
+   "registry_match": null,
+   "grounded": true,
+   "closure": {
+    "CrouzeixConjecture.SquareMatrix": {
+     "custom": 1,
+     "grounded": true,
+     "axioms": [],
+     "opaque": []
+    },
+    "CrouzeixConjecture.polynomialEval": {
+     "custom": 2,
+     "grounded": true,
+     "axioms": [],
+     "opaque": []
+    },
+    "CrouzeixConjecture.maxPolynomialModulusOnNumericalRange": {
+     "custom": 10,
+     "grounded": true,
+     "axioms": [],
+     "opaque": []
+    }
+   },
    "checker_rc": 0,
    "status": "refuted",
    "ok": true
@@ -233,8 +351,9 @@
    "decl": "navier_stokes",
    "module": "Quod.Controls.N1",
    "evidence": {
-    "lock_cid": "e9f0314a724f03f545c546ce3236372c0b12b39a3466ec70e7bf51ac2698c885",
+    "lock_cid": "2831d89307ec790f1863557bb0372ade229a7f5df164a11ba385054c563c85cd",
     "axioms_cid": "ed9f07f14b2e995c508210a11b547a573aa18e62093c61e33465b40b34253218",
+    "closure_cid": "7bdbe6864be653fe8457f887749a309533e2691131d1921178ddbd0042c00e8d",
     "anchor_shape_Tower.declInv": "617641e14a30e7cbe432be88e267e2981c03dac93193e7472913c5d0c497bb36",
     "checker_cid": "662a5a0ad01b4299a80174ec5564741a0f40114694ebfc2e918b4998f0254def"
    },
@@ -246,6 +365,22 @@
     "Tower.declInv"
    ],
    "axioms": [],
+   "hypotheses": [
+    {
+     "name": "step",
+     "type": "\u2200 (n : \u2115), Tower.declInv n \u2192 Tower.declInv (n + 1)"
+    }
+   ],
+   "registry_match": null,
+   "grounded": true,
+   "closure": {
+    "Tower.declInv": {
+     "custom": 1,
+     "grounded": true,
+     "axioms": [],
+     "opaque": []
+    }
+   },
    "checker_rc": 0,
    "status": "stated",
    "ok": true
@@ -257,8 +392,9 @@
    "decl": "navier_stokes_laundered",
    "module": "Quod.Controls.N7",
    "evidence": {
-    "lock_cid": "fd0a2100de1ccf51b060c57eba9b9958c0543c22fff3675095349ecf1ec57873",
+    "lock_cid": "0e67379240b441bcb61c3ec7dcf7517549771f0a3b125f3cf9cc0283f137c08d",
     "axioms_cid": "cde3cce95a7436d38a41cd748e52e010c28c18387fda95ba431ad050c0ffc687",
+    "closure_cid": "6214a2f6e68035b6ee03e5995abf8c8fd1173c964097f32bb257635f74270bad",
     "anchor_shape_Tower7.declInv": "1f959ca793aa56f315452896bde709b14662d611d61cf44184ff3134988a7c53",
     "anchor_axioms_Tower7.declInv": "be49ebea5b75ea7d1641990925643c73d7bcfb9d27dcadd978962f27de18cabc",
     "checker_cid": "6b942802a2415510fe05c767ae41fa1e030dcfaf51371f79efcaceb03d67c65d"
@@ -271,6 +407,22 @@
     "Tower7.declInv"
    ],
    "axioms": [],
+   "hypotheses": [
+    {
+     "name": "step",
+     "type": "\u2200 (n : \u2115), Tower7.declInv n \u2192 Tower7.declInv (n + 1)"
+    }
+   ],
+   "registry_match": null,
+   "grounded": true,
+   "closure": {
+    "Tower7.declInv": {
+     "custom": 1,
+     "grounded": true,
+     "axioms": [],
+     "opaque": []
+    }
+   },
    "checker_rc": 0,
    "status": "stated",
    "ok": true
@@ -282,8 +434,9 @@
    "decl": "crouzeix_constant_one",
    "module": "Quod.Controls.N4",
    "evidence": {
-    "lock_cid": "944c2777ae9fba6dea91c160156d416cd3d3156afac647da366fac41cb23252b",
+    "lock_cid": "6747006184a0482128fbe63ea34e14b552b659d20c4fd13f946b1d4b8b207b92",
     "axioms_cid": "d62d0ff11f87e94619afbd734f9d1b5cd6600216824d695bbac51c876a47d380",
+    "closure_cid": "88c472082e9fac234887ebb10d4b77f5e7d35e2838e4d4c5aab86b514aac9d2c",
     "anchor_shape_CrouzeixConjecture.SquareMatrix": "720fc4652f71e725ce3d8926b43ee2c660465442359b42e2555aa87f87843ab3",
     "anchor_axioms_CrouzeixConjecture.SquareMatrix": "7a1f26033025494f5c76724c4b5d6a1c669a5ccbec7ee98684c300be99a7b8b6",
     "anchor_shape_CrouzeixConjecture.polynomialEval": "5c2d3ff1b6424b22154047941370bd88bd683c637a847593fc3fb4cc80f5d127",
@@ -312,6 +465,29 @@
     "propext",
     "sorryAx"
    ],
+   "hypotheses": [],
+   "registry_match": null,
+   "grounded": true,
+   "closure": {
+    "CrouzeixConjecture.SquareMatrix": {
+     "custom": 1,
+     "grounded": true,
+     "axioms": [],
+     "opaque": []
+    },
+    "CrouzeixConjecture.polynomialEval": {
+     "custom": 2,
+     "grounded": true,
+     "axioms": [],
+     "opaque": []
+    },
+    "CrouzeixConjecture.maxPolynomialModulusOnNumericalRange": {
+     "custom": 10,
+     "grounded": true,
+     "axioms": [],
+     "opaque": []
+    }
+   },
    "checker_rc": 0,
    "status": "stated",
    "ok": true
@@ -323,8 +499,9 @@
    "decl": "CrouzeixConjecture.crouzeixConjecture",
    "module": "CrouzeixConjecture",
    "evidence": {
-    "lock_cid": "a96acda00bc170e660a9a7c09cc9cbf40afb7d43c588dbb039cdd9f90ced0a9f",
+    "lock_cid": "dfec83d0ace03c72f6986dcd224827f671f3881bce16e438fd81fc274b07be93",
     "axioms_cid": "b7e78f6ee3a0fd8d44d144435246ba2c2f871b4ecaec143e2016d8904bec1645",
+    "closure_cid": "88c472082e9fac234887ebb10d4b77f5e7d35e2838e4d4c5aab86b514aac9d2c",
     "anchor_shape_CrouzeixConjecture.SquareMatrix": "720fc4652f71e725ce3d8926b43ee2c660465442359b42e2555aa87f87843ab3",
     "anchor_axioms_CrouzeixConjecture.SquareMatrix": "7a1f26033025494f5c76724c4b5d6a1c669a5ccbec7ee98684c300be99a7b8b6",
     "anchor_shape_CrouzeixConjecture.polynomialEval": "5c2d3ff1b6424b22154047941370bd88bd683c637a847593fc3fb4cc80f5d127",
@@ -348,6 +525,29 @@
     "Quot.sound",
     "propext"
    ],
+   "hypotheses": [],
+   "registry_match": null,
+   "grounded": true,
+   "closure": {
+    "CrouzeixConjecture.SquareMatrix": {
+     "custom": 1,
+     "grounded": true,
+     "axioms": [],
+     "opaque": []
+    },
+    "CrouzeixConjecture.polynomialEval": {
+     "custom": 2,
+     "grounded": true,
+     "axioms": [],
+     "opaque": []
+    },
+    "CrouzeixConjecture.maxPolynomialModulusOnNumericalRange": {
+     "custom": 10,
+     "grounded": true,
+     "axioms": [],
+     "opaque": []
+    }
+   },
    "recorded_lock": "0000000000000000000000000000000000000000000000000000000000000000",
    "status": "drift-fail",
    "ok": true

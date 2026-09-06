@@ -1,0 +1,172 @@
+[
+ {
+  "root": "MillenniumHodge.ClayHodge",
+  "custom": [
+   {
+    "name": "MillenniumHodge.ClayHodge",
+    "kind": "def",
+    "module": "Problems.Hodge.Millennium"
+   },
+   {
+    "name": "MillenniumHodge.HodgeTheoryRealization",
+    "kind": "inductive",
+    "module": "Problems.Hodge.Millennium"
+   },
+   {
+    "name": "MillenniumHodge.HodgeTheoryRealization.IsCanonical",
+    "kind": "inductive",
+    "module": "Problems.Hodge.Millennium"
+   },
+   {
+    "name": "MillenniumHodge.HodgeTheoryRealization.ClayStatement",
+    "kind": "def",
+    "module": "Problems.Hodge.Millennium"
+   },
+   {
+    "name": "MillenniumHodge.HodgeTheoryAssignment.ClayStatement",
+    "kind": "def",
+    "module": "Problems.Hodge.Millennium"
+   },
+   {
+    "name": "MillenniumHodge.HodgeTheoryAssignment",
+    "kind": "inductive",
+    "module": "Problems.Hodge.Millennium"
+   },
+   {
+    "name": "MillenniumHodge.HodgeTheoryAssignment.Formulations.CycleSpan",
+    "kind": "def",
+    "module": "Problems.Hodge.Millennium"
+   },
+   {
+    "name": "VarietyDefinition.SmoothProjectiveVariety",
+    "kind": "inductive",
+    "module": "Problems.Hodge.Variety"
+   },
+   {
+    "name": "MillenniumHodge.HodgeConjecture.Formulations.CycleSpan",
+    "kind": "def",
+    "module": "Problems.Hodge.Millennium"
+   },
+   {
+    "name": "VarietyDefinition.HodgeData",
+    "kind": "inductive",
+    "module": "Problems.Hodge.Variety"
+   },
+   {
+    "name": "VarietyDefinition.HodgeData.cohomology_q",
+    "kind": "def",
+    "module": "Problems.Hodge.Variety"
+   },
+   {
+    "name": "VarietyDefinition.HodgeData.instAddCommGroupCohomology_q",
+    "kind": "def",
+    "module": "Problems.Hodge.Variety"
+   },
+   {
+    "name": "VarietyDefinition.HodgeData.cohomology_q_add",
+    "kind": "def",
+    "module": "Problems.Hodge.Variety"
+   },
+   {
+    "name": "VarietyDefinition.HodgeData.instModuleRatCohomology_q",
+    "kind": "def",
+    "module": "Problems.Hodge.Variety"
+   },
+   {
+    "name": "VarietyDefinition.HodgeData.cohomology_q_module",
+    "kind": "def",
+    "module": "Problems.Hodge.Variety"
+   },
+   {
+    "name": "VarietyDefinition.HodgeData.hodge_class",
+    "kind": "def",
+    "module": "Problems.Hodge.Variety"
+   },
+   {
+    "name": "VarietyDefinition.HodgeData.cohomology_c",
+    "kind": "def",
+    "module": "Problems.Hodge.Variety"
+   },
+   {
+    "name": "VarietyDefinition.HodgeData.cohomology_c_add",
+    "kind": "def",
+    "module": "Problems.Hodge.Variety"
+   },
+   {
+    "name": "VarietyDefinition.HodgeData.cohomology_c_module_q",
+    "kind": "def",
+    "module": "Problems.Hodge.Variety"
+   },
+   {
+    "name": "VarietyDefinition.HodgeData.extension_of_scalars_qc",
+    "kind": "def",
+    "module": "Problems.Hodge.Variety"
+   },
+   {
+    "name": "VarietyDefinition.HodgeData.instModuleRatCohomology_c",
+    "kind": "def",
+    "module": "Problems.Hodge.Variety"
+   },
+   {
+    "name": "VarietyDefinition.HodgeData.instAddCommGroupCohomology_c",
+    "kind": "def",
+    "module": "Problems.Hodge.Variety"
+   },
+   {
+    "name": "VarietyDefinition.HodgeData.cohomology_c_module_c",
+    "kind": "def",
+    "module": "Problems.Hodge.Variety"
+   },
+   {
+    "name": "VarietyDefinition.HodgeData.hodge_class._proof_1",
+    "kind": "theorem",
+    "module": "Problems.Hodge.Variety"
+   },
+   {
+    "name": "VarietyDefinition.HodgeData.instModuleComplexCohomology_c",
+    "kind": "def",
+    "module": "Problems.Hodge.Variety"
+   },
+   {
+    "name": "VarietyDefinition.HodgeData.hodge_subspace",
+    "kind": "def",
+    "module": "Problems.Hodge.Variety"
+   },
+   {
+    "name": "VarietyDefinition.HodgeData.algebraic_cycle",
+    "kind": "def",
+    "module": "Problems.Hodge.Variety"
+   },
+   {
+    "name": "VarietyDefinition.HodgeData.cycle_class_combination",
+    "kind": "def",
+    "module": "Problems.Hodge.Variety"
+   },
+   {
+    "name": "VarietyDefinition.HodgeData.cycle_class",
+    "kind": "def",
+    "module": "Problems.Hodge.Variety"
+   },
+   {
+    "name": "MillenniumHodge.HodgeTheoryAssignment.data",
+    "kind": "def",
+    "module": "Problems.Hodge.Millennium"
+   },
+   {
+    "name": "MillenniumHodge.HodgeTheoryRealization.assignment",
+    "kind": "def",
+    "module": "Problems.Hodge.Millennium"
+   }
+  ],
+  "axioms": [],
+  "opaque": [],
+  "missing": [],
+  "sorry": false,
+  "root_kind": "def",
+  "root_module": "Problems.Hodge.Millennium",
+  "grounded": true,
+  "top_level_modules": [
+   "Problems"
+  ]
+ }
+]

@@ -1,0 +1,317 @@
+[
+ {
+  "root": "MillenniumNavierStokes.ClayNavierStokes",
+  "custom": [
+   {
+    "name": "MillenniumNavierStokes.ClayNavierStokes",
+    "kind": "def",
+    "module": "Problems.NavierStokes.Millennium"
+   },
+   {
+    "name": "NavierStokesOnR3.SmoothExistence",
+    "kind": "def",
+    "module": "Problems.NavierStokes.MillenniumRDomain"
+   },
+   {
+    "name": "NavierStokesOnR3.InitialVelocity",
+    "kind": "def",
+    "module": "Problems.NavierStokes.MillenniumRDomain"
+   },
+   {
+    "name": "NavierStokes.Space3",
+    "kind": "def",
+    "module": "Problems.NavierStokes.Equations"
+   },
+   {
+    "name": "NavierStokes.Space",
+    "kind": "def",
+    "module": "Problems.NavierStokes.Equations"
+   },
+   {
+    "name": "EuclideanCoordinateSpace",
+    "kind": "def",
+    "module": "Problems.Common.Euclidean"
+   },
+   {
+    "name": "NavierStokesOnR3.SmoothRapidDecayInitial",
+    "kind": "def",
+    "module": "Problems.NavierStokes.MillenniumRDomain"
+   },
+   {
+    "name": "NavierStokesOnR3.spatial_derivative_vector",
+    "kind": "def",
+    "module": "Problems.NavierStokes.MillenniumRDomain"
+   },
+   {
+    "name": "EuclideanCoordinateSpace.of_fun",
+    "kind": "def",
+    "module": "Problems.Common.Euclidean"
+   },
+   {
+    "name": "EuclideanCoordinateSpace.of_fun._proof_1",
+    "kind": "theorem",
+    "module": "Problems.Common.Euclidean"
+   },
+   {
+    "name": "iterated_partial_deriv",
+    "kind": "def",
+    "module": "Problems.Common.Euclidean"
+   },
+   {
+    "name": "iterated_partial_deriv._f",
+    "kind": "def",
+    "module": "Problems.Common.Euclidean"
+   },
+   {
+    "name": "iterated_partial_deriv.match_1",
+    "kind": "def",
+    "module": "Problems.Common.Euclidean"
+   },
+   {
+    "name": "partial_deriv",
+    "kind": "def",
+    "module": "Problems.Common.Euclidean"
+   },
+   {
+    "name": "standard_basis",
+    "kind": "def",
+    "module": "Problems.Common.Euclidean"
+   },
+   {
+    "name": "NavierStokesOnR3.DivergenceFreeInitial",
+    "kind": "def",
+    "module": "Problems.NavierStokes.MillenniumRDomain"
+   },
+   {
+    "name": "NavierStokes.GlobalSmoothSolution",
+    "kind": "inductive",
+    "module": "Problems.NavierStokes.Equations"
+   },
+   {
+    "name": "NavierStokes.NavierStokesEquations",
+    "kind": "inductive",
+    "module": "Problems.NavierStokes.Equations"
+   },
+   {
+    "name": "NavierStokesOnR3.equations",
+    "kind": "def",
+    "module": "Problems.NavierStokes.MillenniumRDomain"
+   },
+   {
+    "name": "NavierStokes.ForceField",
+    "kind": "def",
+    "module": "Problems.NavierStokes.Equations"
+   },
+   {
+    "name": "NavierStokes.VelocityField",
+    "kind": "def",
+    "module": "Problems.NavierStokes.Equations"
+   },
+   {
+    "name": "NavierStokes.Spacetime",
+    "kind": "def",
+    "module": "Problems.NavierStokes.Equations"
+   },
+   {
+    "name": "NavierStokes.NavierStokesEquations.mk",
+    "kind": "ctor",
+    "module": "Problems.NavierStokes.Equations"
+   },
+   {
+    "name": "NavierStokes.InitialVelocityField",
+    "kind": "def",
+    "module": "Problems.NavierStokes.Equations"
+   },
+   {
+    "name": "NavierStokesOnR3.SmoothSolutionFields",
+    "kind": "def",
+    "module": "Problems.NavierStokes.MillenniumRDomain"
+   },
+   {
+    "name": "NavierStokes.PressureField",
+    "kind": "def",
+    "module": "Problems.NavierStokes.Equations"
+   },
+   {
+    "name": "NavierStokes.velocity_smooth_on_global_spacetime_domain",
+    "kind": "def",
+    "module": "Problems.NavierStokes.Equations"
+   },
+   {
+    "name": "NavierStokes.global_spacetime_domain",
+    "kind": "def",
+    "module": "Problems.NavierStokes.Equations"
+   },
+   {
+    "name": "NavierStokes.material_derivative._proof_1",
+    "kind": "theorem",
+    "module": "Problems.NavierStokes.Equations"
+   },
+   {
+    "name": "NavierStokes.pressure_smooth_on_global_spacetime_domain",
+    "kind": "def",
+    "module": "Problems.NavierStokes.Equations"
+   },
+   {
+    "name": "NavierStokes.GlobalSolution.velocity",
+    "kind": "def",
+    "module": "Problems.NavierStokes.Equations"
+   },
+   {
+    "name": "NavierStokes.GlobalSolution",
+    "kind": "inductive",
+    "module": "Problems.NavierStokes.Equations"
+   },
+   {
+    "name": "NavierStokes.GlobalSmoothSolution.toGlobalSolution",
+    "kind": "def",
+    "module": "Problems.NavierStokes.Equations"
+   },
+   {
+    "name": "NavierStokes.GlobalSolution.pressure",
+    "kind": "def",
+    "module": "Problems.NavierStokes.Equations"
+   },
+   {
+    "name": "NavierStokesOnR3.FiniteEnergy",
+    "kind": "def",
+    "module": "Problems.NavierStokes.MillenniumRDomain"
+   },
+   {
+    "name": "NavierStokes.spacetime_point",
+    "kind": "def",
+    "module": "Problems.NavierStokes.Equations"
+   },
+   {
+    "name": "NavierStokesOnR3.FiniteEnergy._proof_1",
+    "kind": "theorem",
+    "module": "Problems.NavierStokes.MillenniumRDomain"
+   },
+   {
+    "name": "NavierStokesOnR3.FiniteEnergy._proof_2",
+    "kind": "theorem",
+    "module": "Problems.NavierStokes.MillenniumRDomain"
+   },
+   {
+    "name": "NavierStokes.energy_integral",
+    "kind": "def",
+    "module": "Problems.NavierStokes.Equations"
+   },
+   {
+    "name": "NavierStokes.energy_integral._proof_1",
+    "kind": "theorem",
+    "module": "Problems.NavierStokes.Equations"
+   },
+   {
+    "name": "NavierStokes.energy_integral._proof_2",
+    "kind": "theorem",
+    "module": "Problems.NavierStokes.Equations"
+   },
+   {
+    "name": "NavierStokesPeriodic.SmoothExistence",
+    "kind": "def",
+    "module": "Problems.NavierStokes.MillenniumBoundedDomain"
+   },
+   {
+    "name": "NavierStokesPeriodic.PeriodicInitial",
+    "kind": "def",
+    "module": "Problems.NavierStokes.MillenniumBoundedDomain"
+   },
+   {
+    "name": "NavierStokesPeriodic.IsPeriodic",
+    "kind": "def",
+    "module": "Problems.NavierStokes.MillenniumBoundedDomain"
+   },
+   {
+    "name": "NavierStokesPeriodic.PeriodicSolutionFields",
+    "kind": "def",
+    "module": "Problems.NavierStokes.MillenniumBoundedDomain"
+   },
+   {
+    "name": "NavierStokesPeriodic.IsSpatiallyPeriodicPressure",
+    "kind": "def",
+    "module": "Problems.NavierStokes.MillenniumBoundedDomain"
+   },
+   {
+    "name": "NavierStokes.Spacetime3",
+    "kind": "def",
+    "module": "Problems.NavierStokes.Equations"
+   },
+   {
+    "name": "NavierStokesPeriodic.IsSpatiallyPeriodicForce._proof_1",
+    "kind": "theorem",
+    "module": "Problems.NavierStokes.MillenniumBoundedDomain"
+   },
+   {
+    "name": "NavierStokesPeriodic.SmoothPeriodicSolutionFields",
+    "kind": "def",
+    "module": "Problems.NavierStokes.MillenniumBoundedDomain"
+   },
+   {
+    "name": "NavierStokesOnR3.Breakdown",
+    "kind": "def",
+    "module": "Problems.NavierStokes.MillenniumRDomain"
+   },
+   {
+    "name": "NavierStokesOnR3.SpacetimeForce",
+    "kind": "def",
+    "module": "Problems.NavierStokes.MillenniumRDomain"
+   },
+   {
+    "name": "NavierStokesOnR3.SmoothRapidDecayForce",
+    "kind": "def",
+    "module": "Problems.NavierStokes.MillenniumRDomain"
+   },
+   {
+    "name": "NavierStokes.force_smooth_on_global_spacetime_domain",
+    "kind": "def",
+    "module": "Problems.NavierStokes.Equations"
+   },
+   {
+    "name": "NavierStokesOnR3.spacetime_derivative_vector._proof_1",
+    "kind": "theorem",
+    "module": "Problems.NavierStokes.MillenniumRDomain"
+   },
+   {
+    "name": "NavierStokesOnR3.spacetime_derivative_vector",
+    "kind": "def",
+    "module": "Problems.NavierStokes.MillenniumRDomain"
+   },
+   {
+    "name": "NavierStokes.space",
+    "kind": "def",
+    "module": "Problems.NavierStokes.Equations"
+   },
+   {
+    "name": "NavierStokesPeriodic.Breakdown",
+    "kind": "def",
+    "module": "Problems.NavierStokes.MillenniumBoundedDomain"
+   },
+   {
+    "name": "NavierStokesPeriodic.PeriodicForce",
+    "kind": "def",
+    "module": "Problems.NavierStokes.MillenniumBoundedDomain"
+   },
+   {
+    "name": "NavierStokesPeriodic.IsSpatiallyPeriodicForce",
+    "kind": "def",
+    "module": "Problems.NavierStokes.MillenniumBoundedDomain"
+   },
+   {
+    "name": "NavierStokesPeriodic.PeriodicForceDecay",
+    "kind": "def",
+    "module": "Problems.NavierStokes.MillenniumBoundedDomain"
+   }
+  ],
+  "axioms": [],
+  "opaque": [],
+  "missing": [],
+  "sorry": false,
+  "root_kind": "def",
+  "root_module": "Problems.NavierStokes.Millennium",
+  "grounded": true,
+  "top_level_modules": [
+   "Problems"
+  ]
+ }
+]

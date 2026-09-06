@@ -5,7 +5,7 @@
 #           low = cost, ergonomics, or by-design limit worth stating.
 - id: Q-1
   severity: high
-  status: open
+  status: open (extraction done 2026-09-06: lock.py lists binders, claims carry `hypotheses:`; the status rule awaits Q-22)
   title: hypotheses are not machine-extracted; `conditional` is never computed
   detail: >
     The status table promises `conditional` for sorry-free proofs whose
@@ -169,3 +169,49 @@
     registry's own docs claim such equivalences (e.g. ClayRiemannHypothesis
     to Mathlib's RiemannHypothesis); those theorems, if present, are the
     first anchor nominations and must pass anchor_check like any other.
+  survey: >
+    2026-09-06 closure.py at the registry pin: all seven wrappers GROUNDED
+    (definitional closure ends in Mathlib; no axioms, opaque, or sorry in
+    any definition; Yang-Mills' wrapper does not reach PhysLean). Custom
+    constants in closure: PvsNP 22 (+ the resolution inductive), Riemann 5,
+    Navier-Stokes 60, Hodge 31, BSD 12, Yang-Mills 10, Poincare 6. Only
+    Riemann has an Iff to a Mathlib-NAMED statement (anchored via
+    iff_real_part + RealPart.iff_mathlib). The other six cannot be
+    Iff-anchored at this pin because Mathlib has no named statement for
+    them; their fidelity rests on the registry's definitions (grounded)
+    plus human/sieve review of those definitions (Q-5).
+- id: Q-22
+  severity: high
+  status: open (owner decision)
+  title: what "anchored" must mean for proven
+  detail: >
+    Two computed properties now exist per custom constant. ANCHORED: a
+    checked Iff/Eq chain to a Mathlib-named declaration (strong fidelity;
+    available for Riemann only among the seven). GROUNDED: the
+    definitional closure ends in the pinned libraries with nothing hidden
+    (available for all seven, and also for the AIX control's private
+    predicate, which is a grounded def). The status rule today caps a
+    claim at `stated` unless every custom constant is ANCHORED, which
+    leaves six Millennium problems unreachable by any proof at this pin.
+  options: >
+    A (current): keep the Iff rule; six problems dead at this pin.
+    B (recommended): `proven` requires GROUNDED for every custom constant;
+    ANCHORED is recorded as a separate fidelity field; "counts against a
+    Millennium problem" stays a lock relation (registry_match, or a
+    checked Iff to a registry lock). Consequence: the AIX control N1
+    computes `proven` as the implication it is, with `step` listed under
+    hypotheses and registry_match none; the fraud is then caught by the
+    lock relation and the generated label (Q-5), not by a status. N1's
+    calibration requirement changes accordingly and Q-1 gets its rule
+    (conditional = proven with explicit Prop hypotheses that name claim
+    ids or are not discharged).
+- id: Q-23
+  severity: low
+  status: open
+  title: the runner has no smoke test; a refactor shipped with its main loop broken
+  detail: calibrate.py's per-claim gates were moved into evaluate() while a
+    run was in flight; that run (PASS 11/11) had loaded the pre-refactor
+    file, so the new main loop was first executed later and crashed on a
+    stale variable before any status was written. Nothing was misrecorded,
+    but a `--smoke` mode (one cheap control, no ket) should run before any
+    full run, and the run log should record the sha256 of the runner it ran.

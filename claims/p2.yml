@@ -8,13 +8,17 @@ custom_constants:
 - QuodP2.J
 - CrouzeixConjecture.SquareMatrix
 - CrouzeixConjecture.polynomialEval
+hypotheses: []
+grounded: true
+registry_match: null
 controls:
 - positive
 status: proven
 reasons: []
 evidence:
-  lock_cid: 3aa0e012311ca90aabb0fc399e852af85c94246ebb9303615cba486e2c81f7a1
+  lock_cid: 4907cc86fe8e2ac5a6d0162d241753407aa311a5d7dd82b12b0af0fca03133bb
   axioms_cid: b03fc3fceeed2f97d573cf11f9fc629d93f208dae16184d98844d25809733f05
+  closure_cid: f4e5956078deaf8ef864867b4042488077f352eb2c72b2df5c71e5cb5f269e8d
   anchor_shape_CrouzeixConjecture.maxPolynomialModulusOnNumericalRange: cda750f77b6c7d66e6594c922d23d467a667b7e22378b028e9db3a58f3dd7d3a
   anchor_axioms_CrouzeixConjecture.maxPolynomialModulusOnNumericalRange: c4374502aef2c6adcc6dd4e0daeec9f136418e68a53948db25bb44e700588e5d
   anchor_shape_CrouzeixConjecture.numericalRange: 2c341efde8e552c8d0fe8bf841f0515884fd7b9c2344a0df61f835df1c2fabc0

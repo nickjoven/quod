@@ -257,6 +257,26 @@ control N8 (forged refutation). N4 restated over `Type` so the strict
 match holds (Q-9). Run: PASS 11/11, 12m37s (partly alongside the
 registry builds).
 
+## 7b. Grounded, anchored, matched (added 2026-09-06)
+
+Three computed fields on every claim, none typed by hand:
+
+- `grounded`: the definitional closure of every custom constant in the
+  type ends in the pinned libraries, with no axiom, opaque constant or
+  sorry inside any definition (`scripts/closure.py`). Says the notion is
+  defined in library terms with nothing hidden. Says nothing about which
+  named problem it is.
+- anchored: a checked Iff/Eq chain to a Mathlib-named declaration
+  (`scripts/anchor_check.py`, recursive). Strong fidelity. At the
+  Millennium pin only Riemann has one.
+- `registry_match`: the claim's lock equals a registry lock (or, later, is
+  joined to one by a checked Iff). This, not a status, is what "counts
+  against a Millennium problem" means.
+- `hypotheses`: explicit Prop binders of the type, listed from the
+  elaborated statement (Q-1). The AIX control's `step` appears here.
+
+Which of grounded/anchored `proven` requires is owner decision Q-22.
+
 ## 8. Millennium program (after calibration)
 
 REGISTRY IMPORT 2026-09-06 (millennium/PIN.yml, gitignored clone at

@@ -1,0 +1,47 @@
+[
+ {
+  "root": "MillenniumPoincare.ClayPoincareConjecture",
+  "custom": [
+   {
+    "name": "MillenniumPoincare.ClayPoincareConjecture",
+    "kind": "def",
+    "module": "Problems.Poincare.Millennium"
+   },
+   {
+    "name": "MillenniumPoincare.ClayPoincareConjecture.Formulations.SimplyConnectedClosed3Manifold",
+    "kind": "def",
+    "module": "Problems.Poincare.Millennium"
+   },
+   {
+    "name": "MillenniumPoincare.EuclideanThreeSpace",
+    "kind": "def",
+    "module": "Problems.Poincare.Millennium"
+   },
+   {
+    "name": "EuclideanCoordinateSpace",
+    "kind": "def",
+    "module": "Problems.Common.Euclidean"
+   },
+   {
+    "name": "MillenniumPoincare.ThreeSphere",
+    "kind": "def",
+    "module": "Problems.Poincare.Millennium"
+   },
+   {
+    "name": "MillenniumPoincare.EuclideanFourSpace",
+    "kind": "def",
+    "module": "Problems.Poincare.Millennium"
+   }
+  ],
+  "axioms": [],
+  "opaque": [],
+  "missing": [],
+  "sorry": false,
+  "root_kind": "def",
+  "root_module": "Problems.Poincare.Millennium",
+  "grounded": true,
+  "top_level_modules": [
+   "Problems"
+  ]
+ }
+]

@@ -52,6 +52,16 @@ run_meta do
   -- type is `True` behind a name is not a claim
   let tw ← withTransparency .all (whnf ci.type)
   IO.println s!"WHNF-IS-TRUE {{tw.isConstOf ``True}}"
+  -- binders of the statement: hypotheses are explicit Prop binders
+  forallTelescope ci.type fun xs _ => do
+    for x in xs do
+      let d ← x.fvarId!.getDecl
+      let isP ← isProp d.type
+      let bi := match d.binderInfo with
+        | .default => "default" | .implicit => "implicit"
+        | .instImplicit => "inst" | .strictImplicit => "strict"
+      let tyFmt ← ppExpr d.type
+      IO.println s!"HYP {{bi}} {{isP}} {{d.userName}} :: {{(toString tyFmt).replace "\n" " "}}"
   let consts := t.getUsedConstants
   for c in consts do
     let m := (env.getModuleFor? c).getD `_local
@@ -91,16 +101,26 @@ def main() -> int:
     except ImportError:
         h = hashlib.blake2b(canon.encode(), digest_size=32).hexdigest(); algo = "blake2b"
     consts = [l.split()[1:] for l in out.splitlines() if l.startswith("CONST ")]
+    binders = []
+    for l in out.splitlines():
+        if l.startswith("HYP "):
+            head, ty = l[4:].split(" :: ", 1)
+            bi, isp, name = head.split(" ", 2)
+            binders.append({"name": name, "binder": bi, "prop": isp == "true", "type": ty})
     kind = [l.split()[1] for l in out.splitlines() if l.startswith("KIND ")][0]
     custom = [{"name": c, "module": m} for c, m, k in consts if k == "custom"]
     res = {"decl": decl, "module": module, "kind": kind, "lock": h, "hash": algo,
            "canonical_type": canon, "constants": len(consts), "custom_constants": custom,
-           "reduces_to_True": "WHNF-IS-TRUE true" in out}
+           "reduces_to_True": "WHNF-IS-TRUE true" in out,
+           "binders": binders,
+           "hypotheses": [b for b in binders if b["binder"] == "default" and b["prop"]]}
     if "--json" in sys.argv:
         print(json.dumps(res, indent=1, ensure_ascii=False))
     else:
         print(f"lock {h} ({algo}) {decl} [{kind}] constants {len(consts)} custom {len(custom)}"
-              + ("  TYPE UNFOLDS TO True" if res["reduces_to_True"] else ""))
+              + ("  TYPE UNFOLDS TO True" if res["reduces_to_True"] else "")
+              + f"  binders {len(binders)} hypotheses {len(res['hypotheses'])}")
+        for h in res["hypotheses"]: print(f"  hyp {h['name']} : {h['type']}")
         for c in custom: print(f"  custom {c['name']}  ({c['module']})")
     return 0
 

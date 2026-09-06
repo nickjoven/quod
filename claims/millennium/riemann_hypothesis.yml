@@ -11,12 +11,21 @@ custom_constants:
 - Millennium.ClayRiemannHypothesis
 anchors:
   Millennium.ClayRiemannHypothesis: Millennium.ClayRiemannHypothesis.iff_real_part
+hypotheses: []
+grounded: true
+closure:
+  Millennium.ClayRiemannHypothesis:
+    custom: 5
+    grounded: true
+    axioms: []
+    opaque: []
 status: stated
 reasons:
 - proof uses sorry
 evidence:
-  lock_cid: f2c96089d922d1bffd7880fe3b27a9acc75fd7e35a189e86cd15279513446948
+  lock_cid: ef1d3f1fad039192928135489d5910b4ee18cc023e682a39ba8fc6187428b0e5
   axioms_cid: 5122189b2352e0b2c0e90375ce9a0f396a157cf5a215e258f6191a3fabf70e9a
+  closure_cid: 4eaafce5e8773557785aa3b5f181cb00b9464ee927e0e4f737650f2985f0115b
   anchor_shape_Millennium.ClayRiemannHypothesis: 91db2e47ca6e8857d9af926c6c3a8635a68346aea3ed489976e6b3cd012df408
   anchor_axioms_Millennium.ClayRiemannHypothesis: 5faba01c68e5f6a2312151f21a2b512d5ef4854fc1039ce1f3f8bcc5aa07d99a
   anchor_shape_Millennium.ClayRiemannHypothesis.Formulations.RealPart: 7156fce35386705798409f6aab2663b74dc8d03a3195f5dc8547f4ccd3c628d3

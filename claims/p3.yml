@@ -3,11 +3,14 @@ statement: For every n there is a prime p >= n (restatement of Nat.exists_infini
 lean: Quod.P3:QuodP3.infinitely_many_primes_again
 lock: ef7e371f4056d5994ce15491b559335eec5d3f2022db9bf25ea9f19b89426515
 custom_constants: []
+hypotheses: []
+grounded: true
+registry_match: null
 controls:
 - positive
 status: proven
 reasons: []
 evidence:
-  lock_cid: 3ff2c9cc4011a4379a743eac0de7bb3185dcd2186c5734b3fb8c47d3891a2aa6
+  lock_cid: ce9874f9e2e654ad8e345edf6cba1bb7a2bde8ce0a0ddc679b0450bca037379c
   axioms_cid: dd1f1fab86b86a2bd3a1de49b6ad8517dd5ddc87614b8d50d5db51a308df15f4
   checker_cid: 1a904a4446604929fa8893e24acf6be65a3fd9038f0ada7f71aa350301dfa1ab

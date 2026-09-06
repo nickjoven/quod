@@ -1,0 +1,67 @@
+[
+ {
+  "root": "MillenniumYangMills.ClayYangMills",
+  "custom": [
+   {
+    "name": "MillenniumYangMills.ClayYangMills",
+    "kind": "def",
+    "module": "Problems.YangMills.Millennium"
+   },
+   {
+    "name": "MillenniumYangMills.ClayYangMills.Formulations.Global.MassGap",
+    "kind": "def",
+    "module": "Problems.YangMills.Millennium"
+   },
+   {
+    "name": "MillenniumYangMillsDefs.CompactSimpleGaugeGroup",
+    "kind": "inductive",
+    "module": "Problems.YangMills.Quantum"
+   },
+   {
+    "name": "MillenniumYangMills.ClayYangMills.Formulations.FixedGroup",
+    "kind": "def",
+    "module": "Problems.YangMills.Millennium"
+   },
+   {
+    "name": "MillenniumYangMillsDefs.QuantumYangMillsTheory",
+    "kind": "inductive",
+    "module": "Problems.YangMills.Quantum"
+   },
+   {
+    "name": "MillenniumYangMills.ClayHamiltonianSpectralData",
+    "kind": "inductive",
+    "module": "Problems.YangMills.Millennium"
+   },
+   {
+    "name": "MillenniumYangMills.ClayExistence",
+    "kind": "inductive",
+    "module": "Problems.YangMills.Millennium"
+   },
+   {
+    "name": "MillenniumYangMills.HasClayMassGap",
+    "kind": "def",
+    "module": "Problems.YangMills.Millennium"
+   },
+   {
+    "name": "MillenniumYangMills.ClayHamiltonianSpectralData.spectrum_set",
+    "kind": "def",
+    "module": "Problems.YangMills.Millennium"
+   },
+   {
+    "name": "MillenniumYangMills.FiniteClayMass",
+    "kind": "def",
+    "module": "Problems.YangMills.Millennium"
+   }
+  ],
+  "axioms": [],
+  "opaque": [],
+  "missing": [],
+  "sorry": false,
+  "root_kind": "def",
+  "root_module": "Problems.YangMills.Millennium",
+  "grounded": true,
+  "top_level_modules": [
+   "Problems"
+  ]
+ }
+]

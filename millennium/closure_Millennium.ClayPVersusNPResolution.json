@@ -1,0 +1,147 @@
+[
+ {
+  "root": "Millennium.ClayPVersusNPResolution",
+  "custom": [
+   {
+    "name": "Millennium.ClayPVersusNPResolution",
+    "kind": "inductive",
+    "module": "Problems.PVersusNP.Millennium"
+   }
+  ],
+  "axioms": [],
+  "opaque": [],
+  "missing": [],
+  "sorry": false,
+  "root_kind": "inductive",
+  "root_module": "Problems.PVersusNP.Millennium",
+  "grounded": true,
+  "top_level_modules": [
+   "Problems"
+  ]
+ },
+ {
+  "root": "Millennium.ClayPVersusNP",
+  "custom": [
+   {
+    "name": "Millennium.ClayPVersusNP",
+    "kind": "def",
+    "module": "Problems.PVersusNP.Millennium"
+   },
+   {
+    "name": "Millennium.ClayPVersusNP.Formulations.ClassEquality",
+    "kind": "def",
+    "module": "Problems.PVersusNP.Millennium"
+   },
+   {
+    "name": "Millennium.Language",
+    "kind": "def",
+    "module": "Problems.PVersusNP.Millennium"
+   },
+   {
+    "name": "Millennium.InPolynomialTime",
+    "kind": "def",
+    "module": "Problems.PVersusNP.Millennium"
+   },
+   {
+    "name": "Millennium.fin_encoding_string",
+    "kind": "def",
+    "module": "Problems.PVersusNP.Millennium"
+   },
+   {
+    "name": "Millennium.fin_encoding_string._proof_1",
+    "kind": "theorem",
+    "module": "Problems.PVersusNP.Millennium"
+   },
+   {
+    "name": "Millennium.InNondeterministicPolynomialTime",
+    "kind": "def",
+    "module": "Problems.PVersusNP.Millennium"
+   },
+   {
+    "name": "Millennium.PolynomialTimeCheckingRelation",
+    "kind": "def",
+    "module": "Problems.PVersusNP.Millennium"
+   },
+   {
+    "name": "Millennium.pair_encoding",
+    "kind": "def",
+    "module": "Problems.PVersusNP.Millennium"
+   },
+   {
+    "name": "_private.Problems.PVersusNP.Millennium.0.Millennium.pair_symbol",
+    "kind": "def",
+    "module": "Problems.PVersusNP.Millennium"
+   },
+   {
+    "name": "_private.Problems.PVersusNP.Millennium.0.Millennium.parse_pair.match_1",
+    "kind": "def",
+    "module": "Problems.PVersusNP.Millennium"
+   },
+   {
+    "name": "_private.Problems.PVersusNP.Millennium.0.Millennium.parse_pair",
+    "kind": "def",
+    "module": "Problems.PVersusNP.Millennium"
+   },
+   {
+    "name": "_private.Problems.PVersusNP.Millennium.0.Millennium.parse_pair._f",
+    "kind": "def",
+    "module": "Problems.PVersusNP.Millennium"
+   },
+   {
+    "name": "_private.Problems.PVersusNP.Millennium.0.Millennium.parse_pair.match_3",
+    "kind": "def",
+    "module": "Problems.PVersusNP.Millennium"
+   },
+   {
+    "name": "_private.Problems.PVersusNP.Millennium.0.Millennium.parse_pair_right.match_1",
+    "kind": "def",
+    "module": "Problems.PVersusNP.Millennium"
+   },
+   {
+    "name": "_private.Problems.PVersusNP.Millennium.0.Millennium.parse_pair_right",
+    "kind": "def",
+    "module": "Problems.PVersusNP.Millennium"
+   },
+   {
+    "name": "_private.Problems.PVersusNP.Millennium.0.Millennium.parse_pair_right._f",
+    "kind": "def",
+    "module": "Problems.PVersusNP.Millennium"
+   },
+   {
+    "name": "_private.Problems.PVersusNP.Millennium.0.Millennium.parse_pair_right.match_3",
+    "kind": "def",
+    "module": "Problems.PVersusNP.Millennium"
+   },
+   {
+    "name": "_private.Problems.PVersusNP.Millennium.0.Millennium.parse_pair_right._sparseCasesOn_3",
+    "kind": "def",
+    "module": "Problems.PVersusNP.Millennium"
+   },
+   {
+    "name": "_private.Problems.PVersusNP.Millennium.0.Millennium.parse_pair_right._sparseCasesOn_4",
+    "kind": "def",
+    "module": "Problems.PVersusNP.Millennium"
+   },
+   {
+    "name": "Millennium.pair_encoding.match_1",
+    "kind": "def",
+    "module": "Problems.PVersusNP.Millennium"
+   },
+   {
+    "name": "Millennium.pair_encoding._proof_1",
+    "kind": "theorem",
+    "module": "Problems.PVersusNP.Millennium"
+   }
+  ],
+  "axioms": [],
+  "opaque": [],
+  "missing": [],
+  "sorry": false,
+  "root_kind": "def",
+  "root_module": "Problems.PVersusNP.Millennium",
+  "grounded": true,
+  "top_level_modules": [
+   "Problems"
+  ]
+ }
+]

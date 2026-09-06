@@ -1,0 +1,77 @@
+[
+ {
+  "root": "MillenniumBirchSwinnertonDyer.ClayBirchSwinnertonDyer",
+  "custom": [
+   {
+    "name": "MillenniumBirchSwinnertonDyer.ClayBirchSwinnertonDyer",
+    "kind": "def",
+    "module": "Problems.BirchSwinnertonDyer.Millennium"
+   },
+   {
+    "name": "MillenniumBirchSwinnertonDyer.ClayEllipticCurveOverQ",
+    "kind": "inductive",
+    "module": "Problems.BirchSwinnertonDyer.Millennium"
+   },
+   {
+    "name": "MillenniumBirchSwinnertonDyer.LSeriesData",
+    "kind": "inductive",
+    "module": "Problems.BirchSwinnertonDyer.Millennium"
+   },
+   {
+    "name": "MillenniumBirchSwinnertonDyer.ClayEllipticCurveOverQ.model",
+    "kind": "def",
+    "module": "Problems.BirchSwinnertonDyer.Millennium"
+   },
+   {
+    "name": "MillenniumBirchSwinnertonDyer.ClayEllipticCurveOverQ.discriminant_ne_zero",
+    "kind": "theorem",
+    "module": "Problems.BirchSwinnertonDyer.Millennium"
+   },
+   {
+    "name": "MillenniumBirchSwinnertonDyer.ClayEllipticCurveOverQ.rank",
+    "kind": "def",
+    "module": "Problems.BirchSwinnertonDyer.Millennium"
+   },
+   {
+    "name": "WeierstrassCurve.rank",
+    "kind": "def",
+    "module": "Problems.BirchSwinnertonDyer.RankSupport"
+   },
+   {
+    "name": "WeierstrassCurve.MordellWeilGroup",
+    "kind": "def",
+    "module": "Problems.BirchSwinnertonDyer.RankSupport"
+   },
+   {
+    "name": "WeierstrassCurve.rank._proof_1",
+    "kind": "theorem",
+    "module": "Problems.BirchSwinnertonDyer.RankSupport"
+   },
+   {
+    "name": "MillenniumBirchSwinnertonDyer.ClayEllipticCurveOverQ.rational_curve",
+    "kind": "def",
+    "module": "Problems.BirchSwinnertonDyer.Millennium"
+   },
+   {
+    "name": "MillenniumBirchSwinnertonDyer.TaylorLeadingTerm",
+    "kind": "def",
+    "module": "Problems.BirchSwinnertonDyer.Millennium"
+   },
+   {
+    "name": "MillenniumBirchSwinnertonDyer.LSeriesData.L",
+    "kind": "def",
+    "module": "Problems.BirchSwinnertonDyer.Millennium"
+   }
+  ],
+  "axioms": [],
+  "opaque": [],
+  "missing": [],
+  "sorry": false,
+  "root_kind": "def",
+  "root_module": "Problems.BirchSwinnertonDyer.Millennium",
+  "grounded": true,
+  "top_level_modules": [
+   "Problems"
+  ]
+ }
+]

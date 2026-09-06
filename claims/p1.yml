@@ -7,13 +7,17 @@ custom_constants:
 - CrouzeixConjecture.SquareMatrix
 - CrouzeixConjecture.polynomialEval
 - CrouzeixConjecture.maxPolynomialModulusOnNumericalRange
+hypotheses: []
+grounded: true
+registry_match: null
 controls:
 - positive
 status: proven
 reasons: []
 evidence:
-  lock_cid: a96acda00bc170e660a9a7c09cc9cbf40afb7d43c588dbb039cdd9f90ced0a9f
+  lock_cid: dfec83d0ace03c72f6986dcd224827f671f3881bce16e438fd81fc274b07be93
   axioms_cid: b7e78f6ee3a0fd8d44d144435246ba2c2f871b4ecaec143e2016d8904bec1645
+  closure_cid: 88c472082e9fac234887ebb10d4b77f5e7d35e2838e4d4c5aab86b514aac9d2c
   anchor_shape_CrouzeixConjecture.SquareMatrix: 720fc4652f71e725ce3d8926b43ee2c660465442359b42e2555aa87f87843ab3
   anchor_axioms_CrouzeixConjecture.SquareMatrix: 7a1f26033025494f5c76724c4b5d6a1c669a5ccbec7ee98684c300be99a7b8b6
   anchor_shape_CrouzeixConjecture.polynomialEval: 5c2d3ff1b6424b22154047941370bd88bd683c637a847593fc3fb4cc80f5d127

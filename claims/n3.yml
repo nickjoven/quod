@@ -3,12 +3,17 @@ statement: A theorem resting on an uninterpreted axiom `oracle`.
 lean: Quod.Controls.N3:all_primes_small
 lock: 94f59db73330e23fcb33132adc9c052f6f67177adbed9377eac569d16c66c630
 custom_constants: []
+hypotheses:
+- name: a._@._internal._hyg.0
+  type: Nat.Prime n
+grounded: true
+registry_match: null
 controls:
 - negative
 status: axiom-fail
 reasons:
 - extra axioms ['oracle']
 evidence:
-  lock_cid: 777ecae2eae270036c3726d366021a088d8353b9552f21e5d7fd85c82240d1b0
+  lock_cid: 733c2032c166038c3e95b0d248bf99b806b1efb6fba78113b921d06853717ffe
   axioms_cid: f188b54a984cd56f03b3bfff55ccb21a62f7d72c1aaa5631da08351ae8ad745e
   checker_cid: 856348fefe775eaaddd903db07d32966cc7335172fdd272fc5403d2b115016fc

@@ -129,6 +129,21 @@ def axioms(proj, module, decl):
     return rc, res, out
 
 
+def registry_locks():
+    """lock -> registry claim id, from claims/millennium/*.yml (empty before import)."""
+    d = os.path.join(ROOT, "claims", "millennium")
+    out = {}
+    if os.path.isdir(d):
+        for f in sorted(os.listdir(d)):
+            if f.endswith(".yml"):
+                y = yaml.safe_load(open(os.path.join(d, f)))
+                if y.get("lock"): out[y["lock"]] = y["id"]
+    return out
+
+
+REGISTRY_LOCKS = registry_locks()
+
+
 def anchor_shape(proj, module, anchor, const):
     rc, out = run(["python3", f"{SCRIPTS}/anchor_check.py", proj, module, anchor, const, "--json"])
     try:
@@ -188,6 +203,23 @@ def evaluate(c, checker=CHECKER):
         if lk["reduces_to_True"]:
             status = status or "stated"; rec["reasons"].append("type unfolds to True")
         # anchors
+        # hypotheses (Q-1: listed, not yet a status rule) and registry match
+        rec["hypotheses"] = [{"name": h["name"], "type": h["type"]} for h in lk.get("hypotheses", [])]
+        rec["registry_match"] = REGISTRY_LOCKS.get(lk["lock"])
+        # grounded: definitional closure of the type's custom constants ends in std libs
+        if rec["custom_constants"]:
+            grc, gout = run(["python3", f"{SCRIPTS}/closure.py", c["proj"], c["module"],
+                             *rec["custom_constants"], "--json"])
+            rec["evidence"]["closure_cid"] = ket_put(gout)
+            try:
+                reps = json.loads(gout[gout.index("["):gout.rindex("]") + 1])
+                rec["grounded"] = all(r["grounded"] for r in reps)
+                rec["closure"] = {r["root"]: {"custom": len(r["custom"]), "grounded": r["grounded"],
+                                              "axioms": r["axioms"], "opaque": r["opaque"]} for r in reps}
+            except Exception:
+                rec["grounded"] = False; rec["reasons"].append("closure survey failed")
+        else:
+            rec["grounded"] = True
         table = {**ANCHORS, **c.get("anchors", {})}
         unanchored = []
         for cc in rec["custom_constants"]:
@@ -242,14 +274,16 @@ def main() -> int:
     os.makedirs(os.path.join(ROOT, "claims"), exist_ok=True)
     for c in CONTROLS:
         rec = evaluate(c)
-        rec["ok"] = status == c["require"]
+        rec["ok"] = rec["status"] == c["require"]
         all_ok &= rec["ok"]
         results.append(rec)
-        print(f"{c['id']} {c['polarity']:8s} required {c['require']:11s} computed {status:11s} {'OK ' if rec['ok'] else 'MISS'}  {'; '.join(rec['reasons'])}")
+        print(f"{c['id']} {c['polarity']:8s} required {c['require']:11s} computed {rec["status"]:11s} {'OK ' if rec['ok'] else 'MISS'}  {'; '.join(rec['reasons'])}")
         # claim file (status computed, never declared)
         claim = {"id": c["id"], "statement": c["statement"], "lean": f"{c['module']}:{c['decl']}",
                  "lock": rec.get("recorded_lock", rec.get("lock")), "custom_constants": rec.get("custom_constants", []),
-                 "controls": [c["polarity"]], "status": status, "reasons": rec["reasons"],
+                 "hypotheses": rec.get("hypotheses", []), "grounded": rec.get("grounded"),
+                 "registry_match": rec.get("registry_match"),
+                 "controls": [c["polarity"]], "status": rec["status"], "reasons": rec["reasons"],
                  "evidence": rec["evidence"]}
         with open(os.path.join(ROOT, "claims", f"{c['id'].lower()}.yml"), "w") as f:
             yaml.safe_dump(claim, f, sort_keys=False, allow_unicode=True)

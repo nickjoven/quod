@@ -1,0 +1,42 @@
+[
+ {
+  "root": "Millennium.ClayRiemannHypothesis",
+  "custom": [
+   {
+    "name": "Millennium.ClayRiemannHypothesis",
+    "kind": "def",
+    "module": "Problems.RiemannHypothesis.Millennium"
+   },
+   {
+    "name": "Millennium.IsNontrivialZero",
+    "kind": "def",
+    "module": "Problems.RiemannHypothesis.Millennium"
+   },
+   {
+    "name": "Millennium.IsTrivialZero",
+    "kind": "def",
+    "module": "Problems.RiemannHypothesis.Millennium"
+   },
+   {
+    "name": "Millennium.xi_argument._proof_1",
+    "kind": "theorem",
+    "module": "Problems.RiemannHypothesis.Millennium"
+   },
+   {
+    "name": "Millennium.CriticalLine",
+    "kind": "def",
+    "module": "Problems.RiemannHypothesis.Millennium"
+   }
+  ],
+  "axioms": [],
+  "opaque": [],
+  "missing": [],
+  "sorry": false,
+  "root_kind": "def",
+  "root_module": "Problems.RiemannHypothesis.Millennium",
+  "grounded": true,
+  "top_level_modules": [
+   "Problems"
+  ]
+ }
+]
