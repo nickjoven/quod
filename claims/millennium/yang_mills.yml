@@ -1,0 +1,19 @@
+id: M-yang_mills
+registry: https://github.com/lean-dojo/LeanMillenniumPrizeProblems
+pin:
+  rev: fd52071
+  lean: leanprover/lean4:v4.31.0
+  mathlib: fabf563a7c
+  physlib: 3dddd61e23
+lean: Problems.YangMills.HamiltonianSpectrum:MillenniumYangMills.clay_prize_yang_mills
+lock: 54670430ecb1fac8326397020e5252b2d689fcd75d87c476a1e67d1cf8d4c1e0
+custom_constants:
+- MillenniumYangMills.ClayYangMills
+status: stated
+reasons:
+- proof uses sorry
+- unanchored ['MillenniumYangMills.ClayYangMills']
+evidence:
+  lock_cid: 4ebbfa5b3909c9c97095e75a11d1d118e4925e5fa0addcfe6e7eac1838e6af8f
+  axioms_cid: e0189ea1f6db6b3168994c3bdd9b3e5681af054d7003a480d4c6cb1a4d74bf17
+  checker_cid: 109f6e4e3d4fc0b014bc60cd46373470a7d2a6608c60c24347e8f2468f4003a9

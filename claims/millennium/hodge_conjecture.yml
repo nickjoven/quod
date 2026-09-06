@@ -1,0 +1,19 @@
+id: M-hodge_conjecture
+registry: https://github.com/lean-dojo/LeanMillenniumPrizeProblems
+pin:
+  rev: fd52071
+  lean: leanprover/lean4:v4.31.0
+  mathlib: fabf563a7c
+  physlib: 3dddd61e23
+lean: Problems.Hodge.Millennium:MillenniumHodge.clay_prize_hodge_conjecture
+lock: e298047a20d2a4979545e3c32ece81c1c71f284b64ec8a54f0004d2eca879e1c
+custom_constants:
+- MillenniumHodge.ClayHodge
+status: stated
+reasons:
+- proof uses sorry
+- unanchored ['MillenniumHodge.ClayHodge']
+evidence:
+  lock_cid: 2ae1bd6357a006fb56931385c6e79e771f74018c4416e75ea7854f1db65e4b27
+  axioms_cid: d1b620bc4b088c14b0ed0d9895ccf19acde507b163efd973a3afcdc9348b9f80
+  checker_cid: f69bac4f2d642b9ef2be8c4d74eb049318de76193e9c23a272225b3853906ebd

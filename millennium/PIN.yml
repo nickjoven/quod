@@ -1,0 +1,23 @@
+# Millennium registry pin (decision 3: one pin per subproject, never cross-pin)
+source: https://github.com/lean-dojo/LeanMillenniumPrizeProblems
+rev: fd52071
+rev_subject: "Fix Hodge and Yang-Mills statement faithfulness"
+lean: leanprover/lean4:v4.31.0
+mathlib: fabf563a7c   # manifest rev; inputRev v4.31.0
+physlib: 3dddd61e23   # HEPLean/PhysLean, used by Yang-Mills
+declarations:
+  - Millennium.clay_prize_p_versus_np            # NOTE: a `def`, not a theorem
+  - Millennium.clay_prize_riemann_hypothesis
+  - MillenniumNavierStokes.clay_prize_navier_stokes
+  - MillenniumHodge.clay_prize_hodge_conjecture
+  - MillenniumBirchSwinnertonDyer.clay_prize_birch_swinnerton_dyer
+  - MillenniumYangMills.clay_prize_yang_mills
+  - MillenniumPoincare.clay_prize_poincare_conjecture
+lean4checker: 91a7f0e   # upstream master; no v4.31.0 release exists (newest tag v4.29.0-rc8); built with lean-toolchain overridden to v4.31.0, own tests pass (see OPEN.yml Q-20)
+# Anchor NOMINATIONS (verified by anchor_check at import; a row here proves nothing):
+#   custom constant -> [module, anchor theorem]
+anchors:
+  Millennium.ClayRiemannHypothesis:
+    [Problems.RiemannHypothesis.Millennium, Millennium.ClayRiemannHypothesis.iff_real_part]
+  Millennium.ClayRiemannHypothesis.Formulations.RealPart:
+    [Problems.RiemannHypothesis.Millennium, Millennium.ClayRiemannHypothesis.Formulations.RealPart.iff_mathlib]

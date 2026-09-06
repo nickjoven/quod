@@ -2,3 +2,6 @@ calib/jin/
 calib/*.log
 calib/.lake/
 calib/lean4checker/
+millennium/registry/
+millennium/*.log
+millennium/lean4checker/

@@ -205,8 +205,14 @@ Negative controls (MUST be classified as shown, with the reason attached):
 - N7  N1 with an anchor of admissible shape whose right-hand side is
       another private constant (`Tower7.declInv ↔ Tower7.declInv'`) ->
       `stated`, reason: unanchored via the chain.
+- N8  N4 with a forged refutation row: an unrelated clean theorem
+      (`QuodP2.sharp_two`) nominated as the negation -> `stated`, reason:
+      refutation rejected (shape). `refuted_by` is a nomination;
+      `scripts/refute_check.py` requires the nominated type to be `¬ T`
+      with T's canonical form equal to the claim's (Q-8). N4 itself is
+      now stated over `Type` so the strict match holds (Q-9).
 
-Pass criterion: 3/3 positives `proven`, 7/7 negatives as listed. Only then
+Pass criterion: 3/3 positives `proven`, 8/8 negatives as listed. Only then
 does the Millennium registry get imported.
 
 RUN 2026-09-06 (scripts/calibrate.py, calib/RESULTS.json, claims/*.yml,
@@ -242,7 +248,29 @@ row) and N7 (laundering chain) added. Run with the gate: PASS 10/10,
 9m36s. P1's chain now reads maxPolynomialModulusOnNumericalRange ->
 numericalRange -> Mathlib and is checked, not assumed.
 
+SECOND RECHECK 2026-09-06 (after the owner's decisions and the rule that
+every problem is brought into view; OPEN.yml opened with Q-1..Q-21). The
+same class of hole existed for `refuted_by`: any axiom-clean theorem
+under any name could mark any claim `refuted`. Fix: `refute_check.py`
+(nominated type must be `¬ T` with T canonically equal to the claim) and
+control N8 (forged refutation). N4 restated over `Type` so the strict
+match holds (Q-9). Run: PASS 11/11, 12m37s (partly alongside the
+registry builds).
+
 ## 8. Millennium program (after calibration)
+
+REGISTRY IMPORT 2026-09-06 (millennium/PIN.yml, gitignored clone at
+millennium/registry): lean-dojo tip fd52071 "Fix Hodge and Yang-Mills
+statement faithfulness"; Lean v4.31.0; mathlib fabf563a7c (verified from
+the manifest, Q-18); PhysLean 3dddd61e for Yang-Mills. Facts found on
+import, in view: `clay_prize_p_versus_np` is a `def` of type
+`ClayPVersusNPResolution`, not a theorem (both outcomes represented);
+Yang-Mills alone pulls PhysLean, which has no build cache; no lean4checker
+release exists for v4.31.0, so the checker at this pin is upstream master
+91a7f0e built with the toolchain overridden (Q-20). Import runs the same
+gates (`scripts/registry_import.py` -> `calibrate.evaluate`) and writes
+claims/millennium/*.yml with computed status.
+
 
 - Import lean-dojo's seven `clay_prize_*` locks at `fabf563a` as the
   registry; they are `stated` (bodies `sorry`) by construction.
@@ -266,14 +294,17 @@ numericalRange -> Mathlib and is checked, not assumed.
 - sieve dims for Lean: a JSON file.
 - Millennium registry build at `fabf563a`: a cache download and a build.
 
-## 10. Decisions for the owner
+## 10. Decisions for the owner (DECIDED 2026-09-06)
 
-1. Repo name (this directory is `quod`).
-2. Is `lean4checker` required for `proven`? Recommendation: yes.
-3. Pin policy: one pin per subproject recorded in LAW. Recommendation: yes;
-   never cross-pin a claim.
-4. Provers other than Claude through sieve's protocol? Recommendation: yes,
-   from the start, so the ledger is about the system and not this session.
+1. Repo name: `quod` stays.
+2. `lean4checker` is required for `proven`. Yes.
+3. Pin policy: one pin per subproject recorded in LAW; never cross-pin a
+   claim. Yes.
+4. Provers other than Claude through sieve's protocol from the start. Yes.
+
+Standing rule added the same day: every known problem is brought into
+view in OPEN.yml, with an id, a severity and a status. A gap that is
+known and unlisted is a defect of the ledger, not of the gap.
 
 Sources consulted: jinshanmu/CrouzeixConjecture (tip f9d5c8d, Lean/ pins);
 lean-dojo/LeanMillenniumPrizeProblems (README, pins); crouzeix-audit/

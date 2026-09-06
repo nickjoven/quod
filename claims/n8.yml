@@ -1,5 +1,6 @@
-id: N4
-statement: Crouzeix's inequality with constant 1 (false; refuted by P2's witness).
+id: N8
+statement: 'N4 with a forged refutation row: an unrelated clean theorem (QuodP2.sharp_two)
+  nominated as the negation.'
 lean: Quod.Controls.N4:crouzeix_constant_one
 lock: d96bafc801bdf45617c5b358ce247a35ee6b87a615c37ee8853a9fd29b2328aa
 custom_constants:
@@ -8,10 +9,10 @@ custom_constants:
 - CrouzeixConjecture.maxPolynomialModulusOnNumericalRange
 controls:
 - negative
-status: refuted
+status: stated
 reasons:
 - proof uses sorry
-- 'negation proven: QuodP2.N4_refuted'
+- refutation QuodP2.sharp_two rejected (shape)
 evidence:
   lock_cid: 944c2777ae9fba6dea91c160156d416cd3d3156afac647da366fac41cb23252b
   axioms_cid: d62d0ff11f87e94619afbd734f9d1b5cd6600216824d695bbac51c876a47d380
@@ -24,5 +25,5 @@ evidence:
   anchor_shape_CrouzeixConjecture.numericalRange: 2c341efde8e552c8d0fe8bf841f0515884fd7b9c2344a0df61f835df1c2fabc0
   anchor_axioms_CrouzeixConjecture.numericalRange: bc7c0a50bd2833deadf781f274eab84c4d6d3b47670ad1de16270e467f2e6b8c
   checker_cid: a6b3643bdc36273abaafb60d726c63a0905f636e4779257d3a890bee8ba1af55
-  refutation_shape_cid: b7df4d8f316243ca8a274f72aeb7bef66a3fa174df9547c73077377c8f2f0900
-  refutation_cid: 6e891b2b18bb5fd3ed8010ef9c4c616242072e0da07e93a0dcd94eb03f82f2bd
+  refutation_shape_cid: 4406a13a5ccdb54f1c23250636778d892ed9b7944590b5cc7b3cee24981f9f67
+  refutation_cid: b03fc3fceeed2f97d573cf11f9fc629d93f208dae16184d98844d25809733f05

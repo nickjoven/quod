@@ -17,6 +17,9 @@ Status rules (L2):
   a required hypothesis mutant survives        -> stated: dead premise
   lean4checker rc != 0                         -> checker-fail
   negation proven (refuted_by)                 -> refuted
+    (refuted_by is a nomination: refute_check.py must find the nominated
+     declaration's type is ¬T with T's canonical form equal to the claim's,
+     and its axiom set must be the triple; N8 covers the forgery)
   otherwise                                    -> proven
 Drift (N5): a claim file whose recorded lock differs from the recomputed lock
 fails the drift gate regardless of everything else.
@@ -84,6 +87,11 @@ CONTROLS = [
          statement="N1 with an anchor of admissible shape whose right-hand side is another private constant (chain does not end in Mathlib).",
          mutants=[], checker_module="Quod.Controls.N7",
          anchors={"Tower7.declInv": (CALIB, "Quod.Controls.N7", "Tower7.anchor_declInv")}),
+    dict(id="N8", polarity="negative", require="stated", proj=CALIB, module="Quod.Controls.N4",
+         decl="crouzeix_constant_one",
+         statement="N4 with a forged refutation row: an unrelated clean theorem (QuodP2.sharp_two) nominated as the negation.",
+         mutants=[], checker_module="Quod.Controls.N4",
+         refuted_by=dict(module="Quod.P2", decl="QuodP2.sharp_two")),
     dict(id="N5", polarity="negative", require="drift-fail", proj=JIN, module="CrouzeixConjecture",
          decl="CrouzeixConjecture.crouzeixConjecture",
          statement="P1's claim file with a stale recorded lock (the statement changed, the prose did not).",
@@ -152,73 +160,88 @@ def anchored(cc, table, rec, seen=()):
     return [f"{cc} via {b}" for b in bad]
 
 
+def evaluate(c, checker=CHECKER):
+    """Run every gate on one claim dict and return the record with its COMPUTED status.
+    c: id, decl, module, proj, mutants, checker_module, optional anchors/refuted_by/
+    dedup_with/stale_lock/polarity/require."""
+    c = {"polarity": "claim", "require": None, "mutants": [], **c}
+    rec = {"id": c["id"], "polarity": c["polarity"], "required": c["require"],
+           "decl": c["decl"], "module": c["module"], "evidence": {}, "reasons": []}
+    # L1 lock
+    lk, raw = lock(c["proj"], c["module"], c["decl"])
+    rec["evidence"]["lock_cid"] = ket_put(raw)
+    if lk is None:
+        rec["reasons"].append("lock failed"); status = "stated"
+    else:
+        rec["lock"] = lk["lock"]
+        rec["custom_constants"] = [x["name"] for x in lk["custom_constants"]]
+        status = None
+        # L0 axiom gate
+        arc, ax, raw = axioms(c["proj"], c["module"], c["decl"])
+        rec["evidence"]["axioms_cid"] = ket_put(raw); rec["axioms"] = ax["axioms"]
+        if not ax["ok"]:
+            if ax["extra"] == ["sorryAx"]:
+                status = "stated"; rec["reasons"].append("proof uses sorry")
+            else:
+                status = "axiom-fail"; rec["reasons"].append(f"extra axioms {ax['extra']}")
+        # type is True
+        if lk["reduces_to_True"]:
+            status = status or "stated"; rec["reasons"].append("type unfolds to True")
+        # anchors
+        table = {**ANCHORS, **c.get("anchors", {})}
+        unanchored = []
+        for cc in rec["custom_constants"]:
+            unanchored += anchored(cc, table, rec)
+        if unanchored:
+            status = status or "stated"; rec["reasons"].append(f"unanchored {unanchored}")
+        # mutants
+        for m in c["mutants"]:
+            mrc, mout = run(["python3", f"{SCRIPTS}/hyp_mutant.py", c["proj"], m["file"],
+                             "--delete", m["delete"]])
+            rec["evidence"][f"mutant_{m['delete'].strip()}"] = ket_put(mout)
+            rec.setdefault("mutants", []).append({"delete": m["delete"], "killed": mrc == 0})
+            if mrc != 0:
+                status = status or "stated"; rec["reasons"].append(f"dead premise {m['delete']!r}")
+        # lean4checker
+        if c.get("checker_module"):
+            krc, kout = run(["lake", "env", checker, c["checker_module"]], cwd=c["proj"])
+            rec["evidence"]["checker_cid"] = ket_put(kout); rec["checker_rc"] = krc
+            if krc != 0:
+                status = "checker-fail"; rec["reasons"].append("lean4checker failed")
+        # refutation
+        if c.get("refuted_by"):
+            rb = c["refuted_by"]
+            src, sout = run(["python3", f"{SCRIPTS}/refute_check.py", c["proj"], rb["module"],
+                             rb["decl"], c["module"], c["decl"], "--json"])
+            rec["evidence"]["refutation_shape_cid"] = ket_put(sout)
+            rrc, rax, rraw = axioms(c["proj"], rb["module"], rb["decl"])
+            rec["evidence"]["refutation_cid"] = ket_put(rraw)
+            if src == 0 and rax["ok"]:
+                status = "refuted"; rec["reasons"].append(f"negation proven: {rb['decl']}")
+            else:
+                why = "shape" if src != 0 else f"axioms {rax['extra']}"
+                rec["reasons"].append(f"refutation {rb['decl']} rejected ({why})")
+        # dedup
+        if c.get("dedup_with"):
+            lk2, _ = lock(c["proj"], c["module"], c["dedup_with"])
+            rec["dedup"] = {"with": c["dedup_with"], "same_lock": bool(lk2 and lk2["lock"] == lk["lock"])}
+            if not rec["dedup"]["same_lock"]:
+                rec["reasons"].append("lock differs from the Mathlib declaration")
+        # drift (N5): a recorded lock that no longer matches
+        if c.get("stale_lock") is not None:
+            rec["recorded_lock"] = c["stale_lock"]
+            if c["stale_lock"] != lk["lock"]:
+                status = "drift-fail"; rec["reasons"].append("recorded lock differs from recomputed lock")
+        status = status or "proven"
+    rec["status"] = status
+    return rec
+
+
 def main() -> int:
     results, all_ok = [], True
     os.makedirs(os.path.join(ROOT, "claims"), exist_ok=True)
     for c in CONTROLS:
-        rec = {"id": c["id"], "polarity": c["polarity"], "required": c["require"],
-               "decl": c["decl"], "module": c["module"], "evidence": {}, "reasons": []}
-        # L1 lock
-        lk, raw = lock(c["proj"], c["module"], c["decl"])
-        rec["evidence"]["lock_cid"] = ket_put(raw)
-        if lk is None:
-            rec["reasons"].append("lock failed"); status = "stated"
-        else:
-            rec["lock"] = lk["lock"]
-            rec["custom_constants"] = [x["name"] for x in lk["custom_constants"]]
-            status = None
-            # L0 axiom gate
-            arc, ax, raw = axioms(c["proj"], c["module"], c["decl"])
-            rec["evidence"]["axioms_cid"] = ket_put(raw); rec["axioms"] = ax["axioms"]
-            if not ax["ok"]:
-                if ax["extra"] == ["sorryAx"]:
-                    status = "stated"; rec["reasons"].append("proof uses sorry")
-                else:
-                    status = "axiom-fail"; rec["reasons"].append(f"extra axioms {ax['extra']}")
-            # type is True
-            if lk["reduces_to_True"]:
-                status = status or "stated"; rec["reasons"].append("type unfolds to True")
-            # anchors
-            table = {**ANCHORS, **c.get("anchors", {})}
-            unanchored = []
-            for cc in rec["custom_constants"]:
-                unanchored += anchored(cc, table, rec)
-            if unanchored:
-                status = status or "stated"; rec["reasons"].append(f"unanchored {unanchored}")
-            # mutants
-            for m in c["mutants"]:
-                mrc, mout = run(["python3", f"{SCRIPTS}/hyp_mutant.py", c["proj"], m["file"],
-                                 "--delete", m["delete"]])
-                rec["evidence"][f"mutant_{m['delete'].strip()}"] = ket_put(mout)
-                rec.setdefault("mutants", []).append({"delete": m["delete"], "killed": mrc == 0})
-                if mrc != 0:
-                    status = status or "stated"; rec["reasons"].append(f"dead premise {m['delete']!r}")
-            # lean4checker
-            if c.get("checker_module"):
-                krc, kout = run(["lake", "env", CHECKER, c["checker_module"]], cwd=c["proj"])
-                rec["evidence"]["checker_cid"] = ket_put(kout); rec["checker_rc"] = krc
-                if krc != 0:
-                    status = "checker-fail"; rec["reasons"].append("lean4checker failed")
-            # refutation
-            if c.get("refuted_by"):
-                rb = c["refuted_by"]
-                rrc, rax, rraw = axioms(CALIB, rb["module"], rb["decl"])
-                rec["evidence"]["refutation_cid"] = ket_put(rraw)
-                if rax["ok"]:
-                    status = "refuted"; rec["reasons"].append(f"negation proven: {rb['decl']}")
-            # dedup
-            if c.get("dedup_with"):
-                lk2, _ = lock(c["proj"], c["module"], c["dedup_with"])
-                rec["dedup"] = {"with": c["dedup_with"], "same_lock": bool(lk2 and lk2["lock"] == lk["lock"])}
-                if not rec["dedup"]["same_lock"]:
-                    rec["reasons"].append("lock differs from the Mathlib declaration")
-            # drift (N5): a recorded lock that no longer matches
-            if c.get("stale_lock") is not None:
-                rec["recorded_lock"] = c["stale_lock"]
-                if c["stale_lock"] != lk["lock"]:
-                    status = "drift-fail"; rec["reasons"].append("recorded lock differs from recomputed lock")
-            status = status or "proven"
-        rec["status"] = status
+        rec = evaluate(c)
         rec["ok"] = status == c["require"]
         all_ok &= rec["ok"]
         results.append(rec)

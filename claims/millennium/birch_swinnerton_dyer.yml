@@ -1,0 +1,19 @@
+id: M-birch_swinnerton_dyer
+registry: https://github.com/lean-dojo/LeanMillenniumPrizeProblems
+pin:
+  rev: fd52071
+  lean: leanprover/lean4:v4.31.0
+  mathlib: fabf563a7c
+  physlib: 3dddd61e23
+lean: Problems.BirchSwinnertonDyer.Millennium:MillenniumBirchSwinnertonDyer.clay_prize_birch_swinnerton_dyer
+lock: 5020efddff5dc29ced9bc98cb792f71dc4b28b6cf563f99979df159b64ac7dc7
+custom_constants:
+- MillenniumBirchSwinnertonDyer.ClayBirchSwinnertonDyer
+status: stated
+reasons:
+- proof uses sorry
+- unanchored ['MillenniumBirchSwinnertonDyer.ClayBirchSwinnertonDyer']
+evidence:
+  lock_cid: 9ddf536557f79434dd2dff9138d53c3e389cd8b78a47398b564f93b2d78a553e
+  axioms_cid: 26925037b16b306faf729081c1321c2c0ec7b818bef43062e9212fd947b46d91
+  checker_cid: 6b40fc81c6e13db1921ba3fecd3ac91d383533da452f99f17c0aede3207c0a6c

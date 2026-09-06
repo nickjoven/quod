@@ -1,0 +1,19 @@
+id: M-poincare_conjecture
+registry: https://github.com/lean-dojo/LeanMillenniumPrizeProblems
+pin:
+  rev: fd52071
+  lean: leanprover/lean4:v4.31.0
+  mathlib: fabf563a7c
+  physlib: 3dddd61e23
+lean: Problems.Poincare.Millennium:MillenniumPoincare.clay_prize_poincare_conjecture
+lock: 1cca2aafe06cea2c9558aff64d45039a32eac6d8597c6ca454756111423f1e4d
+custom_constants:
+- MillenniumPoincare.ClayPoincareConjecture
+status: stated
+reasons:
+- proof uses sorry
+- unanchored ['MillenniumPoincare.ClayPoincareConjecture']
+evidence:
+  lock_cid: 700df4e87db202af1b2020ea976839f8969b19279c5055154a5c8e4747fadd9e
+  axioms_cid: aa24c96235bb813b6340514f949f55cc4e0d2e3f26e5d69ba75eb7f75ca34414
+  checker_cid: db86d4cec439505ea1f987b2e97683e1a21c51ffe6711ee10c4e8ed9b81616ed

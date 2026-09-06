@@ -1,0 +1,219 @@
+{
+ "pin": {
+  "source": "https://github.com/lean-dojo/LeanMillenniumPrizeProblems",
+  "rev": "fd52071",
+  "rev_subject": "Fix Hodge and Yang-Mills statement faithfulness",
+  "lean": "leanprover/lean4:v4.31.0",
+  "mathlib": "fabf563a7c",
+  "physlib": "3dddd61e23",
+  "declarations": [
+   "Millennium.clay_prize_p_versus_np",
+   "Millennium.clay_prize_riemann_hypothesis",
+   "MillenniumNavierStokes.clay_prize_navier_stokes",
+   "MillenniumHodge.clay_prize_hodge_conjecture",
+   "MillenniumBirchSwinnertonDyer.clay_prize_birch_swinnerton_dyer",
+   "MillenniumYangMills.clay_prize_yang_mills",
+   "MillenniumPoincare.clay_prize_poincare_conjecture"
+  ],
+  "lean4checker": "91a7f0e"
+ },
+ "claims": [
+  {
+   "id": "M-p_versus_np",
+   "polarity": "claim",
+   "required": null,
+   "decl": "Millennium.clay_prize_p_versus_np",
+   "module": "Problems.PVersusNP.Millennium",
+   "evidence": {
+    "lock_cid": "cc5adffcc07285917a0eb48cae7ba172d4f0bc039704c54059f12b790895d5b4",
+    "axioms_cid": "00cdac2c33c672641fa9eed23311feba1562065b496475f5ceb4ec193d35e6d9",
+    "checker_cid": "3551132206ab096199fbdfe78ffbd1786c67fb0d006f7681295f02dd53156b5c"
+   },
+   "reasons": [
+    "proof uses sorry",
+    "unanchored ['Millennium.ClayPVersusNPResolution']"
+   ],
+   "lock": "40684c09e9e7a0e3c8418f30d41eb7db455301dfaa52d84ce8c1b01fb87e1a3f",
+   "custom_constants": [
+    "Millennium.ClayPVersusNPResolution"
+   ],
+   "axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext",
+    "sorryAx"
+   ],
+   "checker_rc": 0,
+   "status": "stated"
+  },
+  {
+   "id": "M-riemann_hypothesis",
+   "polarity": "claim",
+   "required": null,
+   "decl": "Millennium.clay_prize_riemann_hypothesis",
+   "module": "Problems.RiemannHypothesis.Millennium",
+   "evidence": {
+    "lock_cid": "f2c96089d922d1bffd7880fe3b27a9acc75fd7e35a189e86cd15279513446948",
+    "axioms_cid": "5122189b2352e0b2c0e90375ce9a0f396a157cf5a215e258f6191a3fabf70e9a",
+    "checker_cid": "1a3c921a2c71e7b5a3cbe57b7b3a758bf3d58b9e0842ff608e953e490aeb57e8"
+   },
+   "reasons": [
+    "proof uses sorry",
+    "unanchored ['Millennium.ClayRiemannHypothesis']"
+   ],
+   "lock": "2284d8427c4ddec61e788c2b6ea1d605aa9923bc1993826cd15080ca3e5ff4c8",
+   "custom_constants": [
+    "Millennium.ClayRiemannHypothesis"
+   ],
+   "axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext",
+    "sorryAx"
+   ],
+   "checker_rc": 0,
+   "status": "stated"
+  },
+  {
+   "id": "M-navier_stokes",
+   "polarity": "claim",
+   "required": null,
+   "decl": "MillenniumNavierStokes.clay_prize_navier_stokes",
+   "module": "Problems.NavierStokes.Millennium",
+   "evidence": {
+    "lock_cid": "492dc663f2e56785524e9da52f2b25d4b856253631550255d8aa5e2d53dafb04",
+    "axioms_cid": "d09a234d53d34dac479179617cb68509275417f15a51761d8c9f87d236df5b2a",
+    "checker_cid": "59270b148265f224fbf4eb326d17c12a0c47a62b2bdae2a888278984446def09"
+   },
+   "reasons": [
+    "proof uses sorry",
+    "unanchored ['MillenniumNavierStokes.ClayNavierStokes']"
+   ],
+   "lock": "a76b8c96e85028f4cd7b3c02faada414e1e929381f9da8803f3293b8eef51f3d",
+   "custom_constants": [
+    "MillenniumNavierStokes.ClayNavierStokes"
+   ],
+   "axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext",
+    "sorryAx"
+   ],
+   "checker_rc": 0,
+   "status": "stated"
+  },
+  {
+   "id": "M-hodge_conjecture",
+   "polarity": "claim",
+   "required": null,
+   "decl": "MillenniumHodge.clay_prize_hodge_conjecture",
+   "module": "Problems.Hodge.Millennium",
+   "evidence": {
+    "lock_cid": "2ae1bd6357a006fb56931385c6e79e771f74018c4416e75ea7854f1db65e4b27",
+    "axioms_cid": "d1b620bc4b088c14b0ed0d9895ccf19acde507b163efd973a3afcdc9348b9f80",
+    "checker_cid": "f69bac4f2d642b9ef2be8c4d74eb049318de76193e9c23a272225b3853906ebd"
+   },
+   "reasons": [
+    "proof uses sorry",
+    "unanchored ['MillenniumHodge.ClayHodge']"
+   ],
+   "lock": "e298047a20d2a4979545e3c32ece81c1c71f284b64ec8a54f0004d2eca879e1c",
+   "custom_constants": [
+    "MillenniumHodge.ClayHodge"
+   ],
+   "axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext",
+    "sorryAx"
+   ],
+   "checker_rc": 0,
+   "status": "stated"
+  },
+  {
+   "id": "M-birch_swinnerton_dyer",
+   "polarity": "claim",
+   "required": null,
+   "decl": "MillenniumBirchSwinnertonDyer.clay_prize_birch_swinnerton_dyer",
+   "module": "Problems.BirchSwinnertonDyer.Millennium",
+   "evidence": {
+    "lock_cid": "9ddf536557f79434dd2dff9138d53c3e389cd8b78a47398b564f93b2d78a553e",
+    "axioms_cid": "26925037b16b306faf729081c1321c2c0ec7b818bef43062e9212fd947b46d91",
+    "checker_cid": "6b40fc81c6e13db1921ba3fecd3ac91d383533da452f99f17c0aede3207c0a6c"
+   },
+   "reasons": [
+    "proof uses sorry",
+    "unanchored ['MillenniumBirchSwinnertonDyer.ClayBirchSwinnertonDyer']"
+   ],
+   "lock": "5020efddff5dc29ced9bc98cb792f71dc4b28b6cf563f99979df159b64ac7dc7",
+   "custom_constants": [
+    "MillenniumBirchSwinnertonDyer.ClayBirchSwinnertonDyer"
+   ],
+   "axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext",
+    "sorryAx"
+   ],
+   "checker_rc": 0,
+   "status": "stated"
+  },
+  {
+   "id": "M-yang_mills",
+   "polarity": "claim",
+   "required": null,
+   "decl": "MillenniumYangMills.clay_prize_yang_mills",
+   "module": "Problems.YangMills.HamiltonianSpectrum",
+   "evidence": {
+    "lock_cid": "4ebbfa5b3909c9c97095e75a11d1d118e4925e5fa0addcfe6e7eac1838e6af8f",
+    "axioms_cid": "e0189ea1f6db6b3168994c3bdd9b3e5681af054d7003a480d4c6cb1a4d74bf17",
+    "checker_cid": "109f6e4e3d4fc0b014bc60cd46373470a7d2a6608c60c24347e8f2468f4003a9"
+   },
+   "reasons": [
+    "proof uses sorry",
+    "unanchored ['MillenniumYangMills.ClayYangMills']"
+   ],
+   "lock": "54670430ecb1fac8326397020e5252b2d689fcd75d87c476a1e67d1cf8d4c1e0",
+   "custom_constants": [
+    "MillenniumYangMills.ClayYangMills"
+   ],
+   "axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext",
+    "sorryAx"
+   ],
+   "checker_rc": 0,
+   "status": "stated"
+  },
+  {
+   "id": "M-poincare_conjecture",
+   "polarity": "claim",
+   "required": null,
+   "decl": "MillenniumPoincare.clay_prize_poincare_conjecture",
+   "module": "Problems.Poincare.Millennium",
+   "evidence": {
+    "lock_cid": "700df4e87db202af1b2020ea976839f8969b19279c5055154a5c8e4747fadd9e",
+    "axioms_cid": "aa24c96235bb813b6340514f949f55cc4e0d2e3f26e5d69ba75eb7f75ca34414",
+    "checker_cid": "db86d4cec439505ea1f987b2e97683e1a21c51ffe6711ee10c4e8ed9b81616ed"
+   },
+   "reasons": [
+    "proof uses sorry",
+    "unanchored ['MillenniumPoincare.ClayPoincareConjecture']"
+   ],
+   "lock": "1cca2aafe06cea2c9558aff64d45039a32eac6d8597c6ca454756111423f1e4d",
+   "custom_constants": [
+    "MillenniumPoincare.ClayPoincareConjecture"
+   ],
+   "axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext",
+    "sorryAx"
+   ],
+   "checker_rc": 0,
+   "status": "stated"
+  }
+ ],
+ "all_locked": true
+}
