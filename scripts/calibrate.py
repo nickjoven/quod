@@ -23,7 +23,7 @@ Descriptors (computed, never affect status): hypotheses, custom_constants,
 grounded, anchored (per constant, with the gate's reason), reduces_to_True,
 registry_match, dedup, mutants.
 """
-import json, os, subprocess, sys, yaml
+import glob, hashlib, json, os, subprocess, sys, yaml
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CALIB = os.path.join(ROOT, "calib")
@@ -111,6 +111,13 @@ CONTROLS = [
 ]
 
 
+def runner_shas():
+    """sha256 of every gate script (Q-23): the run record names the exact
+    runner that produced it, so a mid-run refactor is detectable after the fact."""
+    return {os.path.basename(p): hashlib.sha256(open(p, "rb").read()).hexdigest()
+            for p in sorted(glob.glob(os.path.join(SCRIPTS, "*.py")))}
+
+
 def run(cmd, cwd=None):
     r = subprocess.run(cmd, cwd=cwd, capture_output=True, text=True)
     return r.returncode, r.stdout + r.stderr
@@ -121,7 +128,11 @@ def ket_put(text):
         return None
     r = subprocess.run(["ket", "put", "-"], input=text, capture_output=True, text=True,
                        env={**os.environ, "KET_HOME": KET_HOME})
-    return r.stdout.strip() if r.returncode == 0 else None
+    if r.returncode != 0:
+        # A ket failure must never masquerade as --no-ket (null CIDs): evidence
+        # was promised, so its absence is a run failure, not a degradation.
+        sys.exit(f"ket put failed (KET_HOME={KET_HOME}):\n{r.stderr.strip()}")
+    return r.stdout.strip()
 
 
 def lock(proj, module, decl):
@@ -334,6 +345,17 @@ def meets(rec, req):
 
 
 def main() -> int:
+    # Preflight (environment error, not a verdict): a missing Lean toolchain
+    # must abort before any status is computed or any claim file is touched.
+    # Without this, every control degrades to lock-fail and overwrites the
+    # recorded claims — observed live on 2026-09-06 when ~/.elan/bin was off
+    # PATH outside bootstrap.sh's own shell.
+    import shutil
+    for tool in ("lake", "lean"):
+        if shutil.which(tool) is None:
+            elan_bin = os.path.expanduser("~/.elan/bin")
+            hint = f' (try: export PATH="{elan_bin}:$PATH")' if os.path.isdir(elan_bin) else ""
+            sys.exit(f"environment error: {tool!r} not on PATH{hint}; refusing to compute statuses")
     only = None
     for i, a in enumerate(sys.argv):
         if a == "--only" and i + 1 < len(sys.argv):
@@ -365,7 +387,7 @@ def main() -> int:
             yaml.safe_dump(claim, f, sort_keys=False, allow_unicode=True)
     if only is None:
         out = {"semantics": "SEMANTICS.md", "pins": {"crouzeix": {"lean": "v4.28.0", "mathlib": "8f9d9cff", "jin": "f9d5c8d"}},
-               "controls": results, "pass": all_ok}
+               "runner": runner_shas(), "controls": results, "pass": all_ok}
         with open(os.path.join(CALIB, "RESULTS.json"), "w") as f:
             json.dump(out, f, indent=1)
     print("calibration:", "PASS" if all_ok else "FAIL",

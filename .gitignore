@@ -5,3 +5,5 @@ calib/lean4checker/
 millennium/registry/
 millennium/*.log
 millennium/lean4checker/
+.ket/
+__pycache__/
