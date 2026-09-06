@@ -1,24 +1,32 @@
 id: N7
-statement: N1 with an anchor of admissible shape whose right-hand side is another
-  private constant (chain does not end in Mathlib).
-lean: Quod.Controls.N7:navier_stokes_laundered
+gloss: N1 with an anchor of admissible shape whose right-hand side is another private
+  constant (chain does not end in Mathlib).
+demonstrandum: Quod.Controls.N7:navier_stokes_laundered
 lock: 537ff272787c05346293265b2d67a8145f6f46f34e179a38e5b84fa357d10beb
-custom_constants:
-- Tower7.declInv
-hypotheses:
-- name: step
-  type: '∀ (n : ℕ), Tower7.declInv n → Tower7.declInv (n + 1)'
-grounded: true
-registry_match: null
+offered: Quod.Controls.N7:navier_stokes_laundered
+proof_verdict: accepted
+refutation: null
+refutation_verdict: null
+status: proven
+descriptors:
+  hypotheses:
+  - name: step
+    type: '∀ (n : ℕ), Tower7.declInv n → Tower7.declInv (n + 1)'
+  custom_constants:
+  - Tower7.declInv
+  grounded: true
+  anchored:
+    Tower7.declInv: Tower7.declInv via Tower7.declInv'
+  reduces_to_True: false
+  registry_match: null
 controls:
 - negative
-status: stated
 reasons:
-- unanchored ["Tower7.declInv via Tower7.declInv'"]
+- unanchored ['Tower7.declInv']
 evidence:
   lock_cid: 0e67379240b441bcb61c3ec7dcf7517549771f0a3b125f3cf9cc0283f137c08d
-  axioms_cid: cde3cce95a7436d38a41cd748e52e010c28c18387fda95ba431ad050c0ffc687
   closure_cid: 6214a2f6e68035b6ee03e5995abf8c8fd1173c964097f32bb257635f74270bad
   anchor_shape_Tower7.declInv: 1f959ca793aa56f315452896bde709b14662d611d61cf44184ff3134988a7c53
   anchor_axioms_Tower7.declInv: be49ebea5b75ea7d1641990925643c73d7bcfb9d27dcadd978962f27de18cabc
+  axioms_cid: cde3cce95a7436d38a41cd748e52e010c28c18387fda95ba431ad050c0ffc687
   checker_cid: 6b942802a2415510fe05c767ae41fa1e030dcfaf51371f79efcaceb03d67c65d

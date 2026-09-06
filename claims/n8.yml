@@ -1,24 +1,31 @@
 id: N8
-statement: 'N4 with a forged refutation row: an unrelated clean theorem (QuodP2.sharp_two)
+gloss: 'N4 with a forged refutation row: an unrelated clean theorem (QuodP2.sharp_two)
   nominated as the negation.'
-lean: Quod.Controls.N4:crouzeix_constant_one
+demonstrandum: Quod.Controls.N4:crouzeix_constant_one
 lock: d96bafc801bdf45617c5b358ce247a35ee6b87a615c37ee8853a9fd29b2328aa
-custom_constants:
-- CrouzeixConjecture.SquareMatrix
-- CrouzeixConjecture.polynomialEval
-- CrouzeixConjecture.maxPolynomialModulusOnNumericalRange
-hypotheses: []
-grounded: true
-registry_match: null
+offered: Quod.Controls.N4:crouzeix_constant_one
+proof_verdict: 'incomplete: sorry'
+refutation: Quod.P2:QuodP2.sharp_two
+refutation_verdict: 'rejected: shape'
+status: stated
+descriptors:
+  hypotheses: []
+  custom_constants:
+  - CrouzeixConjecture.SquareMatrix
+  - CrouzeixConjecture.polynomialEval
+  - CrouzeixConjecture.maxPolynomialModulusOnNumericalRange
+  grounded: true
+  anchored:
+    CrouzeixConjecture.SquareMatrix: anchored
+    CrouzeixConjecture.polynomialEval: anchored
+    CrouzeixConjecture.maxPolynomialModulusOnNumericalRange: anchored
+  reduces_to_True: false
+  registry_match: null
 controls:
 - negative
-status: stated
-reasons:
-- proof uses sorry
-- refutation QuodP2.sharp_two rejected (shape)
+reasons: []
 evidence:
   lock_cid: 6747006184a0482128fbe63ea34e14b552b659d20c4fd13f946b1d4b8b207b92
-  axioms_cid: d62d0ff11f87e94619afbd734f9d1b5cd6600216824d695bbac51c876a47d380
   closure_cid: 88c472082e9fac234887ebb10d4b77f5e7d35e2838e4d4c5aab86b514aac9d2c
   anchor_shape_CrouzeixConjecture.SquareMatrix: 720fc4652f71e725ce3d8926b43ee2c660465442359b42e2555aa87f87843ab3
   anchor_axioms_CrouzeixConjecture.SquareMatrix: 7a1f26033025494f5c76724c4b5d6a1c669a5ccbec7ee98684c300be99a7b8b6
@@ -28,6 +35,5 @@ evidence:
   anchor_axioms_CrouzeixConjecture.maxPolynomialModulusOnNumericalRange: c4374502aef2c6adcc6dd4e0daeec9f136418e68a53948db25bb44e700588e5d
   anchor_shape_CrouzeixConjecture.numericalRange: 2c341efde8e552c8d0fe8bf841f0515884fd7b9c2344a0df61f835df1c2fabc0
   anchor_axioms_CrouzeixConjecture.numericalRange: bc7c0a50bd2833deadf781f274eab84c4d6d3b47670ad1de16270e467f2e6b8c
-  checker_cid: a6b3643bdc36273abaafb60d726c63a0905f636e4779257d3a890bee8ba1af55
+  axioms_cid: d62d0ff11f87e94619afbd734f9d1b5cd6600216824d695bbac51c876a47d380
   refutation_shape_cid: 4406a13a5ccdb54f1c23250636778d892ed9b7944590b5cc7b3cee24981f9f67
-  refutation_cid: b03fc3fceeed2f97d573cf11f9fc629d93f208dae16184d98844d25809733f05

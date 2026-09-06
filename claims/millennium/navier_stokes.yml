@@ -5,25 +5,28 @@ pin:
   lean: leanprover/lean4:v4.31.0
   mathlib: fabf563a7c
   physlib: 3dddd61e23
-lean: Problems.NavierStokes.Millennium:MillenniumNavierStokes.clay_prize_navier_stokes
+demonstrandum: Problems.NavierStokes.Millennium:MillenniumNavierStokes.clay_prize_navier_stokes
 lock: a76b8c96e85028f4cd7b3c02faada414e1e929381f9da8803f3293b8eef51f3d
-custom_constants:
-- MillenniumNavierStokes.ClayNavierStokes
-anchors: {}
-hypotheses: []
-grounded: true
-closure:
-  MillenniumNavierStokes.ClayNavierStokes:
-    custom: 60
-    grounded: true
-    axioms: []
-    opaque: []
+offered: Problems.NavierStokes.Millennium:MillenniumNavierStokes.clay_prize_navier_stokes
+proof_verdict: 'incomplete: sorry'
 status: stated
+descriptors:
+  hypotheses: []
+  custom_constants:
+  - MillenniumNavierStokes.ClayNavierStokes
+  grounded: true
+  anchored:
+    MillenniumNavierStokes.ClayNavierStokes: MillenniumNavierStokes.ClayNavierStokes
+  reduces_to_True: false
+  closure:
+    MillenniumNavierStokes.ClayNavierStokes:
+      custom: 60
+      grounded: true
+      axioms: []
+      opaque: []
 reasons:
-- proof uses sorry
 - unanchored ['MillenniumNavierStokes.ClayNavierStokes']
 evidence:
   lock_cid: 8a3593f25b5ee69234099e46f90cb8969dadd8266f28d9602815c6cef5bfe89c
-  axioms_cid: d09a234d53d34dac479179617cb68509275417f15a51761d8c9f87d236df5b2a
   closure_cid: 2014e85a0ffa71e519c337ffe167c9e1701c575ab2f7ad26566a236795763a13
-  checker_cid: 59270b148265f224fbf4eb326d17c12a0c47a62b2bdae2a888278984446def09
+  axioms_cid: d09a234d53d34dac479179617cb68509275417f15a51761d8c9f87d236df5b2a

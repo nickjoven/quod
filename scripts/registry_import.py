@@ -48,15 +48,15 @@ def main() -> int:
         got_lock = "lock" in rec
         ok &= got_lock
         results.append(rec)
-        print(f"{rec['id']:28s} computed {rec['status']:11s} kind? custom {len(rec.get('custom_constants', []))}"
-              f"  {'; '.join(rec['reasons'])[:120]}")
+        print(f"{rec['id']:28s} computed {rec['status']:11s} proof {rec.get('proof_verdict')}  custom {len(rec.get('custom_constants', []))}"
+              f"  {'; '.join(rec['reasons'])[:100]}")
         claim = {"id": rec["id"], "registry": pin["source"], "pin": {k: pin[k] for k in ("rev", "lean", "mathlib", "physlib")},
-                 "lean": f"{module}:{decl}", "lock": rec.get("lock"),
-                 "custom_constants": rec.get("custom_constants", []),
-                 "anchors": {k: v[2] for k, v in anchors.items() if k in rec.get("custom_constants", [])},
-                 "hypotheses": rec.get("hypotheses", []), "grounded": rec.get("grounded"),
-                 "closure": rec.get("closure", {}),
-                 "status": rec["status"], "reasons": rec["reasons"], "evidence": rec["evidence"]}
+                 "demonstrandum": rec["demonstrandum"], "lock": rec.get("lock"),
+                 "offered": rec["offered"], "proof_verdict": rec.get("proof_verdict"),
+                 "status": rec["status"],
+                 "descriptors": {k: rec.get(k) for k in ("hypotheses", "custom_constants", "grounded",
+                                                          "anchored", "reduces_to_True", "closure") if k in rec},
+                 "reasons": rec["reasons"], "evidence": rec["evidence"]}
         with open(os.path.join(ROOT, "claims", "millennium", f"{slug}.yml"), "w") as f:
             yaml.safe_dump(claim, f, sort_keys=False, allow_unicode=True)
     with open(os.path.join(MILL, "RESULTS.json"), "w") as f:

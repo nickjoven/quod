@@ -5,7 +5,7 @@
 #           low = cost, ergonomics, or by-design limit worth stating.
 - id: Q-1
   severity: high
-  status: open (extraction done 2026-09-06: lock.py lists binders, claims carry `hypotheses:`; the status rule awaits Q-22)
+  status: closed 2026-09-06 by SEMANTICS.md: hypotheses are part of the lock and are listed as a descriptor; `conditional` removed from the lattice; a D with hypotheses is proven as the implication it is
   title: hypotheses are not machine-extracted; `conditional` is never computed
   detail: >
     The status table promises `conditional` for sorry-free proofs whose
@@ -34,7 +34,7 @@
     defense in depth and does not exist yet.
 - id: Q-4
   severity: low
-  status: open
+  status: open (reduces_to_True is now a recorded descriptor and N2 requires it; general triviality still undetected)
   title: triviality detection covers only a head that unfolds to `True`
   detail: `1 = 1` or `True ∧ True` behind a grand name computes `proven`.
     The lock is honest; the exposure is the label (Q-5). Also, an anchor
@@ -120,7 +120,7 @@
     claims, so this is by design, but it must be said.
 - id: Q-16
   severity: medium
-  status: open
+  status: open (proof-to-demonstrandum pairing now verified by lock equality, N9)
   title: every table the runner consults is a nomination
   detail: Anchors (fixed, N6/N7), refutations (fixed, N8), dedup targets (verified
     by lock equality), mutants (Q-1), checker module names (unverified: a
@@ -155,8 +155,8 @@
     pass. Decision 2 makes the checker required for proven, so a proven
     at this pin rests on an unreleased checker build until upstream tags one.
 - id: Q-21
-  severity: high
-  status: open
+  severity: medium
+  status: open (reframed by SEMANTICS.md: the registry locks ARE the demonstranda; anchoring is a descriptor of their worth, not a gate; six wrappers remain un-anchored to Mathlib names because Mathlib has none)
   title: registry locks are locks on a name; the content lives in one custom constant
   detail: >
     Import found each clay_prize_* type is a single custom Prop
@@ -182,7 +182,7 @@
     plus human/sieve review of those definitions (Q-5).
 - id: Q-22
   severity: high
-  status: open (owner decision)
+  status: closed 2026-09-06 dissolved by SEMANTICS.md (owner: "proof requires demonstrandum"): proven = the demonstrandum's lock is discharged; grounded/anchored are descriptors of the demonstrandum and never gate status; "counts against a Millennium problem" is the registry lock relation
   title: what "anchored" must mean for proven
   detail: >
     Two computed properties now exist per custom constant. ANCHORED: a

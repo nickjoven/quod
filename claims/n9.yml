@@ -1,12 +1,13 @@
-id: N4
-gloss: Crouzeix's inequality with constant 1 (false; refuted by P2's witness).
-demonstrandum: Quod.Controls.N4:crouzeix_constant_one
-lock: d96bafc801bdf45617c5b358ce247a35ee6b87a615c37ee8853a9fd29b2328aa
-offered: Quod.Controls.N4:crouzeix_constant_one
-proof_verdict: 'incomplete: sorry'
-refutation: Quod.P2:QuodP2.N4_refuted
-refutation_verdict: accepted
-status: refuted
+id: N9
+gloss: A clean theorem offered as the proof of a different demonstrandum (P1's lock
+  recorded as the target).
+demonstrandum: CrouzeixConjecture:CrouzeixConjecture.crouzeixConjecture
+lock: edcf628966cc72941b57a6909736c7e69e323566a7653ae8eb2668ac443444bf
+offered: Quod.P2:QuodP2.sharp_two
+proof_verdict: 'rejected: lock mismatch'
+refutation: null
+refutation_verdict: null
+status: stated
 descriptors:
   hypotheses: []
   custom_constants:
@@ -24,7 +25,7 @@ controls:
 - negative
 reasons: []
 evidence:
-  lock_cid: 6747006184a0482128fbe63ea34e14b552b659d20c4fd13f946b1d4b8b207b92
+  lock_cid: dfec83d0ace03c72f6986dcd224827f671f3881bce16e438fd81fc274b07be93
   closure_cid: 88c472082e9fac234887ebb10d4b77f5e7d35e2838e4d4c5aab86b514aac9d2c
   anchor_shape_CrouzeixConjecture.SquareMatrix: 720fc4652f71e725ce3d8926b43ee2c660465442359b42e2555aa87f87843ab3
   anchor_axioms_CrouzeixConjecture.SquareMatrix: 7a1f26033025494f5c76724c4b5d6a1c669a5ccbec7ee98684c300be99a7b8b6
@@ -34,7 +35,4 @@ evidence:
   anchor_axioms_CrouzeixConjecture.maxPolynomialModulusOnNumericalRange: c4374502aef2c6adcc6dd4e0daeec9f136418e68a53948db25bb44e700588e5d
   anchor_shape_CrouzeixConjecture.numericalRange: 2c341efde8e552c8d0fe8bf841f0515884fd7b9c2344a0df61f835df1c2fabc0
   anchor_axioms_CrouzeixConjecture.numericalRange: bc7c0a50bd2833deadf781f274eab84c4d6d3b47670ad1de16270e467f2e6b8c
-  axioms_cid: d62d0ff11f87e94619afbd734f9d1b5cd6600216824d695bbac51c876a47d380
-  refutation_shape_cid: b7df4d8f316243ca8a274f72aeb7bef66a3fa174df9547c73077377c8f2f0900
-  refutation_cid: 6e891b2b18bb5fd3ed8010ef9c4c616242072e0da07e93a0dcd94eb03f82f2bd
-  checker_cid: a6b3643bdc36273abaafb60d726c63a0905f636e4779257d3a890bee8ba1af55
+  proof_lock_cid: 4907cc86fe8e2ac5a6d0162d241753407aa311a5d7dd82b12b0af0fca03133bb

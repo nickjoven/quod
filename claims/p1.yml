@@ -1,22 +1,34 @@
 id: P1
-statement: Crouzeix's conjecture for complex square matrices and polynomials, constant
+gloss: Crouzeix's conjecture for complex square matrices and polynomials, constant
   2, induced Euclidean operator norm (jinshanmu/CrouzeixConjecture at f9d5c8d).
-lean: CrouzeixConjecture:CrouzeixConjecture.crouzeixConjecture
+demonstrandum: CrouzeixConjecture:CrouzeixConjecture.crouzeixConjecture
 lock: edcf628966cc72941b57a6909736c7e69e323566a7653ae8eb2668ac443444bf
-custom_constants:
-- CrouzeixConjecture.SquareMatrix
-- CrouzeixConjecture.polynomialEval
-- CrouzeixConjecture.maxPolynomialModulusOnNumericalRange
-hypotheses: []
-grounded: true
-registry_match: null
+offered: CrouzeixConjecture:CrouzeixConjecture.crouzeixConjecture
+proof_verdict: accepted
+refutation: null
+refutation_verdict: null
+status: proven
+descriptors:
+  hypotheses: []
+  custom_constants:
+  - CrouzeixConjecture.SquareMatrix
+  - CrouzeixConjecture.polynomialEval
+  - CrouzeixConjecture.maxPolynomialModulusOnNumericalRange
+  grounded: true
+  anchored:
+    CrouzeixConjecture.SquareMatrix: anchored
+    CrouzeixConjecture.polynomialEval: anchored
+    CrouzeixConjecture.maxPolynomialModulusOnNumericalRange: anchored
+  reduces_to_True: false
+  registry_match: null
+  mutants:
+  - delete: ' [Nonempty n]'
+    killed: true
 controls:
 - positive
-status: proven
 reasons: []
 evidence:
   lock_cid: dfec83d0ace03c72f6986dcd224827f671f3881bce16e438fd81fc274b07be93
-  axioms_cid: b7e78f6ee3a0fd8d44d144435246ba2c2f871b4ecaec143e2016d8904bec1645
   closure_cid: 88c472082e9fac234887ebb10d4b77f5e7d35e2838e4d4c5aab86b514aac9d2c
   anchor_shape_CrouzeixConjecture.SquareMatrix: 720fc4652f71e725ce3d8926b43ee2c660465442359b42e2555aa87f87843ab3
   anchor_axioms_CrouzeixConjecture.SquareMatrix: 7a1f26033025494f5c76724c4b5d6a1c669a5ccbec7ee98684c300be99a7b8b6
@@ -26,5 +38,6 @@ evidence:
   anchor_axioms_CrouzeixConjecture.maxPolynomialModulusOnNumericalRange: c4374502aef2c6adcc6dd4e0daeec9f136418e68a53948db25bb44e700588e5d
   anchor_shape_CrouzeixConjecture.numericalRange: 2c341efde8e552c8d0fe8bf841f0515884fd7b9c2344a0df61f835df1c2fabc0
   anchor_axioms_CrouzeixConjecture.numericalRange: bc7c0a50bd2833deadf781f274eab84c4d6d3b47670ad1de16270e467f2e6b8c
-  mutant_[Nonempty n]: f0001abfa15912675ae2844cd0ebbca9ab5cde5a0a936f7f312531bc0129c743
+  axioms_cid: b7e78f6ee3a0fd8d44d144435246ba2c2f871b4ecaec143e2016d8904bec1645
   checker_cid: 6e75bb06cb8577bab445c0b441ef7eba418bdb02652fe9d9e12da1cd0b19e297
+  mutant_[Nonempty n]: f0001abfa15912675ae2844cd0ebbca9ab5cde5a0a936f7f312531bc0129c743

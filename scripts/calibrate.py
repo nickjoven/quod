@@ -1,28 +1,27 @@
 #!/usr/bin/env python3
-"""calibrate.py [--no-ket]
+"""calibrate.py [--no-ket] [--only ID[,ID..]]
 
-Runs the calibration set (ARCHITECTURE.md section 7) against the calib/
-project and COMPUTES a status for every control from the gate outputs. Writes
-calib/RESULTS.json, one claims/<id>.yml per control, and stores every raw
-gate output in the ket store (KET_HOME, default ~/code/handoffs/.ket) so the
-record is by CID. Exit 0 iff every control reaches its required outcome.
+Runs the calibration set under SEMANTICS.md against the calib/ project and
+COMPUTES, for every control, the status of its demonstrandum and the
+verdict on what was offered against it. Writes calib/RESULTS.json, one
+claims/<id>.yml per control, and stores every raw gate output in the ket
+store (KET_HOME, default ~/code/handoffs/.ket). Exit 0 iff every control
+reaches its required status AND its required descriptors.
 
-Status rules (L2):
-  axiom gate FAIL with sorryAx                 -> stated        (unproved)
-  axiom gate FAIL with any other extra axiom   -> axiom-fail    (never a claim)
-  lock unfolds to True                         -> stated: type is True
-  custom constant without an admissible anchor -> stated: unanchored <c>
-    (admissible = anchor_check.py shape OK, axiom gate clean, and every
-     custom constant on the anchor's right-hand side anchored in turn)
-  a required hypothesis mutant survives        -> stated: dead premise
-  lean4checker rc != 0                         -> checker-fail
-  negation proven (refuted_by)                 -> refuted
-    (refuted_by is a nomination: refute_check.py must find the nominated
-     declaration's type is ¬T with T's canonical form equal to the claim's,
-     and its axiom set must be the triple; N8 covers the forgery)
-  otherwise                                    -> proven
-Drift (N5): a claim file whose recorded lock differs from the recomputed lock
-fails the drift gate regardless of everything else.
+Status of a demonstrandum D (never typed by hand):
+  drift-fail   recorded lock differs from the recomputed lock
+  refuted      a refutation discharges ¬D (shape gate + axiom triple + checker)
+  proven       a proof discharges D (lock equal + axiom triple + checker)
+  stated       otherwise (no proof, incomplete proof, or rejected proof)
+  inconsistent both proven and refuted at one pin: halts the ledger
+
+Verdict on an offered proof / refutation:
+  accepted | incomplete: sorry | rejected: lock mismatch | rejected: shape
+  | rejected: extra axioms [...] | rejected: lean4checker
+
+Descriptors (computed, never affect status): hypotheses, custom_constants,
+grounded, anchored (per constant, with the gate's reason), reduces_to_True,
+registry_match, dedup, mutants.
 """
 import json, os, subprocess, sys, yaml
 
@@ -34,10 +33,8 @@ SCRIPTS = os.path.join(ROOT, "scripts")
 KET_HOME = os.environ.get("KET_HOME", os.path.expanduser("~/code/handoffs/.ket"))
 USE_KET = "--no-ket" not in sys.argv
 
-# anchors: custom constant -> (project, module, anchor decl). A row here is a
-# NOMINATION only: anchor_check.py verifies the lemma has the shape
-# `c x₁ … xₖ = rhs` / `↔ rhs` with distinct variable arguments, and the rhs's
-# custom constants must themselves be anchored (N6, N7 cover the two forgeries).
+# anchor NOMINATIONS: custom constant -> (project, module, anchor decl). Verified by
+# anchor_check.py (shape) + axiom gate + recursion through the rhs (N6, N7).
 ANCHORS = {
     "CrouzeixConjecture.SquareMatrix": (CALIB, "Quod.P1Anchors", "anchor_SquareMatrix"),
     "CrouzeixConjecture.EuclideanVector": (CALIB, "Quod.P1Anchors", "anchor_EuclideanVector"),
@@ -48,54 +45,69 @@ ANCHORS = {
     "QuodP2.J": (CALIB, "Quod.P2", "QuodP2.anchor_J"),
 }
 
+# A control: a demonstrandum D (proj, module, decl), what is offered against it
+# (default: D's own declaration as its proof), and the required outcome on
+# status and descriptors. See SEMANTICS.md "Calibration under these semantics".
 CONTROLS = [
-    dict(id="P1", polarity="positive", require="proven", proj=JIN, module="CrouzeixConjecture",
+    dict(id="P1", polarity="positive", proj=JIN, module="CrouzeixConjecture",
          decl="CrouzeixConjecture.crouzeixConjecture",
-         statement="Crouzeix's conjecture for complex square matrices and polynomials, constant 2, induced Euclidean operator norm (jinshanmu/CrouzeixConjecture at f9d5c8d).",
+         gloss="Crouzeix's conjecture for complex square matrices and polynomials, constant 2, induced Euclidean operator norm (jinshanmu/CrouzeixConjecture at f9d5c8d).",
          mutants=[dict(file="CrouzeixConjecture/FinalTheorems.lean", delete=" [Nonempty n]")],
-         checker_module="CrouzeixConjecture.FinalTheorems"),
-    dict(id="P2", polarity="positive", require="proven", proj=CALIB, module="Quod.P2",
-         decl="QuodP2.sharp_two",
-         statement="Sharpness of the constant 2 at the 2x2 nilpotent Jordan block with p = X: 2 * sup_{W(J)} |z| <= ||J||.",
-         mutants=[], checker_module="Quod.P2"),
-    dict(id="P3", polarity="positive", require="proven", proj=CALIB, module="Quod.P3",
+         checker_module="CrouzeixConjecture.FinalTheorems",
+         require=dict(status="proven", grounded=True, anchored_all=True, hypotheses=[])),
+    dict(id="P2", polarity="positive", proj=CALIB, module="Quod.P2", decl="QuodP2.sharp_two",
+         gloss="Sharpness of the constant 2 at the 2x2 nilpotent Jordan block with p = X: 2 * sup_{W(J)} |z| <= ||J||.",
+         checker_module="Quod.P2", require=dict(status="proven")),
+    dict(id="P3", polarity="positive", proj=CALIB, module="Quod.P3",
          decl="QuodP3.infinitely_many_primes_again",
-         statement="For every n there is a prime p >= n (restatement of Nat.exists_infinite_primes).",
-         mutants=[], checker_module="Quod.P3", dedup_with="Nat.exists_infinite_primes"),
-    dict(id="N1", polarity="negative", require="stated", proj=CALIB, module="Quod.Controls.N1",
-         decl="navier_stokes",
-         statement="The AIX template: a step hypothesis over a private predicate Tower.declInv, proved by induction.",
-         mutants=[], checker_module="Quod.Controls.N1"),
-    dict(id="N2", polarity="negative", require="stated", proj=CALIB, module="Quod.Controls.N2",
-         decl="p_vs_np", statement="A named proposition whose definition is True.",
-         mutants=[], checker_module="Quod.Controls.N2"),
-    dict(id="N3", polarity="negative", require="axiom-fail", proj=CALIB, module="Quod.Controls.N3",
-         decl="all_primes_small", statement="A theorem resting on an uninterpreted axiom `oracle`.",
-         mutants=[], checker_module="Quod.Controls.N3"),
-    dict(id="N4", polarity="negative", require="refuted", proj=CALIB, module="Quod.Controls.N4",
+         gloss="For every n there is a prime p >= n (restatement of Nat.exists_infinite_primes).",
+         checker_module="Quod.P3", dedup_with="Nat.exists_infinite_primes",
+         require=dict(status="proven", dedup=True)),
+    dict(id="N1", polarity="negative", proj=CALIB, module="Quod.Controls.N1", decl="navier_stokes",
+         gloss="The AIX template: a step hypothesis over a private predicate Tower.declInv, proved by induction. Proven as the implication it is; counts against nothing.",
+         checker_module="Quod.Controls.N1",
+         require=dict(status="proven", hypotheses=["step"], registry_match=None, anchored_all=False)),
+    dict(id="N2", polarity="negative", proj=CALIB, module="Quod.Controls.N2", decl="p_vs_np",
+         gloss="A named proposition whose definition is True. Proven, trivially, and the record says so.",
+         checker_module="Quod.Controls.N2",
+         require=dict(status="proven", reduces_to_True=True, registry_match=None)),
+    dict(id="N3", polarity="negative", proj=CALIB, module="Quod.Controls.N3", decl="all_primes_small",
+         gloss="A theorem resting on an uninterpreted axiom `oracle`.",
+         checker_module="Quod.Controls.N3",
+         require=dict(status="stated", proof_verdict="rejected: extra axioms")),
+    dict(id="N4", polarity="negative", proj=CALIB, module="Quod.Controls.N4",
          decl="crouzeix_constant_one",
-         statement="Crouzeix's inequality with constant 1 (false; refuted by P2's witness).",
-         mutants=[], checker_module="Quod.Controls.N4",
-         refuted_by=dict(module="Quod.P2", decl="QuodP2.N4_refuted")),
-    dict(id="N6", polarity="negative", require="stated", proj=CALIB, module="Quod.Controls.N1",
-         decl="navier_stokes",
-         statement="N1 with a forged anchor row: Tower.declInv nominated to an unrelated rfl lemma (QuodP2.anchor_J).",
-         mutants=[], checker_module="Quod.Controls.N1",
-         anchors={"Tower.declInv": (CALIB, "Quod.P2", "QuodP2.anchor_J")}),
-    dict(id="N7", polarity="negative", require="stated", proj=CALIB, module="Quod.Controls.N7",
-         decl="navier_stokes_laundered",
-         statement="N1 with an anchor of admissible shape whose right-hand side is another private constant (chain does not end in Mathlib).",
-         mutants=[], checker_module="Quod.Controls.N7",
-         anchors={"Tower7.declInv": (CALIB, "Quod.Controls.N7", "Tower7.anchor_declInv")}),
-    dict(id="N8", polarity="negative", require="stated", proj=CALIB, module="Quod.Controls.N4",
-         decl="crouzeix_constant_one",
-         statement="N4 with a forged refutation row: an unrelated clean theorem (QuodP2.sharp_two) nominated as the negation.",
-         mutants=[], checker_module="Quod.Controls.N4",
-         refuted_by=dict(module="Quod.P2", decl="QuodP2.sharp_two")),
-    dict(id="N5", polarity="negative", require="drift-fail", proj=JIN, module="CrouzeixConjecture",
+         gloss="Crouzeix's inequality with constant 1 (false; refuted by P2's witness).",
+         checker_module="Quod.Controls.N4",
+         refutation=dict(module="Quod.P2", decl="QuodP2.N4_refuted"),
+         require=dict(status="refuted")),
+    dict(id="N5", polarity="negative", proj=JIN, module="CrouzeixConjecture",
          decl="CrouzeixConjecture.crouzeixConjecture",
-         statement="P1's claim file with a stale recorded lock (the statement changed, the prose did not).",
-         mutants=[], checker_module=None, stale_lock="0" * 64),
+         gloss="P1's demonstrandum with a stale recorded lock (the statement changed, the record did not).",
+         checker_module=None, stale_lock="0" * 64, require=dict(status="drift-fail")),
+    dict(id="N6", polarity="negative", proj=CALIB, module="Quod.Controls.N1", decl="navier_stokes",
+         gloss="N1 with a forged anchor row: Tower.declInv nominated to an unrelated rfl lemma (QuodP2.anchor_J).",
+         checker_module="Quod.Controls.N1",
+         anchors={"Tower.declInv": (CALIB, "Quod.P2", "QuodP2.anchor_J")},
+         require=dict(status="proven", anchored_all=False, anchor_reason="ANCHOR-BAD")),
+    dict(id="N7", polarity="negative", proj=CALIB, module="Quod.Controls.N7",
+         decl="navier_stokes_laundered",
+         gloss="N1 with an anchor of admissible shape whose right-hand side is another private constant (chain does not end in Mathlib).",
+         checker_module="Quod.Controls.N7",
+         anchors={"Tower7.declInv": (CALIB, "Quod.Controls.N7", "Tower7.anchor_declInv")},
+         require=dict(status="proven", anchored_all=False, anchor_reason="via")),
+    dict(id="N8", polarity="negative", proj=CALIB, module="Quod.Controls.N4",
+         decl="crouzeix_constant_one",
+         gloss="N4 with a forged refutation row: an unrelated clean theorem (QuodP2.sharp_two) nominated as the negation.",
+         checker_module="Quod.Controls.N4",
+         refutation=dict(module="Quod.P2", decl="QuodP2.sharp_two"),
+         require=dict(status="stated", refutation_verdict="rejected: shape")),
+    dict(id="N9", polarity="negative", proj=CALIB, module="Quod.P2",
+         decl="QuodP2.sharp_two",
+         gloss="A clean theorem offered as the proof of a different demonstrandum (P1's lock recorded as the target).",
+         checker_module="Quod.P2",
+         demonstrandum=dict(proj=JIN, module="CrouzeixConjecture", decl="CrouzeixConjecture.crouzeixConjecture"),
+         require=dict(status="stated", proof_verdict="rejected: lock mismatch")),
 ]
 
 
@@ -129,21 +141,6 @@ def axioms(proj, module, decl):
     return rc, res, out
 
 
-def registry_locks():
-    """lock -> registry claim id, from claims/millennium/*.yml (empty before import)."""
-    d = os.path.join(ROOT, "claims", "millennium")
-    out = {}
-    if os.path.isdir(d):
-        for f in sorted(os.listdir(d)):
-            if f.endswith(".yml"):
-                y = yaml.safe_load(open(os.path.join(d, f)))
-                if y.get("lock"): out[y["lock"]] = y["id"]
-    return out
-
-
-REGISTRY_LOCKS = registry_locks()
-
-
 def anchor_shape(proj, module, anchor, const):
     rc, out = run(["python3", f"{SCRIPTS}/anchor_check.py", proj, module, anchor, const, "--json"])
     try:
@@ -175,122 +172,202 @@ def anchored(cc, table, rec, seen=()):
     return [f"{cc} via {b}" for b in bad]
 
 
+def registry_locks():
+    """lock -> registry claim id, from claims/millennium/*.yml (empty before import)."""
+    d = os.path.join(ROOT, "claims", "millennium")
+    out = {}
+    if os.path.isdir(d):
+        for f in sorted(os.listdir(d)):
+            if f.endswith(".yml"):
+                y = yaml.safe_load(open(os.path.join(d, f)))
+                if y.get("lock"):
+                    out[y["lock"]] = y["id"]
+    return out
+
+
+REGISTRY_LOCKS = registry_locks()
+
+
+def axiom_verdict(ax):
+    if ax["ok"]:
+        return "accepted"
+    if ax["extra"] == ["sorryAx"]:
+        return "incomplete: sorry"
+    return f"rejected: extra axioms {ax['extra']}"
+
+
 def evaluate(c, checker=CHECKER):
-    """Run every gate on one claim dict and return the record with its COMPUTED status.
-    c: id, decl, module, proj, mutants, checker_module, optional anchors/refuted_by/
-    dedup_with/stale_lock/polarity/require."""
-    c = {"polarity": "claim", "require": None, "mutants": [], **c}
+    """Compute the record for one control/claim under SEMANTICS.md.
+    c: id, proj, module, decl (the offered declaration; also D unless `demonstrandum`
+    names another), optional demonstrandum, refutation, anchors, stale_lock,
+    dedup_with, mutants, checker_module, require."""
+    c = {"polarity": "claim", "require": {}, "mutants": [], **c}
+    D = c.get("demonstrandum") or dict(proj=c["proj"], module=c["module"], decl=c["decl"])
     rec = {"id": c["id"], "polarity": c["polarity"], "required": c["require"],
-           "decl": c["decl"], "module": c["module"], "evidence": {}, "reasons": []}
-    # L1 lock
-    lk, raw = lock(c["proj"], c["module"], c["decl"])
+           "demonstrandum": f"{D['module']}:{D['decl']}", "offered": f"{c['module']}:{c['decl']}",
+           "evidence": {}, "reasons": [], "proof_verdict": None, "refutation_verdict": None}
+    # ---- demonstrandum lock and descriptors
+    lkD, raw = lock(D["proj"], D["module"], D["decl"])
     rec["evidence"]["lock_cid"] = ket_put(raw)
-    if lk is None:
-        rec["reasons"].append("lock failed"); status = "stated"
+    if lkD is None:
+        rec["status"] = "lock-fail"; rec["reasons"].append("demonstrandum lock failed"); return rec
+    rec["lock"] = lkD["lock"]
+    rec["custom_constants"] = [x["name"] for x in lkD["custom_constants"]]
+    rec["hypotheses"] = [{"name": h["name"], "type": h["type"]} for h in lkD.get("hypotheses", [])]
+    rec["reduces_to_True"] = bool(lkD["reduces_to_True"])
+    rec["registry_match"] = REGISTRY_LOCKS.get(lkD["lock"])
+    if rec["reduces_to_True"]:
+        rec["reasons"].append("type unfolds to True")
+    if rec["custom_constants"]:
+        grc, gout = run(["python3", f"{SCRIPTS}/closure.py", D["proj"], D["module"],
+                         *rec["custom_constants"], "--json"])
+        rec["evidence"]["closure_cid"] = ket_put(gout)
+        try:
+            reps = json.loads(gout[gout.index("["):gout.rindex("]") + 1])
+            rec["grounded"] = all(r["grounded"] for r in reps)
+            rec["closure"] = {r["root"]: {"custom": len(r["custom"]), "grounded": r["grounded"],
+                                          "axioms": r["axioms"], "opaque": r["opaque"]} for r in reps}
+        except Exception:
+            rec["grounded"] = False; rec["reasons"].append("closure survey failed")
     else:
-        rec["lock"] = lk["lock"]
-        rec["custom_constants"] = [x["name"] for x in lk["custom_constants"]]
-        status = None
-        # L0 axiom gate
-        arc, ax, raw = axioms(c["proj"], c["module"], c["decl"])
-        rec["evidence"]["axioms_cid"] = ket_put(raw); rec["axioms"] = ax["axioms"]
-        if not ax["ok"]:
-            if ax["extra"] == ["sorryAx"]:
-                status = "stated"; rec["reasons"].append("proof uses sorry")
-            else:
-                status = "axiom-fail"; rec["reasons"].append(f"extra axioms {ax['extra']}")
-        # type is True
-        if lk["reduces_to_True"]:
-            status = status or "stated"; rec["reasons"].append("type unfolds to True")
-        # anchors
-        # hypotheses (Q-1: listed, not yet a status rule) and registry match
-        rec["hypotheses"] = [{"name": h["name"], "type": h["type"]} for h in lk.get("hypotheses", [])]
-        rec["registry_match"] = REGISTRY_LOCKS.get(lk["lock"])
-        # grounded: definitional closure of the type's custom constants ends in std libs
-        if rec["custom_constants"]:
-            grc, gout = run(["python3", f"{SCRIPTS}/closure.py", c["proj"], c["module"],
-                             *rec["custom_constants"], "--json"])
-            rec["evidence"]["closure_cid"] = ket_put(gout)
-            try:
-                reps = json.loads(gout[gout.index("["):gout.rindex("]") + 1])
-                rec["grounded"] = all(r["grounded"] for r in reps)
-                rec["closure"] = {r["root"]: {"custom": len(r["custom"]), "grounded": r["grounded"],
-                                              "axioms": r["axioms"], "opaque": r["opaque"]} for r in reps}
-            except Exception:
-                rec["grounded"] = False; rec["reasons"].append("closure survey failed")
-        else:
-            rec["grounded"] = True
-        table = {**ANCHORS, **c.get("anchors", {})}
-        unanchored = []
-        for cc in rec["custom_constants"]:
-            unanchored += anchored(cc, table, rec)
-        if unanchored:
-            status = status or "stated"; rec["reasons"].append(f"unanchored {unanchored}")
-        # mutants
+        rec["grounded"] = True
+    table = {**ANCHORS, **c.get("anchors", {})}
+    rec["anchored"] = {}
+    for cc in rec["custom_constants"]:
+        bad = anchored(cc, table, rec)
+        rec["anchored"][cc] = "anchored" if not bad else "; ".join(bad)
+    rec["anchored_all"] = all(v == "anchored" for v in rec["anchored"].values())
+    if not rec["anchored_all"]:
+        rec["reasons"].append("unanchored " + str([k for k, v in rec["anchored"].items() if v != "anchored"]))
+    if c.get("dedup_with"):
+        lk2, _ = lock(D["proj"], D["module"], c["dedup_with"])
+        rec["dedup"] = bool(lk2 and lk2["lock"] == lkD["lock"])
+        rec["reasons"].append(f"dedup with {c['dedup_with']}: {'same lock' if rec['dedup'] else 'different lock'}")
+    # ---- drift
+    if c.get("stale_lock") is not None:
+        rec["recorded_lock"] = c["stale_lock"]
+        if c["stale_lock"] != lkD["lock"]:
+            rec["status"] = "drift-fail"; rec["reasons"].append("recorded lock differs from recomputed lock")
+            return rec
+    # ---- offered proof (default: D's own declaration)
+    proof_ok = False
+    if not c.get("refutation") or c.get("demonstrandum"):
+        if c.get("demonstrandum"):
+            lkP, rawP = lock(c["proj"], c["module"], c["decl"])
+            rec["evidence"]["proof_lock_cid"] = ket_put(rawP)
+            if lkP is None or lkP["lock"] != lkD["lock"]:
+                rec["proof_verdict"] = "rejected: lock mismatch"
+        if rec["proof_verdict"] is None:
+            _, ax, raw = axioms(c["proj"], c["module"], c["decl"])
+            rec["evidence"]["axioms_cid"] = ket_put(raw); rec["axioms"] = ax["axioms"]
+            rec["proof_verdict"] = axiom_verdict(ax)
+        if rec["proof_verdict"] == "accepted" and c.get("checker_module"):
+            krc, kout = run(["lake", "env", checker, c["checker_module"]], cwd=c["proj"])
+            rec["evidence"]["checker_cid"] = ket_put(kout); rec["checker_rc"] = krc
+            if krc != 0:
+                rec["proof_verdict"] = "rejected: lean4checker"
+        proof_ok = rec["proof_verdict"] == "accepted"
         for m in c["mutants"]:
             mrc, mout = run(["python3", f"{SCRIPTS}/hyp_mutant.py", c["proj"], m["file"],
                              "--delete", m["delete"]])
             rec["evidence"][f"mutant_{m['delete'].strip()}"] = ket_put(mout)
             rec.setdefault("mutants", []).append({"delete": m["delete"], "killed": mrc == 0})
             if mrc != 0:
-                status = status or "stated"; rec["reasons"].append(f"dead premise {m['delete']!r}")
-        # lean4checker
-        if c.get("checker_module"):
-            krc, kout = run(["lake", "env", checker, c["checker_module"]], cwd=c["proj"])
-            rec["evidence"]["checker_cid"] = ket_put(kout); rec["checker_rc"] = krc
-            if krc != 0:
-                status = "checker-fail"; rec["reasons"].append("lean4checker failed")
-        # refutation
-        if c.get("refuted_by"):
-            rb = c["refuted_by"]
-            src, sout = run(["python3", f"{SCRIPTS}/refute_check.py", c["proj"], rb["module"],
-                             rb["decl"], c["module"], c["decl"], "--json"])
-            rec["evidence"]["refutation_shape_cid"] = ket_put(sout)
-            rrc, rax, rraw = axioms(c["proj"], rb["module"], rb["decl"])
+                rec["reasons"].append(f"dead premise {m['delete']!r}")
+    # ---- offered refutation
+    ref_ok = False
+    if c.get("refutation"):
+        rb = c["refutation"]
+        # the declaration D itself may carry a sorry body; record that verdict too
+        _, axD, rawD = axioms(D["proj"], D["module"], D["decl"])
+        rec["evidence"]["axioms_cid"] = ket_put(rawD); rec["axioms"] = axD["axioms"]
+        rec["proof_verdict"] = axiom_verdict(axD)
+        src, sout = run(["python3", f"{SCRIPTS}/refute_check.py", c["proj"], rb["module"],
+                         rb["decl"], D["module"], D["decl"], "--json"])
+        rec["evidence"]["refutation_shape_cid"] = ket_put(sout)
+        if src != 0:
+            rec["refutation_verdict"] = "rejected: shape"
+        else:
+            _, rax, rraw = axioms(c["proj"], rb["module"], rb["decl"])
             rec["evidence"]["refutation_cid"] = ket_put(rraw)
-            if src == 0 and rax["ok"]:
-                status = "refuted"; rec["reasons"].append(f"negation proven: {rb['decl']}")
-            else:
-                why = "shape" if src != 0 else f"axioms {rax['extra']}"
-                rec["reasons"].append(f"refutation {rb['decl']} rejected ({why})")
-        # dedup
-        if c.get("dedup_with"):
-            lk2, _ = lock(c["proj"], c["module"], c["dedup_with"])
-            rec["dedup"] = {"with": c["dedup_with"], "same_lock": bool(lk2 and lk2["lock"] == lk["lock"])}
-            if not rec["dedup"]["same_lock"]:
-                rec["reasons"].append("lock differs from the Mathlib declaration")
-        # drift (N5): a recorded lock that no longer matches
-        if c.get("stale_lock") is not None:
-            rec["recorded_lock"] = c["stale_lock"]
-            if c["stale_lock"] != lk["lock"]:
-                status = "drift-fail"; rec["reasons"].append("recorded lock differs from recomputed lock")
-        status = status or "proven"
-    rec["status"] = status
+            rec["refutation_verdict"] = axiom_verdict(rax)
+            if rec["refutation_verdict"] == "accepted" and c.get("checker_module"):
+                krc, kout = run(["lake", "env", checker, c["checker_module"]], cwd=c["proj"])
+                rec["evidence"]["checker_cid"] = ket_put(kout); rec["checker_rc"] = krc
+                if krc != 0:
+                    rec["refutation_verdict"] = "rejected: lean4checker"
+        ref_ok = rec["refutation_verdict"] == "accepted"
+        rec["refutation"] = f"{rb['module']}:{rb['decl']}"
+    # ---- status
+    if proof_ok and ref_ok:
+        rec["status"] = "inconsistent"
+    elif ref_ok:
+        rec["status"] = "refuted"
+    elif proof_ok:
+        rec["status"] = "proven"
+    else:
+        rec["status"] = "stated"
     return rec
 
 
+def meets(rec, req):
+    """Which required keys the record fails (empty = OK)."""
+    misses = []
+    for k, want in req.items():
+        if k == "hypotheses":
+            got = [h["name"] for h in rec.get("hypotheses", [])]
+        elif k in ("proof_verdict", "refutation_verdict"):
+            got = rec.get(k) or ""
+            if want not in got:
+                misses.append(f"{k}={got!r}")
+            continue
+        elif k == "anchor_reason":
+            got = " ".join(rec.get("anchored", {}).values())
+            if want not in got:
+                misses.append(f"{k}={got!r}")
+            continue
+        else:
+            got = rec.get(k)
+        if got != want:
+            misses.append(f"{k}={got!r} (want {want!r})")
+    return misses
+
+
 def main() -> int:
+    only = None
+    for i, a in enumerate(sys.argv):
+        if a == "--only" and i + 1 < len(sys.argv):
+            only = set(sys.argv[i + 1].split(","))
+    controls = [c for c in CONTROLS if only is None or c["id"] in only]
     results, all_ok = [], True
     os.makedirs(os.path.join(ROOT, "claims"), exist_ok=True)
-    for c in CONTROLS:
+    for c in controls:
         rec = evaluate(c)
-        rec["ok"] = rec["status"] == c["require"]
+        misses = meets(rec, c["require"])
+        rec["ok"] = not misses
         all_ok &= rec["ok"]
         results.append(rec)
-        print(f"{c['id']} {c['polarity']:8s} required {c['require']:11s} computed {rec["status"]:11s} {'OK ' if rec['ok'] else 'MISS'}  {'; '.join(rec['reasons'])}")
-        # claim file (status computed, never declared)
-        claim = {"id": c["id"], "statement": c["statement"], "lean": f"{c['module']}:{c['decl']}",
-                 "lock": rec.get("recorded_lock", rec.get("lock")), "custom_constants": rec.get("custom_constants", []),
-                 "hypotheses": rec.get("hypotheses", []), "grounded": rec.get("grounded"),
-                 "registry_match": rec.get("registry_match"),
-                 "controls": [c["polarity"]], "status": rec["status"], "reasons": rec["reasons"],
-                 "evidence": rec["evidence"]}
+        verd = []
+        if rec.get("proof_verdict"): verd.append(f"proof {rec['proof_verdict']}")
+        if rec.get("refutation_verdict"): verd.append(f"refutation {rec['refutation_verdict']}")
+        print(f"{c['id']} {c['polarity']:8s} required {c['require'].get('status','?'):10s} computed {rec['status']:10s} "
+              f"{'OK ' if rec['ok'] else 'MISS ' + '; '.join(misses)}  {'; '.join(verd + rec['reasons'])}")
+        claim = {"id": c["id"], "gloss": c["gloss"], "demonstrandum": rec["demonstrandum"],
+                 "lock": rec.get("recorded_lock", rec.get("lock")),
+                 "offered": rec["offered"], "proof_verdict": rec.get("proof_verdict"),
+                 "refutation": rec.get("refutation"), "refutation_verdict": rec.get("refutation_verdict"),
+                 "status": rec["status"],
+                 "descriptors": {k: rec.get(k) for k in ("hypotheses", "custom_constants", "grounded",
+                                                          "anchored", "reduces_to_True", "registry_match",
+                                                          "dedup", "mutants") if k in rec},
+                 "controls": [c["polarity"]], "reasons": rec["reasons"], "evidence": rec["evidence"]}
         with open(os.path.join(ROOT, "claims", f"{c['id'].lower()}.yml"), "w") as f:
             yaml.safe_dump(claim, f, sort_keys=False, allow_unicode=True)
-    out = {"pins": {"crouzeix": {"lean": "v4.28.0", "mathlib": "8f9d9cff", "jin": "f9d5c8d"}},
-           "controls": results, "pass": all_ok}
-    with open(os.path.join(CALIB, "RESULTS.json"), "w") as f:
-        json.dump(out, f, indent=1)
+    if only is None:
+        out = {"semantics": "SEMANTICS.md", "pins": {"crouzeix": {"lean": "v4.28.0", "mathlib": "8f9d9cff", "jin": "f9d5c8d"}},
+               "controls": results, "pass": all_ok}
+        with open(os.path.join(CALIB, "RESULTS.json"), "w") as f:
+            json.dump(out, f, indent=1)
     print("calibration:", "PASS" if all_ok else "FAIL",
           f"({sum(r['ok'] for r in results)}/{len(results)} controls at required outcome)")
     return 0 if all_ok else 1

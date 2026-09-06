@@ -5,25 +5,28 @@ pin:
   lean: leanprover/lean4:v4.31.0
   mathlib: fabf563a7c
   physlib: 3dddd61e23
-lean: Problems.BirchSwinnertonDyer.Millennium:MillenniumBirchSwinnertonDyer.clay_prize_birch_swinnerton_dyer
+demonstrandum: Problems.BirchSwinnertonDyer.Millennium:MillenniumBirchSwinnertonDyer.clay_prize_birch_swinnerton_dyer
 lock: 5020efddff5dc29ced9bc98cb792f71dc4b28b6cf563f99979df159b64ac7dc7
-custom_constants:
-- MillenniumBirchSwinnertonDyer.ClayBirchSwinnertonDyer
-anchors: {}
-hypotheses: []
-grounded: true
-closure:
-  MillenniumBirchSwinnertonDyer.ClayBirchSwinnertonDyer:
-    custom: 12
-    grounded: true
-    axioms: []
-    opaque: []
+offered: Problems.BirchSwinnertonDyer.Millennium:MillenniumBirchSwinnertonDyer.clay_prize_birch_swinnerton_dyer
+proof_verdict: 'incomplete: sorry'
 status: stated
+descriptors:
+  hypotheses: []
+  custom_constants:
+  - MillenniumBirchSwinnertonDyer.ClayBirchSwinnertonDyer
+  grounded: true
+  anchored:
+    MillenniumBirchSwinnertonDyer.ClayBirchSwinnertonDyer: MillenniumBirchSwinnertonDyer.ClayBirchSwinnertonDyer
+  reduces_to_True: false
+  closure:
+    MillenniumBirchSwinnertonDyer.ClayBirchSwinnertonDyer:
+      custom: 12
+      grounded: true
+      axioms: []
+      opaque: []
 reasons:
-- proof uses sorry
 - unanchored ['MillenniumBirchSwinnertonDyer.ClayBirchSwinnertonDyer']
 evidence:
   lock_cid: 2e5d566e1b689fd61c4b75ef9076c8437d6e03e6179cf9b6d83711e0b7c10ade
-  axioms_cid: 26925037b16b306faf729081c1321c2c0ec7b818bef43062e9212fd947b46d91
   closure_cid: 7f8d748c077ffd607197904d064350fbabbb2449fd5cc5632becb615b557c951
-  checker_cid: 6b40fc81c6e13db1921ba3fecd3ac91d383533da452f99f17c0aede3207c0a6c
+  axioms_cid: 26925037b16b306faf729081c1321c2c0ec7b818bef43062e9212fd947b46d91

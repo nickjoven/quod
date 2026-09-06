@@ -1,23 +1,33 @@
 id: P2
-statement: 'Sharpness of the constant 2 at the 2x2 nilpotent Jordan block with p =
-  X: 2 * sup_{W(J)} |z| <= ||J||.'
-lean: Quod.P2:QuodP2.sharp_two
+gloss: 'Sharpness of the constant 2 at the 2x2 nilpotent Jordan block with p = X:
+  2 * sup_{W(J)} |z| <= ||J||.'
+demonstrandum: Quod.P2:QuodP2.sharp_two
 lock: 652237bb3dc51fa0328c643b8be021af8231c9a9b6f6ed563d976ac2fad6b94a
-custom_constants:
-- CrouzeixConjecture.maxPolynomialModulusOnNumericalRange
-- QuodP2.J
-- CrouzeixConjecture.SquareMatrix
-- CrouzeixConjecture.polynomialEval
-hypotheses: []
-grounded: true
-registry_match: null
+offered: Quod.P2:QuodP2.sharp_two
+proof_verdict: accepted
+refutation: null
+refutation_verdict: null
+status: proven
+descriptors:
+  hypotheses: []
+  custom_constants:
+  - CrouzeixConjecture.maxPolynomialModulusOnNumericalRange
+  - QuodP2.J
+  - CrouzeixConjecture.SquareMatrix
+  - CrouzeixConjecture.polynomialEval
+  grounded: true
+  anchored:
+    CrouzeixConjecture.maxPolynomialModulusOnNumericalRange: anchored
+    QuodP2.J: anchored
+    CrouzeixConjecture.SquareMatrix: anchored
+    CrouzeixConjecture.polynomialEval: anchored
+  reduces_to_True: false
+  registry_match: null
 controls:
 - positive
-status: proven
 reasons: []
 evidence:
   lock_cid: 4907cc86fe8e2ac5a6d0162d241753407aa311a5d7dd82b12b0af0fca03133bb
-  axioms_cid: b03fc3fceeed2f97d573cf11f9fc629d93f208dae16184d98844d25809733f05
   closure_cid: f4e5956078deaf8ef864867b4042488077f352eb2c72b2df5c71e5cb5f269e8d
   anchor_shape_CrouzeixConjecture.maxPolynomialModulusOnNumericalRange: cda750f77b6c7d66e6594c922d23d467a667b7e22378b028e9db3a58f3dd7d3a
   anchor_axioms_CrouzeixConjecture.maxPolynomialModulusOnNumericalRange: c4374502aef2c6adcc6dd4e0daeec9f136418e68a53948db25bb44e700588e5d
@@ -29,4 +39,5 @@ evidence:
   anchor_axioms_CrouzeixConjecture.SquareMatrix: 7a1f26033025494f5c76724c4b5d6a1c669a5ccbec7ee98684c300be99a7b8b6
   anchor_shape_CrouzeixConjecture.polynomialEval: 5c2d3ff1b6424b22154047941370bd88bd683c637a847593fc3fb4cc80f5d127
   anchor_axioms_CrouzeixConjecture.polynomialEval: bbe66703bbee5024edf5f6c654a8a4be8a07a18fb54e4a03e7733f00b928955d
+  axioms_cid: b03fc3fceeed2f97d573cf11f9fc629d93f208dae16184d98844d25809733f05
   checker_cid: 3187b9e41b79c5207aed4c37d3fec3d0885810bf97c5b095a7364dcef3097c67

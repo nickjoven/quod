@@ -1,20 +1,29 @@
 id: N2
-statement: A named proposition whose definition is True.
-lean: Quod.Controls.N2:p_vs_np
+gloss: A named proposition whose definition is True. Proven, trivially, and the record
+  says so.
+demonstrandum: Quod.Controls.N2:p_vs_np
 lock: 4876adc70a8dde05b3ad791f838398d756d58cb88154c645f6cea3099cdbd0cb
-custom_constants:
-- PvsNPClaim
-hypotheses: []
-grounded: true
-registry_match: null
+offered: Quod.Controls.N2:p_vs_np
+proof_verdict: accepted
+refutation: null
+refutation_verdict: null
+status: proven
+descriptors:
+  hypotheses: []
+  custom_constants:
+  - PvsNPClaim
+  grounded: true
+  anchored:
+    PvsNPClaim: PvsNPClaim
+  reduces_to_True: true
+  registry_match: null
 controls:
 - negative
-status: stated
 reasons:
 - type unfolds to True
 - unanchored ['PvsNPClaim']
 evidence:
   lock_cid: 3fded70cdb625f4e77f21214dc5f102be15b1a489787d0965b7cf3e7057688c8
-  axioms_cid: 0a83df1a301f55ec29539a42323909f008dc1c7e02d9aa72edfbdc969e0af106
   closure_cid: 3bb0515c8f897ff324f14e492e9f3335ab98a2120208942caa503a2b5d6d68d0
+  axioms_cid: 0a83df1a301f55ec29539a42323909f008dc1c7e02d9aa72edfbdc969e0af106
   checker_cid: 58e870f91da86a10478db04953e10e23fba3c998cd0b13018ce79842b366c533

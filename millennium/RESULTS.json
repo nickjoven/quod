@@ -31,30 +31,25 @@
   {
    "id": "M-p_versus_np",
    "polarity": "claim",
-   "required": null,
-   "decl": "Millennium.clay_prize_p_versus_np",
-   "module": "Problems.PVersusNP.Millennium",
+   "required": {},
+   "demonstrandum": "Problems.PVersusNP.Millennium:Millennium.clay_prize_p_versus_np",
+   "offered": "Problems.PVersusNP.Millennium:Millennium.clay_prize_p_versus_np",
    "evidence": {
     "lock_cid": "23a727f4cd5885748005b4246fea5312d141dc3fe43a40f5a50414bea6266710",
-    "axioms_cid": "00cdac2c33c672641fa9eed23311feba1562065b496475f5ceb4ec193d35e6d9",
     "closure_cid": "fc8ed4a203d1a861ea859a0c6233ea956000caf06d654cd735efdcbbbb73b751",
-    "checker_cid": "3551132206ab096199fbdfe78ffbd1786c67fb0d006f7681295f02dd53156b5c"
+    "axioms_cid": "00cdac2c33c672641fa9eed23311feba1562065b496475f5ceb4ec193d35e6d9"
    },
    "reasons": [
-    "proof uses sorry",
     "unanchored ['Millennium.ClayPVersusNPResolution']"
    ],
+   "proof_verdict": "incomplete: sorry",
+   "refutation_verdict": null,
    "lock": "40684c09e9e7a0e3c8418f30d41eb7db455301dfaa52d84ce8c1b01fb87e1a3f",
    "custom_constants": [
     "Millennium.ClayPVersusNPResolution"
    ],
-   "axioms": [
-    "Classical.choice",
-    "Quot.sound",
-    "propext",
-    "sorryAx"
-   ],
    "hypotheses": [],
+   "reduces_to_True": false,
    "registry_match": "M-p_versus_np",
    "grounded": true,
    "closure": {
@@ -65,39 +60,42 @@
      "opaque": []
     }
    },
-   "checker_rc": 0,
-   "status": "stated"
-  },
-  {
-   "id": "M-riemann_hypothesis",
-   "polarity": "claim",
-   "required": null,
-   "decl": "Millennium.clay_prize_riemann_hypothesis",
-   "module": "Problems.RiemannHypothesis.Millennium",
-   "evidence": {
-    "lock_cid": "ef1d3f1fad039192928135489d5910b4ee18cc023e682a39ba8fc6187428b0e5",
-    "axioms_cid": "5122189b2352e0b2c0e90375ce9a0f396a157cf5a215e258f6191a3fabf70e9a",
-    "closure_cid": "4eaafce5e8773557785aa3b5f181cb00b9464ee927e0e4f737650f2985f0115b",
-    "anchor_shape_Millennium.ClayRiemannHypothesis": "91db2e47ca6e8857d9af926c6c3a8635a68346aea3ed489976e6b3cd012df408",
-    "anchor_axioms_Millennium.ClayRiemannHypothesis": "5faba01c68e5f6a2312151f21a2b512d5ef4854fc1039ce1f3f8bcc5aa07d99a",
-    "anchor_shape_Millennium.ClayRiemannHypothesis.Formulations.RealPart": "7156fce35386705798409f6aab2663b74dc8d03a3195f5dc8547f4ccd3c628d3",
-    "anchor_axioms_Millennium.ClayRiemannHypothesis.Formulations.RealPart": "78b023895d360e077b3912cdea824ab0b8c91e6da9d88f051e187f2128cc2a8f",
-    "checker_cid": "1a3c921a2c71e7b5a3cbe57b7b3a758bf3d58b9e0842ff608e953e490aeb57e8"
+   "anchored": {
+    "Millennium.ClayPVersusNPResolution": "Millennium.ClayPVersusNPResolution"
    },
-   "reasons": [
-    "proof uses sorry"
-   ],
-   "lock": "2284d8427c4ddec61e788c2b6ea1d605aa9923bc1993826cd15080ca3e5ff4c8",
-   "custom_constants": [
-    "Millennium.ClayRiemannHypothesis"
-   ],
+   "anchored_all": false,
    "axioms": [
     "Classical.choice",
     "Quot.sound",
     "propext",
     "sorryAx"
    ],
+   "status": "stated"
+  },
+  {
+   "id": "M-riemann_hypothesis",
+   "polarity": "claim",
+   "required": {},
+   "demonstrandum": "Problems.RiemannHypothesis.Millennium:Millennium.clay_prize_riemann_hypothesis",
+   "offered": "Problems.RiemannHypothesis.Millennium:Millennium.clay_prize_riemann_hypothesis",
+   "evidence": {
+    "lock_cid": "ef1d3f1fad039192928135489d5910b4ee18cc023e682a39ba8fc6187428b0e5",
+    "closure_cid": "4eaafce5e8773557785aa3b5f181cb00b9464ee927e0e4f737650f2985f0115b",
+    "anchor_shape_Millennium.ClayRiemannHypothesis": "91db2e47ca6e8857d9af926c6c3a8635a68346aea3ed489976e6b3cd012df408",
+    "anchor_axioms_Millennium.ClayRiemannHypothesis": "5faba01c68e5f6a2312151f21a2b512d5ef4854fc1039ce1f3f8bcc5aa07d99a",
+    "anchor_shape_Millennium.ClayRiemannHypothesis.Formulations.RealPart": "7156fce35386705798409f6aab2663b74dc8d03a3195f5dc8547f4ccd3c628d3",
+    "anchor_axioms_Millennium.ClayRiemannHypothesis.Formulations.RealPart": "78b023895d360e077b3912cdea824ab0b8c91e6da9d88f051e187f2128cc2a8f",
+    "axioms_cid": "5122189b2352e0b2c0e90375ce9a0f396a157cf5a215e258f6191a3fabf70e9a"
+   },
+   "reasons": [],
+   "proof_verdict": "incomplete: sorry",
+   "refutation_verdict": null,
+   "lock": "2284d8427c4ddec61e788c2b6ea1d605aa9923bc1993826cd15080ca3e5ff4c8",
+   "custom_constants": [
+    "Millennium.ClayRiemannHypothesis"
+   ],
    "hypotheses": [],
+   "reduces_to_True": false,
    "registry_match": "M-riemann_hypothesis",
    "grounded": true,
    "closure": {
@@ -108,36 +106,40 @@
      "opaque": []
     }
    },
-   "checker_rc": 0,
-   "status": "stated"
-  },
-  {
-   "id": "M-navier_stokes",
-   "polarity": "claim",
-   "required": null,
-   "decl": "MillenniumNavierStokes.clay_prize_navier_stokes",
-   "module": "Problems.NavierStokes.Millennium",
-   "evidence": {
-    "lock_cid": "8a3593f25b5ee69234099e46f90cb8969dadd8266f28d9602815c6cef5bfe89c",
-    "axioms_cid": "d09a234d53d34dac479179617cb68509275417f15a51761d8c9f87d236df5b2a",
-    "closure_cid": "2014e85a0ffa71e519c337ffe167c9e1701c575ab2f7ad26566a236795763a13",
-    "checker_cid": "59270b148265f224fbf4eb326d17c12a0c47a62b2bdae2a888278984446def09"
+   "anchored": {
+    "Millennium.ClayRiemannHypothesis": "anchored"
    },
-   "reasons": [
-    "proof uses sorry",
-    "unanchored ['MillenniumNavierStokes.ClayNavierStokes']"
-   ],
-   "lock": "a76b8c96e85028f4cd7b3c02faada414e1e929381f9da8803f3293b8eef51f3d",
-   "custom_constants": [
-    "MillenniumNavierStokes.ClayNavierStokes"
-   ],
+   "anchored_all": true,
    "axioms": [
     "Classical.choice",
     "Quot.sound",
     "propext",
     "sorryAx"
    ],
+   "status": "stated"
+  },
+  {
+   "id": "M-navier_stokes",
+   "polarity": "claim",
+   "required": {},
+   "demonstrandum": "Problems.NavierStokes.Millennium:MillenniumNavierStokes.clay_prize_navier_stokes",
+   "offered": "Problems.NavierStokes.Millennium:MillenniumNavierStokes.clay_prize_navier_stokes",
+   "evidence": {
+    "lock_cid": "8a3593f25b5ee69234099e46f90cb8969dadd8266f28d9602815c6cef5bfe89c",
+    "closure_cid": "2014e85a0ffa71e519c337ffe167c9e1701c575ab2f7ad26566a236795763a13",
+    "axioms_cid": "d09a234d53d34dac479179617cb68509275417f15a51761d8c9f87d236df5b2a"
+   },
+   "reasons": [
+    "unanchored ['MillenniumNavierStokes.ClayNavierStokes']"
+   ],
+   "proof_verdict": "incomplete: sorry",
+   "refutation_verdict": null,
+   "lock": "a76b8c96e85028f4cd7b3c02faada414e1e929381f9da8803f3293b8eef51f3d",
+   "custom_constants": [
+    "MillenniumNavierStokes.ClayNavierStokes"
+   ],
    "hypotheses": [],
+   "reduces_to_True": false,
    "registry_match": "M-navier_stokes",
    "grounded": true,
    "closure": {
@@ -148,36 +150,40 @@
      "opaque": []
     }
    },
-   "checker_rc": 0,
-   "status": "stated"
-  },
-  {
-   "id": "M-hodge_conjecture",
-   "polarity": "claim",
-   "required": null,
-   "decl": "MillenniumHodge.clay_prize_hodge_conjecture",
-   "module": "Problems.Hodge.Millennium",
-   "evidence": {
-    "lock_cid": "8b346d0b017c1590029c26d5fe79c22c9ca16d5cbc6ac94583490b3e9ed1abd6",
-    "axioms_cid": "d1b620bc4b088c14b0ed0d9895ccf19acde507b163efd973a3afcdc9348b9f80",
-    "closure_cid": "307b2707a645f46eb98f20df4ccbae5531ae24c1cea880dce44ea039cff14eab",
-    "checker_cid": "f69bac4f2d642b9ef2be8c4d74eb049318de76193e9c23a272225b3853906ebd"
+   "anchored": {
+    "MillenniumNavierStokes.ClayNavierStokes": "MillenniumNavierStokes.ClayNavierStokes"
    },
-   "reasons": [
-    "proof uses sorry",
-    "unanchored ['MillenniumHodge.ClayHodge']"
-   ],
-   "lock": "e298047a20d2a4979545e3c32ece81c1c71f284b64ec8a54f0004d2eca879e1c",
-   "custom_constants": [
-    "MillenniumHodge.ClayHodge"
-   ],
+   "anchored_all": false,
    "axioms": [
     "Classical.choice",
     "Quot.sound",
     "propext",
     "sorryAx"
    ],
+   "status": "stated"
+  },
+  {
+   "id": "M-hodge_conjecture",
+   "polarity": "claim",
+   "required": {},
+   "demonstrandum": "Problems.Hodge.Millennium:MillenniumHodge.clay_prize_hodge_conjecture",
+   "offered": "Problems.Hodge.Millennium:MillenniumHodge.clay_prize_hodge_conjecture",
+   "evidence": {
+    "lock_cid": "8b346d0b017c1590029c26d5fe79c22c9ca16d5cbc6ac94583490b3e9ed1abd6",
+    "closure_cid": "307b2707a645f46eb98f20df4ccbae5531ae24c1cea880dce44ea039cff14eab",
+    "axioms_cid": "d1b620bc4b088c14b0ed0d9895ccf19acde507b163efd973a3afcdc9348b9f80"
+   },
+   "reasons": [
+    "unanchored ['MillenniumHodge.ClayHodge']"
+   ],
+   "proof_verdict": "incomplete: sorry",
+   "refutation_verdict": null,
+   "lock": "e298047a20d2a4979545e3c32ece81c1c71f284b64ec8a54f0004d2eca879e1c",
+   "custom_constants": [
+    "MillenniumHodge.ClayHodge"
+   ],
    "hypotheses": [],
+   "reduces_to_True": false,
    "registry_match": "M-hodge_conjecture",
    "grounded": true,
    "closure": {
@@ -188,36 +194,40 @@
      "opaque": []
     }
    },
-   "checker_rc": 0,
-   "status": "stated"
-  },
-  {
-   "id": "M-birch_swinnerton_dyer",
-   "polarity": "claim",
-   "required": null,
-   "decl": "MillenniumBirchSwinnertonDyer.clay_prize_birch_swinnerton_dyer",
-   "module": "Problems.BirchSwinnertonDyer.Millennium",
-   "evidence": {
-    "lock_cid": "2e5d566e1b689fd61c4b75ef9076c8437d6e03e6179cf9b6d83711e0b7c10ade",
-    "axioms_cid": "26925037b16b306faf729081c1321c2c0ec7b818bef43062e9212fd947b46d91",
-    "closure_cid": "7f8d748c077ffd607197904d064350fbabbb2449fd5cc5632becb615b557c951",
-    "checker_cid": "6b40fc81c6e13db1921ba3fecd3ac91d383533da452f99f17c0aede3207c0a6c"
+   "anchored": {
+    "MillenniumHodge.ClayHodge": "MillenniumHodge.ClayHodge"
    },
-   "reasons": [
-    "proof uses sorry",
-    "unanchored ['MillenniumBirchSwinnertonDyer.ClayBirchSwinnertonDyer']"
-   ],
-   "lock": "5020efddff5dc29ced9bc98cb792f71dc4b28b6cf563f99979df159b64ac7dc7",
-   "custom_constants": [
-    "MillenniumBirchSwinnertonDyer.ClayBirchSwinnertonDyer"
-   ],
+   "anchored_all": false,
    "axioms": [
     "Classical.choice",
     "Quot.sound",
     "propext",
     "sorryAx"
    ],
+   "status": "stated"
+  },
+  {
+   "id": "M-birch_swinnerton_dyer",
+   "polarity": "claim",
+   "required": {},
+   "demonstrandum": "Problems.BirchSwinnertonDyer.Millennium:MillenniumBirchSwinnertonDyer.clay_prize_birch_swinnerton_dyer",
+   "offered": "Problems.BirchSwinnertonDyer.Millennium:MillenniumBirchSwinnertonDyer.clay_prize_birch_swinnerton_dyer",
+   "evidence": {
+    "lock_cid": "2e5d566e1b689fd61c4b75ef9076c8437d6e03e6179cf9b6d83711e0b7c10ade",
+    "closure_cid": "7f8d748c077ffd607197904d064350fbabbb2449fd5cc5632becb615b557c951",
+    "axioms_cid": "26925037b16b306faf729081c1321c2c0ec7b818bef43062e9212fd947b46d91"
+   },
+   "reasons": [
+    "unanchored ['MillenniumBirchSwinnertonDyer.ClayBirchSwinnertonDyer']"
+   ],
+   "proof_verdict": "incomplete: sorry",
+   "refutation_verdict": null,
+   "lock": "5020efddff5dc29ced9bc98cb792f71dc4b28b6cf563f99979df159b64ac7dc7",
+   "custom_constants": [
+    "MillenniumBirchSwinnertonDyer.ClayBirchSwinnertonDyer"
+   ],
    "hypotheses": [],
+   "reduces_to_True": false,
    "registry_match": "M-birch_swinnerton_dyer",
    "grounded": true,
    "closure": {
@@ -228,36 +238,40 @@
      "opaque": []
     }
    },
-   "checker_rc": 0,
-   "status": "stated"
-  },
-  {
-   "id": "M-yang_mills",
-   "polarity": "claim",
-   "required": null,
-   "decl": "MillenniumYangMills.clay_prize_yang_mills",
-   "module": "Problems.YangMills.HamiltonianSpectrum",
-   "evidence": {
-    "lock_cid": "f8443cb3a3f917d9987278f14557458451dd82640e5750f418ad6cb5aea2a0ff",
-    "axioms_cid": "e0189ea1f6db6b3168994c3bdd9b3e5681af054d7003a480d4c6cb1a4d74bf17",
-    "closure_cid": "adbdcb5c9f8a21a7927e881cf64f4d030d7f55a436a34ecd2fe0b67422c58064",
-    "checker_cid": "109f6e4e3d4fc0b014bc60cd46373470a7d2a6608c60c24347e8f2468f4003a9"
+   "anchored": {
+    "MillenniumBirchSwinnertonDyer.ClayBirchSwinnertonDyer": "MillenniumBirchSwinnertonDyer.ClayBirchSwinnertonDyer"
    },
-   "reasons": [
-    "proof uses sorry",
-    "unanchored ['MillenniumYangMills.ClayYangMills']"
-   ],
-   "lock": "54670430ecb1fac8326397020e5252b2d689fcd75d87c476a1e67d1cf8d4c1e0",
-   "custom_constants": [
-    "MillenniumYangMills.ClayYangMills"
-   ],
+   "anchored_all": false,
    "axioms": [
     "Classical.choice",
     "Quot.sound",
     "propext",
     "sorryAx"
    ],
+   "status": "stated"
+  },
+  {
+   "id": "M-yang_mills",
+   "polarity": "claim",
+   "required": {},
+   "demonstrandum": "Problems.YangMills.HamiltonianSpectrum:MillenniumYangMills.clay_prize_yang_mills",
+   "offered": "Problems.YangMills.HamiltonianSpectrum:MillenniumYangMills.clay_prize_yang_mills",
+   "evidence": {
+    "lock_cid": "f8443cb3a3f917d9987278f14557458451dd82640e5750f418ad6cb5aea2a0ff",
+    "closure_cid": "adbdcb5c9f8a21a7927e881cf64f4d030d7f55a436a34ecd2fe0b67422c58064",
+    "axioms_cid": "e0189ea1f6db6b3168994c3bdd9b3e5681af054d7003a480d4c6cb1a4d74bf17"
+   },
+   "reasons": [
+    "unanchored ['MillenniumYangMills.ClayYangMills']"
+   ],
+   "proof_verdict": "incomplete: sorry",
+   "refutation_verdict": null,
+   "lock": "54670430ecb1fac8326397020e5252b2d689fcd75d87c476a1e67d1cf8d4c1e0",
+   "custom_constants": [
+    "MillenniumYangMills.ClayYangMills"
+   ],
    "hypotheses": [],
+   "reduces_to_True": false,
    "registry_match": "M-yang_mills",
    "grounded": true,
    "closure": {
@@ -268,36 +282,40 @@
      "opaque": []
     }
    },
-   "checker_rc": 0,
-   "status": "stated"
-  },
-  {
-   "id": "M-poincare_conjecture",
-   "polarity": "claim",
-   "required": null,
-   "decl": "MillenniumPoincare.clay_prize_poincare_conjecture",
-   "module": "Problems.Poincare.Millennium",
-   "evidence": {
-    "lock_cid": "13862cee7afdfe78f4ba7ce4bc7e465c8cff448689a849282526f3ed3cc45521",
-    "axioms_cid": "aa24c96235bb813b6340514f949f55cc4e0d2e3f26e5d69ba75eb7f75ca34414",
-    "closure_cid": "81bb40d790727cb48110c9f00fd3934df7005f5b69dea62a4f0b7f384b1ff4c1",
-    "checker_cid": "db86d4cec439505ea1f987b2e97683e1a21c51ffe6711ee10c4e8ed9b81616ed"
+   "anchored": {
+    "MillenniumYangMills.ClayYangMills": "MillenniumYangMills.ClayYangMills"
    },
-   "reasons": [
-    "proof uses sorry",
-    "unanchored ['MillenniumPoincare.ClayPoincareConjecture']"
-   ],
-   "lock": "1cca2aafe06cea2c9558aff64d45039a32eac6d8597c6ca454756111423f1e4d",
-   "custom_constants": [
-    "MillenniumPoincare.ClayPoincareConjecture"
-   ],
+   "anchored_all": false,
    "axioms": [
     "Classical.choice",
     "Quot.sound",
     "propext",
     "sorryAx"
    ],
+   "status": "stated"
+  },
+  {
+   "id": "M-poincare_conjecture",
+   "polarity": "claim",
+   "required": {},
+   "demonstrandum": "Problems.Poincare.Millennium:MillenniumPoincare.clay_prize_poincare_conjecture",
+   "offered": "Problems.Poincare.Millennium:MillenniumPoincare.clay_prize_poincare_conjecture",
+   "evidence": {
+    "lock_cid": "13862cee7afdfe78f4ba7ce4bc7e465c8cff448689a849282526f3ed3cc45521",
+    "closure_cid": "81bb40d790727cb48110c9f00fd3934df7005f5b69dea62a4f0b7f384b1ff4c1",
+    "axioms_cid": "aa24c96235bb813b6340514f949f55cc4e0d2e3f26e5d69ba75eb7f75ca34414"
+   },
+   "reasons": [
+    "unanchored ['MillenniumPoincare.ClayPoincareConjecture']"
+   ],
+   "proof_verdict": "incomplete: sorry",
+   "refutation_verdict": null,
+   "lock": "1cca2aafe06cea2c9558aff64d45039a32eac6d8597c6ca454756111423f1e4d",
+   "custom_constants": [
+    "MillenniumPoincare.ClayPoincareConjecture"
+   ],
    "hypotheses": [],
+   "reduces_to_True": false,
    "registry_match": "M-poincare_conjecture",
    "grounded": true,
    "closure": {
@@ -308,7 +326,16 @@
      "opaque": []
     }
    },
-   "checker_rc": 0,
+   "anchored": {
+    "MillenniumPoincare.ClayPoincareConjecture": "MillenniumPoincare.ClayPoincareConjecture"
+   },
+   "anchored_all": false,
+   "axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext",
+    "sorryAx"
+   ],
    "status": "stated"
   }
  ],

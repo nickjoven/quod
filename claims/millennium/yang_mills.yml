@@ -5,25 +5,28 @@ pin:
   lean: leanprover/lean4:v4.31.0
   mathlib: fabf563a7c
   physlib: 3dddd61e23
-lean: Problems.YangMills.HamiltonianSpectrum:MillenniumYangMills.clay_prize_yang_mills
+demonstrandum: Problems.YangMills.HamiltonianSpectrum:MillenniumYangMills.clay_prize_yang_mills
 lock: 54670430ecb1fac8326397020e5252b2d689fcd75d87c476a1e67d1cf8d4c1e0
-custom_constants:
-- MillenniumYangMills.ClayYangMills
-anchors: {}
-hypotheses: []
-grounded: true
-closure:
-  MillenniumYangMills.ClayYangMills:
-    custom: 10
-    grounded: true
-    axioms: []
-    opaque: []
+offered: Problems.YangMills.HamiltonianSpectrum:MillenniumYangMills.clay_prize_yang_mills
+proof_verdict: 'incomplete: sorry'
 status: stated
+descriptors:
+  hypotheses: []
+  custom_constants:
+  - MillenniumYangMills.ClayYangMills
+  grounded: true
+  anchored:
+    MillenniumYangMills.ClayYangMills: MillenniumYangMills.ClayYangMills
+  reduces_to_True: false
+  closure:
+    MillenniumYangMills.ClayYangMills:
+      custom: 10
+      grounded: true
+      axioms: []
+      opaque: []
 reasons:
-- proof uses sorry
 - unanchored ['MillenniumYangMills.ClayYangMills']
 evidence:
   lock_cid: f8443cb3a3f917d9987278f14557458451dd82640e5750f418ad6cb5aea2a0ff
-  axioms_cid: e0189ea1f6db6b3168994c3bdd9b3e5681af054d7003a480d4c6cb1a4d74bf17
   closure_cid: adbdcb5c9f8a21a7927e881cf64f4d030d7f55a436a34ecd2fe0b67422c58064
-  checker_cid: 109f6e4e3d4fc0b014bc60cd46373470a7d2a6608c60c24347e8f2468f4003a9
+  axioms_cid: e0189ea1f6db6b3168994c3bdd9b3e5681af054d7003a480d4c6cb1a4d74bf17

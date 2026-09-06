@@ -124,26 +124,25 @@ The proslambenomenos verify gate already runs every mutant in a script's
 known set and requires each to fail; that gate ports with the mutant
 generator swapped.
 
-## 4. Corpus (L3) — gnosis identity, ket storage, sieve verdicts
+## 4. Status is computed (superseded in detail by SEMANTICS.md, 2026-09-06)
 
-- Store: one ket store (`.ket`) shared by every agent and subproject.
-  Nodes: statement (`context`, identity = lock), proof (`code`),
-  verification (`score`: CIDs of build log, axiom output, lean4checker
-  output, mutant table), review (`reasoning`, from sieve), pin (`context`:
-  toolchain, mathlib rev, Clay PDF sha).
-- Edges: `proves`, `depends_on` (Mathlib constants used, by name and pin),
-  `reduces_to` (a checked implication or Iff between locks),
-  `refutes`, `supersedes`, `anchors`, `grounds` (verification -> outputs).
-- Names live in labels only (gnosis `Gnosis.labels`). The encyclopedia
-  entry for a statement is its grounded closure: everything it depends on,
-  everything checked about it, and nothing said about it.
-- sieve runs after every landing with Lean-specific dimensions: statement
-  fidelity against the informal projection, definitional trapdoors,
-  hypothesis load, pin drift, prose-vs-lock drift (Jin's finding 1: docs
-  pinned a superseded manuscript). Verdicts are typed edges, corrections
-  supersede, nothing is overwritten.
-- catbus packs a handoff at every landing; the next agent starts from the
-  ledger root CID.
+Owner's rule: proof requires a demonstrandum. A demonstrandum D is a
+locked type registered before it is judged. A proof is offered against a
+named D and discharges it iff the locks are byte-equal, the axiom set is
+the standard triple, and lean4checker accepts the module. Status of D:
+`stated` | `proven` | `refuted` | `drift-fail` (`inconsistent` halts the
+pin). Verdicts on offered proofs (`accepted`, `incomplete: sorry`,
+`rejected: lock mismatch | shape | extra axioms | lean4checker`) are
+recorded on the proof and leave D `stated`. There is no `conditional`:
+hypotheses are part of the lock and are listed as a descriptor.
+
+Descriptors (computed, never gate status): hypotheses, custom constants,
+grounded, anchored (per constant, gate reason kept), reduces_to_True,
+registry_match, dedup, mutants. They say what D is worth. "Counts against
+a Millennium problem" is exactly the registry lock relation. Under these
+semantics the AIX template is `proven` as the implication it is, with
+`step` listed and no registry match; offered against the registry
+demonstrandum it is rejected at the lock. Full text: SEMANTICS.md.
 
 ## 5. Process gates (L4) — ported verbatim where possible
 
@@ -212,7 +211,11 @@ Negative controls (MUST be classified as shown, with the reason attached):
       with T's canonical form equal to the claim's (Q-8). N4 itself is
       now stated over `Type` so the strict match holds (Q-9).
 
-Pass criterion: 3/3 positives `proven`, 8/8 negatives as listed. Only then
+Pass criterion (SEMANTICS.md table, 2026-09-06): 3/3 positives `proven`;
+negatives at their required status AND descriptors. N1, N2, N6, N7 are
+`proven` under the demonstrandum semantics with their descriptors
+(hypotheses, reduces_to_True, anchor rejections) required; N9 (clean
+theorem offered against another demonstrandum) is rejected at the lock. Only then
 does the Millennium registry get imported.
 
 RUN 2026-09-06 (scripts/calibrate.py, calib/RESULTS.json, claims/*.yml,
@@ -276,6 +279,14 @@ Three computed fields on every claim, none typed by hand:
   elaborated statement (Q-1). The AIX control's `step` appears here.
 
 Which of grounded/anchored `proven` requires is owner decision Q-22.
+
+THIRD RECHECK 2026-09-06, demonstrandum semantics (SEMANTICS.md): the
+runner rewritten so status = "the demonstrandum's lock is discharged"
+and everything else is a descriptor or a verdict on the offered proof.
+Smoke test on two controls first (Q-23), then PASS 12/12 in 14m53s: N1,
+N2, N6, N7 now `proven` with their descriptors required (hypotheses
+[step], reduces_to_True, anchor rejections with reason); N9 added (clean
+theorem offered against another demonstrandum: rejected, lock mismatch).
 
 ## 8. Millennium program (after calibration)
 
