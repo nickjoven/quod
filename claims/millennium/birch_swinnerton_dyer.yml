@@ -9,6 +9,7 @@ lean: Problems.BirchSwinnertonDyer.Millennium:MillenniumBirchSwinnertonDyer.clay
 lock: 5020efddff5dc29ced9bc98cb792f71dc4b28b6cf563f99979df159b64ac7dc7
 custom_constants:
 - MillenniumBirchSwinnertonDyer.ClayBirchSwinnertonDyer
+anchors: {}
 status: stated
 reasons:
 - proof uses sorry

@@ -270,6 +270,14 @@ release exists for v4.31.0, so the checker at this pin is upstream master
 91a7f0e built with the toolchain overridden (Q-20). Import runs the same
 gates (`scripts/registry_import.py` -> `calibrate.evaluate`) and writes
 claims/millennium/*.yml with computed status.
+Result: seven `stated`, lean4checker exit 0 on all, sorryAx the only
+extra axiom. Each type is a single custom Clay wrapper (Q-21). The
+Riemann wrapper is anchored through the registry's own theorems
+`ClayRiemannHypothesis.iff_real_part` and
+`...Formulations.RealPart.iff_mathlib` to Mathlib's `RiemannHypothesis`,
+both links passing anchor_check and the axiom gate (nominated in
+millennium/PIN.yml, verified at import, 4m23s). The other six are
+unanchored; anchoring them is the next work item.
 
 
 - Import lean-dojo's seven `clay_prize_*` locks at `fabf563a` as the

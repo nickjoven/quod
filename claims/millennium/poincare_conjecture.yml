@@ -9,6 +9,7 @@ lean: Problems.Poincare.Millennium:MillenniumPoincare.clay_prize_poincare_conjec
 lock: 1cca2aafe06cea2c9558aff64d45039a32eac6d8597c6ca454756111423f1e4d
 custom_constants:
 - MillenniumPoincare.ClayPoincareConjecture
+anchors: {}
 status: stated
 reasons:
 - proof uses sorry

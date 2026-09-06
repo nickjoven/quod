@@ -15,7 +15,17 @@
    "MillenniumYangMills.clay_prize_yang_mills",
    "MillenniumPoincare.clay_prize_poincare_conjecture"
   ],
-  "lean4checker": "91a7f0e"
+  "lean4checker": "91a7f0e",
+  "anchors": {
+   "Millennium.ClayRiemannHypothesis": [
+    "Problems.RiemannHypothesis.Millennium",
+    "Millennium.ClayRiemannHypothesis.iff_real_part"
+   ],
+   "Millennium.ClayRiemannHypothesis.Formulations.RealPart": [
+    "Problems.RiemannHypothesis.Millennium",
+    "Millennium.ClayRiemannHypothesis.Formulations.RealPart.iff_mathlib"
+   ]
+  }
  },
  "claims": [
   {
@@ -55,11 +65,14 @@
    "evidence": {
     "lock_cid": "f2c96089d922d1bffd7880fe3b27a9acc75fd7e35a189e86cd15279513446948",
     "axioms_cid": "5122189b2352e0b2c0e90375ce9a0f396a157cf5a215e258f6191a3fabf70e9a",
+    "anchor_shape_Millennium.ClayRiemannHypothesis": "91db2e47ca6e8857d9af926c6c3a8635a68346aea3ed489976e6b3cd012df408",
+    "anchor_axioms_Millennium.ClayRiemannHypothesis": "5faba01c68e5f6a2312151f21a2b512d5ef4854fc1039ce1f3f8bcc5aa07d99a",
+    "anchor_shape_Millennium.ClayRiemannHypothesis.Formulations.RealPart": "7156fce35386705798409f6aab2663b74dc8d03a3195f5dc8547f4ccd3c628d3",
+    "anchor_axioms_Millennium.ClayRiemannHypothesis.Formulations.RealPart": "78b023895d360e077b3912cdea824ab0b8c91e6da9d88f051e187f2128cc2a8f",
     "checker_cid": "1a3c921a2c71e7b5a3cbe57b7b3a758bf3d58b9e0842ff608e953e490aeb57e8"
    },
    "reasons": [
-    "proof uses sorry",
-    "unanchored ['Millennium.ClayRiemannHypothesis']"
+    "proof uses sorry"
    ],
    "lock": "2284d8427c4ddec61e788c2b6ea1d605aa9923bc1993826cd15080ca3e5ff4c8",
    "custom_constants": [

@@ -9,6 +9,7 @@ lean: Problems.YangMills.HamiltonianSpectrum:MillenniumYangMills.clay_prize_yang
 lock: 54670430ecb1fac8326397020e5252b2d689fcd75d87c476a1e67d1cf8d4c1e0
 custom_constants:
 - MillenniumYangMills.ClayYangMills
+anchors: {}
 status: stated
 reasons:
 - proof uses sorry

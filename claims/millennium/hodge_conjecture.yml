@@ -9,6 +9,7 @@ lean: Problems.Hodge.Millennium:MillenniumHodge.clay_prize_hodge_conjecture
 lock: e298047a20d2a4979545e3c32ece81c1c71f284b64ec8a54f0004d2eca879e1c
 custom_constants:
 - MillenniumHodge.ClayHodge
+anchors: {}
 status: stated
 reasons:
 - proof uses sorry

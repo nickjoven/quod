@@ -9,6 +9,7 @@ lean: Problems.NavierStokes.Millennium:MillenniumNavierStokes.clay_prize_navier_
 lock: a76b8c96e85028f4cd7b3c02faada414e1e929381f9da8803f3293b8eef51f3d
 custom_constants:
 - MillenniumNavierStokes.ClayNavierStokes
+anchors: {}
 status: stated
 reasons:
 - proof uses sorry
