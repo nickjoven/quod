@@ -60,14 +60,17 @@ def ppCanonical (ci : ConstantInfo) : MetaM String := do
 
 def emitDecl (env : Environment) (n : Name) (ci : ConstantInfo) : MetaM Json := do
   let canon ← ppCanonical ci
-  -- whnf through every definition, heartbeat-capped: `True` behind a grand
-  -- name is not a claim, but arbitrary types may not normalize in bounds.
+  -- whnf through every definition: `True` behind a grand name is not a
+  -- claim. Fresh 200k-heartbeat budget per call (the same limit lock.py's
+  -- one-decl command gives it); blowing it is caught as a runtime exception
+  -- and recorded as "timeout", never fatal.
   let reduces : Json ←
-    try
-      let tw ← withOptions (fun o => o.setNat `maxHeartbeats 80000) do
-        withTransparency .all (whnf ci.type)
-      pure (Json.bool (tw.isConstOf ``True))
-    catch _ => pure (Json.str "timeout")
+    tryCatchRuntimeEx
+      (withTheReader Core.Context (fun ctx => { ctx with maxHeartbeats := 200000 * 1000 }) do
+        withCurrHeartbeats do
+          let tw ← withTransparency .all (whnf ci.type)
+          pure (Json.bool (tw.isConstOf ``True)))
+      (fun _ => pure (Json.str "timeout"))
   -- explicit Prop binders are the hypotheses descriptor (elaborated type, so
   -- `variable`-introduced binders are visible — the Q-6 blind spot).
   let (hyps, iffSides) ← forallTelescope ci.type fun xs body => do
@@ -113,11 +116,14 @@ def emitDecl (env : Environment) (n : Name) (ci : ConstantInfo) : MetaM Json := 
     ("iff_lhs", match iffSides with | some (l, _) => Json.str l | none => Json.null),
     ("iff_rhs", match iffSides with | some (_, r) => Json.str r | none => Json.null)]
 
+-- The walk is one command; its own budget must be unlimited (per-decl work
+-- is capped individually above and below).
+set_option maxHeartbeats 0 in
 run_meta do
   let env ← getEnv
   let limit := (((← IO.getEnv "CORPUS_LIMIT").getD "0").toNat?).getD 0
   let resumeAfter := (← IO.getEnv "CORPUS_RESUME_AFTER").getD ""
-  let only := (((← IO.getEnv "CORPUS_ONLY").getD "").splitOn ",").filter (· ≠ "")
+  let only := (((← IO.getEnv "CORPUS_ONLY").getD "").splitOn ",").filter (· != "")
   let mut names : Array (Name × ConstantInfo) := #[]
   for (n, ci) in env.constants.toList do
     if wanted env n ci then
@@ -126,18 +132,24 @@ run_meta do
   -- deterministic order: resume and sharding depend on it
   let sorted := names.qsort fun a b => a.1.toString < b.1.toString
   let mut emitted := 0
-  let mut skipping := resumeAfter ≠ ""
+  let mut skipping := resumeAfter != ""
   IO.eprintln s!"corpus-walk: {sorted.size} declarations selected"
   for (n, ci) in sorted do
     if skipping then
       if n.toString == resumeAfter then skipping := false
     else
       if limit > 0 && emitted ≥ limit then break
-      try
-        let js ← emitDecl env n ci
-        IO.println s!"DECL\t{js.compress}"
-      catch e =>
-        IO.eprintln s!"corpus-walk: ERROR {n}: {← e.toMessageData.toString}"
+      -- Per-declaration budget: generous but finite, freshly counted, with
+      -- both normal and runtime exceptions downgraded to a logged skip.
+      tryCatchRuntimeEx
+        (withTheReader Core.Context (fun ctx => { ctx with maxHeartbeats := 1000000 * 1000 }) do
+          withCurrHeartbeats do
+            try
+              let js ← emitDecl env n ci
+              IO.println s!"DECL\t{js.compress}"
+            catch e =>
+              IO.eprintln s!"corpus-walk: ERROR {n}: {← e.toMessageData.toString}")
+        (fun _ => IO.eprintln s!"corpus-walk: BUDGET {n}: declaration exceeded its heartbeat cap")
       emitted := emitted + 1
       if emitted % 1000 == 0 then IO.eprintln s!"corpus-walk: {emitted}/{sorted.size}"
   IO.eprintln s!"corpus-walk: done, {emitted} emitted"

@@ -64,7 +64,12 @@ def run_walker(env_extra: dict, on_record) -> int:
             n += 1
     proc.wait()
     if proc.returncode != 0:
-        sys.exit(3)
+        sys.exit(f"corpus-walk: lean exited {proc.returncode} after {n} records "
+                 f"(is the full Mathlib umbrella built at the pin? try: "
+                 f"cd {CALIB} && lake build Mathlib)")
+    if n == 0:
+        sys.exit("corpus-walk: zero records emitted — the walker produced no DECL lines; "
+                 "run `lake env lean scripts/CorpusWalk.lean` in calib/ to see the error")
     return n
 
 
