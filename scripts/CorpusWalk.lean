@@ -124,32 +124,44 @@ run_meta do
   let limit := (((← IO.getEnv "CORPUS_LIMIT").getD "0").toNat?).getD 0
   let resumeAfter := (← IO.getEnv "CORPUS_RESUME_AFTER").getD ""
   let only := (((← IO.getEnv "CORPUS_ONLY").getD "").splitOn ",").filter (· != "")
-  let mut names : Array (Name × ConstantInfo) := #[]
-  for (n, ci) in env.constants.toList do
-    if wanted env n ci then
-      if only.isEmpty || only.contains n.toString then
-        names := names.push (n, ci)
-  -- deterministic order: resume and sharding depend on it
-  let sorted := names.qsort fun a b => a.1.toString < b.1.toString
+  -- Select by folding the env, keeping only Names (not the ConstantInfo
+  -- pairs): the umbrella environment is already ~9 GB resident, and the old
+  -- `env.constants.toList` materialized all ~330k constants into a List on
+  -- top of it — a transient spike that OOM-killed the process at 14.9 GB RSS
+  -- before a single record was emitted (2026-09-07). ConstantInfo is looked
+  -- up lazily during the walk, where it is used once and freed.
+  let names : Array Name := env.constants.fold (init := #[]) fun acc n ci =>
+    if wanted env n ci && (only.isEmpty || only.contains n.toString) then acc.push n
+    else acc
+  -- deterministic order (Python-string sort): resume and sharding depend on it
+  let sorted := names.qsort fun a b => a.toString < b.toString
+  let stdout ← IO.getStdout
   let mut emitted := 0
   let mut skipping := resumeAfter != ""
   IO.eprintln s!"corpus-walk: {sorted.size} declarations selected"
-  for (n, ci) in sorted do
+  for n in sorted do
     if skipping then
       if n.toString == resumeAfter then skipping := false
     else
       if limit > 0 && emitted ≥ limit then break
-      -- Per-declaration budget: generous but finite, freshly counted, with
-      -- both normal and runtime exceptions downgraded to a logged skip.
-      tryCatchRuntimeEx
-        (withTheReader Core.Context (fun ctx => { ctx with maxHeartbeats := 1000000 * 1000 }) do
-          withCurrHeartbeats do
-            try
-              let js ← emitDecl env n ci
-              IO.println s!"DECL\t{js.compress}"
-            catch e =>
-              IO.eprintln s!"corpus-walk: ERROR {n}: {← e.toMessageData.toString}")
-        (fun _ => IO.eprintln s!"corpus-walk: BUDGET {n}: declaration exceeded its heartbeat cap")
+      match env.find? n with
+      | none => IO.eprintln s!"corpus-walk: VANISHED {n}"
+      | some ci =>
+        -- Per-declaration budget: generous but finite, freshly counted, with
+        -- both normal and runtime exceptions downgraded to a logged skip.
+        tryCatchRuntimeEx
+          (withTheReader Core.Context (fun ctx => { ctx with maxHeartbeats := 1000000 * 1000 }) do
+            withCurrHeartbeats do
+              try
+                let js ← emitDecl env n ci
+                IO.println s!"DECL\t{js.compress}"
+              catch e =>
+                IO.eprintln s!"corpus-walk: ERROR {n}: {← e.toMessageData.toString}")
+          (fun _ => IO.eprintln s!"corpus-walk: BUDGET {n}: declaration exceeded its heartbeat cap")
       emitted := emitted + 1
+      -- Flush so the driver persists records to shards as they arrive: a
+      -- later crash then costs at most the last 200, recoverable by resume.
+      if emitted % 200 == 0 then stdout.flush
       if emitted % 1000 == 0 then IO.eprintln s!"corpus-walk: {emitted}/{sorted.size}"
+  stdout.flush
   IO.eprintln s!"corpus-walk: done, {emitted} emitted"
