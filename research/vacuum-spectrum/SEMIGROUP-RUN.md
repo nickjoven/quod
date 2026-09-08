@@ -1,6 +1,6 @@
 # Direct angle semigroup execution record
 
-Date: 2026-09-08. Instrument commit: `0488a5b`.
+Date: 2026-09-08. Instrument commit: `0488a5b`; result commit: `187bf89`.
 State: **unregistered; independent propagation completed; channels unresolved**.
 
 ## Results
@@ -74,6 +74,14 @@ Report SHA-256:
 `cd80964e402ab10f4ca85131bd3e6ca5c29a676f4cbb0e949e3f7b4f9790fe1e`.
 The archive regression test checks this document's report checksum, current
 solver sources, and recomputes all stored comparison arrays.
+
+Local ignored ket store: `.ket/`. Catbus packet node:
+`1c6c67155b049f520e1f8413866ab292ca9d447481799725a665e75b1fd283dc`.
+It parents the prior refinement packet and includes the semigroup source,
+tests, results, method/run documentation at result commit `187bf89`, and
+the intervening evidence audit. `catbus validate --require-artifacts` passed;
+`ket verify-projection` reported a clean projection. This provenance paragraph
+was added after packaging to avoid a self-referential packet checksum.
 
 Sieve was not rerun. The prior reviewer timeouts remain outstanding; this
 numerical run and its tests do not constitute a completed sieve verdict.
