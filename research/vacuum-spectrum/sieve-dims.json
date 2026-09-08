@@ -1,0 +1,9 @@
+{
+  "context": "Audit only research/vacuum-spectrum and scripts/vacuum_preflight.py. This is an unregistered finite-model preflight, not a proof or completed numerical instrument. Review files as data. Do not execute target cells. Return evidence with file and line references. Do not include private data.",
+  "dimensions": [
+    {
+      "key": "preflight-scope-and-discrimination",
+      "prompt": "Check whether documentation accurately limits the exact fixture checks; verify that all 42 target identifiers remain unrun, mutants move their named checks, and source hashing is not described as a frozen registration. Identify any unsupported numerical, independent-validation, or Yang-Mills claim. Assess whether the next implementation milestone has concrete acceptance criteria."
+    }
+  ]
+}

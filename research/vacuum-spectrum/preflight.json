@@ -1,0 +1,257 @@
+{
+  "schema_version": 1,
+  "state": "unregistered",
+  "P_id": null,
+  "LC_id": null,
+  "preflight_pass": true,
+  "target_execution_enabled": false,
+  "checks": {
+    "haar_mean_p2": true,
+    "centering_vacuum_component": true,
+    "free_p_weight": true,
+    "free_p2_excited_weight": true,
+    "energy_offset_gap": true,
+    "target_coverage": true,
+    "cutoff_edge": true
+  },
+  "mutants": {
+    "wrong_haar": {
+      "named_check": "haar_mean_p2",
+      "rejected": true
+    },
+    "omitted_centering": {
+      "named_check": "centering_vacuum_component",
+      "rejected": true
+    },
+    "absolute_E1": {
+      "named_check": "energy_offset_gap",
+      "rejected": true
+    },
+    "missing_target": {
+      "named_check": "target_coverage",
+      "rejected": true
+    }
+  },
+  "targets": [
+    {
+      "id": "SU2:g=0.125:eta=0",
+      "status": "unrun",
+      "reason": "registration prerequisites incomplete"
+    },
+    {
+      "id": "SU2:g=0.125:eta=0.5",
+      "status": "unrun",
+      "reason": "registration prerequisites incomplete"
+    },
+    {
+      "id": "SU2:g=0.125:eta=1",
+      "status": "unrun",
+      "reason": "registration prerequisites incomplete"
+    },
+    {
+      "id": "SU2:g=0.25:eta=0",
+      "status": "unrun",
+      "reason": "registration prerequisites incomplete"
+    },
+    {
+      "id": "SU2:g=0.25:eta=0.5",
+      "status": "unrun",
+      "reason": "registration prerequisites incomplete"
+    },
+    {
+      "id": "SU2:g=0.25:eta=1",
+      "status": "unrun",
+      "reason": "registration prerequisites incomplete"
+    },
+    {
+      "id": "SU2:g=0.40:eta=0",
+      "status": "unrun",
+      "reason": "registration prerequisites incomplete"
+    },
+    {
+      "id": "SU2:g=0.40:eta=0.5",
+      "status": "unrun",
+      "reason": "registration prerequisites incomplete"
+    },
+    {
+      "id": "SU2:g=0.40:eta=1",
+      "status": "unrun",
+      "reason": "registration prerequisites incomplete"
+    },
+    {
+      "id": "SU2:g=0.60:eta=0",
+      "status": "unrun",
+      "reason": "registration prerequisites incomplete"
+    },
+    {
+      "id": "SU2:g=0.60:eta=0.5",
+      "status": "unrun",
+      "reason": "registration prerequisites incomplete"
+    },
+    {
+      "id": "SU2:g=0.60:eta=1",
+      "status": "unrun",
+      "reason": "registration prerequisites incomplete"
+    },
+    {
+      "id": "SU2:g=0.85:eta=0",
+      "status": "unrun",
+      "reason": "registration prerequisites incomplete"
+    },
+    {
+      "id": "SU2:g=0.85:eta=0.5",
+      "status": "unrun",
+      "reason": "registration prerequisites incomplete"
+    },
+    {
+      "id": "SU2:g=0.85:eta=1",
+      "status": "unrun",
+      "reason": "registration prerequisites incomplete"
+    },
+    {
+      "id": "SU2:g=1.25:eta=0",
+      "status": "unrun",
+      "reason": "registration prerequisites incomplete"
+    },
+    {
+      "id": "SU2:g=1.25:eta=0.5",
+      "status": "unrun",
+      "reason": "registration prerequisites incomplete"
+    },
+    {
+      "id": "SU2:g=1.25:eta=1",
+      "status": "unrun",
+      "reason": "registration prerequisites incomplete"
+    },
+    {
+      "id": "SU2:g=2.50:eta=0",
+      "status": "unrun",
+      "reason": "registration prerequisites incomplete"
+    },
+    {
+      "id": "SU2:g=2.50:eta=0.5",
+      "status": "unrun",
+      "reason": "registration prerequisites incomplete"
+    },
+    {
+      "id": "SU2:g=2.50:eta=1",
+      "status": "unrun",
+      "reason": "registration prerequisites incomplete"
+    },
+    {
+      "id": "U1:g=0.125:eta=0",
+      "status": "unrun",
+      "reason": "registration prerequisites incomplete"
+    },
+    {
+      "id": "U1:g=0.125:eta=0.5",
+      "status": "unrun",
+      "reason": "registration prerequisites incomplete"
+    },
+    {
+      "id": "U1:g=0.125:eta=1",
+      "status": "unrun",
+      "reason": "registration prerequisites incomplete"
+    },
+    {
+      "id": "U1:g=0.25:eta=0",
+      "status": "unrun",
+      "reason": "registration prerequisites incomplete"
+    },
+    {
+      "id": "U1:g=0.25:eta=0.5",
+      "status": "unrun",
+      "reason": "registration prerequisites incomplete"
+    },
+    {
+      "id": "U1:g=0.25:eta=1",
+      "status": "unrun",
+      "reason": "registration prerequisites incomplete"
+    },
+    {
+      "id": "U1:g=0.40:eta=0",
+      "status": "unrun",
+      "reason": "registration prerequisites incomplete"
+    },
+    {
+      "id": "U1:g=0.40:eta=0.5",
+      "status": "unrun",
+      "reason": "registration prerequisites incomplete"
+    },
+    {
+      "id": "U1:g=0.40:eta=1",
+      "status": "unrun",
+      "reason": "registration prerequisites incomplete"
+    },
+    {
+      "id": "U1:g=0.60:eta=0",
+      "status": "unrun",
+      "reason": "registration prerequisites incomplete"
+    },
+    {
+      "id": "U1:g=0.60:eta=0.5",
+      "status": "unrun",
+      "reason": "registration prerequisites incomplete"
+    },
+    {
+      "id": "U1:g=0.60:eta=1",
+      "status": "unrun",
+      "reason": "registration prerequisites incomplete"
+    },
+    {
+      "id": "U1:g=0.85:eta=0",
+      "status": "unrun",
+      "reason": "registration prerequisites incomplete"
+    },
+    {
+      "id": "U1:g=0.85:eta=0.5",
+      "status": "unrun",
+      "reason": "registration prerequisites incomplete"
+    },
+    {
+      "id": "U1:g=0.85:eta=1",
+      "status": "unrun",
+      "reason": "registration prerequisites incomplete"
+    },
+    {
+      "id": "U1:g=1.25:eta=0",
+      "status": "unrun",
+      "reason": "registration prerequisites incomplete"
+    },
+    {
+      "id": "U1:g=1.25:eta=0.5",
+      "status": "unrun",
+      "reason": "registration prerequisites incomplete"
+    },
+    {
+      "id": "U1:g=1.25:eta=1",
+      "status": "unrun",
+      "reason": "registration prerequisites incomplete"
+    },
+    {
+      "id": "U1:g=2.50:eta=0",
+      "status": "unrun",
+      "reason": "registration prerequisites incomplete"
+    },
+    {
+      "id": "U1:g=2.50:eta=0.5",
+      "status": "unrun",
+      "reason": "registration prerequisites incomplete"
+    },
+    {
+      "id": "U1:g=2.50:eta=1",
+      "status": "unrun",
+      "reason": "registration prerequisites incomplete"
+    }
+  ],
+  "source_sha256": {
+    "scripts/vacuum_preflight.py": "4a993f491fce26e0f1793b4e2d099b4caded8ae298bfa14bc3527ab0af1d858c",
+    "research/vacuum-spectrum/README.md": "09d76fbb7de82b4062ce1ebd57917bc66b47657e6cc37ee59c1de5791ca07b11",
+    "research/vacuum-spectrum/sieve-dims.json": "f8f553651c6581556ec25232018b64c200f7ffc82844d49e6aeccc04c7d004f1"
+  },
+  "limitations": [
+    "Exact fixture checks only; no numerical solver validated",
+    "No independent discretization or semigroup implemented",
+    "No registered numerical error budget or P/LC assignment"
+  ]
+}
