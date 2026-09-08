@@ -73,3 +73,7 @@ hashes and recomputes final and adjacent-rung agreement without new solves.
 Its machine-readable report is `evidence-audit.json`. It inventories the
 missing error-budget components and specifies the next semigroup check;
 it does not resolve channels or replace the outstanding sieve review.
+
+The subsequent [semigroup run](SEMIGROUP-RUN.md) adds independent direct
+angle propagation on the same development ladders. Combined error budgets,
+overlap uncertainties, and accepted channel windows remain separate work.

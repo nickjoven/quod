@@ -40,6 +40,10 @@ uncertainty. The audit deliberately makes no channel-readiness decision.
 
 ## Next numerical step
 
+Implementation follow-up: [the semigroup instrument](SEMIGROUP.md) now supplies
+direct angle propagation and its development runner. Its execution and remaining
+error-budget limits are recorded in [SEMIGROUP-RUN.md](SEMIGROUP-RUN.md).
+
 Implement an angle-space action of the centered semigroup on both observable
 vectors, independent of the four-eigenpair spectral reconstruction. First test
 it against analytic free correlations, energy-offset invariance, and a small
