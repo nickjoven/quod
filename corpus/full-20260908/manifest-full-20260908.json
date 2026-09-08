@@ -1,0 +1,211 @@
+{
+ "run_id": "full-20260908",
+ "elapsed_s": 27951.3,
+ "records": 297791,
+ "skipped": [],
+ "pin": {
+  "lean_toolchain": "leanprover/lean4:v4.28.0",
+  "crouzeix": {
+   "mathlib": "8f9d9cff",
+   "jin": "f9d5c8d"
+  }
+ },
+ "scripts": {
+  "CorpusWalk.lean": "37ac034f44f435a816a7e1fb7867d1f1f58fb539c09f55075709c5eeb8105b68",
+  "anchor_check.py": "fce5cb95d06ee268bb120adf414e262da39b32a39c8e69b9be9680e53b0cfdf0",
+  "axiom_gate.py": "aed923bbb7ce405f9a61b9bb58bf2ae4c7df9f7810d21329126cb64dc50992b4",
+  "bootstrap.sh": "1d612f60fbef76dd0098268126568c50cb6458d8a702804ba591e6cdc6f2de94",
+  "calibrate.py": "b16d34594833a8c040f292525a42054f25646a15cbfc11c0a51f5719adc99e4e",
+  "closure.py": "644e45922f305aeaa7d5b6b3b5e4e00613365dda5a499c8cc68e29c15ed2bcf6",
+  "corpus_extract.py": "b96566c079939b57b61a5e613bb96b48bb503d58bd45ccb94e10853ffdc48e94",
+  "derive_pairs.py": "ffcba431b8f55e1b93b9ac42973a218b17d19444f47700fbd283d59dd6998f08",
+  "hyp_mutant.py": "c6d6a5d2789f37f1af8a7a9059b44f2e81bc23c4dcf1b1299c5cf89185c570dd",
+  "leanenv.py": "3858a5564b21638e48d68695ce80867f979ad28df2c2f429573cbe5c7d8fe690",
+  "lock.py": "44701e8ce72cbf8b0876a0025c10fd3f1c5e8039d033ec2bdf93092fd6f88ebc",
+  "refute_check.py": "0c3d689275e236318ea54292726072999737c064650519f55a8caf4f9966ccc9",
+  "registry_import.py": "7e55ef8c699ef6d50a8294c1fcc8c5498c67132ab98c3daf8c6db684cf3fcf20"
+ },
+ "ket_binary": "e001b7045507c9b9f825e34c1b807fd4245fd64ef5e68744701c08632c0a3802",
+ "shards": [
+  {
+   "file": "declarations-0000.jsonl",
+   "records": 10000,
+   "sha256": "46810458085d6a8361c1bb0ab87aecd2e8cedf48ff4dacbfdde092f33e8e2ccb",
+   "cid": "4e7e59bb2b5acaeee2e4416341dc6100a9e9089f0553b4096275c367b440284c"
+  },
+  {
+   "file": "declarations-0001.jsonl",
+   "records": 10000,
+   "sha256": "03045f16a59a8d46a8b65901104e051b78f65fb1ce505bc22768068cd055a8fa",
+   "cid": "e4e974cda12eb025a6386109b35b74f8d67bf8b7788768b086f5aa65be4a2d9b"
+  },
+  {
+   "file": "declarations-0002.jsonl",
+   "records": 10000,
+   "sha256": "2158489c41d1d8ac82224538680d0b1fdb727fd4287fbba4f0f2a8c8cc0a8ba9",
+   "cid": "5a7f645519bc9cd5c2ba6ffce2bfe490bebf91afc20bd3ad4c7e9ea4846d1266"
+  },
+  {
+   "file": "declarations-0003.jsonl",
+   "records": 10000,
+   "sha256": "bf0c9f76866deb631a5ad688f36b587aa2b324725b0f60997452e07935e056b6",
+   "cid": "cb17a246b2fccde9f28e24b4ea45b0f8c12ff675141e68d3dcb60e990386e9d6"
+  },
+  {
+   "file": "declarations-0004.jsonl",
+   "records": 10000,
+   "sha256": "8077f9fca3e351f324ae78d98e7f52ce4a74df51ddabc194b7d505a5c17a2147",
+   "cid": "3bd76f733203fdb2b589cec4978b8960c0ce905aecd6804f20f8f8f4ae8abe2b"
+  },
+  {
+   "file": "declarations-0005.jsonl",
+   "records": 10000,
+   "sha256": "c8be2b7b982edbc8c5ba0b3384ef5408aff6bee46649b7e7d7469152c2c8eb97",
+   "cid": "d71f17a107b69f761802bec6064be347205bf01676d7509bed2f69debda1e585"
+  },
+  {
+   "file": "declarations-0006.jsonl",
+   "records": 10000,
+   "sha256": "320d378740fc1297403bae118b4e16155368e13fa46e02a7b82309d826ee85ea",
+   "cid": "4cf062754b4b60640e2a7d6f74b45f885680d7fc36f240af744d529c6ba3864b"
+  },
+  {
+   "file": "declarations-0007.jsonl",
+   "records": 10000,
+   "sha256": "399cbcf0c70946541107b25248db75be49e1ea0e9446d4654086d7caf98f1cc6",
+   "cid": "c19aa16225ec1bdaa3211d5a11c002f31a587ede9c5ad61e052fb396035d2158"
+  },
+  {
+   "file": "declarations-0008.jsonl",
+   "records": 10000,
+   "sha256": "e1a94ddc2e2f4c1de1192f93f219cfd640b2c03a7735a747b6ca501e0b292093",
+   "cid": "cf4d7a9e54467ee531095282ac1637e9a545aefca1066851a35761accb2dd584"
+  },
+  {
+   "file": "declarations-0009.jsonl",
+   "records": 10000,
+   "sha256": "e8261bc494e9970a1e257198d07c40a0eaccafce952552f6c92925a94df094e5",
+   "cid": "84312ee111baf1f883c8353cfb9f1628e402d680332cab5ba12836e6de1bce67"
+  },
+  {
+   "file": "declarations-0010.jsonl",
+   "records": 10000,
+   "sha256": "7803625c82f0831dd0ad3da99aa75cf644cd004060e2e6bdf3707f2362248e08",
+   "cid": "6a099c61df665f6ccbfccaa67e1cf506766a0ade4c63011cb5774018af06c8df"
+  },
+  {
+   "file": "declarations-0011.jsonl",
+   "records": 10000,
+   "sha256": "509d31c5b0ef19c0db0e6c3a01df30b7e967f6a05cc430df207de76d5e1fe938",
+   "cid": "ac1a11499656c88361467778c4022ac175fcebf152e04879dedf15fc56e4117e"
+  },
+  {
+   "file": "declarations-0012.jsonl",
+   "records": 10000,
+   "sha256": "aa8f8b723375bed2b5bb3713ec2d5e028277a851c516255b8ac69cfdb0d82695",
+   "cid": "39be49a49c85bbf4805e4f479735f4db999d2a3b54c50d017bcc8d173a8a4a18"
+  },
+  {
+   "file": "declarations-0013.jsonl",
+   "records": 10000,
+   "sha256": "9bc7d02f0b4775766eac7d800feb747b9ad7b1272005179756b574ac685aa84f",
+   "cid": "d462f90dd742b31f34eec71ebc9695906540afa53bec5c7350267129f60e8fef"
+  },
+  {
+   "file": "declarations-0014.jsonl",
+   "records": 10000,
+   "sha256": "2e0ca6be7ab8f68b55d826bdde52a5d8df52270a824edab89c7659022d5a9e6b",
+   "cid": "da85d8bd66dc7737f6148085b2f28863a450e661ad8f67d1e7af750f8e6bf82e"
+  },
+  {
+   "file": "declarations-0015.jsonl",
+   "records": 10000,
+   "sha256": "7210ed3f0b8a526cea4589fcc0680a534d88d24804c905c906c4b6bfb3fb2858",
+   "cid": "858f82030da194e66f2ae76365ce1dde178f4d3530d03f14305aaaf08c3157e8"
+  },
+  {
+   "file": "declarations-0016.jsonl",
+   "records": 10000,
+   "sha256": "744a3635610effe14654ba6e0a30b32040224f52efce1c917e2d4ede0fc285d1",
+   "cid": "dc4fd2c3e2693c5ee07fa786908ba0768182c8c606db25f9b1a89c0d15c2f35f"
+  },
+  {
+   "file": "declarations-0017.jsonl",
+   "records": 10000,
+   "sha256": "a60539a65ab39b40aaf4cfb29b4b9da6724bd479071fd025fc2f5e866ccf54b6",
+   "cid": "721fcb8aeb8537c0d6f334ffac9b5d25f3c17c8bde2d4b58724e7731b7fcdbf0"
+  },
+  {
+   "file": "declarations-0018.jsonl",
+   "records": 10000,
+   "sha256": "d75445df37d2bccbb402abd4bddf76635a975916157cc95fcded91f750201cee",
+   "cid": "90d88fccb9ef162b39c5568a16b152d3664f652396ba1280af27cad96a841bd8"
+  },
+  {
+   "file": "declarations-0019.jsonl",
+   "records": 10000,
+   "sha256": "633e34945bd2c020b8bf15ba6ffb73f3c792bdf5c8d3c0ca48b19286d0c9db6c",
+   "cid": "494775e1c24c210bba24a64b31a7f21e2399eba8f854e70fe179290aa9c35ddc"
+  },
+  {
+   "file": "declarations-0020.jsonl",
+   "records": 10000,
+   "sha256": "0a143c245d2f2839966079c33b578822df2b037072a065f65a226b6f0adbf5b1",
+   "cid": "beeee13005e733d9463e740eb6ffd3f340f285d38268d0397d27485b3264f3fa"
+  },
+  {
+   "file": "declarations-0021.jsonl",
+   "records": 10000,
+   "sha256": "2ebe3d0493feaf3d1f83c490b48caefb31aa121ce8ef2ee1c6e791f7713e1bc8",
+   "cid": "5f23c652be75bd8b21985c0f88031601d7cd92f246a84257f81913970f649c00"
+  },
+  {
+   "file": "declarations-0022.jsonl",
+   "records": 10000,
+   "sha256": "af40b2ccc341abda450784fd7ddb87c64821b780b5f379b55fc4c80fb2b52517",
+   "cid": "f45820a510fd3f0e49b4cca19648c0d74813eeb6c0e32a342c33c75519ad526c"
+  },
+  {
+   "file": "declarations-0023.jsonl",
+   "records": 10000,
+   "sha256": "bddc8a32a0630552223f05dbfa07aca3d9a17dbfff8b598b1ce09e27afe84b3c",
+   "cid": "a7c602fb339b54ab572189c9c7cd92eb97d7bff59150ffebf6b3361ccd90fa6b"
+  },
+  {
+   "file": "declarations-0024.jsonl",
+   "records": 10000,
+   "sha256": "22b69f5b5e4a6a72948ad0f1d1fe7d35d764e0f1f1ee975396d9afa80dce358f",
+   "cid": "ce12ec4488c0c0552cfb7fd6368725c1e43e8665d598dda9b6636b9669a96842"
+  },
+  {
+   "file": "declarations-0025.jsonl",
+   "records": 10000,
+   "sha256": "c6aa46ab06cc2f7662767160a9ad58896d8b99bcd105738ed2fbd2c802780902",
+   "cid": "46e25f91c4564221ba9e60004f6ea81b5d530725bea5ed40efc73f84398606dd"
+  },
+  {
+   "file": "declarations-0026.jsonl",
+   "records": 10000,
+   "sha256": "de0f97ebac8564bfc17a0ba17b6afc50203e98199db9c29f7e65bf9e9d8677da",
+   "cid": "d3db5af9b87d68265a473acfc21b17d77cc30fdb44bfb1ad08fccd3f0f202adc"
+  },
+  {
+   "file": "declarations-0027.jsonl",
+   "records": 10000,
+   "sha256": "d0a80e8a68129587eb48f5bb7d1c93fd9bd6113887ef48756095f41020481bb2",
+   "cid": "7ff474d62e29bad7daaac5450eef89fca2df9e78942abc33ec5995a722f7ad66"
+  },
+  {
+   "file": "declarations-0028.jsonl",
+   "records": 10000,
+   "sha256": "cde50c2fca77e9033341086317b800500da810c1eb43a11f14742fb73040c787",
+   "cid": "a999d78d785c302af6fc7bbd4966b3fe73aa46148d6a7b1a5fddaa72bd285ad2"
+  },
+  {
+   "file": "declarations-0029.jsonl",
+   "records": 7791,
+   "sha256": "bd22109ada9f5f73295756906cbbf2ba395b521613a635ad8b618a8cd0816437",
+   "cid": "9ff5c7b1c41ad40295e0528625781782fac814505a4e36434c87f059ed968aa8"
+  }
+ ]
+}

@@ -7,3 +7,9 @@ millennium/*.log
 millennium/lean4checker/
 .ket/
 __pycache__/
+# corpus: bulk data is content-addressed in ket (CIDs in the manifests);
+# track only the manifests as the git-level provenance record.
+corpus/**/*.jsonl
+corpus/**/*.raw
+corpus/**/*.err
+corpus/extract-*.log

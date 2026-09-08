@@ -1,0 +1,17 @@
+{
+ "source_run_id": "full-20260908",
+ "derived": [
+  {
+   "file": "iff_pairs.jsonl",
+   "records": 29840,
+   "sha256": "8361da4d98e406710e4f6769e42a81562df10cd0df6cdda13903cb05ba378105",
+   "cid": "33bf7d8237de47f2ac741f86f4ae6ae72642479e89a35dd091dcdf98e95c8c95"
+  },
+  {
+   "file": "gloss_pairs.jsonl",
+   "records": 71331,
+   "sha256": "8e6680fc165bbd5ea01e0ac702511dc239e2e756b277b34386063f28c3b5fce9",
+   "cid": "e561ddfea86e01e12da2e042f01bcc0b4741250176d8d406400a97caab65dfa3"
+  }
+ ]
+}
