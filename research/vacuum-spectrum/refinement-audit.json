@@ -1,0 +1,2463 @@
+{
+  "state": "development_diagnostics_only",
+  "targets_run": 0,
+  "limitations": [
+    "Richardson corrections and residual scales are not rigorous error bounds",
+    "Observed order can be noise dominated when differences are small",
+    "Agreement does not resolve overlap or temporal channel coverage"
+  ],
+  "cells": [
+    {
+      "g": 0.1,
+      "eta": 1,
+      "quantities": {
+        "moments": [
+          {
+            "signed_adjacent_differences": [
+              3.1961459837637207e-06,
+              8.002433676823628e-07,
+              2.0023363522803095e-07
+            ],
+            "signed_fine_grid_corrections": [
+              -1.0677498385880866e-06,
+              -2.6704419623089214e-07,
+              -6.67816266659833e-08
+            ],
+            "extrapolated_values": [
+              0.9924999906625002,
+              0.9924999911247748,
+              0.9924999911537091
+            ],
+            "observed_orders": [
+              2.000625384533253,
+              2.000156405682278
+            ],
+            "extrapolate_adjacent_differences": [
+              4.622746629934227e-10,
+              2.8934299400873442e-11
+            ],
+            "character_reference": 0.9924999911556405,
+            "finest_extrapolate_cross_method_difference": 1.9313439736379223e-12,
+            "difference_units": "absolute",
+            "agreement_within_goal": true
+          },
+          {
+            "signed_adjacent_differences": [
+              6.320537786486113e-06,
+              1.5825156118864925e-06,
+              3.959702680189636e-07
+            ],
+            "signed_fine_grid_corrections": [
+              -2.111528458209924e-06,
+              -5.280913615354177e-07,
+              -1.3206341971246352e-07
+            ],
+            "extrapolated_values": [
+              0.9850936142513939,
+              0.9850936151728786,
+              0.9850936152305524
+            ],
+            "observed_orders": [
+              2.0006303888639496,
+              2.000157649231508
+            ],
+            "extrapolate_adjacent_differences": [
+              9.214847773719725e-10,
+              5.767375466092517e-11
+            ],
+            "character_reference": 0.9850936152344048,
+            "finest_extrapolate_cross_method_difference": 3.852362873146831e-12,
+            "difference_units": "absolute",
+            "agreement_within_goal": true
+          },
+          {
+            "signed_adjacent_differences": [
+              -2.3828972905981516e-08,
+              -5.9685263398279176e-09,
+              -1.4935624959022675e-09
+            ],
+            "signed_fine_grid_corrections": [
+              7.960644508521482e-09,
+              1.9917194986799302e-09,
+              4.981307605491465e-10
+            ],
+            "extrapolated_values": [
+              3.738279088408674e-05,
+              3.738279048541672e-05,
+              3.73827904591745e-05
+            ],
+            "observed_orders": [
+              2.00007232671298,
+              2.0000190184012685
+            ],
+            "extrapolate_adjacent_differences": [
+              -3.986700157282072e-13,
+              -2.6242225894482912e-14
+            ],
+            "character_reference": 3.738279045828463e-05,
+            "finest_extrapolate_cross_method_difference": 8.898657093310558e-16,
+            "difference_units": "absolute",
+            "agreement_within_goal": true
+          },
+          {
+            "signed_adjacent_differences": [
+              -9.201806128178447e-08,
+              -2.3047929120778576e-08,
+              -5.767504696052583e-09
+            ],
+            "signed_fine_grid_corrections": [
+              3.0740858077175195e-08,
+              7.691179902771643e-09,
+              1.9235696588510498e-09
+            ],
+            "extrapolated_values": [
+              0.00014583010413792984,
+              0.00014583010238887622,
+              0.00014583010228332835
+            ],
+            "observed_orders": [
+              2.0000821716498907,
+              2.0000198087961456
+            ],
+            "extrapolate_adjacent_differences": [
+              -1.7490536200360368e-12,
+              -1.0554786753803891e-13
+            ],
+            "character_reference": 0.0001458301022718711,
+            "finest_extrapolate_cross_method_difference": 1.1457252247631944e-14,
+            "difference_units": "absolute",
+            "agreement_within_goal": true
+          },
+          {
+            "signed_adjacent_differences": [
+              -4.682593357507869e-08,
+              -1.1728615523232122e-08,
+              -2.934967158196855e-09
+            ],
+            "signed_fine_grid_corrections": [
+              1.5643335213884565e-08,
+              3.913882740913738e-09,
+              9.788659173690404e-10
+            ],
+            "extrapolated_values": [
+              7.38333492036647e-05,
+              7.383334836671497e-05,
+              7.383334831704962e-05
+            ],
+            "observed_orders": [
+              2.0000772687981554,
+              2.0000183166916408
+            ],
+            "extrapolate_adjacent_differences": [
+              -8.369497315249136e-13,
+              -4.9665349957650484e-14
+            ],
+            "character_reference": 7.383334831134736e-05,
+            "finest_extrapolate_cross_method_difference": 5.702266458497418e-15,
+            "difference_units": "absolute",
+            "agreement_within_goal": true
+          }
+        ],
+        "first_three_gaps": [
+          {
+            "signed_adjacent_differences": [
+              -0.0025405801025328856,
+              -0.000635959833061861,
+              -0.00015911823354031185
+            ],
+            "signed_fine_grid_corrections": [
+              0.0008487422064511473,
+              0.00021222216804744163,
+              5.306887854250112e-05
+            ],
+            "extrapolated_values": [
+              3.987468366957764,
+              3.9874678067524223,
+              3.9874677716964575
+            ],
+            "observed_orders": [
+              2.000953536530376,
+              2.0002384545730902
+            ],
+            "extrapolate_adjacent_differences": [
+              -5.602053416708941e-07,
+              -3.505596479769224e-08
+            ],
+            "character_reference": 3.9874677693644287,
+            "finest_extrapolate_cross_method_difference": 5.848395340553102e-10,
+            "difference_units": "relative",
+            "agreement_within_goal": true,
+            "finest_gap_residual_scale_relative": 6.344765132875531e-12
+          },
+          {
+            "signed_adjacent_differences": [
+              -0.007089000841176585,
+              -0.0017739971481773864,
+              -0.0004438242389142033
+            ],
+            "signed_fine_grid_corrections": [
+              0.002368252120638016,
+              0.0005919894643087663,
+              0.00014802360549828972
+            ],
+            "extrapolated_values": [
+              7.964871545996706,
+              7.964869280488554,
+              7.964869138868658
+            ],
+            "observed_orders": [
+              2.001382190910922,
+              2.0003453511101426
+            ],
+            "extrapolate_adjacent_differences": [
+              -2.2655081517442e-06,
+              -1.4161989625449678e-07
+            ],
+            "character_reference": 7.964869129423079,
+            "finest_extrapolate_cross_method_difference": 1.185905163818732e-09,
+            "difference_units": "relative",
+            "agreement_within_goal": true,
+            "finest_gap_residual_scale_relative": 2.5462990386317943e-12
+          },
+          {
+            "signed_adjacent_differences": [
+              -0.013622087649395098,
+              -0.003407819571066284,
+              -0.0008525130578789231
+            ],
+            "signed_fine_grid_corrections": [
+              0.004550787718321455,
+              0.0011372021000197994,
+              0.00028432889756164223
+            ],
+            "extrapolated_values": [
+              11.932171649003598,
+              11.932165882956363,
+              11.932165522811784
+            ],
+            "observed_orders": [
+              2.001831004592167,
+              2.000457200416747
+            ],
+            "extrapolate_adjacent_differences": [
+              -5.766047234345706e-06,
+              -3.601445790479829e-07
+            ],
+            "character_reference": 11.93216549878747,
+            "finest_extrapolate_cross_method_difference": 2.013407791257261e-09,
+            "difference_units": "relative",
+            "agreement_within_goal": true,
+            "finest_gap_residual_scale_relative": 1.7802579868881737e-12
+          }
+        ]
+      }
+    },
+    {
+      "g": 0.15,
+      "eta": 1,
+      "quantities": {
+        "moments": [
+          {
+            "signed_adjacent_differences": [
+              3.18761856588079e-06,
+              7.983002681122287e-07,
+              1.9975944154371206e-07
+            ],
+            "signed_fine_grid_corrections": [
+              -1.0649010484782712e-06,
+              -2.663957766577242e-07,
+              -6.662347428785018e-08
+            ],
+            "extrapolated_values": [
+              0.9831248982392663,
+              0.98312489844427,
+              0.9831248984571308
+            ],
+            "observed_orders": [
+              2.0002780460847465,
+              2.0000696868162695
+            ],
+            "extrapolate_adjacent_differences": [
+              2.0500368069775732e-10,
+              1.2860823517257813e-11
+            ],
+            "character_reference": 0.9831248984579667,
+            "finest_extrapolate_cross_method_difference": 8.358869152402804e-13,
+            "difference_units": "absolute",
+            "agreement_within_goal": true
+          },
+          {
+            "signed_adjacent_differences": [
+              6.214548982086399e-06,
+              1.5563527080431072e-06,
+              3.894472918597458e-07
+            ],
+            "signed_fine_grid_corrections": [
+              -2.0761203356257753e-06,
+              -5.193607029506956e-07,
+              -1.2988788632557822e-07
+            ],
+            "extrapolated_values": [
+              0.9667230738779314,
+              0.966723074284856,
+              0.9667230743103808
+            ],
+            "observed_orders": [
+              2.0002830913093943,
+              2.0000709417590024
+            ],
+            "extrapolate_adjacent_differences": [
+              4.0692460512303796e-10,
+              2.5524804492249586e-11
+            ],
+            "character_reference": 0.966723074312041,
+            "finest_extrapolate_cross_method_difference": 1.6601164887219966e-12,
+            "difference_units": "absolute",
+            "agreement_within_goal": true
+          },
+          {
+            "signed_adjacent_differences": [
+              -5.312232376208925e-08,
+              -1.3306094670539892e-08,
+              -3.329736153467877e-09
+            ],
+            "signed_fine_grid_corrections": [
+              1.774679658267702e-08,
+              4.4402934154361965e-09,
+              1.1105286903665517e-09
+            ],
+            "extrapolated_values": [
+              0.00018850834449168392,
+              0.0001885083440831872,
+              0.0001885083440546156
+            ],
+            "observed_orders": [
+              2.000033242684872,
+              2.0000092880153284
+            ],
+            "extrapolate_adjacent_differences": [
+              -4.0849672277611104e-13,
+              -2.857160038075013e-14
+            ],
+            "character_reference": 0.0001885083440538171,
+            "finest_extrapolate_cross_method_difference": 7.984877949812619e-16,
+            "difference_units": "absolute",
+            "agreement_within_goal": true
+          },
+          {
+            "signed_adjacent_differences": [
+              -1.9617727742282653e-07,
+              -4.9138181856811514e-08,
+              -1.2296394014121859e-08
+            ],
+            "signed_fine_grid_corrections": [
+              6.553776246985048e-08,
+              1.6397594542024524e-08,
+              4.101075193754264e-09
+            ],
+            "extrapolated_values": [
+              0.000712563961571297,
+              0.0007125639595852261,
+              0.0007125639594598919
+            ],
+            "observed_orders": [
+              2.0000437655364425,
+              2.0000110328963454
+            ],
+            "extrapolate_adjacent_differences": [
+              -1.9860709214378214e-12,
+              -1.253342048201933e-13
+            ],
+            "character_reference": 0.0007125639594540711,
+            "finest_extrapolate_cross_method_difference": 5.820756203422928e-15,
+            "difference_units": "absolute",
+            "agreement_within_goal": true
+          },
+          {
+            "signed_adjacent_differences": [
+              -1.020819166974718e-07,
+              -2.5569412143156e-08,
+              -6.3985238218933205e-09
+            ],
+            "signed_fine_grid_corrections": [
+              3.4102932291013226e-08,
+              8.532608190981948e-09,
+              2.1340262269146555e-09
+            ],
+            "extrapolated_values": [
+              0.0003664727820004505,
+              0.00036647278108849365,
+              0.00036647278103035146
+            ],
+            "observed_orders": [
+              2.000038619878062,
+              2.0000098357968343
+            ],
+            "extrapolate_adjacent_differences": [
+              -9.119568706965342e-13,
+              -5.81421846432284e-14
+            ],
+            "character_reference": 0.00036647278102774905,
+            "finest_extrapolate_cross_method_difference": 2.6024104746169563e-15,
+            "difference_units": "absolute",
+            "agreement_within_goal": true
+          }
+        ],
+        "first_three_gaps": [
+          {
+            "signed_adjacent_differences": [
+              -0.0011163910419185186,
+              -0.00027955795435730124,
+              -6.995227624884137e-05
+            ],
+            "signed_fine_grid_corrections": [
+              0.00037295741836109017,
+              9.328953195514663e-05,
+              2.3330379991182832e-05
+            ],
+            "extrapolated_values": [
+              3.971710664198821,
+              3.9717105542667723,
+              3.9717105473910572
+            ],
+            "observed_orders": [
+              2.0004257470056404,
+              2.0001063896972693
+            ],
+            "extrapolate_adjacent_differences": [
+              -1.0993204879738983e-07,
+              -6.875715108378699e-09
+            ],
+            "character_reference": 3.971710546924058,
+            "finest_extrapolate_cross_method_difference": 1.175814104727977e-10,
+            "difference_units": "relative",
+            "agreement_within_goal": true,
+            "finest_gap_residual_scale_relative": 1.4088277948736644e-11
+          },
+          {
+            "signed_adjacent_differences": [
+              -0.003098909189787946,
+              -0.0007759012961230383,
+              -0.0001941431150811468
+            ],
+            "signed_fine_grid_corrections": [
+              0.001035265536682016,
+              0.00025892115616999047,
+              6.475032537043588e-05
+            ],
+            "extrapolated_values": [
+              7.92058024596157,
+              7.920579802877181,
+              7.920579775161463
+            ],
+            "observed_orders": [
+              2.000618230127584,
+              2.0001545184901834
+            ],
+            "extrapolate_adjacent_differences": [
+              -4.4308438962303853e-07,
+              -2.771571772086645e-08
+            ],
+            "character_reference": 7.920579773293127,
+            "finest_extrapolate_cross_method_difference": 2.358837057188278e-10,
+            "difference_units": "relative",
+            "agreement_within_goal": true,
+            "finest_gap_residual_scale_relative": 9.211181481168794e-12
+          },
+          {
+            "signed_adjacent_differences": [
+              -0.005922067333287373,
+              -0.0014825526522059818,
+              -0.0003709457567708796
+            ],
+            "signed_fine_grid_corrections": [
+              0.001978409769562275,
+              0.0004947333490872111,
+              0.00012371728163348858
+            ],
+            "extrapolated_values": [
+              11.846406314404446,
+              11.846405190636178,
+              11.846405120325494
+            ],
+            "observed_orders": [
+              2.0008205525727583,
+              2.000205153816358
+            ],
+            "extrapolate_adjacent_differences": [
+              -1.1237682677744942e-06,
+              -7.031068349760972e-08
+            ],
+            "character_reference": 11.846405115627718,
+            "finest_extrapolate_cross_method_difference": 3.9655712802861447e-10,
+            "difference_units": "relative",
+            "agreement_within_goal": true,
+            "finest_gap_residual_scale_relative": 6.061501994789585e-12
+          }
+        ]
+      }
+    },
+    {
+      "g": 0.2,
+      "eta": 1,
+      "quantities": {
+        "moments": [
+          {
+            "signed_adjacent_differences": [
+              3.17675933458883e-06,
+              7.956476389958667e-07,
+              1.990998693690571e-07
+            ],
+            "signed_fine_grid_corrections": [
+              -1.0612732597232886e-06,
+              -2.6551058442885373e-07,
+              -6.640349474906332e-08
+            ],
+            "extrapolated_values": [
+              0.969999422931953,
+              0.9699994230469893,
+              0.9699994230542096
+            ],
+            "observed_orders": [
+              2.0001565502372123,
+              2.0000392535159075
+            ],
+            "extrapolate_adjacent_differences": [
+              1.1503631380804791e-10,
+              7.2203354406497056e-12
+            ],
+            "character_reference": 0.9699994230547024,
+            "finest_extrapolate_cross_method_difference": 4.92828000631107e-13,
+            "difference_units": "absolute",
+            "agreement_within_goal": true
+          },
+          {
+            "signed_adjacent_differences": [
+              6.06970669836393e-06,
+              1.5202066760977573e-06,
+              3.8041045957726283e-07
+            ],
+            "signed_fine_grid_corrections": [
+              -2.0277322689194867e-06,
+              -5.072986372871743e-07,
+              -1.268739353525331e-07
+            ],
+            "extrapolated_values": [
+              0.941491374789491,
+              0.9414913750164464,
+              0.9414913750306888
+            ],
+            "observed_orders": [
+              2.0001616504748836,
+              2.000040524987297
+            ],
+            "extrapolate_adjacent_differences": [
+              2.2695545442985576e-10,
+              1.4242385049101358e-11
+            ],
+            "character_reference": 0.9414913750316596,
+            "finest_extrapolate_cross_method_difference": 9.707790127322369e-13,
+            "difference_units": "absolute",
+            "agreement_within_goal": true
+          },
+          {
+            "signed_adjacent_differences": [
+              -9.321957872288067e-08,
+              -2.3349880695633374e-08,
+              -5.843121764215198e-09
+            ],
+            "signed_fine_grid_corrections": [
+              3.1142254027268965e-08,
+              7.791942269401788e-09,
+              1.948789351885445e-09
+            ],
+            "extrapolated_values": [
+              0.0005924943056673532,
+              0.0005924943052362909,
+              0.0005924943052051377
+            ],
+            "observed_orders": [
+              2.000019990122246,
+              2.0000057710896715
+            ],
+            "extrapolate_adjacent_differences": [
+              -4.310623039072148e-13,
+              -3.115324838376399e-14
+            ],
+            "character_reference": 0.0005924943052043607,
+            "finest_extrapolate_cross_method_difference": 7.769392768031125e-16,
+            "difference_units": "absolute",
+            "agreement_within_goal": true
+          },
+          {
+            "signed_adjacent_differences": [
+              -3.229891557543496e-07,
+              -8.090257275217283e-08,
+              -2.0245195408996608e-08
+            ],
+            "signed_fine_grid_corrections": [
+              1.079023363370577e-07,
+              2.699749024623054e-08,
+              6.752147710067751e-09
+            ],
+            "extrapolated_values": [
+              0.0021422944943410506,
+              0.002142294492067712,
+              0.0021422944919205844
+            ],
+            "observed_orders": [
+              2.0000304270869362,
+              2.000007866277586
+            ],
+            "extrapolate_adjacent_differences": [
+              -2.273338635394584e-12,
+              -1.4712753584888993e-13
+            ],
+            "character_reference": 0.002142294491913388,
+            "finest_extrapolate_cross_method_difference": 7.196500340089784e-15,
+            "difference_units": "absolute",
+            "agreement_within_goal": true
+          },
+          {
+            "signed_adjacent_differences": [
+              -1.7350111247704803e-07,
+              -4.345884985212933e-08,
+              -1.0875224831785602e-08
+            ],
+            "signed_fine_grid_corrections": [
+              5.796224133168905e-08,
+              1.4502380271506854e-08,
+              3.6270889443616625e-09
+            ],
+            "extrapolated_values": [
+              0.0011263324195376263,
+              0.0011263324185264182,
+              0.0011263324184599228
+            ],
+            "observed_orders": [
+              2.0000251954227206,
+              2.000006618379301
+            ],
+            "extrapolate_adjacent_differences": [
+              -1.0112080443824834e-12,
+              -6.649542028114297e-14
+            ],
+            "character_reference": 0.0011263324184564993,
+            "finest_extrapolate_cross_method_difference": 3.4234767798402288e-15,
+            "difference_units": "absolute",
+            "agreement_within_goal": true
+          }
+        ],
+        "first_three_gaps": [
+          {
+            "signed_adjacent_differences": [
+              -0.0006182136018253459,
+              -0.00015482800525035145,
+              -3.8743007010566544e-05
+            ],
+            "signed_fine_grid_corrections": [
+              0.00020652920014143237,
+              5.166668276908945e-05,
+              1.292151055016668e-05
+            ],
+            "extrapolated_values": [
+              3.94947445027644,
+              3.949474415764318,
+              3.9494744135991096
+            ],
+            "observed_orders": [
+              2.0002413509449846,
+              2.0000604918439997
+            ],
+            "extrapolate_adjacent_differences": [
+              -3.451212204907961e-08,
+              -2.165208456972323e-09
+            ],
+            "character_reference": 3.949474413465154,
+            "finest_extrapolate_cross_method_difference": 3.3917301221570405e-11,
+            "difference_units": "relative",
+            "agreement_within_goal": true,
+            "finest_gap_residual_scale_relative": 2.152491473300018e-11
+          },
+          {
+            "signed_adjacent_differences": [
+              -0.001703458750903053,
+              -0.00042658881212531696,
+              -0.00010674437477575793
+            ],
+            "signed_fine_grid_corrections": [
+              0.0005690815799897646,
+              0.00014235427753062408,
+              3.560122642157642e-05
+            ],
+            "extrapolated_values": [
+              7.8578465561375594,
+              7.857846417647226,
+              7.857846408970893
+            ],
+            "observed_orders": [
+              2.000351495929052,
+              2.0000879787015187
+            ],
+            "extrapolate_adjacent_differences": [
+              -1.3849033386748033e-07,
+              -8.676332541313059e-09
+            ],
+            "character_reference": 7.857846408392909,
+            "finest_extrapolate_cross_method_difference": 7.355499877922728e-11,
+            "difference_units": "relative",
+            "agreement_within_goal": true,
+            "finest_gap_residual_scale_relative": 1.6705778578921437e-11
+          },
+          {
+            "signed_adjacent_differences": [
+              -0.0032295695574404704,
+              -0.0008086998952947511,
+              -0.0002023551186169925
+            ],
+            "signed_fine_grid_corrections": [
+              0.0010789157914512161,
+              0.00026986617103300125,
+              6.748918067656884e-05
+            ],
+            "extrapolated_values": [
+              11.724441473544877,
+              11.724441123819753,
+              11.724441101948013
+            ],
+            "observed_orders": [
+              2.0004682008489665,
+              2.0001169906311387
+            ],
+            "extrapolate_adjacent_differences": [
+              -3.4972512352737795e-07,
+              -2.1871739974699267e-08
+            ],
+            "character_reference": 11.724441100467374,
+            "finest_extrapolate_cross_method_difference": 1.2628658357615956e-10,
+            "difference_units": "relative",
+            "agreement_within_goal": true,
+            "finest_gap_residual_scale_relative": 8.660055884676892e-12
+          }
+        ]
+      }
+    },
+    {
+      "g": 0.3,
+      "eta": 1,
+      "quantities": {
+        "moments": [
+          {
+            "signed_adjacent_differences": [
+              3.14651138988431e-06,
+              7.88119073336091e-07,
+              1.9721885979873122e-07
+            ],
+            "signed_fine_grid_corrections": [
+              -1.0511682024950076e-06,
+              -2.6299827399108164e-07,
+              -6.577614321175746e-08
+            ],
+            "extrapolated_values": [
+              0.932493209384268,
+              0.9324932094351233,
+              0.9324932094383942
+            ],
+            "observed_orders": [
+              2.0000698708288556,
+              2.000017952559599
+            ],
+            "extrapolate_adjacent_differences": [
+              5.085520893288731e-11,
+              3.270939075150636e-12
+            ],
+            "character_reference": 0.9324932094385108,
+            "finest_extrapolate_cross_method_difference": 1.1657341758564144e-13,
+            "difference_units": "absolute",
+            "agreement_within_goal": true
+          },
+          {
+            "signed_adjacent_differences": [
+              5.666268497961369e-06,
+              1.4192473599683453e-06,
+              3.5515203500313675e-07
+            ],
+            "signed_fine_grid_corrections": [
+              -1.8929539842139693e-06,
+              -4.7360813697614796e-07,
+              -1.1844978284609123e-07
+            ],
+            "extrapolated_values": [
+              0.8724955077190379,
+              0.8724955078175253,
+              0.8724955078238443
+            ],
+            "observed_orders": [
+              2.000075140460258,
+              2.0000192592525243
+            ],
+            "extrapolate_adjacent_differences": [
+              9.848732940298532e-11,
+              6.3190563892590035e-12
+            ],
+            "character_reference": 0.8724955078240904,
+            "finest_extrapolate_cross_method_difference": 2.460254222569347e-13,
+            "difference_units": "absolute",
+            "agreement_within_goal": true
+          },
+          {
+            "signed_adjacent_differences": [
+              -2.0194902494719003e-07,
+              -5.058504548571818e-08,
+              -1.2658526116204882e-08
+            ],
+            "signed_fine_grid_corrections": [
+              6.746595427298368e-08,
+              1.688041833093777e-08,
+              4.2218529582768684e-09
+            ],
+            "extrapolated_values": [
+              0.002951922175677196,
+              0.0029519221751867397,
+              0.0029519221751474834
+            ],
+            "observed_orders": [
+              2.000010498802474,
+              2.0000033568118294
+            ],
+            "extrapolate_adjacent_differences": [
+              -4.904561999585777e-13,
+              -3.925635858048615e-14
+            ],
+            "character_reference": 0.002951922175156163,
+            "finest_extrapolate_cross_method_difference": 8.679688912049954e-15,
+            "difference_units": "absolute",
+            "agreement_within_goal": true
+          },
+          {
+            "signed_adjacent_differences": [
+              -5.781659090375868e-07,
+              -1.4482033594553911e-07,
+              -3.624013411585025e-08
+            ],
+            "signed_fine_grid_corrections": [
+              1.9315030013899862e-07,
+              4.832708619937573e-08,
+              1.208675607419164e-08
+            ],
+            "extrapolated_values": [
+              0.009380775359327517,
+              0.009380775356449522,
+              0.009380775356253512
+            ],
+            "observed_orders": [
+              2.000021518909403,
+              2.0000058544436436
+            ],
+            "extrapolate_adjacent_differences": [
+              -2.8779947175427978e-12,
+              -1.9600987499757139e-13
+            ],
+            "character_reference": 0.009380775356256144,
+            "finest_extrapolate_cross_method_difference": 2.6315755130568164e-15,
+            "difference_units": "absolute",
+            "agreement_within_goal": true
+          },
+          {
+            "signed_adjacent_differences": [
+              -3.415125884309589e-07,
+              -8.554319108622366e-08,
+              -2.1406521000244538e-08
+            ],
+            "signed_fine_grid_corrections": [
+              1.1409053686075725e-07,
+              2.8546081891069805e-08,
+              7.139471308243701e-09
+            ],
+            "extrapolated_values": [
+              0.005254648452786513,
+              0.005254648451522629,
+              0.005254648451433047
+            ],
+            "observed_orders": [
+              2.00001599861272,
+              2.000004529772126
+            ],
+            "extrapolate_adjacent_differences": [
+              -1.2638839627654441e-12,
+              -8.958198766118031e-14
+            ],
+            "character_reference": 0.005254648451438748,
+            "finest_extrapolate_cross_method_difference": 5.7011687037977765e-15,
+            "difference_units": "absolute",
+            "agreement_within_goal": true
+          }
+        ],
+        "first_three_gaps": [
+          {
+            "signed_adjacent_differences": [
+              -0.0002623553922926902,
+              -6.571135943467254e-05,
+              -1.6443526842380152e-05
+            ],
+            "signed_fine_grid_corrections": [
+              8.764616171985938e-05,
+              2.1928125707924102e-05,
+              5.484220817393313e-06
+            ],
+            "extrapolated_values": [
+              3.884749696401458,
+              3.884749689724881,
+              3.8847496893468327
+            ],
+            "observed_orders": [
+              2.000110017059351,
+              2.000024885590864
+            ],
+            "extrapolate_adjacent_differences": [
+              -6.676577068986944e-09,
+              -3.7804825936404995e-10
+            ],
+            "character_reference": 3.884749689288302,
+            "finest_extrapolate_cross_method_difference": 1.506674006060642e-11,
+            "difference_units": "relative",
+            "agreement_within_goal": true,
+            "finest_gap_residual_scale_relative": 5.645020570137258e-11
+          },
+          {
+            "signed_adjacent_differences": [
+              -0.0007063307619592507,
+              -0.0001769061843592823,
+              -4.4268318269757856e-05
+            ],
+            "signed_fine_grid_corrections": [
+              0.00023596686787869333,
+              5.9034253476312515e-05,
+              1.4764304211203968e-05
+            ],
+            "extrapolated_values": [
+              7.673538419210485,
+              7.673538392780442,
+              7.673538391149446
+            ],
+            "observed_orders": [
+              2.0001617683964232,
+              2.000039879825949
+            ],
+            "extrapolate_adjacent_differences": [
+              -2.6430043043035312e-08,
+              -1.6309957828752886e-09
+            ],
+            "character_reference": 7.673538391009288,
+            "finest_extrapolate_cross_method_difference": 1.8265121017257828e-11,
+            "difference_units": "relative",
+            "agreement_within_goal": true,
+            "finest_gap_residual_scale_relative": 3.658901305221329e-11
+          },
+          {
+            "signed_adjacent_differences": [
+              -0.0013044467697120865,
+              -0.000326696324835396,
+              -8.175047826597392e-05
+            ],
+            "signed_fine_grid_corrections": [
+              0.00043578198082387643,
+              0.00010901978198197765,
+              2.7265298924960933e-05
+            ],
+            "extrapolated_values": [
+              11.362341231501503,
+              11.362341165627496,
+              11.362341161622705
+            ],
+            "observed_orders": [
+              2.0002183233320405,
+              2.0000530250560424
+            ],
+            "extrapolate_adjacent_differences": [
+              -6.587400669388899e-08,
+              -4.0047911653573465e-09
+            ],
+            "character_reference": 11.362341161215294,
+            "finest_extrapolate_cross_method_difference": 3.5856254274497626e-11,
+            "difference_units": "relative",
+            "agreement_within_goal": true,
+            "finest_gap_residual_scale_relative": 1.2905492137852364e-11
+          }
+        ]
+      }
+    },
+    {
+      "g": 0.5,
+      "eta": 1,
+      "quantities": {
+        "moments": [
+          {
+            "signed_adjacent_differences": [
+              3.0506809682862013e-06,
+              7.641389900836515e-07,
+              1.9122091310386224e-07
+            ],
+            "signed_fine_grid_corrections": [
+              -1.0191537332833369e-06,
+              -2.5499603077819023e-07,
+              -6.377571687737539e-08
+            ],
+            "extrapolated_values": [
+              0.8123368751928071,
+              0.8123368752115195,
+              0.8123368752109202
+            ],
+            "observed_orders": [
+              2.0000265165360984,
+              1.9999966081339724
+            ],
+            "extrapolate_adjacent_differences": [
+              1.8712476013149626e-11,
+              -5.992983886926595e-13
+            ],
+            "character_reference": 0.8123368752121689,
+            "finest_extrapolate_cross_method_difference": 1.2486678357959136e-12,
+            "difference_units": "absolute",
+            "agreement_within_goal": true
+          },
+          {
+            "signed_adjacent_differences": [
+              4.463519588715492e-06,
+              1.1180242817099284e-06,
+              2.7977819427871253e-07
+            ],
+            "signed_fine_grid_corrections": [
+              -1.4911466324117867e-06,
+              -3.7308887237707826e-07,
+              -9.331121066810818e-08
+            ],
+            "extrapolated_values": [
+              0.6814884527654222,
+              0.6814884527989006,
+              0.681488452798368
+            ],
+            "observed_orders": [
+              2.0000324243108034,
+              1.9999979395480556
+            ],
+            "extrapolate_adjacent_differences": [
+              3.3478331218361745e-11,
+              -5.325739849126876e-13
+            ],
+            "character_reference": 0.681488452800296,
+            "finest_extrapolate_cross_method_difference": 1.928013304564047e-12,
+            "difference_units": "absolute",
+            "agreement_within_goal": true
+          },
+          {
+            "signed_adjacent_differences": [
+              -4.928572251428065e-07,
+              -1.234532518434861e-07,
+              -3.089346289897321e-08
+            ],
+            "signed_fine_grid_corrections": [
+              1.6465087178949944e-07,
+              4.119681054791233e-08,
+              1.0303542176563436e-08
+            ],
+            "extrapolated_values": [
+              0.021597253971555173,
+              0.021597253970745772,
+              0.0215972539709403
+            ],
+            "observed_orders": [
+              2.000007099401302,
+              1.9999931842246028
+            ],
+            "extrapolate_adjacent_differences": [
+              -8.094011572090665e-13,
+              1.945284211490872e-13
+            ],
+            "character_reference": 0.021597253970824903,
+            "finest_extrapolate_cross_method_difference": 1.1539727506892916e-13,
+            "difference_units": "absolute",
+            "agreement_within_goal": true
+          },
+          {
+            "signed_adjacent_differences": [
+              -6.829489113124865e-07,
+              -1.7106664984556375e-07,
+              -4.280833926229022e-08
+            ],
+            "signed_fine_grid_corrections": [
+              2.2815559537086695e-07,
+              5.708557903106863e-08,
+              1.4277374166180106e-08
+            ],
+            "extrapolated_values": [
+              0.04447287702374487,
+              0.044472877020378374,
+              0.04447287702051277
+            ],
+            "observed_orders": [
+              2.0000213094611126,
+              1.9999966016934072
+            ],
+            "extrapolate_adjacent_differences": [
+              -3.3664945831013426e-12,
+              1.343994360247791e-13
+            ],
+            "character_reference": 0.04447287702033692,
+            "finest_extrapolate_cross_method_difference": 1.758523882067209e-13,
+            "difference_units": "absolute",
+            "agreement_within_goal": true
+          },
+          {
+            "signed_adjacent_differences": [
+              -5.775309364075554e-07,
+              -1.4466203113183695e-07,
+              -3.6200793140928056e-08
+            ],
+            "signed_fine_grid_corrections": [
+              1.929381721803046e-07,
+              4.827425929265982e-08,
+              1.2073635130265621e-08
+            ],
+            "extrapolated_values": [
+              0.03054663251025721,
+              0.03054663250837545,
+              0.03054663250854443
+            ],
+            "observed_orders": [
+              2.0000140854178503,
+              1.9999949474133998
+            ],
+            "extrapolate_adjacent_differences": [
+              -1.8817586378006013e-12,
+              1.6897941379490078e-13
+            ],
+            "character_reference": 0.03054663250840417,
+            "finest_extrapolate_cross_method_difference": 1.4025933192662876e-13,
+            "difference_units": "absolute",
+            "agreement_within_goal": true
+          }
+        ],
+        "first_three_gaps": [
+          {
+            "signed_adjacent_differences": [
+              -7.962729268662372e-05,
+              -1.9944895962797915e-05,
+              -4.990955456030122e-06
+            ],
+            "signed_fine_grid_corrections": [
+              2.660142225832516e-05,
+              6.655686165471887e-06,
+              1.6645761017702201e-06
+            ],
+            "extrapolated_values": [
+              3.66355005333954,
+              3.66355005249941,
+              3.6635500523448026
+            ],
+            "observed_orders": [
+              2.000045611151347,
+              2.000033530640988
+            ],
+            "extrapolate_adjacent_differences": [
+              -8.401301876403977e-10,
+              -1.5460743796325005e-10
+            ],
+            "character_reference": 3.66355005248069,
+            "finest_extrapolate_cross_method_difference": 3.709170052671111e-11,
+            "difference_units": "relative",
+            "agreement_within_goal": true,
+            "finest_gap_residual_scale_relative": 2.956540014495513e-10
+          },
+          {
+            "signed_adjacent_differences": [
+              -0.0001915265107097497,
+              -4.797241749798786e-05,
+              -1.2004520398178897e-05
+            ],
+            "signed_fine_grid_corrections": [
+              6.398406140850192e-05,
+              1.6008574627872296e-05,
+              4.003729935894087e-06
+            ],
+            "extrapolated_values": [
+              7.017070214447695,
+              7.017070211378412,
+              7.0170702110541185
+            ],
+            "observed_orders": [
+              2.0000692784255176,
+              2.0000292407822147
+            ],
+            "extrapolate_adjacent_differences": [
+              -3.0692826058498213e-09,
+              -3.242934809577491e-10
+            ],
+            "character_reference": 7.017070211207669,
+            "finest_extrapolate_cross_method_difference": 2.1882360719342212e-11,
+            "difference_units": "relative",
+            "agreement_within_goal": true,
+            "finest_gap_residual_scale_relative": 2.4877041753861394e-10
+          },
+          {
+            "signed_adjacent_differences": [
+              -0.0002991442618611728,
+              -7.492608343362406e-05,
+              -1.8749291598396667e-05
+            ],
+            "signed_fine_grid_corrections": [
+              9.993637303784447e-05,
+              2.500311347185425e-05,
+              6.253236077694199e-06
+            ],
+            "extrapolated_values": [
+              9.99695223847754,
+              9.996952231301407,
+              9.996952230715612
+            ],
+            "observed_orders": [
+              2.0001037062578497,
+              2.000033818615931
+            ],
+            "extrapolate_adjacent_differences": [
+              -7.1761334652364894e-09,
+              -5.857945239995388e-10
+            ],
+            "character_reference": 9.996952230781627,
+            "finest_extrapolate_cross_method_difference": 6.603487512860711e-12,
+            "difference_units": "relative",
+            "agreement_within_goal": true,
+            "finest_gap_residual_scale_relative": 9.264199742902995e-11
+          }
+        ]
+      }
+    },
+    {
+      "g": 0.7,
+      "eta": 1,
+      "quantities": {
+        "moments": [
+          {
+            "signed_adjacent_differences": [
+              2.911489339507689e-06,
+              7.292831930572063e-07,
+              1.8250350819482009e-07
+            ],
+            "signed_fine_grid_corrections": [
+              -9.726534044760602e-07,
+              -2.4336452131892185e-07,
+              -6.086830085074789e-08
+            ],
+            "extrapolated_values": [
+              0.6310766571286928,
+              0.6310766571343829,
+              0.6310766571270952
+            ],
+            "observed_orders": [
+              2.0000084486158705,
+              1.9999567758050252
+            ],
+            "extrapolate_adjacent_differences": [
+              5.690115045808852e-12,
+              -7.287725978244453e-12
+            ],
+            "character_reference": 0.6310766571372824,
+            "finest_extrapolate_cross_method_difference": 1.0187295451657974e-11,
+            "difference_units": "absolute",
+            "agreement_within_goal": true
+          },
+          {
+            "signed_adjacent_differences": [
+              2.9011155240898923e-06,
+              7.266808065842234e-07,
+              1.8185169503581733e-07
+            ],
+            "signed_fine_grid_corrections": [
+              -9.69187780629664e-07,
+              -2.424960952475224e-07,
+              -6.065090908741639e-08
+            ],
+            "extrapolated_values": [
+              0.4742714771088211,
+              0.4742714771196999,
+              0.47427147711319106
+            ],
+            "observed_orders": [
+              2.0000162105566752,
+              1.9999612569321272
+            ],
+            "extrapolate_adjacent_differences": [
+              1.0878797862545753e-11,
+              -6.508849015318674e-12
+            ],
+            "character_reference": 0.4742714771228379,
+            "finest_extrapolate_cross_method_difference": 9.646838883270448e-12,
+            "difference_units": "absolute",
+            "agreement_within_goal": true
+          },
+          {
+            "signed_adjacent_differences": [
+              -7.736445355455146e-07,
+              -1.9378727894592274e-07,
+              -4.849576851206905e-08
+            ],
+            "signed_fine_grid_corrections": [
+              2.584546613795554e-07,
+              6.466753769639044e-08,
+              1.617423718030548e-08
+            ],
+            "extrapolated_values": [
+              0.07601372993987342,
+              0.07601372994002868,
+              0.07601372994249668
+            ],
+            "observed_orders": [
+              1.9999991324284372,
+              1.9999449130860174
+            ],
+            "extrapolate_adjacent_differences": [
+              1.5526468999382814e-13,
+              2.4679980281661074e-12
+            ],
+            "character_reference": 0.07601372993927075,
+            "finest_extrapolate_cross_method_difference": 3.225933409289894e-12,
+            "difference_units": "absolute",
+            "agreement_within_goal": true
+          },
+          {
+            "signed_adjacent_differences": [
+              -1.5175967602032436e-07,
+              -3.801282821846996e-08,
+              -9.513092397162026e-09
+            ],
+            "signed_fine_grid_corrections": [
+              5.0698988844078026e-08,
+              1.2685022541909428e-08,
+              3.17279254398385e-09
+            ],
+            "extrapolated_values": [
+              0.07795775930892937,
+              0.0779577593077913,
+              0.07795775930865369
+            ],
+            "observed_orders": [
+              2.0000324191998584,
+              1.999901870188602
+            ],
+            "extrapolate_adjacent_differences": [
+              -1.1380757447554402e-12,
+              8.62393489953206e-13
+            ],
+            "character_reference": 0.0779577593074724,
+            "finest_extrapolate_cross_method_difference": 1.1812911759889744e-12,
+            "difference_units": "absolute",
+            "agreement_within_goal": true
+          },
+          {
+            "signed_adjacent_differences": [
+              -3.5799676906256295e-07,
+              -8.967239079060718e-08,
+              -2.2440867331052772e-08
+            ],
+            "signed_fine_grid_corrections": [
+              1.1959747593615128e-07,
+              2.992401123189955e-08,
+              7.48444497077897e-09
+            ],
+            "extrapolated_values": [
+              0.07059597928639073,
+              0.07059597928531681,
+              0.07059597928661789
+            ],
+            "observed_orders": [
+              2.000012967964352,
+              1.9999372418696386
+            ],
+            "extrapolate_adjacent_differences": [
+              -1.073918731719914e-12,
+              1.301070362558221e-12
+            ],
+            "character_reference": 0.07059597928485223,
+            "finest_extrapolate_cross_method_difference": 1.7656570650004255e-12,
+            "difference_units": "absolute",
+            "agreement_within_goal": true
+          }
+        ],
+        "first_three_gaps": [
+          {
+            "signed_adjacent_differences": [
+              -2.8690333769176846e-05,
+              -7.186431178585195e-06,
+              -1.7983321884962322e-06
+            ],
+            "signed_fine_grid_corrections": [
+              9.584699637218314e-06,
+              2.398138885439216e-06,
+              5.997770988715674e-07
+            ],
+            "extrapolated_values": [
+              3.28426761751066,
+              3.284267617381087,
+              3.284267617351489
+            ],
+            "observed_orders": [
+              2.000019523699024,
+              2.0000178151863692
+            ],
+            "extrapolate_adjacent_differences": [
+              -1.2957324102558232e-10,
+              -2.9598101747296823e-11
+            ],
+            "character_reference": 3.2842676172653316,
+            "finest_extrapolate_cross_method_difference": 2.6233338312893113e-11,
+            "difference_units": "relative",
+            "agreement_within_goal": true,
+            "finest_gap_residual_scale_relative": 8.019070701781597e-10
+          },
+          {
+            "signed_adjacent_differences": [
+              -7.506379226285276e-05,
+              -1.8802190004940655e-05,
+              -4.705439332397532e-06
+            ],
+            "signed_fine_grid_corrections": [
+              2.5076874610742386e-05,
+              6.274360925716365e-06,
+              1.569351185367758e-06
+            ],
+            "extrapolated_values": [
+              6.08779432639128,
+              6.0877943260676,
+              6.087794326497192
+            ],
+            "observed_orders": [
+              2.0000186409433414,
+              1.9999011741685915
+            ],
+            "extrapolate_adjacent_differences": [
+              -3.2367974966973634e-10,
+              4.2959147350529747e-10
+            ],
+            "character_reference": 6.087794326051427,
+            "finest_extrapolate_cross_method_difference": 7.322263047587909e-11,
+            "difference_units": "relative",
+            "agreement_within_goal": true,
+            "finest_gap_residual_scale_relative": 3.3696761747032966e-10
+          },
+          {
+            "signed_adjacent_differences": [
+              -0.00021697817785337747,
+              -5.4350373510203553e-05,
+              -1.3601083626468835e-05
+            ],
+            "signed_fine_grid_corrections": [
+              7.248680615872898e-05,
+              1.8136922335158973e-05,
+              4.536213348777606e-06
+            ],
+            "extrapolated_values": [
+              9.360225756097188,
+              9.360225756586875,
+              9.360225756961514
+            ],
+            "observed_orders": [
+              1.9999902438081973,
+              1.9999701843161648
+            ],
+            "extrapolate_adjacent_differences": [
+              4.896865135606276e-10,
+              3.74638986500031e-10
+            ],
+            "character_reference": 9.36022575641822,
+            "finest_extrapolate_cross_method_difference": 5.804276781332086e-11,
+            "difference_units": "relative",
+            "agreement_within_goal": true,
+            "finest_gap_residual_scale_relative": 1.5897860480036422e-10
+          }
+        ]
+      }
+    },
+    {
+      "g": 1.0,
+      "eta": 1,
+      "quantities": {
+        "moments": [
+          {
+            "signed_adjacent_differences": [
+              2.1639327068556646e-06,
+              5.420292033542218e-07,
+              1.3560467398976428e-07
+            ],
+            "signed_fine_grid_corrections": [
+              -7.229140377811437e-07,
+              -1.8087716660821143e-07,
+              -4.522667084495436e-08
+            ],
+            "extrapolated_values": [
+              0.2958129651241458,
+              0.2958129651318136,
+              0.2958129651776354
+            ],
+            "observed_orders": [
+              2.000015318279641,
+              2.0003657141577253
+            ],
+            "extrapolate_adjacent_differences": [
+              7.667810830724875e-12,
+              4.5821790806144236e-11
+            ],
+            "character_reference": 0.29581296512787286,
+            "finest_extrapolate_cross_method_difference": 4.976252743205123e-11,
+            "difference_units": "absolute",
+            "agreement_within_goal": true
+          },
+          {
+            "signed_adjacent_differences": [
+              7.507230709857815e-07,
+              1.8804228335556061e-07,
+              4.70460653767546e-08
+            ],
+            "signed_fine_grid_corrections": [
+              -2.507971919747828e-07,
+              -6.275041124244495e-08,
+              -1.5690734329004692e-08
+            ],
+            "extrapolated_values": [
+              0.29027082863145015,
+              0.2902708286359475,
+              0.29027082864955905
+            ],
+            "observed_orders": [
+              2.0000258978081598,
+              2.000313138377999
+            ],
+            "extrapolate_adjacent_differences": [
+              4.497346939302815e-12,
+              1.3611556326509344e-11
+            ],
+            "character_reference": 0.2902708286350429,
+            "finest_extrapolate_cross_method_difference": 1.4516166046973922e-11,
+            "difference_units": "absolute",
+            "agreement_within_goal": true
+          },
+          {
+            "signed_adjacent_differences": [
+              -5.295234407620697e-07,
+              -1.3263673767638373e-07,
+              -3.3181206532395535e-08
+            ],
+            "signed_fine_grid_corrections": [
+              1.7690010759036282e-07,
+              4.426137401933038e-08,
+              1.1066547058638822e-08
+            ],
+            "extrapolated_values": [
+              0.20276551829799813,
+              0.20276551829600223,
+              0.20276551828238182
+            ],
+            "observed_orders": [
+              2.000016294253878,
+              2.00044425396558
+            ],
+            "extrapolate_adjacent_differences": [
+              -1.995903442519875e-12,
+              -1.362041035513073e-11
+            ],
+            "character_reference": 0.20276551829729877,
+            "finest_extrapolate_cross_method_difference": 1.4916956558863603e-11,
+            "difference_units": "absolute",
+            "agreement_within_goal": true
+          },
+          {
+            "signed_adjacent_differences": [
+              1.375499226186072e-07,
+              3.445387591893834e-08,
+              8.620957517302408e-09
+            ],
+            "signed_fine_grid_corrections": [
+              -4.59518771732922e-08,
+              -1.1497386886764898e-08,
+              -2.8752490347995025e-09
+            ],
+            "extrapolated_values": [
+              0.07112908668571703,
+              0.0711290866863314,
+              0.07112908668751174
+            ],
+            "observed_orders": [
+              2.0000193085852627,
+              2.000148192736377
+            ],
+            "extrapolate_adjacent_differences": [
+              6.14369666251946e-13,
+              1.1803336086302352e-12
+            ],
+            "character_reference": 0.07112908668625192,
+            "finest_extrapolate_cross_method_difference": 1.2598116994055886e-12,
+            "difference_units": "absolute",
+            "agreement_within_goal": true
+          },
+          {
+            "signed_adjacent_differences": [
+              3.464090958804622e-07,
+              8.677017628022643e-08,
+              2.170972770998425e-08
+            ],
+            "signed_fine_grid_corrections": [
+              -1.1572633355634367e-07,
+              -2.8955531426238878e-08,
+              -7.240596362830054e-09
+            ],
+            "extrapolated_values": [
+              0.06534034418911995,
+              0.0653403441897458,
+              0.06534034419495316
+            ],
+            "observed_orders": [
+              2.000007810191172,
+              2.0002596110524546
+            ],
+            "extrapolate_adjacent_differences": [
+              6.258465967690086e-13,
+              5.207362319126219e-12
+            ],
+            "character_reference": 0.06534034418920799,
+            "finest_extrapolate_cross_method_difference": 5.745168230042452e-12,
+            "difference_units": "absolute",
+            "agreement_within_goal": true
+          }
+        ],
+        "first_three_gaps": [
+          {
+            "signed_adjacent_differences": [
+              -2.513741337129005e-05,
+              -6.296489630130964e-06,
+              -1.5745969124125736e-06
+            ],
+            "signed_fine_grid_corrections": [
+              8.397760679914294e-06,
+              2.101162071763496e-06,
+              5.251572396135863e-07
+            ],
+            "extrapolated_values": [
+              3.4262885657767495,
+              3.4262885656677717,
+              3.4262885642598517
+            ],
+            "observed_orders": [
+              2.0000187413446966,
+              2.0009675256818267
+            ],
+            "extrapolate_adjacent_differences": [
+              -1.0897771574036597e-10,
+              -1.4079200028049854e-09
+            ],
+            "character_reference": 3.426288565734035,
+            "finest_extrapolate_cross_method_difference": 4.302566505134133e-10,
+            "difference_units": "relative",
+            "agreement_within_goal": true,
+            "finest_gap_residual_scale_relative": 3.6271181624329345e-09
+          },
+          {
+            "signed_adjacent_differences": [
+              -0.0001357184052110938,
+              -3.39958116288841e-05,
+              -8.505591754470743e-06
+            ],
+            "signed_fine_grid_corrections": [
+              4.534001450300802e-05,
+              1.1344529124864443e-05,
+              2.836772415750526e-06
+            ],
+            "extrapolated_values": [
+              8.3706325991964,
+              8.370632599522649,
+              8.370632597357694
+            ],
+            "observed_orders": [
+              1.9999896081995008,
+              2.0002754878055717
+            ],
+            "extrapolate_adjacent_differences": [
+              3.262492498379288e-10,
+              -2.1649544379442887e-09
+            ],
+            "character_reference": 8.370632599467253,
+            "finest_extrapolate_cross_method_difference": 2.520190349821176e-10,
+            "difference_units": "relative",
+            "agreement_within_goal": true,
+            "finest_gap_residual_scale_relative": 9.868260437939298e-10
+          },
+          {
+            "signed_adjacent_differences": [
+              -0.00043443942207943564,
+              -0.0001088225668919307,
+              -2.7231241496394887e-05
+            ],
+            "signed_fine_grid_corrections": [
+              0.0001451349923182706,
+              3.6314496415761564e-05,
+              9.082123496347006e-06
+            ],
+            "extrapolated_values": [
+              15.345069525717987,
+              15.345069527788977,
+              15.345069526657554
+            ],
+            "observed_orders": [
+              1.9999793925070788,
+              2.000044972844534
+            ],
+            "extrapolate_adjacent_differences": [
+              2.0709904902105336e-09,
+              -1.1314238435033985e-09
+            ],
+            "character_reference": 15.345069527679602,
+            "finest_extrapolate_cross_method_difference": 6.660433971885401e-11,
+            "difference_units": "relative",
+            "agreement_within_goal": true,
+            "finest_gap_residual_scale_relative": 7.365273669786516e-10
+          }
+        ]
+      }
+    },
+    {
+      "g": 1.5,
+      "eta": 1,
+      "quantities": {
+        "moments": [
+          {
+            "signed_adjacent_differences": [
+              5.547232044683659e-07,
+              1.3896118403189384e-07,
+              3.476104187827289e-08
+            ],
+            "signed_fine_grid_corrections": [
+              -1.8531869790712001e-07,
+              -4.6371865354614975e-08,
+              -1.1593451412854615e-08
+            ],
+            "extrapolated_values": [
+              0.06549011736391895,
+              0.06549011734956746,
+              0.06549011736693953
+            ],
+            "observed_orders": [
+              1.999888163613547,
+              2.0005408499747603
+            ],
+            "extrapolate_adjacent_differences": [
+              -1.4351492216846395e-11,
+              1.737207599994406e-11
+            ],
+            "character_reference": 0.06549011736311729,
+            "finest_extrapolate_cross_method_difference": 3.822248073603873e-12,
+            "difference_units": "absolute",
+            "agreement_within_goal": true
+          },
+          {
+            "signed_adjacent_differences": [
+              3.878553894720582e-08,
+              9.713447990389312e-09,
+              2.4325300107541636e-09
+            ],
+            "signed_fine_grid_corrections": [
+              -1.2957246997104778e-08,
+              -3.241413819818975e-09,
+              -8.11293821075489e-10
+            ],
+            "extrapolated_values": [
+              0.25188090186620266,
+              0.25188090186858786,
+              0.25188090186617784
+            ],
+            "observed_orders": [
+              2.0002658717340847,
+              1.9989271921870368
+            ],
+            "extrapolate_adjacent_differences": [
+              2.3852031461046863e-12,
+              -2.4100166307050586e-12
+            ],
+            "character_reference": 0.25188090186682977,
+            "finest_extrapolate_cross_method_difference": 6.519229600598919e-13,
+            "difference_units": "absolute",
+            "agreement_within_goal": true
+          },
+          {
+            "signed_adjacent_differences": [
+              -3.387274991051292e-08,
+              -8.487752889418942e-09,
+              -2.1204817346465177e-09
+            ],
+            "signed_fine_grid_corrections": [
+              1.1316011043680331e-08,
+              2.8323947935061022e-09,
+              7.072199403158833e-10
+            ],
+            "extrapolated_values": [
+              0.2475919463939998,
+              0.24759194639813645,
+              0.24759194639344334
+            ],
+            "observed_orders": [
+              1.9994721659253007,
+              2.002393681748474
+            ],
+            "extrapolate_adjacent_differences": [
+              4.136635478602102e-12,
+              -4.693107014119846e-12
+            ],
+            "character_reference": 0.2475919463945949,
+            "finest_extrapolate_cross_method_difference": 1.151551076716828e-12,
+            "difference_units": "absolute",
+            "agreement_within_goal": true
+          },
+          {
+            "signed_adjacent_differences": [
+              9.571906975369693e-09,
+              2.397319426306055e-09,
+              6.00213545531858e-10
+            ],
+            "signed_fine_grid_corrections": [
+              -3.197726943590924e-09,
+              -7.99994433144383e-10,
+              -2.001823363588587e-10
+            ],
+            "extrapolated_values": [
+              0.06296704689047262,
+              0.06296704689088571,
+              0.06296704689048425
+            ],
+            "observed_orders": [
+              2.0001865725348393,
+              1.9992758428901796
+            ],
+            "extrapolate_adjacent_differences": [
+              4.130862318874051e-13,
+              -4.014566457044566e-13
+            ],
+            "character_reference": 0.06296704689059236,
+            "finest_extrapolate_cross_method_difference": 1.0810796702287462e-13,
+            "difference_units": "absolute",
+            "agreement_within_goal": true
+          },
+          {
+            "signed_adjacent_differences": [
+              1.3628650711791646e-07,
+              3.4140294868922894e-08,
+              8.540413883040276e-09
+            ],
+            "signed_fine_grid_corrections": [
+              -4.5529802679891345e-08,
+              -1.139274372090257e-08,
+              -2.848386240706544e-09
+            ],
+            "extrapolated_values": [
+              0.016281133415471535,
+              0.016281133412235627,
+              0.016281133416179223
+            ],
+            "observed_orders": [
+              1.9998973621053657,
+              2.000499732970307
+            ],
+            "extrapolate_adjacent_differences": [
+              -3.2359080692767606e-12,
+              3.943595450195403e-12
+            ],
+            "character_reference": 0.016281133415296297,
+            "finest_extrapolate_cross_method_difference": 8.829256770148675e-13,
+            "difference_units": "absolute",
+            "agreement_within_goal": true
+          }
+        ],
+        "first_three_gaps": [
+          {
+            "signed_adjacent_differences": [
+              -5.749859187176298e-05,
+              -1.4402619815001572e-05,
+              -3.605000473250186e-06
+            ],
+            "signed_fine_grid_corrections": [
+              1.920879474904981e-05,
+              4.806207945534446e-06,
+              1.2023344402708245e-06
+            ],
+            "extrapolated_values": [
+              6.790810629299694,
+              6.790810629332705,
+              6.7908106304596725
+            ],
+            "observed_orders": [
+              1.9999975180838798,
+              1.9996615794590722
+            ],
+            "extrapolate_adjacent_differences": [
+              3.3010927324994555e-11,
+              1.126967852371763e-09
+            ],
+            "character_reference": 6.790810629402696,
+            "finest_extrapolate_cross_method_difference": 1.5564809358512524e-10,
+            "difference_units": "relative",
+            "agreement_within_goal": true,
+            "finest_gap_residual_scale_relative": 1.5452400195048567e-09
+          },
+          {
+            "signed_adjacent_differences": [
+              -0.00030712310316616254,
+              -7.693049039758648e-05,
+              -1.9252489391163863e-05
+            ],
+            "signed_fine_grid_corrections": [
+              0.00010260189787895027,
+              2.567199155098306e-05,
+              6.421061863294388e-06
+            ],
+            "extrapolated_values": [
+              18.03420261199405,
+              18.03420261257812,
+              18.034202614137822
+            ],
+            "observed_orders": [
+              1.9999917788892625,
+              1.9999123064012596
+            ],
+            "extrapolate_adjacent_differences": [
+              5.840696815084812e-10,
+              1.5597017011259595e-09
+            ],
+            "character_reference": 18.0342026128559,
+            "finest_extrapolate_cross_method_difference": 7.108282808656437e-11,
+            "difference_units": "relative",
+            "agreement_within_goal": true,
+            "finest_gap_residual_scale_relative": 4.039057611273472e-10
+          },
+          {
+            "signed_adjacent_differences": [
+              -0.0009791737102915476,
+              -0.00024527280849895305,
+              -6.137693922170229e-05
+            ],
+            "signed_fine_grid_corrections": [
+              0.00032711665124955343,
+              8.184845091886417e-05,
+              2.047034623496995e-05
+            ],
+            "extrapolated_values": [
+              33.781972207165786,
+              33.781972211773954,
+              33.781972210608494
+            ],
+            "observed_orders": [
+              1.999979655588593,
+              2.000020553672133
+            ],
+            "extrapolate_adjacent_differences": [
+              4.608168069353269e-09,
+              -1.1654606169031467e-09
+            ],
+            "character_reference": 33.781972211782666,
+            "finest_extrapolate_cross_method_difference": 3.4757351154117384e-11,
+            "difference_units": "relative",
+            "agreement_within_goal": true,
+            "finest_gap_residual_scale_relative": 4.104359994220078e-10
+          }
+        ]
+      }
+    },
+    {
+      "g": 2.0,
+      "eta": 1,
+      "quantities": {
+        "moments": [
+          {
+            "signed_adjacent_differences": [
+              1.7756360567999785e-07,
+              4.4477688289357165e-08,
+              1.1126400873556763e-08
+            ],
+            "signed_fine_grid_corrections": [
+              -5.931941540438483e-08,
+              -1.4842370457675617e-08,
+              -3.71086080731515e-09
+            ],
+            "extrapolated_values": [
+              0.020822041149776413,
+              0.02082204114913307,
+              0.020822041154241848
+            ],
+            "observed_orders": [
+              1.9999843373358177,
+              2.0004969206284
+            ],
+            "extrapolate_adjacent_differences": [
+              -6.433430177477106e-13,
+              5.108777983986457e-12
+            ],
+            "character_reference": 0.020822041148420983,
+            "finest_extrapolate_cross_method_difference": 5.820864623640176e-12,
+            "difference_units": "absolute",
+            "agreement_within_goal": true
+          },
+          {
+            "signed_adjacent_differences": [
+              3.930610670277446e-09,
+              9.842477388666282e-10,
+              2.466056248096038e-10
+            ],
+            "signed_fine_grid_corrections": [
+              -1.3131155241536101e-09,
+              -3.284471411227475e-10,
+              -8.224754423007665e-11
+            ],
+            "extrapolated_values": [
+              0.25018972704720144,
+              0.25018972704762205,
+              0.25018972704721604
+            ],
+            "observed_orders": [
+              2.0004627048165373,
+              1.998216715212359
+            ],
+            "extrapolate_adjacent_differences": [
+              4.2060799287924056e-13,
+              -4.0600856010541975e-13
+            ],
+            "character_reference": 0.250189727047621,
+            "finest_extrapolate_cross_method_difference": 4.0495384823202585e-13,
+            "difference_units": "absolute",
+            "agreement_within_goal": true
+          },
+          {
+            "signed_adjacent_differences": [
+              -3.463915210222268e-09,
+              -8.679880703077458e-10,
+              -2.1674323447129495e-10
+            ],
+            "signed_fine_grid_corrections": [
+              1.157204622500456e-09,
+              2.896508561447259e-10,
+              7.228788385305908e-11
+            ],
+            "extrapolated_values": [
+              0.24975616964957237,
+              0.2497561696500067,
+              0.24975616964938693
+            ],
+            "observed_orders": [
+              1.9994580931472064,
+              2.003091696355287
+            ],
+            "extrapolate_adjacent_differences": [
+              4.3431924723336124e-13,
+              -6.19754247921378e-13
+            ],
+            "character_reference": 0.2497561696500344,
+            "finest_extrapolate_cross_method_difference": 6.474543123857757e-13,
+            "difference_units": "absolute",
+            "agreement_within_goal": true
+          },
+          {
+            "signed_adjacent_differences": [
+              9.813494045163296e-10,
+              2.4576538026899186e-10,
+              6.139876107535969e-11
+            ],
+            "signed_fine_grid_corrections": [
+              -3.278434945067542e-10,
+              -8.2012823955528e-11,
+              -2.0477624227413368e-11
+            ],
+            "extrapolated_values": [
+              0.06254739940371806,
+              0.06254739940378334,
+              0.06254739940391979
+            ],
+            "observed_orders": [
+              2.0002876389797977,
+              2.002403343132489
+            ],
+            "extrapolate_adjacent_differences": [
+              6.52811138479592e-14,
+              1.3644640972643174e-13
+            ],
+            "character_reference": 0.06254739940378748,
+            "finest_extrapolate_cross_method_difference": 1.3231082895970303e-13,
+            "difference_units": "absolute",
+            "agreement_within_goal": true
+          },
+          {
+            "signed_adjacent_differences": [
+              4.43135447130219e-08,
+              1.1100033125294173e-08,
+              2.7773524825455698e-09
+            ],
+            "signed_fine_grid_corrections": [
+              -1.4804010972889584e-08,
+              -3.704122450480623e-09,
+              -9.262985032358595e-10
+            ],
+            "extrapolated_values": [
+              0.005202575980822685,
+              0.005202575980678082,
+              0.005202575981149547
+            ],
+            "observed_orders": [
+              1.9999858935429577,
+              2.000183734238636
+            ],
+            "extrapolate_adjacent_differences": [
+              -1.4460307951047469e-13,
+              4.714648810244526e-13
+            ],
+            "character_reference": 0.005202575980511705,
+            "finest_extrapolate_cross_method_difference": 6.378422096053882e-13,
+            "difference_units": "absolute",
+            "agreement_within_goal": true
+          }
+        ],
+        "first_three_gaps": [
+          {
+            "signed_adjacent_differences": [
+              -0.00010238987136901301,
+              -2.5646813055502093e-05,
+              -6.419005002200606e-06
+            ],
+            "signed_fine_grid_corrections": [
+              3.4205811994412554e-05,
+              8.558437164091543e-06,
+              2.14085707995991e-06
+            ],
+            "extrapolated_values": [
+              12.007288822534905,
+              12.00728882197313,
+              12.007288823398047
+            ],
+            "observed_orders": [
+              2.0000237185667618,
+              1.9997596977252083
+            ],
+            "extrapolate_adjacent_differences": [
+              -5.617746268171686e-10,
+              1.4249170732227867e-09
+            ],
+            "character_reference": 12.007288822406045,
+            "finest_extrapolate_cross_method_difference": 8.261672879878404e-11,
+            "difference_units": "relative",
+            "agreement_within_goal": true,
+            "finest_gap_residual_scale_relative": 1.3613145626685837e-09
+          },
+          {
+            "signed_adjacent_differences": [
+              -0.0005461605099341682,
+              -0.00013680643857583163,
+              -3.4230258485479226e-05
+            ],
+            "signed_fine_grid_corrections": [
+              0.00018245812277907085,
+              4.565281875999866e-05,
+              1.1416425318623826e-05
+            ],
+            "extrapolated_values": [
+              32.006099793557276,
+              32.006099794691835,
+              32.006099788556874
+            ],
+            "observed_orders": [
+              1.9999910198376807,
+              2.0001939865585046
+            ],
+            "extrapolate_adjacent_differences": [
+              1.13455911332494e-09,
+              -6.1349609836724994e-09
+            ],
+            "character_reference": 32.006099795133224,
+            "finest_extrapolate_cross_method_difference": 2.0547177485607475e-10,
+            "difference_units": "relative",
+            "agreement_within_goal": true,
+            "finest_gap_residual_scale_relative": 5.626173429486637e-10
+          },
+          {
+            "signed_adjacent_differences": [
+              -0.0017409139683053354,
+              -0.0004360813494770355,
+              -0.00010912480193070451
+            ],
+            "signed_fine_grid_corrections": [
+              0.0005815944009118157,
+              0.00014552197264645236,
+              3.639514297503745e-05
+            ],
+            "extrapolated_values": [
+              60.00570294748584,
+              60.00570295640705,
+              60.00570295437931
+            ],
+            "observed_orders": [
+              1.9999778474968104,
+              2.0000201133995255
+            ],
+            "extrapolate_adjacent_differences": [
+              8.92121221340858e-09,
+              -2.0277397538848163e-09
+            ],
+            "character_reference": 60.005702955774694,
+            "finest_extrapolate_cross_method_difference": 2.325420871739778e-11,
+            "difference_units": "relative",
+            "agreement_within_goal": true,
+            "finest_gap_residual_scale_relative": 4.052944725576818e-10
+          }
+        ]
+      }
+    },
+    {
+      "g": 3.0,
+      "eta": 1,
+      "quantities": {
+        "moments": [
+          {
+            "signed_adjacent_differences": [
+              3.511888395195395e-08,
+              8.789049430087126e-09,
+              2.2257291296470805e-09
+            ],
+            "signed_fine_grid_corrections": [
+              -1.1732312247807726e-08,
+              -2.932938572785282e-09,
+              -7.423218962509615e-10
+            ],
+            "extrapolated_values": [
+              0.004115139224923062,
+              0.004115139235247307,
+              0.004115139200134853
+            ],
+            "observed_orders": [
+              2.001271418042689,
+              1.982822104978612
+            ],
+            "extrapolate_adjacent_differences": [
+              1.0324244931192439e-11,
+              -3.511245374315797e-11
+            ],
+            "character_reference": 0.004115139225996906,
+            "finest_extrapolate_cross_method_difference": 2.5862052950575976e-11,
+            "difference_units": "absolute",
+            "agreement_within_goal": true
+          },
+          {
+            "signed_adjacent_differences": [
+              1.53413226566812e-10,
+              4.019551358425133e-11,
+              3.912314916476589e-12
+            ],
+            "signed_fine_grid_corrections": [
+              -5.125139738176012e-11,
+              -1.34133927885984e-11,
+              -1.3048295000705334e-12
+            ],
+            "extrapolated_values": [
+              0.25000740885720807,
+              0.25000740885485057,
+              0.2500074088630468
+            ],
+            "observed_orders": [
+              1.9350517985228914,
+              3.363069271012185
+            ],
+            "extrapolate_adjacent_differences": [
+              -2.3575030816402887e-12,
+              8.196221479295218e-12
+            ],
+            "character_reference": 0.25000740885692435,
+            "finest_extrapolate_cross_method_difference": 6.122435891597888e-12,
+            "difference_units": "absolute",
+            "agreement_within_goal": true
+          },
+          {
+            "signed_adjacent_differences": [
+              -1.3562673206735099e-10,
+              -3.2141372896532516e-11,
+              -1.4405532322570025e-11
+            ],
+            "signed_fine_grid_corrections": [
+              4.5309388872973756e-11,
+              1.0725696003917133e-11,
+              4.804511891296631e-12
+            ],
+            "extrapolated_values": [
+              0.24999047448636796,
+              0.24999047448392564,
+              0.24999047449241
+            ],
+            "observed_orders": [
+              2.0800229414886626,
+              1.1587871806546612
+            ],
+            "extrapolate_adjacent_differences": [
+              -2.4423241207216506e-12,
+              8.484352109761062e-12
+            ],
+            "character_reference": 0.249990474486075,
+            "finest_extrapolate_cross_method_difference": 6.3349880896623745e-12,
+            "difference_units": "absolute",
+            "agreement_within_goal": true
+          },
+          {
+            "signed_adjacent_differences": [
+              3.836531092815676e-11,
+              9.894488006700897e-12,
+              1.4801493364302587e-12
+            ],
+            "signed_fine_grid_corrections": [
+              -1.2816859667555628e-11,
+              -3.3018275484345236e-12,
+              -4.936572233871663e-13
+            ],
+            "extrapolated_values": [
+              0.06250185216492987,
+              0.06250185216455041,
+              0.06250185216587843
+            ],
+            "observed_orders": [
+              1.9578642511879933,
+              2.7426747775527778
+            ],
+            "extrapolate_adjacent_differences": [
+              -3.794603520290707e-13,
+              1.3280210264809966e-12
+            ],
+            "character_reference": 0.0625018521648852,
+            "finest_extrapolate_cross_method_difference": 9.932332734052807e-13,
+            "difference_units": "absolute",
+            "agreement_within_goal": true
+          },
+          {
+            "signed_adjacent_differences": [
+              8.779116790957539e-09,
+              2.197300094262597e-09,
+              5.559644431028105e-10
+            ],
+            "signed_fine_grid_corrections": [
+              -2.932876215326168e-09,
+              -7.332472360874664e-10,
+              -1.8542444098650402e-10
+            ],
+            "extrapolated_values": [
+              0.001028762157773411,
+              0.001028762160102296,
+              0.001028762151960648
+            ],
+            "observed_orders": [
+              2.001147226887936,
+              1.9840610256819986
+            ],
+            "extrapolate_adjacent_differences": [
+              2.3288849147762303e-12,
+              -8.141647946102726e-12
+            ],
+            "character_reference": 0.0010287621580223638,
+            "finest_extrapolate_cross_method_difference": 6.061715799449141e-12,
+            "difference_units": "absolute",
+            "agreement_within_goal": true
+          }
+        ],
+        "first_three_gaps": [
+          {
+            "signed_adjacent_differences": [
+              -0.00023041936543677366,
+              -5.771840820756324e-05,
+              -1.4439685251943501e-05
+            ],
+            "signed_fine_grid_corrections": [
+              7.697715983641145e-05,
+              1.926084807444879e-05,
+              4.815902525923884e-06
+            ],
+            "extrapolated_values": [
+              27.00064013687427,
+              27.000640138970716,
+              27.00064013371042
+            ],
+            "observed_orders": [
+              1.9999606686990337,
+              2.0003942691044077
+            ],
+            "extrapolate_adjacent_differences": [
+              2.096445683719139e-09,
+              -5.260297086806531e-09
+            ],
+            "character_reference": 27.000640136570283,
+            "finest_extrapolate_cross_method_difference": 1.0591835759061738e-10,
+            "difference_units": "relative",
+            "agreement_within_goal": true,
+            "finest_gap_residual_scale_relative": 1.447689415407724e-09
+          },
+          {
+            "signed_adjacent_differences": [
+              -0.0012289016353435045,
+              -0.0003078269331950878,
+              -7.703281406179485e-05
+            ],
+            "signed_fine_grid_corrections": [
+              0.0004105443022453838,
+              0.00010272299561991671,
+              2.5691870518388933e-05
+            ],
+            "extrapolated_values": [
+              72.00053562489249,
+              72.00053563051907,
+              72.00053563220803
+            ],
+            "observed_orders": [
+              1.9999802073837942,
+              1.9999762673194332
+            ],
+            "extrapolate_adjacent_differences": [
+              5.626574761663505e-09,
+              1.6889600829017581e-09
+            ],
+            "character_reference": 72.00053562785179,
+            "finest_extrapolate_cross_method_difference": 6.050285597149163e-11,
+            "difference_units": "relative",
+            "agreement_within_goal": true,
+            "finest_gap_residual_scale_relative": 1.2153737188646596e-09
+          },
+          {
+            "signed_adjacent_differences": [
+              -0.003917095723721786,
+              -0.0009811923073641537,
+              -0.00024553446735353646
+            ],
+            "signed_fine_grid_corrections": [
+              0.0013086005295079842,
+              0.00032742753223541626,
+              8.189029337534332e-05
+            ],
+            "extrapolated_values": [
+              135.0005007712081,
+              135.00050079051817,
+              135.0005007877467
+            ],
+            "observed_orders": [
+              1.9999786893572236,
+              2.000012218029169
+            ],
+            "extrapolate_adjacent_differences": [
+              1.9310078869239078e-08,
+              -2.771486151686986e-09
+            ],
+            "character_reference": 135.00050078990904,
+            "finest_extrapolate_cross_method_difference": 1.6017363361782417e-11,
+            "difference_units": "relative",
+            "agreement_within_goal": true,
+            "finest_gap_residual_scale_relative": 4.159536484519552e-10
+          }
+        ]
+      }
+    }
+  ],
+  "input_sha256": "83ea4a794919db91ff9ee23fd827b0de6f5bd97d1a3f22a9a566ba2bd2e5669e",
+  "audit_source_sha256": "3b1d034fd40dc9d2c42448af046a492ec0e9b02058f81dd4746e9d40cbc2f552"
+}
