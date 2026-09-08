@@ -60,13 +60,16 @@ def ppCanonical (ci : ConstantInfo) : MetaM String := do
 
 def emitDecl (env : Environment) (n : Name) (ci : ConstantInfo) : MetaM Json := do
   let canon ← ppCanonical ci
-  -- whnf through every definition: `True` behind a grand name is not a
-  -- claim. Fresh 200k-heartbeat budget per call (the same limit lock.py's
-  -- one-decl command gives it); blowing it is caught as a runtime exception
-  -- and recorded as "timeout", never fatal.
+  -- whnf through every definition: `True` behind a grand name is not a claim.
+  -- Capped at ~2e7 heartbeats (1/10th of lock.py's default) and freshly
+  -- counted: a trivial `True` unfolds in a handful of steps, so anything that
+  -- burns this budget is by definition NOT trivially True and is recorded as
+  -- "timeout" in ~1-2s rather than spinning for minutes. lock.py can afford
+  -- the full default because it is run one hand-picked decl at a time; a walk
+  -- over all 318k cannot — one expensive reduction would stall the whole run.
   let reduces : Json ←
     tryCatchRuntimeEx
-      (withTheReader Core.Context (fun ctx => { ctx with maxHeartbeats := 200000 * 1000 }) do
+      (withTheReader Core.Context (fun ctx => { ctx with maxHeartbeats := 20000000 }) do
         withCurrHeartbeats do
           let tw ← withTransparency .all (whnf ci.type)
           pure (Json.bool (tw.isConstOf ``True)))
@@ -135,33 +138,43 @@ run_meta do
     else acc
   -- deterministic order (Python-string sort): resume and sharding depend on it
   let sorted := names.qsort fun a b => a.toString < b.toString
-  let stdout ← IO.getStdout
+  -- Write to an EXPLICITLY-OPENED file handle (path from CORPUS_OUT), flushed
+  -- after every line. Neither stdout nor stderr redirected to a file flushes
+  -- incrementally here: a separate `2>file` was empty even after a clean exit,
+  -- and stdout `>file` only appeared on process exit — so a watchdog SIGKILL
+  -- lost everything and could never see progress. An explicit Handle.flush is
+  -- reliable. Fall back to /dev/stdout when CORPUS_OUT is unset (standalone).
+  let outPath := (← IO.getEnv "CORPUS_OUT").getD "/dev/stdout"
+  let out ← IO.FS.Handle.mk outPath IO.FS.Mode.append
+  let emit (s : String) : IO Unit := do out.putStr (s ++ "\n"); out.flush
   let mut emitted := 0
   let mut skipping := resumeAfter != ""
-  IO.eprintln s!"corpus-walk: {sorted.size} declarations selected"
+  emit s!"INFO\t{sorted.size} declarations selected (limit={limit}, resumeAfter={resumeAfter})"
   for n in sorted do
     if skipping then
       if n.toString == resumeAfter then skipping := false
     else
       if limit > 0 && emitted ≥ limit then break
+      -- Announce the declaration BEFORE processing it: some types explode under
+      -- `pp.all` (ppExpr is not reliably heartbeat-checked), so the per-decl cap
+      -- below cannot bound them. The driver's wall-clock watchdog learns which
+      -- declaration hung from this START line and resumes past exactly that one.
+      emit s!"START\t{n}"
       match env.find? n with
-      | none => IO.eprintln s!"corpus-walk: VANISHED {n}"
+      | none => emit s!"INFO\tVANISHED {n}"
       | some ci =>
-        -- Per-declaration budget: generous but finite, freshly counted, with
-        -- both normal and runtime exceptions downgraded to a logged skip.
+        -- Per-declaration budget (400k heartbeats): a legit declaration
+        -- processes well within it, a heartbeat-checked runaway (whnf) trips
+        -- in ~1-2s and is downgraded to a logged skip.
         tryCatchRuntimeEx
-          (withTheReader Core.Context (fun ctx => { ctx with maxHeartbeats := 1000000 * 1000 }) do
+          (withTheReader Core.Context (fun ctx => { ctx with maxHeartbeats := 400000 }) do
             withCurrHeartbeats do
               try
                 let js ← emitDecl env n ci
-                IO.println s!"DECL\t{js.compress}"
+                emit s!"DECL\t{js.compress}"
               catch e =>
-                IO.eprintln s!"corpus-walk: ERROR {n}: {← e.toMessageData.toString}")
-          (fun _ => IO.eprintln s!"corpus-walk: BUDGET {n}: declaration exceeded its heartbeat cap")
+                emit s!"INFO\tERROR {n}: {← e.toMessageData.toString}")
+          (fun _ => emit s!"INFO\tBUDGET {n}: declaration exceeded its heartbeat cap")
       emitted := emitted + 1
-      -- Flush so the driver persists records to shards as they arrive: a
-      -- later crash then costs at most the last 200, recoverable by resume.
-      if emitted % 200 == 0 then stdout.flush
-      if emitted % 1000 == 0 then IO.eprintln s!"corpus-walk: {emitted}/{sorted.size}"
-  stdout.flush
-  IO.eprintln s!"corpus-walk: done, {emitted} emitted"
+      if emitted % 1000 == 0 then emit s!"INFO\t{emitted}/{sorted.size}"
+  emit s!"INFO\tdone, {emitted} emitted"
