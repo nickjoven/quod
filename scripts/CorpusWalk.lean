@@ -60,6 +60,11 @@ def ppCanonical (ci : ConstantInfo) : MetaM String := do
 
 def emitDecl (env : Environment) (n : Name) (ci : ConstantInfo) : MetaM Json := do
   let canon ← ppCanonical ci
+  -- readable_pp: the type under DEFAULT pretty-printing (notation on, implicits
+  -- and instances hidden, no universes). This is the ENCODER input; canon
+  -- (pp.all) stays the lock's identity. The readable form is far shorter — the
+  -- pp.all p50 of ~479 tokens made 47.5% of statements exceed a 512-token seq.
+  let readable ← ppExpr ci.type
   -- whnf through every definition: `True` behind a grand name is not a claim.
   -- Capped at ~2e7 heartbeats (1/10th of lock.py's default) and freshly
   -- counted: a trivial `True` unfolds in a handful of steps, so anything that
@@ -109,6 +114,7 @@ def emitDecl (env : Environment) (n : Name) (ci : ConstantInfo) : MetaM Json := 
     ("module", Json.str ((env.getModuleFor? n).getD `_local).toString),
     ("kind", Json.str (kindOf ci)),
     ("canonical_type", Json.str canon),
+    ("readable_pp", Json.str ((toString readable).replace "\n" " ")),
     ("type_consts_std", Json.arr stdC),
     ("type_consts_custom", Json.arr customC),
     ("proof_consts", Json.arr proofConsts),
