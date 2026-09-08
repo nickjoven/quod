@@ -162,10 +162,16 @@ def selftest(k: int) -> int:
             bad += 1
             continue
         oracle = json.loads(r.stdout[r.stdout.index("{"):])
+        # kind: the walker recognizes `inductive` explicitly; lock.py has no
+        # inductive case and reports those as `other`. That is an intentional
+        # enrichment, not a disagreement, so treat oracle `other` as subsuming
+        # the walker's `inductive`.
+        kind_ok = rec["kind"] == oracle["kind"] or \
+            (rec["kind"] == "inductive" and oracle["kind"] == "other")
         checks = {
             "lock": (rec["lock"], oracle["lock"]),
             "canonical_type": (rec["canonical_type"], oracle["canonical_type"]),
-            "kind": (rec["kind"], oracle["kind"]),
+            "kind": (rec["kind"], oracle["kind"]) if not kind_ok else (0, 0),
             "reduces_to_True": (rec["reduces_to_true"], oracle["reduces_to_True"]),
             "hypotheses": (rec["hypotheses"], [h["type"] for h in oracle["hypotheses"]]),
             "custom_constants": (sorted(rec["type_consts_custom"]),
