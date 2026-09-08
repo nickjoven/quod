@@ -1,5 +1,6 @@
 """Independent identities and report failure-path tests; no target solves."""
 import contextlib
+import hashlib
 import io
 import json
 from pathlib import Path
@@ -13,6 +14,18 @@ import vacuum_development as study
 
 
 class DevelopmentTests(unittest.TestCase):
+    def test_archived_report_drift_and_coverage(self):
+        report = json.loads((study.ROOT / "research/vacuum-spectrum/development.json").read_text())
+        for path, expected in report["source_sha256"].items():
+            self.assertEqual(hashlib.sha256((study.ROOT / path).read_bytes()).hexdigest(), expected)
+        self.assertEqual([c["g"] for c in report["cells"]], list(study.G_VALUES))
+        self.assertTrue(study.coverage(report["targets"]))
+        self.assertTrue(all(r["status"] == "unrun" for r in report["targets"]))
+        self.assertEqual(report["targets_run"], 0)
+        for cell in report["cells"]:
+            self.assertEqual(len(cell["rungs"]), len(study.CHARACTER_J) + len(study.ANGLE_INTERIORS))
+            self.assertEqual(cell["status"], "unresolved")
+
     def test_calibration_and_named_mutants(self):
         result = study.calibration()
         self.assertTrue(result["pass"], result)
