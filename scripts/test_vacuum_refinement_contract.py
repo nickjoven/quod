@@ -41,7 +41,7 @@ class RefinementContractTests(unittest.TestCase):
     def test_weak_development_cell_has_fourth_order_trend(self):
         reference = development.character(.1, 1, 80)
         errors = []
-        for nodes in (300, 600, 1200):
+        for nodes in (600, 1200, 2400):
             record = refined.angle_refined(.1, 1, nodes)
             errors.append(max(development.differences(record, reference)['gap_relative']))
             self.assertLess(record['orthogonality_defect'], 1e-12)
