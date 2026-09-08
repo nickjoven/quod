@@ -7,3 +7,4 @@ millennium/*.log
 millennium/lean4checker/
 .ket/
 research/vacuum-spectrum/audit-runtime/
+__pycache__/
