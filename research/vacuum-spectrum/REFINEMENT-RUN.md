@@ -65,3 +65,11 @@ was observed.
 Next numerical prerequisites are a validated combined error budget,
 overlap uncertainties, and independent angle semigroup/time-window checks.
 They remain separate from these successful scalar agreement checks.
+
+## Resumed evidence audit
+
+The follow-up [evidence audit](EVIDENCE-AUDIT.md) verifies archived source
+hashes and recomputes final and adjacent-rung agreement without new solves.
+Its machine-readable report is `evidence-audit.json`. It inventories the
+missing error-budget components and specifies the next semigroup check;
+it does not resolve channels or replace the outstanding sieve review.

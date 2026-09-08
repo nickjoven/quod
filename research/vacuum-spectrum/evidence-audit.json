@@ -1,0 +1,734 @@
+{
+  "schema_version": 1,
+  "state": "audited",
+  "registered": false,
+  "targets_run": 0,
+  "completed_solves": 130,
+  "source_sha256": {
+    "scripts/vacuum_refinement.py": "cdcb8e4147e46f84e841ff9c334602cb0cf7e3be92375c59218f41bb4d5d5cdf",
+    "scripts/vacuum_angle_refined.py": "112a7eade8384a76b66816454a2a7da774035d6ba81f2c324383ce39ef914265",
+    "scripts/vacuum_development.py": "1983126d88bbec6d609d116bf6b6b9db7d2ff305a965ba2fb6e4a3bf0cc4fa8c",
+    "scripts/vacuum_preflight.py": "4a993f491fce26e0f1793b4e2d099b4caded8ae298bfa14bc3527ab0af1d858c",
+    "scripts/vacuum_convergence.py": "3b1d034fd40dc9d2c42448af046a492ec0e9b02058f81dd4746e9d40cbc2f552"
+  },
+  "cells": [
+    {
+      "g": 0.1,
+      "eta": 1,
+      "scalar_agreement": true,
+      "cross_method_difference": {
+        "moment_absolute": [
+          2.0046186932631826e-12,
+          3.968492201522622e-12,
+          1.0436096431476471e-14,
+          3.785860513971784e-14,
+          1.9206858326015208e-14
+        ],
+        "gap_relative": [
+          5.296423910907811e-10,
+          1.055410152430613e-09,
+          1.779049998770681e-09
+        ]
+      },
+      "adjacent_rung_difference": {
+        "character": {
+          "moment_absolute": [
+            0.0,
+            4.440892098500626e-16,
+            1.1102230246251565e-16,
+            6.661338147750939e-16,
+            3.3306690738754696e-16
+          ],
+          "gap_relative": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "angle_fourth": {
+          "moment_absolute": [
+            2.994671177702912e-11,
+            5.929845503516162e-11,
+            1.4666046155298318e-13,
+            5.757616605706062e-13,
+            2.9121149935917856e-13
+          ],
+          "gap_relative": [
+            7.951421492969148e-09,
+            1.5839009867445756e-08,
+            2.6658226657894787e-08
+          ]
+        }
+      },
+      "finite_matrix_gap_residual_scale_relative": [
+        5.580112911731806e-11,
+        2.932303462634587e-11,
+        2.0938949052749952e-11
+      ],
+      "angle_unrepresented_covariance": [
+        [
+          -9.379432994172099e-16,
+          2.588939262623824e-16
+        ],
+        [
+          2.588939262623824e-16,
+          7.480452889063738e-16
+        ]
+      ],
+      "angle_mesh_error_bound": null,
+      "angle_quadrature_error_bound": null,
+      "archived_thresholds": [
+        null,
+        null
+      ],
+      "channel_status": "unresolved"
+    },
+    {
+      "g": 0.15,
+      "eta": 1,
+      "scalar_agreement": true,
+      "cross_method_difference": {
+        "moment_absolute": [
+          9.278133816792433e-13,
+          1.8171020244039937e-12,
+          6.661338147750939e-15,
+          3.397282455352979e-14,
+          1.6209256159527285e-14
+        ],
+        "gap_relative": [
+          1.1164491835170797e-10,
+          2.102675771682619e-10,
+          3.4715357442899804e-10
+        ]
+      },
+      "adjacent_rung_difference": {
+        "character": {
+          "moment_absolute": [
+            0.0,
+            2.220446049250313e-16,
+            0.0,
+            3.3306690738754696e-16,
+            4.440892098500626e-16
+          ],
+          "gap_relative": [
+            3.578018727021228e-15,
+            0.0,
+            1.1995921612080541e-15
+          ]
+        },
+        "angle_fourth": {
+          "moment_absolute": [
+            1.3214873639810776e-11,
+            2.583344649309538e-11,
+            1.5054624213917123e-13,
+            5.450084827884893e-13,
+            2.8532731732866523e-13
+          ],
+          "gap_relative": [
+            1.5470887834932524e-09,
+            3.0773596025989164e-09,
+            5.157056299561005e-09
+          ]
+        }
+      },
+      "finite_matrix_gap_residual_scale_relative": [
+        1.911697885537898e-10,
+        1.0208565689855597e-10,
+        7.029085990466649e-11
+      ],
+      "angle_unrepresented_covariance": [
+        [
+          2.8721328700770377e-15,
+          2.5738417473719633e-15
+        ],
+        [
+          2.5738417473719633e-15,
+          1.2167567300935822e-14
+        ]
+      ],
+      "angle_mesh_error_bound": null,
+      "angle_quadrature_error_bound": null,
+      "archived_thresholds": [
+        null,
+        null
+      ],
+      "channel_status": "unresolved"
+    },
+    {
+      "g": 0.2,
+      "eta": 1,
+      "scalar_agreement": true,
+      "cross_method_difference": {
+        "moment_absolute": [
+          1.1868284133242923e-13,
+          2.3581137043038325e-13,
+          5.551115123125783e-15,
+          1.7985612998927536e-14,
+          1.0436096431476471e-14
+        ],
+        "gap_relative": [
+          4.254468533504775e-11,
+          6.596204386681525e-11,
+          1.0819309114272007e-10
+        ]
+      },
+      "adjacent_rung_difference": {
+        "character": {
+          "moment_absolute": [
+            4.440892098500626e-16,
+            4.440892098500626e-16,
+            1.1102230246251565e-16,
+            5.551115123125783e-16,
+            4.440892098500626e-16
+          ],
+          "gap_relative": [
+            3.598163509238641e-15,
+            1.8084922988598368e-15,
+            6.060354857612579e-16
+          ]
+        },
+        "angle_fourth": {
+          "moment_absolute": [
+            7.831069126496004e-12,
+            1.503197566421477e-11,
+            1.6053824936079764e-13,
+            5.594413821086164e-13,
+            3.000932835561798e-13
+          ],
+          "gap_relative": [
+            4.743782789146956e-10,
+            9.523357682117183e-10,
+            1.5815483840492942e-09
+          ]
+        }
+      },
+      "finite_matrix_gap_residual_scale_relative": [
+        3.0495015907496946e-10,
+        1.6201611961514456e-10,
+        1.1300746217108502e-10
+      ],
+      "angle_unrepresented_covariance": [
+        [
+          2.8620768949272346e-15,
+          5.861110208282838e-14
+        ],
+        [
+          5.861110208282838e-14,
+          1.192016103879201e-12
+        ]
+      ],
+      "angle_mesh_error_bound": null,
+      "angle_quadrature_error_bound": null,
+      "archived_thresholds": [
+        null,
+        null
+      ],
+      "channel_status": "unresolved"
+    },
+    {
+      "g": 0.3,
+      "eta": 1,
+      "scalar_agreement": true,
+      "cross_method_difference": {
+        "moment_absolute": [
+          6.864508961257343e-13,
+          1.2845280394913061e-12,
+          2.220446049250313e-15,
+          9.325873406851315e-15,
+          3.219646771412954e-15
+        ],
+        "gap_relative": [
+          6.627586869004534e-12,
+          7.141272949550209e-12,
+          1.873623423213088e-11
+        ]
+      },
+      "adjacent_rung_difference": {
+        "character": {
+          "moment_absolute": [
+            1.1102230246251565e-15,
+            1.2212453270876722e-15,
+            9.992007221626409e-16,
+            8.881784197001252e-16,
+            8.881784197001252e-16
+          ],
+          "gap_relative": [
+            2.2863208462289426e-15,
+            4.629824596907006e-16,
+            3.126744416835051e-16
+          ]
+        },
+        "angle_fourth": {
+          "moment_absolute": [
+            4.5466963527474036e-12,
+            8.328560063830537e-12,
+            1.5232259897857148e-13,
+            4.3587355946783646e-13,
+            2.589040093425865e-13
+          ],
+          "gap_relative": [
+            1.0863041963032504e-10,
+            1.8394756106102587e-10,
+            2.8559918009737725e-10
+          ]
+        }
+      },
+      "finite_matrix_gap_residual_scale_relative": [
+        1.0715189155234395e-09,
+        5.861915423046267e-10,
+        4.22586424062758e-10
+      ],
+      "angle_unrepresented_covariance": [
+        [
+          2.5116462729068978e-12,
+          4.772503312683307e-11
+        ],
+        [
+          4.772503312683307e-11,
+          9.067099206866436e-10
+        ]
+      ],
+      "angle_mesh_error_bound": null,
+      "angle_quadrature_error_bound": null,
+      "archived_thresholds": [
+        null,
+        null
+      ],
+      "channel_status": "unresolved"
+    },
+    {
+      "g": 0.5,
+      "eta": 1,
+      "scalar_agreement": true,
+      "cross_method_difference": {
+        "moment_absolute": [
+          3.1855629245569617e-12,
+          5.039413331076048e-12,
+          1.3522516439934407e-13,
+          3.680389326632394e-13,
+          2.2359891715950653e-13
+        ],
+        "gap_relative": [
+          1.0400042937285092e-11,
+          4.2223809953231376e-12,
+          3.217145623851538e-11
+        ]
+      },
+      "adjacent_rung_difference": {
+        "character": {
+          "moment_absolute": [
+            2.220446049250313e-16,
+            2.220446049250313e-16,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "gap_relative": [
+            2.424365456939002e-15,
+            7.59443807429653e-16,
+            1.776898397024113e-15
+          ]
+        },
+        "angle_fourth": {
+          "moment_absolute": [
+            1.9506618542664e-12,
+            2.683075983611616e-12,
+            4.863887070882811e-13,
+            5.758726828730687e-13,
+            5.382361223382759e-13
+          ],
+          "gap_relative": [
+            0.0,
+            2.4885454681749795e-11,
+            8.733633311494192e-12
+          ]
+        }
+      },
+      "finite_matrix_gap_residual_scale_relative": [
+        3.801885342705277e-09,
+        2.1686585030067955e-09,
+        1.6309009225298856e-09
+      ],
+      "angle_unrepresented_covariance": [
+        [
+          3.6552126939787266e-08,
+          4.835571782955961e-07
+        ],
+        [
+          4.835571782955961e-07,
+          6.438007963349701e-06
+        ]
+      ],
+      "angle_mesh_error_bound": null,
+      "angle_quadrature_error_bound": null,
+      "archived_thresholds": [
+        null,
+        null
+      ],
+      "channel_status": "unresolved"
+    },
+    {
+      "g": 0.7,
+      "eta": 1,
+      "scalar_agreement": true,
+      "cross_method_difference": {
+        "moment_absolute": [
+          4.24856816394481e-11,
+          4.401617959004511e-11,
+          9.60853618892088e-12,
+          2.6398605523780816e-12,
+          4.885647442165464e-12
+        ],
+        "gap_relative": [
+          3.306748201355847e-11,
+          4.45650699683968e-11,
+          4.9577758650041774e-11
+        ]
+      },
+      "adjacent_rung_difference": {
+        "character": {
+          "moment_absolute": [
+            1.1102230246251565e-16,
+            1.6653345369377348e-16,
+            5.551115123125783e-17,
+            1.1102230246251565e-16,
+            0.0
+          ],
+          "gap_relative": [
+            9.465198428436401e-16,
+            1.7507393426207328e-15,
+            3.226211317509914e-15
+          ]
+        },
+        "angle_fourth": {
+          "moment_absolute": [
+            4.7100767730512416e-11,
+            4.693001542932507e-11,
+            1.2519152381429421e-11,
+            4.177685974937617e-12,
+            6.9029781890606046e-12
+          ],
+          "gap_relative": [
+            5.3169535219416015e-11,
+            2.8683821600885947e-11,
+            3.7311892997397295e-11
+          ]
+        }
+      },
+      "finite_matrix_gap_residual_scale_relative": [
+        1.0379562530902346e-08,
+        5.951626324520724e-09,
+        3.8222961351718945e-09
+      ],
+      "angle_unrepresented_covariance": [
+        [
+          5.361956951638325e-07,
+          7.890650939673671e-06
+        ],
+        [
+          7.890650939673671e-06,
+          0.0001164264659433839
+        ]
+      ],
+      "angle_mesh_error_bound": null,
+      "angle_quadrature_error_bound": null,
+      "archived_thresholds": [
+        null,
+        null
+      ],
+      "channel_status": "unresolved"
+    },
+    {
+      "g": 1.0,
+      "eta": 1,
+      "scalar_agreement": true,
+      "cross_method_difference": {
+        "moment_absolute": [
+          6.787226336513186e-11,
+          5.350941911785867e-12,
+          4.550565479988222e-11,
+          3.091901734642022e-12,
+          3.1537272793258353e-13
+        ],
+        "gap_relative": [
+          1.0285372687970395e-10,
+          4.2927501476575896e-11,
+          2.6855453393344887e-11
+        ]
+      },
+      "adjacent_rung_difference": {
+        "character": {
+          "moment_absolute": [
+            1.1102230246251565e-16,
+            5.551115123125783e-17,
+            2.7755575615628914e-17,
+            1.3877787807814457e-17,
+            2.7755575615628914e-17
+          ],
+          "gap_relative": [
+            7.776739197474851e-16,
+            6.366389224322089e-16,
+            5.324994746033427e-15
+          ]
+        },
+        "angle_fourth": {
+          "moment_absolute": [
+            4.826916644162793e-11,
+            1.1878997785430556e-11,
+            4.04352107352679e-11,
+            5.852845985643285e-12,
+            5.6927934588557605e-12
+          ],
+          "gap_relative": [
+            1.0193127599865834e-10,
+            1.3907589474102765e-11,
+            4.551898117391409e-11
+          ]
+        }
+      },
+      "finite_matrix_gap_residual_scale_relative": [
+        2.3057314209163785e-08,
+        9.391533558144849e-09,
+        5.022494547368765e-09
+      ],
+      "angle_unrepresented_covariance": [
+        [
+          2.8503992777206832e-09,
+          1.2869928806003017e-07
+        ],
+        [
+          1.2869928806003017e-07,
+          5.812331341073507e-06
+        ]
+      ],
+      "angle_mesh_error_bound": null,
+      "angle_quadrature_error_bound": null,
+      "archived_thresholds": [
+        null,
+        null
+      ],
+      "channel_status": "unresolved"
+    },
+    {
+      "g": 1.5,
+      "eta": 1,
+      "scalar_agreement": true,
+      "cross_method_difference": {
+        "moment_absolute": [
+          3.6476405229635134e-11,
+          2.3258450720931023e-11,
+          2.8036406529707847e-11,
+          6.624131798638189e-12,
+          7.528391104960619e-12
+        ],
+        "gap_relative": [
+          8.961579099063112e-11,
+          4.7173101196366064e-11,
+          2.765570392571188e-11
+        ]
+      },
+      "adjacent_rung_difference": {
+        "character": {
+          "moment_absolute": [
+            5.551115123125783e-17,
+            0.0,
+            0.0,
+            0.0,
+            1.3877787807814457e-17
+          ],
+          "gap_relative": [
+            1.83107710616508e-15,
+            3.939973122258154e-16,
+            5.0479662795692415e-15
+          ]
+        },
+        "angle_fourth": {
+          "moment_absolute": [
+            7.229195020386214e-11,
+            2.2836177393514845e-11,
+            3.230493650363542e-11,
+            5.693001625672878e-12,
+            1.674350935676472e-11
+          ],
+          "gap_relative": [
+            1.028587945797131e-10,
+            2.582140185256134e-11,
+            2.7568626507391722e-11
+          ]
+        }
+      },
+      "finite_matrix_gap_residual_scale_relative": [
+        2.535808350152111e-08,
+        9.511966431656095e-09,
+        5.022647052110854e-09
+      ],
+      "angle_unrepresented_covariance": [
+        [
+          2.553235400881704e-13,
+          5.6572607709526324e-11
+        ],
+        [
+          5.6572607709526324e-11,
+          1.254641290859837e-08
+        ]
+      ],
+      "angle_mesh_error_bound": null,
+      "angle_quadrature_error_bound": null,
+      "archived_thresholds": [
+        null,
+        null
+      ],
+      "channel_status": "unresolved"
+    },
+    {
+      "g": 2.0,
+      "eta": 1,
+      "scalar_agreement": true,
+      "cross_method_difference": {
+        "moment_absolute": [
+          4.907863317138439e-10,
+          8.137168716615406e-11,
+          1.0180992160435665e-10,
+          1.2943118798958153e-11,
+          1.0404742172009929e-10
+        ],
+        "gap_relative": [
+          5.068686497800041e-10,
+          2.4664232100615987e-11,
+          9.10169655700337e-11
+        ]
+      },
+      "adjacent_rung_difference": {
+        "character": {
+          "moment_absolute": [
+            1.3877787807814457e-17,
+            0.0,
+            0.0,
+            0.0,
+            3.469446951953614e-18
+          ],
+          "gap_relative": [
+            1.4793987765876865e-15,
+            8.880091486412771e-16,
+            3.670788562346696e-15
+          ]
+        },
+        "angle_fourth": {
+          "moment_absolute": [
+            4.4737923435289595e-10,
+            8.61841153998455e-11,
+            1.0481465695377779e-10,
+            1.4609036202983816e-11,
+            9.37300870598734e-11
+          ],
+          "gap_relative": [
+            5.332463299531925e-10,
+            4.3647203670652366e-11,
+            1.0088368998712076e-10
+          ]
+        }
+      },
+      "finite_matrix_gap_residual_scale_relative": [
+        2.7527103580370255e-08,
+        1.0298012436845663e-08,
+        5.4071767666116745e-09
+      ],
+      "angle_unrepresented_covariance": [
+        [
+          4.163336342344337e-16,
+          1.8203407531336424e-13
+        ],
+        [
+          1.8203407531336424e-13,
+          1.27549928952142e-10
+        ]
+      ],
+      "angle_mesh_error_bound": null,
+      "angle_quadrature_error_bound": null,
+      "archived_thresholds": [
+        null,
+        null
+      ],
+      "channel_status": "unresolved"
+    },
+    {
+      "g": 3.0,
+      "eta": 1,
+      "scalar_agreement": true,
+      "cross_method_difference": {
+        "moment_absolute": [
+          6.873783053168436e-11,
+          3.028466366572502e-11,
+          2.9718366656439343e-11,
+          6.756650794415009e-12,
+          8.91590447305024e-12
+        ],
+        "gap_relative": [
+          1.238774257622898e-10,
+          2.552605788614737e-11,
+          1.945700903722837e-11
+        ]
+      },
+      "adjacent_rung_difference": {
+        "character": {
+          "moment_absolute": [
+            5.204170427930421e-18,
+            0.0,
+            0.0,
+            0.0,
+            8.673617379884035e-19
+          ],
+          "gap_relative": [
+            1.84210415944327e-15,
+            3.9474302770894537e-16,
+            0.0
+          ]
+        },
+        "angle_fourth": {
+          "moment_absolute": [
+            3.301686615081456e-11,
+            3.850697538609893e-11,
+            3.8777814292956236e-11,
+            7.599212925590848e-12,
+            1.310420522093736e-11
+          ],
+          "gap_relative": [
+            1.724630545404559e-10,
+            2.2636144180363953e-11,
+            1.2073076318169404e-11
+          ]
+        }
+      },
+      "finite_matrix_gap_residual_scale_relative": [
+        2.5855243935295925e-08,
+        9.579436735716573e-09,
+        5.116548662026734e-09
+      ],
+      "angle_unrepresented_covariance": [
+        [
+          0.0,
+          1.1514227071796057e-16
+        ],
+        [
+          1.1514227071796057e-16,
+          1.9469148515582901e-13
+        ]
+      ],
+      "angle_mesh_error_bound": null,
+      "angle_quadrature_error_bound": null,
+      "archived_thresholds": [
+        null,
+        null
+      ],
+      "channel_status": "unresolved"
+    }
+  ],
+  "limitations": [
+    "Residual scales are finite-matrix diagnostics, not continuum bounds",
+    "Unrepresented covariance is not an overlap uncertainty bound",
+    "No validated combined error budget or independent angle time-window evidence",
+    "This audit does not verify ket artifacts or provide a sieve verdict"
+  ],
+  "input_sha256": "8db843cff6602953f2362a5b4bb23b70f4e21db7a64ef6960cebd6fd687fc70b",
+  "audit_source_sha256": "35a8f6a312ee4c3daf46dda3e8bf975cee559d5ea41392f95f8c9d3b3ab62705"
+}
