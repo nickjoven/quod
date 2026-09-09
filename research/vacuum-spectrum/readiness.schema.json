@@ -1,0 +1,217 @@
+{
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "state": {
+      "const": "audited"
+    },
+    "registered": {
+      "const": false
+    },
+    "targets_run": {
+      "const": 0
+    },
+    "target_execution_authorized": {
+      "const": false
+    },
+    "targets": {
+      "type": "array",
+      "minItems": 42,
+      "maxItems": 42,
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "status": {
+            "const": "unrun"
+          },
+          "reason": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "status"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "input_sha256": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string",
+        "pattern": "^[0-9a-f]{64}$"
+      }
+    },
+    "audit_source_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "schema_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "cells": {
+      "type": "array",
+      "minItems": 20,
+      "maxItems": 20,
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "properties": {
+          "theory": {
+            "enum": [
+              "SU2",
+              "U1"
+            ]
+          },
+          "g": {
+            "enum": [
+              0.1,
+              0.15,
+              0.2,
+              0.3,
+              0.5,
+              0.7,
+              1.0,
+              1.5,
+              2.0,
+              3.0
+            ]
+          },
+          "eta": {
+            "const": 1
+          },
+          "partition": {
+            "const": "development"
+          },
+          "full_gap_interval": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^-?[0-9]+(/[1-9][0-9]*)?$"
+            },
+            "minItems": 2,
+            "maxItems": 2
+          },
+          "observable_gap_interval": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^-?[0-9]+(/[1-9][0-9]*)?$"
+            },
+            "minItems": 2,
+            "maxItems": 2
+          },
+          "observable_gap_reference": {
+            "enum": [
+              "first_ordered_excitation",
+              "first_even_excitation"
+            ]
+          },
+          "nonzero_overlap": {
+            "type": "array",
+            "items": {
+              "type": "boolean"
+            },
+            "minItems": 2,
+            "maxItems": 2
+          },
+          "cross_representation_agreement": {
+            "type": "boolean"
+          },
+          "scalar_bounds_met": {
+            "type": "boolean"
+          },
+          "qualifying_common_sample_pairs": {
+            "type": "array",
+            "items": {
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 11
+              },
+              "minItems": 2,
+              "maxItems": 2
+            },
+            "uniqueItems": true
+          },
+          "registered_window": {
+            "type": "null"
+          },
+          "status": {
+            "enum": [
+              "development_qualified",
+              "unresolved"
+            ]
+          }
+        },
+        "required": [
+          "theory",
+          "g",
+          "eta",
+          "partition",
+          "full_gap_interval",
+          "observable_gap_interval",
+          "observable_gap_reference",
+          "nonzero_overlap",
+          "cross_representation_agreement",
+          "scalar_bounds_met",
+          "qualifying_common_sample_pairs",
+          "registered_window",
+          "status"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "external_prerequisites": {
+      "type": "object",
+      "properties": {
+        "source_pilot_and_conventions": {
+          "const": "unresolved"
+        },
+        "litcheck_and_lessons_workflow": {
+          "const": "unresolved"
+        },
+        "owning_registration_and_identifiers": {
+          "const": "unresolved"
+        },
+        "independent_review": {
+          "const": "unresolved"
+        }
+      },
+      "required": [
+        "source_pilot_and_conventions",
+        "litcheck_and_lessons_workflow",
+        "owning_registration_and_identifiers",
+        "independent_review"
+      ],
+      "additionalProperties": false
+    },
+    "scope": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema_version",
+    "state",
+    "registered",
+    "targets_run",
+    "target_execution_authorized",
+    "targets",
+    "input_sha256",
+    "audit_source_sha256",
+    "schema_sha256",
+    "cells",
+    "external_prerequisites",
+    "scope"
+  ],
+  "additionalProperties": false,
+  "$schema": "https://json-schema.org/draft/2020-12/schema"
+}

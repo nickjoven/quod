@@ -1,0 +1,1019 @@
+{
+  "schema_version": 1,
+  "state": "audited",
+  "registered": false,
+  "targets_run": 0,
+  "target_execution_authorized": false,
+  "targets": [
+    {
+      "id": "SU2:g=0.125:eta=0",
+      "status": "unrun",
+      "reason": "registration prerequisites incomplete"
+    },
+    {
+      "id": "SU2:g=0.125:eta=0.5",
+      "status": "unrun",
+      "reason": "registration prerequisites incomplete"
+    },
+    {
+      "id": "SU2:g=0.125:eta=1",
+      "status": "unrun",
+      "reason": "registration prerequisites incomplete"
+    },
+    {
+      "id": "SU2:g=0.25:eta=0",
+      "status": "unrun",
+      "reason": "registration prerequisites incomplete"
+    },
+    {
+      "id": "SU2:g=0.25:eta=0.5",
+      "status": "unrun",
+      "reason": "registration prerequisites incomplete"
+    },
+    {
+      "id": "SU2:g=0.25:eta=1",
+      "status": "unrun",
+      "reason": "registration prerequisites incomplete"
+    },
+    {
+      "id": "SU2:g=0.40:eta=0",
+      "status": "unrun",
+      "reason": "registration prerequisites incomplete"
+    },
+    {
+      "id": "SU2:g=0.40:eta=0.5",
+      "status": "unrun",
+      "reason": "registration prerequisites incomplete"
+    },
+    {
+      "id": "SU2:g=0.40:eta=1",
+      "status": "unrun",
+      "reason": "registration prerequisites incomplete"
+    },
+    {
+      "id": "SU2:g=0.60:eta=0",
+      "status": "unrun",
+      "reason": "registration prerequisites incomplete"
+    },
+    {
+      "id": "SU2:g=0.60:eta=0.5",
+      "status": "unrun",
+      "reason": "registration prerequisites incomplete"
+    },
+    {
+      "id": "SU2:g=0.60:eta=1",
+      "status": "unrun",
+      "reason": "registration prerequisites incomplete"
+    },
+    {
+      "id": "SU2:g=0.85:eta=0",
+      "status": "unrun",
+      "reason": "registration prerequisites incomplete"
+    },
+    {
+      "id": "SU2:g=0.85:eta=0.5",
+      "status": "unrun",
+      "reason": "registration prerequisites incomplete"
+    },
+    {
+      "id": "SU2:g=0.85:eta=1",
+      "status": "unrun",
+      "reason": "registration prerequisites incomplete"
+    },
+    {
+      "id": "SU2:g=1.25:eta=0",
+      "status": "unrun",
+      "reason": "registration prerequisites incomplete"
+    },
+    {
+      "id": "SU2:g=1.25:eta=0.5",
+      "status": "unrun",
+      "reason": "registration prerequisites incomplete"
+    },
+    {
+      "id": "SU2:g=1.25:eta=1",
+      "status": "unrun",
+      "reason": "registration prerequisites incomplete"
+    },
+    {
+      "id": "SU2:g=2.50:eta=0",
+      "status": "unrun",
+      "reason": "registration prerequisites incomplete"
+    },
+    {
+      "id": "SU2:g=2.50:eta=0.5",
+      "status": "unrun",
+      "reason": "registration prerequisites incomplete"
+    },
+    {
+      "id": "SU2:g=2.50:eta=1",
+      "status": "unrun",
+      "reason": "registration prerequisites incomplete"
+    },
+    {
+      "id": "U1:g=0.125:eta=0",
+      "status": "unrun",
+      "reason": "registration prerequisites incomplete"
+    },
+    {
+      "id": "U1:g=0.125:eta=0.5",
+      "status": "unrun",
+      "reason": "registration prerequisites incomplete"
+    },
+    {
+      "id": "U1:g=0.125:eta=1",
+      "status": "unrun",
+      "reason": "registration prerequisites incomplete"
+    },
+    {
+      "id": "U1:g=0.25:eta=0",
+      "status": "unrun",
+      "reason": "registration prerequisites incomplete"
+    },
+    {
+      "id": "U1:g=0.25:eta=0.5",
+      "status": "unrun",
+      "reason": "registration prerequisites incomplete"
+    },
+    {
+      "id": "U1:g=0.25:eta=1",
+      "status": "unrun",
+      "reason": "registration prerequisites incomplete"
+    },
+    {
+      "id": "U1:g=0.40:eta=0",
+      "status": "unrun",
+      "reason": "registration prerequisites incomplete"
+    },
+    {
+      "id": "U1:g=0.40:eta=0.5",
+      "status": "unrun",
+      "reason": "registration prerequisites incomplete"
+    },
+    {
+      "id": "U1:g=0.40:eta=1",
+      "status": "unrun",
+      "reason": "registration prerequisites incomplete"
+    },
+    {
+      "id": "U1:g=0.60:eta=0",
+      "status": "unrun",
+      "reason": "registration prerequisites incomplete"
+    },
+    {
+      "id": "U1:g=0.60:eta=0.5",
+      "status": "unrun",
+      "reason": "registration prerequisites incomplete"
+    },
+    {
+      "id": "U1:g=0.60:eta=1",
+      "status": "unrun",
+      "reason": "registration prerequisites incomplete"
+    },
+    {
+      "id": "U1:g=0.85:eta=0",
+      "status": "unrun",
+      "reason": "registration prerequisites incomplete"
+    },
+    {
+      "id": "U1:g=0.85:eta=0.5",
+      "status": "unrun",
+      "reason": "registration prerequisites incomplete"
+    },
+    {
+      "id": "U1:g=0.85:eta=1",
+      "status": "unrun",
+      "reason": "registration prerequisites incomplete"
+    },
+    {
+      "id": "U1:g=1.25:eta=0",
+      "status": "unrun",
+      "reason": "registration prerequisites incomplete"
+    },
+    {
+      "id": "U1:g=1.25:eta=0.5",
+      "status": "unrun",
+      "reason": "registration prerequisites incomplete"
+    },
+    {
+      "id": "U1:g=1.25:eta=1",
+      "status": "unrun",
+      "reason": "registration prerequisites incomplete"
+    },
+    {
+      "id": "U1:g=2.50:eta=0",
+      "status": "unrun",
+      "reason": "registration prerequisites incomplete"
+    },
+    {
+      "id": "U1:g=2.50:eta=0.5",
+      "status": "unrun",
+      "reason": "registration prerequisites incomplete"
+    },
+    {
+      "id": "U1:g=2.50:eta=1",
+      "status": "unrun",
+      "reason": "registration prerequisites incomplete"
+    }
+  ],
+  "input_sha256": {
+    "refinement.json": "8db843cff6602953f2362a5b4bb23b70f4e21db7a64ef6960cebd6fd687fc70b",
+    "certificates.json": "416b46c9eb363475b43cf83e33a64c68a2d0b95433fd85092e9e646b856eef5c",
+    "late-times.json": "be56f1a21e1217c3ad738cd2cbefeccece5eafc6f37d1279f3774c9fd79918ad",
+    "u1-development.json": "5e69d26ba7956cee3eeeb096b3db820e5b5b2a6d3ebccde96dbe6288c4d08888",
+    "u1-certificates.json": "337f9e89800bbd3524b38cff13572afeb769c704da813d762b1531cc51c10f84",
+    "u1-semigroup.json": "e44fe5c295b8fa1683ef397df5323c57de7013c381d629dd3a1402e5ef585c44",
+    "null-controls.json": "cb1683b533c3dd59c522b8d7a35ef485313a54faf569fd82778dcbb56ed1397f"
+  },
+  "audit_source_sha256": "0defc1c2bba405f5ec67249a75b80be9d245d3c3b5909dae312b49bcd1818e46",
+  "schema_sha256": "898186071a923e58263795fa0e2cb776219167984371b61f0322896a578488fa",
+  "cells": [
+    {
+      "theory": "SU2",
+      "g": 0.1,
+      "eta": 1,
+      "partition": "development",
+      "full_gap_interval": [
+        "101094318224509498660362319296561/25353012004564588029934064107520",
+        "50547159112256185805721267369579/12676506002282294014967032053760"
+      ],
+      "observable_gap_interval": [
+        "101094318224509498660362319296561/25353012004564588029934064107520",
+        "50547159112256185805721267369579/12676506002282294014967032053760"
+      ],
+      "observable_gap_reference": "first_ordered_excitation",
+      "nonzero_overlap": [
+        true,
+        true
+      ],
+      "cross_representation_agreement": true,
+      "scalar_bounds_met": true,
+      "qualifying_common_sample_pairs": [
+        [
+          6,
+          7
+        ],
+        [
+          7,
+          8
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          9,
+          10
+        ],
+        [
+          10,
+          11
+        ]
+      ],
+      "registered_window": null,
+      "status": "development_qualified"
+    },
+    {
+      "theory": "SU2",
+      "g": 0.15,
+      "eta": 1,
+      "partition": "development",
+      "full_gap_interval": [
+        "3625013706293504298487168431956999/912708432164325169077626307870720",
+        "362501370629360730306484118768965/91270843216432516907762630787072"
+      ],
+      "observable_gap_interval": [
+        "3625013706293504298487168431956999/912708432164325169077626307870720",
+        "362501370629360730306484118768965/91270843216432516907762630787072"
+      ],
+      "observable_gap_reference": "first_ordered_excitation",
+      "nonzero_overlap": [
+        true,
+        true
+      ],
+      "cross_representation_agreement": true,
+      "scalar_bounds_met": true,
+      "qualifying_common_sample_pairs": [
+        [
+          7,
+          8
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          9,
+          10
+        ],
+        [
+          10,
+          11
+        ]
+      ],
+      "registered_window": null,
+      "status": "development_qualified"
+    },
+    {
+      "theory": "SU2",
+      "g": 0.2,
+      "eta": 1,
+      "partition": "development",
+      "full_gap_interval": [
+        "400524288865205904351303958162701/101412048018258352119736256430080",
+        "400524288865217283544972850385333/101412048018258352119736256430080"
+      ],
+      "observable_gap_interval": [
+        "400524288865205904351303958162701/101412048018258352119736256430080",
+        "400524288865217283544972850385333/101412048018258352119736256430080"
+      ],
+      "observable_gap_reference": "first_ordered_excitation",
+      "nonzero_overlap": [
+        true,
+        true
+      ],
+      "cross_representation_agreement": true,
+      "scalar_bounds_met": true,
+      "qualifying_common_sample_pairs": [
+        [
+          7,
+          8
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          9,
+          10
+        ],
+        [
+          10,
+          11
+        ]
+      ],
+      "registered_window": null,
+      "status": "development_qualified"
+    },
+    {
+      "theory": "SU2",
+      "g": 0.3,
+      "eta": 1,
+      "partition": "development",
+      "full_gap_interval": [
+        "14182575193044469885842976943805173/3650833728657300676310505231482880",
+        "886410949565304545771817786375493/228177108041081292269406576967680"
+      ],
+      "observable_gap_interval": [
+        "14182575193044469885842976943805173/3650833728657300676310505231482880",
+        "886410949565304545771817786375493/228177108041081292269406576967680"
+      ],
+      "observable_gap_reference": "first_ordered_excitation",
+      "nonzero_overlap": [
+        true,
+        true
+      ],
+      "cross_representation_agreement": true,
+      "scalar_bounds_met": true,
+      "qualifying_common_sample_pairs": [
+        [
+          7,
+          8
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          9,
+          10
+        ],
+        [
+          10,
+          11
+        ]
+      ],
+      "registered_window": null,
+      "status": "development_qualified"
+    },
+    {
+      "theory": "SU2",
+      "g": 0.5,
+      "eta": 1,
+      "partition": "development",
+      "full_gap_interval": [
+        "297222491071563784239692380715943/81129638414606681695789005144064",
+        "74305622767893060518318480556645/20282409603651670423947251286016"
+      ],
+      "observable_gap_interval": [
+        "297222491071563784239692380715943/81129638414606681695789005144064",
+        "74305622767893060518318480556645/20282409603651670423947251286016"
+      ],
+      "observable_gap_reference": "first_ordered_excitation",
+      "nonzero_overlap": [
+        true,
+        true
+      ],
+      "cross_representation_agreement": true,
+      "scalar_bounds_met": true,
+      "qualifying_common_sample_pairs": [
+        [
+          8,
+          9
+        ],
+        [
+          9,
+          10
+        ],
+        [
+          10,
+          11
+        ]
+      ],
+      "registered_window": null,
+      "status": "development_qualified"
+    },
+    {
+      "theory": "SU2",
+      "g": 0.7,
+      "eta": 1,
+      "partition": "development",
+      "full_gap_interval": [
+        "2040018870004870976267738220934509/621148794111832406733384570634240",
+        "130561207680315506250497575386842337/39753522823157274030936612520591360"
+      ],
+      "observable_gap_interval": [
+        "2040018870004870976267738220934509/621148794111832406733384570634240",
+        "130561207680315506250497575386842337/39753522823157274030936612520591360"
+      ],
+      "observable_gap_reference": "first_ordered_excitation",
+      "nonzero_overlap": [
+        true,
+        true
+      ],
+      "cross_representation_agreement": true,
+      "scalar_bounds_met": true,
+      "qualifying_common_sample_pairs": [
+        [
+          9,
+          10
+        ],
+        [
+          10,
+          11
+        ]
+      ],
+      "registered_window": null,
+      "status": "development_qualified"
+    },
+    {
+      "theory": "SU2",
+      "g": 1.0,
+      "eta": 1,
+      "partition": "development",
+      "full_gap_interval": [
+        "2223788419536802186521143322849609/649037107316853453566312041152512",
+        "555947104884213789604737030374055/162259276829213363391578010288128"
+      ],
+      "observable_gap_interval": [
+        "2223788419536802186521143322849609/649037107316853453566312041152512",
+        "555947104884213789604737030374055/162259276829213363391578010288128"
+      ],
+      "observable_gap_reference": "first_ordered_excitation",
+      "nonzero_overlap": [
+        true,
+        true
+      ],
+      "cross_representation_agreement": true,
+      "scalar_bounds_met": true,
+      "qualifying_common_sample_pairs": [
+        [
+          8,
+          9
+        ],
+        [
+          9,
+          10
+        ],
+        [
+          10,
+          11
+        ]
+      ],
+      "registered_window": null,
+      "status": "development_qualified"
+    },
+    {
+      "theory": "SU2",
+      "g": 1.5,
+      "eta": 1,
+      "partition": "development",
+      "full_gap_interval": [
+        "158669571140785816125882170160472517/23365335863406724328387233481490432",
+        "19833696392598471150677928216670549/2920666982925840541048404185186304"
+      ],
+      "observable_gap_interval": [
+        "158669571140785816125882170160472517/23365335863406724328387233481490432",
+        "19833696392598471150677928216670549/2920666982925840541048404185186304"
+      ],
+      "observable_gap_reference": "first_ordered_excitation",
+      "nonzero_overlap": [
+        true,
+        true
+      ],
+      "cross_representation_agreement": true,
+      "scalar_bounds_met": true,
+      "qualifying_common_sample_pairs": [
+        [
+          8,
+          9
+        ],
+        [
+          9,
+          10
+        ],
+        [
+          10,
+          11
+        ]
+      ],
+      "registered_window": null,
+      "status": "development_qualified"
+    },
+    {
+      "theory": "SU2",
+      "g": 2.0,
+      "eta": 1,
+      "partition": "development",
+      "full_gap_interval": [
+        "31172704016049476526913338047902485/2596148429267413814265248164610048",
+        "7793176004012427839474860531119939/649037107316853453566312041152512"
+      ],
+      "observable_gap_interval": [
+        "31172704016049476526913338047902485/2596148429267413814265248164610048",
+        "7793176004012427839474860531119939/649037107316853453566312041152512"
+      ],
+      "observable_gap_reference": "first_ordered_excitation",
+      "nonzero_overlap": [
+        true,
+        true
+      ],
+      "cross_representation_agreement": true,
+      "scalar_bounds_met": true,
+      "qualifying_common_sample_pairs": [
+        [
+          8,
+          9
+        ],
+        [
+          9,
+          10
+        ],
+        [
+          10,
+          11
+        ]
+      ],
+      "registered_window": null,
+      "status": "development_qualified"
+    },
+    {
+      "theory": "SU2",
+      "g": 3.0,
+      "eta": 1,
+      "partition": "development",
+      "full_gap_interval": [
+        "5047032202543545730095954146421330779/186922686907253794627097867851923456",
+        "39429939082371625646501168478694951/1460333491462920270524202092593152"
+      ],
+      "observable_gap_interval": [
+        "5047032202543545730095954146421330779/186922686907253794627097867851923456",
+        "39429939082371625646501168478694951/1460333491462920270524202092593152"
+      ],
+      "observable_gap_reference": "first_ordered_excitation",
+      "nonzero_overlap": [
+        true,
+        true
+      ],
+      "cross_representation_agreement": true,
+      "scalar_bounds_met": true,
+      "qualifying_common_sample_pairs": [
+        [
+          9,
+          10
+        ],
+        [
+          10,
+          11
+        ]
+      ],
+      "registered_window": null,
+      "status": "development_qualified"
+    },
+    {
+      "theory": "U1",
+      "g": 0.1,
+      "eta": 1,
+      "partition": "development",
+      "full_gap_interval": [
+        "101285123979606260683148164906099/50706024009129176059868128215040",
+        "3165160124362875691720194539871/1584563250285286751870879006720"
+      ],
+      "observable_gap_interval": [
+        "1265269527204915880557763753285/316912650057057350374175801344",
+        "1265269527204947381795333213459/316912650057057350374175801344"
+      ],
+      "observable_gap_reference": "first_even_excitation",
+      "nonzero_overlap": [
+        true,
+        true
+      ],
+      "cross_representation_agreement": true,
+      "scalar_bounds_met": true,
+      "qualifying_common_sample_pairs": [
+        [
+          6,
+          7
+        ],
+        [
+          7,
+          8
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          9,
+          10
+        ],
+        [
+          10,
+          11
+        ]
+      ],
+      "registered_window": null,
+      "status": "development_qualified"
+    },
+    {
+      "theory": "U1",
+      "g": 0.15,
+      "eta": 1,
+      "partition": "development",
+      "full_gap_interval": [
+        "7281073329454219328484615029951909/3650833728657300676310505231482880",
+        "37922256924242884731156630636281/19014759003423441022450548080640"
+      ],
+      "observable_gap_interval": [
+        "181768488674509735717867071815483/45635421608216258453881315393536",
+        "45442122168628566892305964565551/11408855402054064613470328848384"
+      ],
+      "observable_gap_reference": "first_even_excitation",
+      "nonzero_overlap": [
+        true,
+        true
+      ],
+      "cross_representation_agreement": true,
+      "scalar_bounds_met": true,
+      "qualifying_common_sample_pairs": [
+        [
+          6,
+          7
+        ],
+        [
+          7,
+          8
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          9,
+          10
+        ],
+        [
+          10,
+          11
+        ]
+      ],
+      "registered_window": null,
+      "status": "development_qualified"
+    },
+    {
+      "theory": "U1",
+      "g": 0.2,
+      "eta": 1,
+      "partition": "development",
+      "full_gap_interval": [
+        "252256046463734250718525535850783/126765060022822940149670320537600",
+        "63064011615937157646706627211131/31691265005705735037417580134400"
+      ],
+      "observable_gap_interval": [
+        "40258388084669649193408446955559/10141204801825835211973625643008",
+        "5032298510583831864926511632051/1267650600228229401496703205376"
+      ],
+      "observable_gap_reference": "first_even_excitation",
+      "nonzero_overlap": [
+        true,
+        true
+      ],
+      "cross_representation_agreement": true,
+      "scalar_bounds_met": true,
+      "qualifying_common_sample_pairs": [
+        [
+          7,
+          8
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          9,
+          10
+        ],
+        [
+          10,
+          11
+        ]
+      ],
+      "registered_window": null,
+      "status": "development_qualified"
+    },
+    {
+      "theory": "U1",
+      "g": 0.3,
+      "eta": 1,
+      "partition": "development",
+      "full_gap_interval": [
+        "7218571121728014855018903920742397/3650833728657300676310505231482880",
+        "28197543444251671271019218449961/14261069252567580766837911060480"
+      ],
+      "observable_gap_interval": [
+        "239213446210063016207104302253909/60847228810955011271841753858048",
+        "3737710097032328549175161466439/950737950171172051122527404032"
+      ],
+      "observable_gap_reference": "first_even_excitation",
+      "nonzero_overlap": [
+        true,
+        true
+      ],
+      "cross_representation_agreement": true,
+      "scalar_bounds_met": true,
+      "qualifying_common_sample_pairs": [
+        [
+          7,
+          8
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          9,
+          10
+        ],
+        [
+          10,
+          11
+        ]
+      ],
+      "registered_window": null,
+      "status": "development_qualified"
+    },
+    {
+      "theory": "U1",
+      "g": 0.5,
+      "eta": 1,
+      "partition": "development",
+      "full_gap_interval": [
+        "314031021186474499375534752926931/162259276829213363391578010288128",
+        "9813469412077896475700128655629/5070602400912917605986812821504"
+      ],
+      "observable_gap_interval": [
+        "9641957863471751487472550051321/2535301200456458802993406410752",
+        "19283915726943997422429635094797/5070602400912917605986812821504"
+      ],
+      "observable_gap_reference": "first_even_excitation",
+      "nonzero_overlap": [
+        true,
+        true
+      ],
+      "cross_representation_agreement": true,
+      "scalar_bounds_met": true,
+      "qualifying_common_sample_pairs": [
+        [
+          8,
+          9
+        ],
+        [
+          9,
+          10
+        ],
+        [
+          10,
+          11
+        ]
+      ],
+      "registered_window": null,
+      "status": "development_qualified"
+    },
+    {
+      "theory": "U1",
+      "g": 0.7,
+      "eta": 1,
+      "partition": "development",
+      "full_gap_interval": [
+        "371391794212806149189342752859937081/198767614115786370154683062602956800",
+        "46423974276603513326042000287581871/24845951764473296269335382825369600"
+      ],
+      "observable_gap_interval": [
+        "7133243086842821796298647034057133/1987676141157863701546830626029568",
+        "3566621543421505738953625989985799/993838070578931850773415313014784"
+      ],
+      "observable_gap_reference": "first_even_excitation",
+      "nonzero_overlap": [
+        true,
+        true
+      ],
+      "cross_representation_agreement": true,
+      "scalar_bounds_met": true,
+      "qualifying_common_sample_pairs": [
+        [
+          9,
+          10
+        ],
+        [
+          10,
+          11
+        ]
+      ],
+      "registered_window": null,
+      "status": "development_qualified"
+    },
+    {
+      "theory": "U1",
+      "g": 1.0,
+      "eta": 1,
+      "partition": "development",
+      "full_gap_interval": [
+        "142532602114968474948214188989531/81129638414606681695789005144064",
+        "35633150528744293856302278706877/20282409603651670423947251286016"
+      ],
+      "observable_gap_interval": [
+        "225329328997611818945940564635123/81129638414606681695789005144064",
+        "56332332249405424008798028498621/20282409603651670423947251286016"
+      ],
+      "observable_gap_reference": "first_even_excitation",
+      "nonzero_overlap": [
+        true,
+        true
+      ],
+      "cross_representation_agreement": true,
+      "scalar_bounds_met": true,
+      "qualifying_common_sample_pairs": [
+        [
+          9,
+          10
+        ],
+        [
+          10,
+          11
+        ]
+      ],
+      "registered_window": null,
+      "status": "development_qualified"
+    },
+    {
+      "theory": "U1",
+      "g": 1.5,
+      "eta": 1,
+      "partition": "development",
+      "full_gap_interval": [
+        "3484169219012021235462077489686751/1460333491462920270524202092593152",
+        "871042304753044517594631490535497/365083372865730067631050523148288"
+      ],
+      "observable_gap_interval": [
+        "1862465591201792802634252337365069/730166745731460135262101046296576",
+        "931232795600936465404558962884681/365083372865730067631050523148288"
+      ],
+      "observable_gap_reference": "first_even_excitation",
+      "nonzero_overlap": [
+        true,
+        true
+      ],
+      "cross_representation_agreement": true,
+      "scalar_bounds_met": true,
+      "qualifying_common_sample_pairs": [
+        [
+          7,
+          8
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          9,
+          10
+        ],
+        [
+          10,
+          11
+        ]
+      ],
+      "registered_window": null,
+      "status": "development_qualified"
+    },
+    {
+      "theory": "U1",
+      "g": 2.0,
+      "eta": 1,
+      "partition": "development",
+      "full_gap_interval": [
+        "2612914663537115225999872517157269/649037107316853453566312041152512",
+        "1306457331768583831900306710061433/324518553658426726783156020576256"
+      ],
+      "observable_gap_interval": [
+        "5266116366205556660789301769346471/1298074214633706907132624082305024",
+        "1316529091551415455661853393936761/324518553658426726783156020576256"
+      ],
+      "observable_gap_reference": "first_even_excitation",
+      "nonzero_overlap": [
+        true,
+        true
+      ],
+      "cross_representation_agreement": true,
+      "scalar_bounds_met": true,
+      "qualifying_common_sample_pairs": [
+        [
+          7,
+          8
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          9,
+          10
+        ],
+        [
+          10,
+          11
+        ]
+      ],
+      "registered_window": null,
+      "status": "development_qualified"
+    },
+    {
+      "theory": "U1",
+      "g": 3.0,
+      "eta": 1,
+      "partition": "development",
+      "full_gap_interval": [
+        "70113808162466155197125775815884549/7788445287802241442795744493830144",
+        "2921408673436112832485737902275881/324518553658426726783156020576256"
+      ],
+      "observable_gap_interval": [
+        "8766896231585853183576484564376963/973555660975280180349468061728768",
+        "26300688694757766872638417276135025/2920666982925840541048404185186304"
+      ],
+      "observable_gap_reference": "first_even_excitation",
+      "nonzero_overlap": [
+        true,
+        true
+      ],
+      "cross_representation_agreement": true,
+      "scalar_bounds_met": true,
+      "qualifying_common_sample_pairs": [
+        [
+          7,
+          8
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          9,
+          10
+        ],
+        [
+          10,
+          11
+        ]
+      ],
+      "registered_window": null,
+      "status": "development_qualified"
+    }
+  ],
+  "external_prerequisites": {
+    "source_pilot_and_conventions": "unresolved",
+    "litcheck_and_lessons_workflow": "unresolved",
+    "owning_registration_and_identifiers": "unresolved",
+    "independent_review": "unresolved"
+  },
+  "scope": "Single-angle development models under documented analytic/arithmetic assumptions; no field-theory conclusion"
+}
