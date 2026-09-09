@@ -1,0 +1,25 @@
+{
+  "task": "ym-vacuum-gap-litcheck",
+  "date": "2026-09-08",
+  "repository": "nickjoven/proslambenomenos",
+  "base_commit": "da0084147986a97f355954be6b0eff4246b9d852",
+  "local_head": "b4da419ee2e26ad6f67b7084a7e82c1de53309e8",
+  "remote_written": false,
+  "registration": "unregistered draft",
+  "target_cells_run": false,
+  "checks": [
+    "notes gate passed",
+    "message gate passed",
+    "internal links and math/code delimiters checked",
+    "git whitespace checks passed",
+    "analytic null algebra checked"
+  ],
+  "full_repo_gates_run": false,
+  "sha256": {
+    "README.md": "a82ad31c8e9bd5b3759b7a574b43648ff088f8ccbf9b362b0381d4aae63a2135",
+    "changes.patch": "629d4279e726f5dc2131d5b9fb94856b13242a0fa7d212ab3b5a9c0526776fa5",
+    "notes/ym_vacuum_gap_handoff.md": "3f41efca8dfc2076cd3c2acdbeb34937e3253882545dae12f75249fa13605036",
+    "notes/ym_vacuum_gap_litcheck.md": "7b337ad92eef91992189123904437c9f25c9da4bb0867a1623e44d03e60b3731",
+    "notes/ym_vacuum_gap_registration_draft.md": "dc01a22a08d8c3edd0228740fa43723dcff5e3db424a030c5bce84fa51d0fc86"
+  }
+}

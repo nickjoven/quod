@@ -2,6 +2,10 @@
 
 ## Sources recovered
 
+Update: the companion design and handoff are now recovered in the user-supplied
+ZIP. See [DESIGN-ALIGNMENT.md](DESIGN-ALIGNMENT.md) for material differences and
+the current remaining work. The account below records the earlier recovery.
+
 The Windows Downloads file `ym_vacuum_gap_litcheck.md` is now preserved
 unchanged in this directory. It identifies `nickjoven/proslambenomenos` as
 the original repository. A fresh read-only clone at

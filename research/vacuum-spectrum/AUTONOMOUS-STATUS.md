@@ -30,14 +30,18 @@ arithmetic/analytic base, not a registered field-theory conclusion.
 
 ## Next work and unresolved inputs
 
-1. Obtain the companion `ym_vacuum_gap_registration_draft.md` and
-   `ym-gap-pilot-artifacts.zip` named in the recovered LITCHECK draft.
-   [SOURCE-RECOVERY.md](SOURCE-RECOVERY.md) records the original repository,
-   exact matching base commit, actual lessons query and workflow rules.
-   The literature draft, lessons tool and owning process have now been found;
-   the pilot convention and companion experiment specification remain unverified.
-2. Obtain P/LC assignment through the owning workflow, address independent
-   review, and freeze the future study before any target execution.
-   Completed development calculations remain exploratory, not preregistered.
-3. Stop for the user's target decision only when it is actually the next
-   required step. All 42 target rows remain unrun in every current report.
+The recovered [experiment specification](DESIGN-ALIGNMENT.md) reveals that
+existing U(1) results use a different kinetic coefficient and cutoff ladder.
+The earlier readiness report remains a historical audit, not a qualification
+of the recovered specification.
+
+1. Implement U(1) kinetic coefficient 4 g^2 and Fourier cutoffs 40..640;
+   repeat development comparisons, certificates and direct window assessment.
+2. Add the exact null families specified by the recovered draft and reproduce
+   its original fourteen-lesson query. Retain earlier controls as additional cases.
+3. Obtain the separate `ym-gap-pilot-artifacts.zip`, whose expected hashes
+   are now recorded in the recovered handoff, to verify pilot replication.
+4. Obtain P/LC assignment through the owning workflow, address independent
+   review, and freeze future work before any target execution.
+5. Stop for the user's target decision only when it is the next required step.
+   All 42 target rows remain unrun in every current report.
