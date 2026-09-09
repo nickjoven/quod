@@ -1,0 +1,854 @@
+{
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "state": {
+      "const": "unregistered_contract"
+    },
+    "registered": {
+      "const": false
+    },
+    "target_execution_authorized": {
+      "const": false
+    },
+    "targets_run": {
+      "const": 0
+    },
+    "targets": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "status": {
+            "const": "unrun"
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1
+          },
+          "result": {
+            "type": "null"
+          }
+        },
+        "required": [
+          "id",
+          "status",
+          "reason",
+          "result"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 42,
+      "maxItems": 42
+    },
+    "development_examples": {
+      "type": "array",
+      "items": {
+        "allOf": [
+          {
+            "$ref": "#/$defs/cell_result"
+          },
+          {
+            "properties": {
+              "partition": {
+                "const": "development"
+              }
+            }
+          }
+        ]
+      },
+      "minItems": 20,
+      "maxItems": 20
+    },
+    "source_sha256": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string",
+        "pattern": "^[0-9a-f]{64}$"
+      }
+    },
+    "schema_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    }
+  },
+  "required": [
+    "schema_version",
+    "state",
+    "registered",
+    "target_execution_authorized",
+    "targets_run",
+    "targets",
+    "development_examples",
+    "source_sha256",
+    "schema_sha256"
+  ],
+  "additionalProperties": false,
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$defs": {
+    "cell_result": {
+      "type": "object",
+      "properties": {
+        "theory": {
+          "enum": [
+            "SU2",
+            "U1"
+          ]
+        },
+        "g": {
+          "type": "string",
+          "pattern": "^-?[0-9]+(\\.[0-9]+)?(/[1-9][0-9]*)?$"
+        },
+        "eta": {
+          "type": "string",
+          "pattern": "^-?[0-9]+(\\.[0-9]+)?(/[1-9][0-9]*)?$"
+        },
+        "partition": {
+          "enum": [
+            "development",
+            "target"
+          ]
+        },
+        "status": {
+          "enum": [
+            "available",
+            "failure",
+            "unresolved"
+          ]
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1
+        },
+        "channels": {
+          "type": "array",
+          "maxItems": 2,
+          "items": {
+            "type": "object",
+            "properties": {
+              "certificate": {
+                "type": "object",
+                "properties": {
+                  "theory": {
+                    "enum": [
+                      "SU2",
+                      "U1"
+                    ]
+                  },
+                  "g": {
+                    "type": "string",
+                    "pattern": "^-?[0-9]+(\\.[0-9]+)?(/[1-9][0-9]*)?$"
+                  },
+                  "eta": {
+                    "type": "string",
+                    "pattern": "^-?[0-9]+(\\.[0-9]+)?(/[1-9][0-9]*)?$"
+                  },
+                  "observable": {
+                    "enum": [
+                      "P",
+                      "P2"
+                    ]
+                  },
+                  "spectral_scope": {
+                    "enum": [
+                      "full",
+                      "reflection_even"
+                    ]
+                  },
+                  "ordering_certified": {
+                    "const": true
+                  },
+                  "states": {
+                    "type": "array",
+                    "minItems": 1,
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "level": {
+                          "type": "integer",
+                          "minimum": 1
+                        },
+                        "gap_interval": {
+                          "type": "array",
+                          "items": {
+                            "type": "string",
+                            "pattern": "^-?[0-9]+(/[1-9][0-9]*)?$"
+                          },
+                          "minItems": 2,
+                          "maxItems": 2
+                        },
+                        "weight_interval": {
+                          "type": "array",
+                          "items": {
+                            "type": "string",
+                            "pattern": "^-?[0-9]+(/[1-9][0-9]*)?$"
+                          },
+                          "minItems": 2,
+                          "maxItems": 2
+                        },
+                        "exact_zero_rule": {
+                          "enum": [
+                            null,
+                            "free_polynomial_selection"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "level",
+                        "gap_interval",
+                        "weight_interval",
+                        "exact_zero_rule"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "omitted_gap_lower": {
+                    "type": "string",
+                    "pattern": "^-?[0-9]+(/[1-9][0-9]*)?$"
+                  },
+                  "omitted_weight_interval": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "pattern": "^-?[0-9]+(/[1-9][0-9]*)?$"
+                    },
+                    "minItems": 2,
+                    "maxItems": 2
+                  }
+                },
+                "required": [
+                  "theory",
+                  "g",
+                  "eta",
+                  "observable",
+                  "spectral_scope",
+                  "ordering_certified",
+                  "states",
+                  "omitted_gap_lower",
+                  "omitted_weight_interval"
+                ],
+                "additionalProperties": false
+              },
+              "threshold": {
+                "type": "object",
+                "properties": {
+                  "status": {
+                    "enum": [
+                      "resolved",
+                      "unresolved"
+                    ]
+                  },
+                  "reason": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "leading_level": {
+                    "type": [
+                      "integer",
+                      "null"
+                    ],
+                    "minimum": 1
+                  },
+                  "gap_interval": {
+                    "anyOf": [
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "pattern": "^-?[0-9]+(/[1-9][0-9]*)?$"
+                        },
+                        "minItems": 2,
+                        "maxItems": 2
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "full_gap_claim_supported": {
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "status",
+                  "reason",
+                  "leading_level",
+                  "gap_interval",
+                  "full_gap_claim_supported"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "certificate",
+              "threshold"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "payload": {
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "scalar": {
+                  "type": "object",
+                  "properties": {
+                    "path": {
+                      "type": "string",
+                      "pattern": "^[a-z0-9-]+\\.json$"
+                    },
+                    "sha256": {
+                      "type": "string",
+                      "pattern": "^[0-9a-f]{64}$"
+                    },
+                    "pointer": {
+                      "type": "string",
+                      "pattern": "^/cells/[0-9]+(/final)?$"
+                    }
+                  },
+                  "required": [
+                    "path",
+                    "sha256",
+                    "pointer"
+                  ],
+                  "additionalProperties": false
+                },
+                "certificates": {
+                  "type": "object",
+                  "properties": {
+                    "path": {
+                      "type": "string",
+                      "pattern": "^[a-z0-9-]+\\.json$"
+                    },
+                    "sha256": {
+                      "type": "string",
+                      "pattern": "^[0-9a-f]{64}$"
+                    },
+                    "pointer": {
+                      "type": "string",
+                      "pattern": "^/cells/[0-9]+(/final)?$"
+                    }
+                  },
+                  "required": [
+                    "path",
+                    "sha256",
+                    "pointer"
+                  ],
+                  "additionalProperties": false
+                },
+                "temporal": {
+                  "type": "object",
+                  "properties": {
+                    "path": {
+                      "type": "string",
+                      "pattern": "^[a-z0-9-]+\\.json$"
+                    },
+                    "sha256": {
+                      "type": "string",
+                      "pattern": "^[0-9a-f]{64}$"
+                    },
+                    "pointer": {
+                      "type": "string",
+                      "pattern": "^/cells/[0-9]+(/final)?$"
+                    }
+                  },
+                  "required": [
+                    "path",
+                    "sha256",
+                    "pointer"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "required": [
+                "scalar",
+                "certificates",
+                "temporal"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "theory",
+        "g",
+        "eta",
+        "partition",
+        "status",
+        "reason",
+        "channels",
+        "payload"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "available"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "channels": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "certificate": {
+                      "type": "object",
+                      "properties": {
+                        "theory": {
+                          "enum": [
+                            "SU2",
+                            "U1"
+                          ]
+                        },
+                        "g": {
+                          "type": "string",
+                          "pattern": "^-?[0-9]+(\\.[0-9]+)?(/[1-9][0-9]*)?$"
+                        },
+                        "eta": {
+                          "type": "string",
+                          "pattern": "^-?[0-9]+(\\.[0-9]+)?(/[1-9][0-9]*)?$"
+                        },
+                        "observable": {
+                          "enum": [
+                            "P",
+                            "P2"
+                          ]
+                        },
+                        "spectral_scope": {
+                          "enum": [
+                            "full",
+                            "reflection_even"
+                          ]
+                        },
+                        "ordering_certified": {
+                          "const": true
+                        },
+                        "states": {
+                          "type": "array",
+                          "minItems": 1,
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "level": {
+                                "type": "integer",
+                                "minimum": 1
+                              },
+                              "gap_interval": {
+                                "type": "array",
+                                "items": {
+                                  "type": "string",
+                                  "pattern": "^-?[0-9]+(/[1-9][0-9]*)?$"
+                                },
+                                "minItems": 2,
+                                "maxItems": 2
+                              },
+                              "weight_interval": {
+                                "type": "array",
+                                "items": {
+                                  "type": "string",
+                                  "pattern": "^-?[0-9]+(/[1-9][0-9]*)?$"
+                                },
+                                "minItems": 2,
+                                "maxItems": 2
+                              },
+                              "exact_zero_rule": {
+                                "enum": [
+                                  null,
+                                  "free_polynomial_selection"
+                                ]
+                              }
+                            },
+                            "required": [
+                              "level",
+                              "gap_interval",
+                              "weight_interval",
+                              "exact_zero_rule"
+                            ],
+                            "additionalProperties": false
+                          }
+                        },
+                        "omitted_gap_lower": {
+                          "type": "string",
+                          "pattern": "^-?[0-9]+(/[1-9][0-9]*)?$"
+                        },
+                        "omitted_weight_interval": {
+                          "type": "array",
+                          "items": {
+                            "type": "string",
+                            "pattern": "^-?[0-9]+(/[1-9][0-9]*)?$"
+                          },
+                          "minItems": 2,
+                          "maxItems": 2
+                        }
+                      },
+                      "required": [
+                        "theory",
+                        "g",
+                        "eta",
+                        "observable",
+                        "spectral_scope",
+                        "ordering_certified",
+                        "states",
+                        "omitted_gap_lower",
+                        "omitted_weight_interval"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "threshold": {
+                      "type": "object",
+                      "properties": {
+                        "status": {
+                          "enum": [
+                            "resolved",
+                            "unresolved"
+                          ]
+                        },
+                        "reason": {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        "leading_level": {
+                          "type": [
+                            "integer",
+                            "null"
+                          ],
+                          "minimum": 1
+                        },
+                        "gap_interval": {
+                          "anyOf": [
+                            {
+                              "type": "array",
+                              "items": {
+                                "type": "string",
+                                "pattern": "^-?[0-9]+(/[1-9][0-9]*)?$"
+                              },
+                              "minItems": 2,
+                              "maxItems": 2
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "full_gap_claim_supported": {
+                          "type": "boolean"
+                        }
+                      },
+                      "required": [
+                        "status",
+                        "reason",
+                        "leading_level",
+                        "gap_interval",
+                        "full_gap_claim_supported"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "required": [
+                    "certificate",
+                    "threshold"
+                  ],
+                  "additionalProperties": false
+                },
+                "minItems": 2,
+                "maxItems": 2
+              },
+              "payload": {
+                "type": "object",
+                "properties": {
+                  "scalar": {
+                    "type": "object",
+                    "properties": {
+                      "path": {
+                        "type": "string",
+                        "pattern": "^[a-z0-9-]+\\.json$"
+                      },
+                      "sha256": {
+                        "type": "string",
+                        "pattern": "^[0-9a-f]{64}$"
+                      },
+                      "pointer": {
+                        "type": "string",
+                        "pattern": "^/cells/[0-9]+(/final)?$"
+                      }
+                    },
+                    "required": [
+                      "path",
+                      "sha256",
+                      "pointer"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "certificates": {
+                    "type": "object",
+                    "properties": {
+                      "path": {
+                        "type": "string",
+                        "pattern": "^[a-z0-9-]+\\.json$"
+                      },
+                      "sha256": {
+                        "type": "string",
+                        "pattern": "^[0-9a-f]{64}$"
+                      },
+                      "pointer": {
+                        "type": "string",
+                        "pattern": "^/cells/[0-9]+(/final)?$"
+                      }
+                    },
+                    "required": [
+                      "path",
+                      "sha256",
+                      "pointer"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "temporal": {
+                    "type": "object",
+                    "properties": {
+                      "path": {
+                        "type": "string",
+                        "pattern": "^[a-z0-9-]+\\.json$"
+                      },
+                      "sha256": {
+                        "type": "string",
+                        "pattern": "^[0-9a-f]{64}$"
+                      },
+                      "pointer": {
+                        "type": "string",
+                        "pattern": "^/cells/[0-9]+(/final)?$"
+                      }
+                    },
+                    "required": [
+                      "path",
+                      "sha256",
+                      "pointer"
+                    ],
+                    "additionalProperties": false
+                  }
+                },
+                "required": [
+                  "scalar",
+                  "certificates",
+                  "temporal"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "failure"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "channels": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "certificate": {
+                      "type": "object",
+                      "properties": {
+                        "theory": {
+                          "enum": [
+                            "SU2",
+                            "U1"
+                          ]
+                        },
+                        "g": {
+                          "type": "string",
+                          "pattern": "^-?[0-9]+(\\.[0-9]+)?(/[1-9][0-9]*)?$"
+                        },
+                        "eta": {
+                          "type": "string",
+                          "pattern": "^-?[0-9]+(\\.[0-9]+)?(/[1-9][0-9]*)?$"
+                        },
+                        "observable": {
+                          "enum": [
+                            "P",
+                            "P2"
+                          ]
+                        },
+                        "spectral_scope": {
+                          "enum": [
+                            "full",
+                            "reflection_even"
+                          ]
+                        },
+                        "ordering_certified": {
+                          "const": true
+                        },
+                        "states": {
+                          "type": "array",
+                          "minItems": 1,
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "level": {
+                                "type": "integer",
+                                "minimum": 1
+                              },
+                              "gap_interval": {
+                                "type": "array",
+                                "items": {
+                                  "type": "string",
+                                  "pattern": "^-?[0-9]+(/[1-9][0-9]*)?$"
+                                },
+                                "minItems": 2,
+                                "maxItems": 2
+                              },
+                              "weight_interval": {
+                                "type": "array",
+                                "items": {
+                                  "type": "string",
+                                  "pattern": "^-?[0-9]+(/[1-9][0-9]*)?$"
+                                },
+                                "minItems": 2,
+                                "maxItems": 2
+                              },
+                              "exact_zero_rule": {
+                                "enum": [
+                                  null,
+                                  "free_polynomial_selection"
+                                ]
+                              }
+                            },
+                            "required": [
+                              "level",
+                              "gap_interval",
+                              "weight_interval",
+                              "exact_zero_rule"
+                            ],
+                            "additionalProperties": false
+                          }
+                        },
+                        "omitted_gap_lower": {
+                          "type": "string",
+                          "pattern": "^-?[0-9]+(/[1-9][0-9]*)?$"
+                        },
+                        "omitted_weight_interval": {
+                          "type": "array",
+                          "items": {
+                            "type": "string",
+                            "pattern": "^-?[0-9]+(/[1-9][0-9]*)?$"
+                          },
+                          "minItems": 2,
+                          "maxItems": 2
+                        }
+                      },
+                      "required": [
+                        "theory",
+                        "g",
+                        "eta",
+                        "observable",
+                        "spectral_scope",
+                        "ordering_certified",
+                        "states",
+                        "omitted_gap_lower",
+                        "omitted_weight_interval"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "threshold": {
+                      "type": "object",
+                      "properties": {
+                        "status": {
+                          "enum": [
+                            "resolved",
+                            "unresolved"
+                          ]
+                        },
+                        "reason": {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        "leading_level": {
+                          "type": [
+                            "integer",
+                            "null"
+                          ],
+                          "minimum": 1
+                        },
+                        "gap_interval": {
+                          "anyOf": [
+                            {
+                              "type": "array",
+                              "items": {
+                                "type": "string",
+                                "pattern": "^-?[0-9]+(/[1-9][0-9]*)?$"
+                              },
+                              "minItems": 2,
+                              "maxItems": 2
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "full_gap_claim_supported": {
+                          "type": "boolean"
+                        }
+                      },
+                      "required": [
+                        "status",
+                        "reason",
+                        "leading_level",
+                        "gap_interval",
+                        "full_gap_claim_supported"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "required": [
+                    "certificate",
+                    "threshold"
+                  ],
+                  "additionalProperties": false
+                },
+                "minItems": 0,
+                "maxItems": 0
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "payload": {
+                "type": "null"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "channels": {
+                "type": "array",
+                "maxItems": 0
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}
