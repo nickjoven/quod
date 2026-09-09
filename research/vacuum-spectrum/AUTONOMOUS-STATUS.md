@@ -21,7 +21,7 @@ earlier, but optional implementation choices do not require renewed approval.
 | Recovered-design U(1) correlations and gaps | `U1-DESIGN-SEMIGROUP-RUN.md`: 80 evolutions; all finest cells qualify for both even probes |
 | Specified analytic nulls and lessons | `DESIGN-NULLS.md` and `SOURCE-RECOVERY.md`: exact requested families and original fourteen-lesson query |
 | Corrected design audit and cost plan | `DESIGN-READINESS.md` and `TARGET-COST-PLAN.md`: 20 cells replayed; planning scenarios, targets unrun |
-| Artifact lineage | Latest validated ket packet is recorded in `U1-DESIGN-SEMIGROUP-RUN.md` |
+| Artifact lineage | Latest validated ket packet is recorded in `DESIGN-READINESS.md` |
 
 The tests replay archived sources, exact endpoints, overlaps, correlation
 intervals, effective-gap bounds and target accounting. The latest full run

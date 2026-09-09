@@ -58,3 +58,8 @@ missing requests, target execution and false external-completion claims.
 
 Validation: all 117 numerical tests passed, including the corrected audit
 and cost-plan rejection checks. `git diff --check` passed.
+
+Audit commit: `b1f233f`; cost-plan commit: `3ac7166`. Validated packet:
+`e0ddf5c12f4bcf211bbb2a5e91ab3b1e2dbc411b7e5725ced55ac0ff0097785a`.
+Artifact validation passed and ket projection was clean. The packet retains
+the document before this provenance paragraph, avoiding self-reference.
