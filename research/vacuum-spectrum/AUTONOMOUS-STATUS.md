@@ -16,21 +16,24 @@ earlier, but optional implementation choices do not require renewed approval.
 | Independent angle correlations | `SEMIGROUP-RUN.md`: full direct propagation, two tolerances, fixed ladders |
 | Sampled gap precision for both observables | `LATE-TIMES-RUN.md`: qualifying sampled pairs for every finest-grid development cell |
 | Hidden, tensor, gapless, disconnected nulls | `NULL-CONTROLS.md`: exact analytic controls and analysis mutants |
-| Artifact lineage | Latest validated ket packet is recorded in `LATE-TIMES-RUN.md` |
+| U(1) Fourier and periodic-angle representations | `U1-RUN.md`: both parities; 90 requests; scalar agreement in all ten cells |
+| Artifact lineage | Latest validated ket packet is recorded in `U1-RUN.md` |
 
 The tests replay archived sources, exact endpoints, overlaps, correlation
-intervals, effective-gap bounds and target accounting. The previous full run
-passed 59 tests; the three subsequently added null-control tests also passed.
+intervals, effective-gap bounds and target accounting. The latest full run
+passed 70 tests, including the U(1) parity and archive checks.
 Certificates concern the stated single-angle model and its documented trusted
 arithmetic/analytic base, not a registered field-theory conclusion.
 
 ## Next work and unresolved inputs
 
-1. Implement U(1) Fourier and periodic-angle development instruments with both
-   parities, preserving the distinction between full gap and even-observable
-   threshold. State any development convention that cannot yet be checked
-   against the missing source pilot.
-2. Extend the error-budget and temporal checks to that instrument as needed.
+1. Add exact U(1) parity-specific spectral/overlap certificates. The even
+   tridiagonal block has a sqrt(2) first hopping, whose square is rational;
+   an exact determinant recurrence can avoid rounding that coefficient.
+   Residual candidates must retain exact bilateral reflection symmetry.
+2. Extend independent propagation and temporal checks to U(1), keeping the
+   full odd gap separate from the even observable threshold. Its explicit
+   development convention remains unverified against the source pilot.
 3. Obtain and verify the source pilot, referenced draft/lessons workflow, and
    owning P/LC registration process. The repository records their absence;
    another filename search of the visible workspace and local AI checkouts

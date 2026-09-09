@@ -1,6 +1,6 @@
 # U(1) development execution record
 
-Date: 2026-09-09 UTC. Instrument commit: `4209587`.
+Date: 2026-09-09 UTC. Instrument commit: `4209587`; result commit: `20662f7`.
 State: **unregistered; scalar agreement achieved; parity thresholds unresolved**.
 
 ## Execution
@@ -54,6 +54,13 @@ The report contains all rung summaries, final even/odd spectra, ground vectors,
 observable weights, numerical residuals, timings and source/environment hashes.
 The archive regression test checks this document's report checksum and
 recomputes the reported comparisons.
+
+Local ignored ket packet:
+`cf5b18461e8aeb20faba8a252d8f85b3cead33ecbbec31b4d49dcef1df812b8b`.
+It parents the later-time/null-control packet and contains this instrument's
+source, tests, report and documentation at result commit `20662f7`. Catbus
+artifact validation passed and ket projection was clean. This paragraph was
+added after packaging; no independent sieve verdict is claimed.
 
 ## Next prerequisite
 
