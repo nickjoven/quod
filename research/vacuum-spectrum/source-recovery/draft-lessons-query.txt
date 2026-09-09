@@ -1,0 +1,172 @@
+## L-1 — tolerance smear
+TRIGGERS: locking, plateau, tolerance, width, staircase, detector
+RULE: a tolerance-based detector reads 2*TOL/slope on featureless
+background; every measured width must be compared against that
+derived smear, never against a bare floor.
+CITATIONS: R-29 (P-32: every bias-side width was the smear).
+
+## L-2 — conservation identities first
+TRIGGERS: observable, mean, sum, ring, telescoping, gauge, symmetry
+RULE: before registering a positive control on an observable, check
+its exact algebraic constraints (telescoping sums, Newton pairs,
+gauge freedoms, reflection symmetries) - the constraint may make
+the registered outcome trivial or impossible.
+CITATIONS: R-30 (P-33: rho = I by telescoping); P-35 EQ3 (derived
+up front, the lesson applied); R-33 (net-W blind to the paired
+channel by the same reflection that makes sectors degenerate).
+
+## L-3 — no guessed numeric bands
+TRIGGERS: band, window, tolerance, clause, threshold, value
+RULE: every numeric band in a clause traces to a derivation or a
+pinned source; a value window at fixed resolution is never the
+right observable when a scaling or convergence statement exists.
+CITATIONS: R-32 (P-2: two guessed windows fired while the derivable
+estimate sat in the same script); the corollary recorded there.
+
+## L-5 — extrapolate along the ladder
+TRIGGERS: Fibonacci, ladder, approximant, rung, q, scan, resolution
+RULE: quantities on a convergent ladder scale geometrically
+(Fibonacci: widths shrink ~ phi^-2 per rung; a 1/q scan gains only
+phi^-1), so any detector budget validated at small q has a
+COMPUTABLE failure rung - extrapolate the validation quantities by
+the pinned per-rung factor before registering. R-25 pinned 0.324 =
+phi^-2.34 four days before P-40 registered a budget that
+contradicted it; the crossover computed to between q = 55 and 89
+and the firing landed there.
+CITATIONS: R-39 + the q = 13 audit note in
+notes/p41_gap_openings.md (the min-band vs scan-spacing table);
+R-25 (the pinned per-rung factor); P-28's registration (the
+anti-pattern done right: promise scoped to the derivable rung).
+
+## L-6 — certified-complete beats scanned
+TRIGGERS: roots, edges, spectrum, scan, bisection, count
+RULE: when the objects to be found are eigenvalues in disguise
+(band edges, discriminant roots), use the eigen-route - a scan
+misses features narrower than its spacing and deletes them in
+PAIRS, silently; the count is then the only tell, so make the
+count a registered integrity clause either way.
+CITATIONS: R-39 (the 60q scan lost 2-18 edges at q >= 89); P-41
+(the eigen-route measured all eight cells).
+
+## L-8 — mutants can be defeated by global structure
+TRIGGERS: mutant, falsifier, discriminating, skip, global
+RULE: a mutant that perturbs a LOCALLY-motivated quantity may be
+rescued by a global identity (a gap line is global, so a skip-rung
+Streda mutant still returns the right slope); verify each mutant
+actually fails before pinning it, and record discarded
+non-discriminating mutants with the reason.
+CITATIONS: P-28 audit note (the 8/13 skip-rung mutant); the p29
+skip-rung lesson recorded in its notes.
+
+## L-11 — an absent check point fires
+TRIGGERS: check point, sample, skip, missing, window, empty, holds
+RULE: a registered check point that is absent from the run's data
+is a FIRED clause, not a skipped one; a runner raises on a missing
+point, and a verdict that is a boolean AND over "whatever was
+found" is a loosened check that cannot fail on absence. Count the
+compared points in the results against the registered list.
+CITATIONS: P-46 runner (`if D in sm:` guarding the drift checks;
+all four points were present so nothing fired, but the guard would
+have passed a missing one as held); P-47 layer (a loosened-check
+mutant that could not fail, caught there before registration).
+
+## L-13 — mutants must differ in what they perturb, and a falsifier states its coverage
+TRIGGERS: mutant, falsifier, parametrization, coverage,
+reimplementation, distinct, null_system
+RULE: two mutants are two tests only if the quantity the check reads
+differs between them - trace each perturbation to that quantity (a
+product tau*lambda, a ratio, a sum) and confirm the perturbed values
+differ, else record one mutant. And the claim's null_system states
+the falsifier's COVERAGE: which clauses the reimplementation carries
+and which rest on the experiment alone; a verified status asserts
+reimplementation, so a clause without one is named as such.
+CITATIONS: P-44 (sup-blind and mass-blind both set tau^2 |lambda|^2
+to 0.5625 |lambda|^2, identical chain numbers; R-45a); P-45 (clause
+(2) carried no reimplementation until LAW-54); the 2026-09-02 audit
+count - 2 of 62 claims named a limit of their falsifier.
+
+## L-15 — a registration that quotes the derive layer's own cells is a replication
+TRIGGERS: registration, expects, derive layer, same cells, as expected,
+determinism, replication, second pass, held-out
+RULE: when the registration's expected values are the derive layer's
+readings of the very cells to be run, the resolution can only confirm
+determinism; label it a replication in the registration, or register
+cells the derive layer did not run (a held-out window, gamma, N), so
+that "as expected" carries a prediction. The derive layer designs the
+instrument on cells it may keep; the registered cells are new.
+CITATIONS: P-49 (p49_results.json equals p49_derive.json second_pass
+bit for bit at all four late cells; R-47a quoted the late-window
+readings ahead of the registration; R-48a).
+
+## L-16 — a window after a transient is placed per cell, by that cell's rate
+TRIGGERS: window, transient, decay time, overdamped, slow mode,
+late window, ladder, exponent, e^-6
+RULE: a window that is meant to read a quiet state is placed after the
+slowest launched mode has decayed by a stated exponent, computed for
+EACH cell from that cell's own damping and stiffness, and the exponent
+per cell is written into the registration; a start derived at one
+gamma and applied along a ladder is a transient window at the others.
+CITATIONS: P-48 (the ladder windows started at 0.24 to 1.2 decay times
+of the k = 1 mode at gamma 0.35 to 0.8; the near-band readings of R-47
+are window-state readings; R-47b); P-49 (the e^-6 start came from
+gamma 0.5 and holds at 0.35 and 0.5 only: exponents 3.7 and 2.9 at
+gamma 0.8 and 1.0; R-48a).
+
+## L-17 — a reimplementation carries a mutant of the premise, and inherits the derive layer's sampling conditions
+TRIGGERS: falsifier, reimplementation, premise, mutant, seed,
+sampling, floor cell, correlated, gauge twist, bypass
+RULE: a falsifier's mutants perturb the ANALYSIS (a shift, a count);
+one of them must perturb the PREMISE the claim rests on (a seam that
+is not a pure gauge twist, a bond that is cut, a bath that is not the
+control's), and the check that reads the registered clause must move
+under at least one mutant - else the falsifier tests a floor cell and
+not the claim. And a falsifier is run at three seeds before it is
+pinned: a pass that depends on the seed is a sampling degeneracy the
+derive layer already removed (L-9), re-imported into the gate.
+CITATIONS: P-47 (scripts/verify/p47_half_sector.py at LAW-53: exits 1
+on correct physics at seeds 2 and 4 of six; exit 0 with the pi bond's
+coupling cut; neither mutant moves the quench check; R-46a, A-33).
+
+## L-18 — a number cited in a gate entry comes from a repo script
+TRIGGERS: LAW entry, probe, scratch, tolerance, mutant, reproducible,
+seed, audit
+RULE: every figure a LAW entry cites to justify a tolerance or a mutant
+(a probe's reading, a bypass's exit, a seed's z) is produced by a script
+in the repo with a fixed seed, named in the entry, so the next reader
+can rerun it; a scratch realisation quoted into the ledger is a number
+nobody can check. And a correction entry is a reading like any other:
+its mechanism sentence is bounded by what its run measured (L-12).
+CITATIONS: LAW-59 quoted a noise probe's 2.5305 / 0.1605 from an
+auditor's scratch run that no script reproduces (a32_probes.py now
+does, with different numbers and the same verdict); R-48e's mechanism
+sentence went beyond the replay's two runs and was wrong (R-48f).
+
+## L-20 — an exact clause is an identity
+TRIGGERS: exact, floor, identity, arithmetic, change of units,
+tautology, held to 1e-15
+RULE: a registered clause that comes out exact to the floating-point
+floor is an identity of the code or of the algebra, not a result:
+count it as a check, name it so in the claim, and do not let it stand
+in the count of clauses held. Exactness is the tell. The physics is
+what is left after the identity is subtracted, and it is never exact.
+CITATIONS: the covariant winding on its lattice and the half-quantum
+floor (P-47 (a), (d); R-46a); the kappa scaling (P-48 (a); R-47b); the
+smear identity (P-49 (d); R-48a); the P-46 momentum identities are the
+one case that was registered as identities from the start.
+
+## L-21 — the operator after an event is not the operator before it
+TRIGGERS: window, transient, decay time, mode, slip, event, spectrum,
+post-event, open chain, free end
+RULE: a window criterion after an event is computed from the spectrum
+of the system AS IT IS after the event, not before. A ring with one
+site turned rotor is an open chain with free ends on slow timescales:
+its slowest even mode is the ring's k = 1 but its slowest odd mode is
+new (half the frequency, four times the decay time), and on a twisted
+ring that odd sector is driven. Write the post-event operator down
+before placing the window (L-16 says per cell; this says which
+spectrum).
+CITATIONS: A-34 / A-35 (R-48b, R-48c): the ring k = 1 used by LC-38,
+L-16, R-47b and R-48a is the open chain's k = 2; the odd k = 1 was
+unmeasured until A-34; notes/post_slip_components.md.
+
+cite: L-1, L-2, L-3, L-5, L-6, L-8, L-11, L-13, L-15, L-16, L-17, L-18, L-20, L-21

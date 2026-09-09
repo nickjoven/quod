@@ -85,3 +85,14 @@ Git fixture and requires byte-identical output and exit status. It does not
 execute any physics solver or target. The manifest pins the full original
 registration ledger by hash and Git commit; it is not copied into the
 numerical result schema or silently treated as a registration.
+
+## Reproduction of the recovered draft's original query
+
+After recovery of the complete experiment draft, its exact original keyword
+query was run in the owning repository at the same pinned commit. It returned
+L-1, L-2, L-3, L-5, L-6, L-8, L-11, L-13, L-15, L-16, L-17, L-18, L-20,
+and L-21, exactly matching the draft. `source-recovery/draft-lessons-query.json`
+records the arguments, expected IDs, exit code and output hash; the complete
+output is in `draft-lessons-query.txt`. The same verifier now reproduces both
+queries using the unchanged captured tool and ledger. This completes the
+query-reproduction requirement; registration must still apply its clauses.

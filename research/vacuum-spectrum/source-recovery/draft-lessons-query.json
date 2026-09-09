@@ -1,0 +1,42 @@
+{
+  "keywords": [
+    "vacuum",
+    "spectrum",
+    "scan",
+    "observable",
+    "gauge",
+    "symmetry",
+    "ratio",
+    "scaling",
+    "finite-size",
+    "bound",
+    "detector",
+    "tolerance",
+    "window",
+    "decay",
+    "mode",
+    "reimplementation",
+    "mutant",
+    "held-out",
+    "identity"
+  ],
+  "exit_code": 0,
+  "output_sha256": "f75d9e79cc16d174932e4d3f80748e9c51d11f651978927af4565ef4706971aa",
+  "expected_ids": [
+    "L-1",
+    "L-2",
+    "L-3",
+    "L-5",
+    "L-6",
+    "L-8",
+    "L-11",
+    "L-13",
+    "L-15",
+    "L-16",
+    "L-17",
+    "L-18",
+    "L-20",
+    "L-21"
+  ],
+  "source_commit": "da0084147986a97f355954be6b0eff4246b9d852"
+}

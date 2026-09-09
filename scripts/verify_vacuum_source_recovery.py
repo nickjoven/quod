@@ -31,8 +31,19 @@ def verify():
                                 cwd=fixture, capture_output=True, check=False)
         if result.returncode != manifest['query_exit_code'] or result.stdout != output:
             raise ValueError('owner lessons query does not reproduce')
+        draft = json.loads((DIRECTORY / 'draft-lessons-query.json').read_text())
+        draft_output = (DIRECTORY / 'draft-lessons-query.txt').read_bytes()
+        if draft['source_commit'] != manifest['commit'] or hashlib.sha256(draft_output).hexdigest() != draft['output_sha256']:
+            raise ValueError('draft query provenance drift')
+        result = subprocess.run(['python3', str(fixture / 'lessons.py'), *draft['keywords']],
+                                cwd=fixture, capture_output=True, check=False)
+        if result.returncode != draft['exit_code'] or result.stdout != draft_output:
+            raise ValueError('draft lessons query does not reproduce')
+        if draft_output.decode().strip().splitlines()[-1] != 'cite: ' + ', '.join(draft['expected_ids']):
+            raise ValueError('draft lessons IDs differ')
     return {'verified': True, 'source_commit': manifest['commit'],
-            'lessons': output.decode().strip().splitlines()[-1]}
+            'lessons': output.decode().strip().splitlines()[-1],
+            'draft_lessons': draft['expected_ids']}
 
 
 if __name__ == '__main__':
