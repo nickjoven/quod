@@ -37,7 +37,7 @@ failed/unresolved outcomes across all deformations before registration.
 | Original pilot replication | Handoff supplies expected archive/script/JSON hashes; one quoted scalar matches | Incomplete: original code/JSON still missing |
 | P/LC assignment and registration | Owning process recovered | Incomplete: no assigned IDs or registration commit |
 | Independent review | Earlier reviewer timeouts remain failures | Incomplete |
-| Final target schema and derive layer | Draft schemas and development functions exist | Incomplete: freeze through owning workflow before execution |
+| Target result contract and derive checks | `RESULT-CONTRACT.md`: draft, development adaptations and free selection tests | Implemented for review; owner freeze before execution remains incomplete |
 | Target choice/execution | 42 manifest rows explicitly unrun | User boundary preserved; not yet the next required step |
 
 The numerical qualification is about the specified single-angle models,

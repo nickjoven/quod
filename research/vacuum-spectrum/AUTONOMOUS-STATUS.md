@@ -21,11 +21,12 @@ earlier, but optional implementation choices do not require renewed approval.
 | Recovered-design U(1) correlations and gaps | `U1-DESIGN-SEMIGROUP-RUN.md`: 80 evolutions; all finest cells qualify for both even probes |
 | Specified analytic nulls and lessons | `DESIGN-NULLS.md` and `SOURCE-RECOVERY.md`: exact requested families and original fourteen-lesson query |
 | Corrected design audit and cost plan | `DESIGN-READINESS.md` and `TARGET-COST-PLAN.md`: 20 cells replayed; planning scenarios, targets unrun |
+| Result contract and exact-zero handling | `RESULT-CONTRACT.md`: 20 development examples, analytic channel checks, targets unrun |
 | Artifact lineage | Latest validated ket packet is recorded in `DESIGN-READINESS.md` |
 
 The tests replay archived sources, exact endpoints, overlaps, correlation
 intervals, effective-gap bounds and target accounting. The latest full run
-passed 117 tests, including corrected-design parity, propagation, windows
+passed 126 tests, including corrected-design parity, propagation, windows
 and the specified analytic nulls.
 Certificates concern the stated single-angle model and its documented trusted
 arithmetic/analytic base, not a registered field-theory conclusion.
@@ -36,10 +37,9 @@ The recovered [experiment specification](DESIGN-ALIGNMENT.md) is now implemented
 for U(1) scalar, certificate and direct temporal development runs. The earlier
 coefficient-1 archives and readiness record remain historical evidence.
 
-1. Complete the reviewable target result contract and derive-layer checks
-   for exact-zero selection rules and failure/unresolved outcomes. The corrected
-   readiness audit and development-based cost scenarios are complete; they
-   do not certify precision across the unrun target deformations.
+1. The result contract and exact-zero/failure/unresolved handling are now
+   implemented and reviewable in `RESULT-CONTRACT.md`. Owner review and
+   final registration freeze remain outstanding; no target executor was run.
 2. Obtain the separate `ym-gap-pilot-artifacts.zip`, whose expected hashes
    are recorded in the recovered handoff, to verify full pilot replication.
 3. Obtain P/LC assignment through the owning workflow, address independent
