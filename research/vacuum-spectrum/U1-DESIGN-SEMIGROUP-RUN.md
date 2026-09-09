@@ -27,3 +27,8 @@ replays every window and combined correlation bound. Methods, commands and
 trusted-base limits are in [U1-DESIGN-SEMIGROUP.md](U1-DESIGN-SEMIGROUP.md).
 All 42 targets remain unrun; registration and independent review are
 outstanding, and original pilot replication still needs the missing code/JSON.
+
+Result commit: `cffc5ea`. Validated packet:
+`9d90620a7ae1825cf9c1cd89813a7c22566b70ba42e904675dbfd6d047b37123`.
+Artifact validation passed and ket projection was clean. The packet retains
+the documents before these provenance paragraphs, avoiding self-reference.

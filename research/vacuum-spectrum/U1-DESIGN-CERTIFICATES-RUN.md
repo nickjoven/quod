@@ -26,3 +26,8 @@ All seven certificate tests passed, including full archive replay.
 Source hashes remained unchanged and exact request accounting passed.
 All 42 target rows remain unrun; no registration or field-theory conclusion
 is implied.
+
+Result commit: `2e5ceea`. Validated packet:
+`9d90620a7ae1825cf9c1cd89813a7c22566b70ba42e904675dbfd6d047b37123`.
+Artifact validation passed and ket projection was clean. The packet retains
+the documents before these provenance paragraphs, avoiding self-reference.
