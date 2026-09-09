@@ -1,6 +1,7 @@
 # Rational certificate execution record
 
-Date: 2026-09-09 UTC (2026-09-08 local). Instrument commit: `f9c1421`.
+Date: 2026-09-09 UTC (2026-09-08 local). Instrument commit: `f9c1421`;
+result commit: `28c4fcb`.
 State: **unregistered; model bounds available; channel windows unresolved**.
 
 ## Completed development work
@@ -64,6 +65,13 @@ All 49 numerical tests passed, including independent exact free-spectrum and
 Taylor-series fixtures, zero-pivot Sturm cases, false endpoint/tail mutants,
 sign invariance, nonfinite failure continuation, and full archived replay.
 Source hashes were unchanged during execution; `git diff --check` passed.
+
+Local ignored ket store: `.ket/`. Packet node:
+`8ded05e700efcd03b28aea8636f763bac8ca5b3f6b796bff709c0b6de9348e1d`.
+It parents the semigroup packet and includes the certificate sources, tests,
+report, and documentation at result commit `28c4fcb`. Catbus artifact validation
+passed and ket projection was clean. This paragraph was added after packaging.
+The prior incomplete sieve review is not replaced by this packet validation.
 
 No channel window has been selected. All 42 target rows remain unrun. The next
 development iteration will propagate the correlation intervals through the
