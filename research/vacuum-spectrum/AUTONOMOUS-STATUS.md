@@ -33,6 +33,15 @@ arithmetic/analytic base, not a registered field-theory conclusion.
 
 ## Next work and unresolved inputs
 
+The subsequent mathematical derivation is in
+[VACUUM-COERCIVITY.md](VACUUM-COERCIVITY.md). The vacuum equation reduces the
+physical energy exactly to its weighted Dirichlet form. Uniform coercivity
+requires an additional quantitative bound; a fixed-kinetic counterexample
+shows it does not follow from the vacuum equation and constraints alone.
+`python3 scripts/verify_vacuum_coercivity.py` replays six outward rational
+upper bounds and verifies source hashes. This adds no target evaluation or
+field-theory gap claim.
+
 The recovered [experiment specification](DESIGN-ALIGNMENT.md) is now implemented
 for U(1) scalar, certificate and direct temporal development runs. The earlier
 coefficient-1 archives and readiness record remain historical evidence.
