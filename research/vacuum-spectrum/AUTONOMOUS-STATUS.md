@@ -35,8 +35,10 @@ existing U(1) results use a different kinetic coefficient and cutoff ladder.
 The earlier readiness report remains a historical audit, not a qualification
 of the recovered specification.
 
-1. Implement U(1) kinetic coefficient 4 g^2 and Fourier cutoffs 40..640;
-   repeat development comparisons, certificates and direct window assessment.
+1. Corrected U(1) scalar development comparisons are complete in
+   [U1-DESIGN-RUN.md](U1-DESIGN-RUN.md): coefficient 4 g^2, cutoffs 40..640,
+   all 90 requests and all ten scalar-agreement cells. Regenerate certificates
+   and direct window assessment for these new results.
 2. Add the exact null families specified by the recovered draft and reproduce
    its original fourteen-lesson query. Retain earlier controls as additional cases.
 3. Obtain the separate `ym-gap-pilot-artifacts.zip`, whose expected hashes

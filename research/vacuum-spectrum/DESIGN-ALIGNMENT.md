@@ -37,6 +37,9 @@ sampled windows therefore cannot stand in for the recovered design's results.
 
 ## Next numerical work
 
+Update: [U1-DESIGN-RUN.md](U1-DESIGN-RUN.md) records completion of the
+corrected scalar run. Certificates and temporal bounds remain to be regenerated.
+
 Preserve hash-locked historical instruments. Add a version using the recovered
 U(1) coefficient and ladder, independently verify Fourier/periodic agreement,
 then regenerate exact spectral/overlap bounds and direct-propagation window
