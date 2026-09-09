@@ -55,6 +55,9 @@ This motivates a separate development extension to later samples and tighter
 propagation tolerances. The old report and its times remain unchanged, so the
 reason for that extension is preserved. No target cell is evaluated.
 
+The [later-time execution record](LATE-TIMES-RUN.md) reports the completed
+extension and its sampled precision support for all ten development cells.
+
 ## Reproduce
 
 ```sh
