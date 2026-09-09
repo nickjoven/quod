@@ -1,0 +1,312 @@
+{
+  "schema_version": 1,
+  "state": "completed",
+  "registered": false,
+  "targets_run": 0,
+  "targets": [
+    {
+      "id": "SU2:g=0.125:eta=0",
+      "status": "unrun"
+    },
+    {
+      "id": "SU2:g=0.125:eta=0.5",
+      "status": "unrun"
+    },
+    {
+      "id": "SU2:g=0.125:eta=1",
+      "status": "unrun"
+    },
+    {
+      "id": "SU2:g=0.25:eta=0",
+      "status": "unrun"
+    },
+    {
+      "id": "SU2:g=0.25:eta=0.5",
+      "status": "unrun"
+    },
+    {
+      "id": "SU2:g=0.25:eta=1",
+      "status": "unrun"
+    },
+    {
+      "id": "SU2:g=0.40:eta=0",
+      "status": "unrun"
+    },
+    {
+      "id": "SU2:g=0.40:eta=0.5",
+      "status": "unrun"
+    },
+    {
+      "id": "SU2:g=0.40:eta=1",
+      "status": "unrun"
+    },
+    {
+      "id": "SU2:g=0.60:eta=0",
+      "status": "unrun"
+    },
+    {
+      "id": "SU2:g=0.60:eta=0.5",
+      "status": "unrun"
+    },
+    {
+      "id": "SU2:g=0.60:eta=1",
+      "status": "unrun"
+    },
+    {
+      "id": "SU2:g=0.85:eta=0",
+      "status": "unrun"
+    },
+    {
+      "id": "SU2:g=0.85:eta=0.5",
+      "status": "unrun"
+    },
+    {
+      "id": "SU2:g=0.85:eta=1",
+      "status": "unrun"
+    },
+    {
+      "id": "SU2:g=1.25:eta=0",
+      "status": "unrun"
+    },
+    {
+      "id": "SU2:g=1.25:eta=0.5",
+      "status": "unrun"
+    },
+    {
+      "id": "SU2:g=1.25:eta=1",
+      "status": "unrun"
+    },
+    {
+      "id": "SU2:g=2.50:eta=0",
+      "status": "unrun"
+    },
+    {
+      "id": "SU2:g=2.50:eta=0.5",
+      "status": "unrun"
+    },
+    {
+      "id": "SU2:g=2.50:eta=1",
+      "status": "unrun"
+    },
+    {
+      "id": "U1:g=0.125:eta=0",
+      "status": "unrun"
+    },
+    {
+      "id": "U1:g=0.125:eta=0.5",
+      "status": "unrun"
+    },
+    {
+      "id": "U1:g=0.125:eta=1",
+      "status": "unrun"
+    },
+    {
+      "id": "U1:g=0.25:eta=0",
+      "status": "unrun"
+    },
+    {
+      "id": "U1:g=0.25:eta=0.5",
+      "status": "unrun"
+    },
+    {
+      "id": "U1:g=0.25:eta=1",
+      "status": "unrun"
+    },
+    {
+      "id": "U1:g=0.40:eta=0",
+      "status": "unrun"
+    },
+    {
+      "id": "U1:g=0.40:eta=0.5",
+      "status": "unrun"
+    },
+    {
+      "id": "U1:g=0.40:eta=1",
+      "status": "unrun"
+    },
+    {
+      "id": "U1:g=0.60:eta=0",
+      "status": "unrun"
+    },
+    {
+      "id": "U1:g=0.60:eta=0.5",
+      "status": "unrun"
+    },
+    {
+      "id": "U1:g=0.60:eta=1",
+      "status": "unrun"
+    },
+    {
+      "id": "U1:g=0.85:eta=0",
+      "status": "unrun"
+    },
+    {
+      "id": "U1:g=0.85:eta=0.5",
+      "status": "unrun"
+    },
+    {
+      "id": "U1:g=0.85:eta=1",
+      "status": "unrun"
+    },
+    {
+      "id": "U1:g=1.25:eta=0",
+      "status": "unrun"
+    },
+    {
+      "id": "U1:g=1.25:eta=0.5",
+      "status": "unrun"
+    },
+    {
+      "id": "U1:g=1.25:eta=1",
+      "status": "unrun"
+    },
+    {
+      "id": "U1:g=2.50:eta=0",
+      "status": "unrun"
+    },
+    {
+      "id": "U1:g=2.50:eta=0.5",
+      "status": "unrun"
+    },
+    {
+      "id": "U1:g=2.50:eta=1",
+      "status": "unrun"
+    }
+  ],
+  "scope": "analytic analysis fixtures; not additional development rungs or solver-level mutants",
+  "checks": {
+    "hidden_state_threshold_differs_from_full_gap": true,
+    "energy_offset_invariance": true,
+    "clock_scales_gaps_not_weights": true,
+    "tensor_dark_factor_changes_only_full_gap": true,
+    "gapless_uniform_mass_fixtures": true,
+    "gapless_effective_gap_decreases": true,
+    "disconnected_ground_space_retained": true,
+    "centering_removes_only_selected_vacuum_mean": true
+  },
+  "mutants_rejected": {
+    "assign_full_gap_to_dark_observable": true,
+    "omit_centering": true,
+    "drop_degenerate_zero_mode": true,
+    "declare_positive_floor_for_uniform_measure": true
+  },
+  "pass": true,
+  "hidden": {
+    "first_ordered_gap": "1",
+    "ground_multiplicity": 1,
+    "gap_above_ground_space": "1",
+    "observed_threshold": "2",
+    "zero_gap_weight": "0",
+    "variance": "1",
+    "support": [
+      {
+        "gap": "2",
+        "weight": "1"
+      }
+    ]
+  },
+  "tensor_family": [
+    {
+      "first_ordered_gap": "1",
+      "ground_multiplicity": 1,
+      "gap_above_ground_space": "1",
+      "observed_threshold": "3",
+      "zero_gap_weight": "0",
+      "variance": "1",
+      "support": [
+        {
+          "gap": "3",
+          "weight": "1"
+        }
+      ]
+    },
+    {
+      "first_ordered_gap": "1/2",
+      "ground_multiplicity": 1,
+      "gap_above_ground_space": "1/2",
+      "observed_threshold": "3",
+      "zero_gap_weight": "0",
+      "variance": "1",
+      "support": [
+        {
+          "gap": "3",
+          "weight": "1"
+        }
+      ]
+    },
+    {
+      "first_ordered_gap": "1/4",
+      "ground_multiplicity": 1,
+      "gap_above_ground_space": "1/4",
+      "observed_threshold": "3",
+      "zero_gap_weight": "0",
+      "variance": "1",
+      "support": [
+        {
+          "gap": "3",
+          "weight": "1"
+        }
+      ]
+    },
+    {
+      "first_ordered_gap": "1/8",
+      "ground_multiplicity": 1,
+      "gap_above_ground_space": "1/8",
+      "observed_threshold": "3",
+      "zero_gap_weight": "0",
+      "variance": "1",
+      "support": [
+        {
+          "gap": "3",
+          "weight": "1"
+        }
+      ]
+    }
+  ],
+  "disconnected": {
+    "first_ordered_gap": "0",
+    "ground_multiplicity": 2,
+    "gap_above_ground_space": "1",
+    "observed_threshold": "0",
+    "zero_gap_weight": "1",
+    "variance": "2",
+    "support": [
+      {
+        "gap": "0",
+        "weight": "1"
+      },
+      {
+        "gap": "1",
+        "weight": "1"
+      }
+    ]
+  },
+  "uniform_gapless": {
+    "spectral_support": "[0,1]",
+    "density": "1",
+    "spectral_gap": "0",
+    "mass_below_epsilon": "epsilon for every 0<epsilon<=1",
+    "early_effective_gap": [
+      "189942746520861237684118313245160463080110024344953439700808247328099/500000000000000000000000000000000000000000000000000000000000000000000",
+      "949713732604306188420591566225802315400550121724767198504041236640499/2500000000000000000000000000000000000000000000000000000000000000000000"
+    ],
+    "late_effective_gap": [
+      "6931471784987916891028514182191937691975848987575853787330328158335827/200000000000000000000000000000000000000000000000000000000000000000000000",
+      "3465735892493958445514257091095968845987924493787926893665164079167917/100000000000000000000000000000000000000000000000000000000000000000000000"
+    ]
+  },
+  "source_sha256": {
+    "scripts/vacuum_null_controls.py": "648fce648f2f53cc0ebc42b956b8f9d58ac88dfed828926b6a986610f0a451f1",
+    "scripts/vacuum_refinement.py": "cdcb8e4147e46f84e841ff9c334602cb0cf7e3be92375c59218f41bb4d5d5cdf",
+    "scripts/vacuum_angle_refined.py": "112a7eade8384a76b66816454a2a7da774035d6ba81f2c324383ce39ef914265",
+    "scripts/vacuum_development.py": "1983126d88bbec6d609d116bf6b6b9db7d2ff305a965ba2fb6e4a3bf0cc4fa8c",
+    "scripts/vacuum_preflight.py": "4a993f491fce26e0f1793b4e2d099b4caded8ae298bfa14bc3527ab0af1d858c",
+    "scripts/vacuum_convergence.py": "3b1d034fd40dc9d2c42448af046a492ec0e9b02058f81dd4746e9d40cbc2f552",
+    "scripts/vacuum_semigroup.py": "063546b2a7c8e4a2781c31015a2870dde84525b091d342077c3cf056c31d4519",
+    "scripts/vacuum_semigroup_run.py": "fce28929e0b578a6696de956e2b250c66564d00d5b0fae1eb176bebe21958882",
+    "scripts/vacuum_certified.py": "c13ae2dcbcc197104e4e5ad98bb5e1899b229857edf2ad4a94169059768501e1",
+    "scripts/vacuum_intervals.py": "f5fc61ac448fa11156333fca0a6a82b16d125791982efc93cdef7d83d49e8988",
+    "scripts/vacuum_certificate_run.py": "a13d5b65c75c5949b6a83d4ef773b88568b5fde37f01e85598dcf3d83e25e75e",
+    "scripts/vacuum_time_windows.py": "303e43fa4e55aaba658930f9d6537d0951807db819fefbf0041e2ea323d5d1ff"
+  }
+}
