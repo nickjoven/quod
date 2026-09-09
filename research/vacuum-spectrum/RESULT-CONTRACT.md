@@ -92,3 +92,8 @@ unsupported zero rules, omitted low spectrum and invalid correlation windows.
 Validation: all 126 numerical tests passed. `git diff --check` passed.
 The contract archive was regenerated after the final source-hash change;
 historical numerical artifacts were unchanged.
+
+Implementation commit: `83ceb8d`; artifact commit: `bd8a640`. Validated packet:
+`7fb9e8fff469b3f35a926bb0f7e823fed4286f07e59c03834f4b70255f493add`.
+Artifact validation passed and ket projection was clean. The packet retains
+the document before this provenance paragraph, avoiding self-reference.

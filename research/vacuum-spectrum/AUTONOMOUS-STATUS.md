@@ -22,7 +22,7 @@ earlier, but optional implementation choices do not require renewed approval.
 | Specified analytic nulls and lessons | `DESIGN-NULLS.md` and `SOURCE-RECOVERY.md`: exact requested families and original fourteen-lesson query |
 | Corrected design audit and cost plan | `DESIGN-READINESS.md` and `TARGET-COST-PLAN.md`: 20 cells replayed; planning scenarios, targets unrun |
 | Result contract and exact-zero handling | `RESULT-CONTRACT.md`: 20 development examples, analytic channel checks, targets unrun |
-| Artifact lineage | Latest validated ket packet is recorded in `DESIGN-READINESS.md` |
+| Artifact lineage | Latest validated ket packet is recorded in `RESULT-CONTRACT.md` |
 
 The tests replay archived sources, exact endpoints, overlaps, correlation
 intervals, effective-gap bounds and target accounting. The latest full run
