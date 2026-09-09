@@ -16,34 +16,32 @@ earlier, but optional implementation choices do not require renewed approval.
 | Independent angle correlations | `SEMIGROUP-RUN.md`: full direct propagation, two tolerances, fixed ladders |
 | Sampled gap precision for both observables | `LATE-TIMES-RUN.md`: qualifying sampled pairs for every finest-grid development cell |
 | Hidden, tensor, gapless, disconnected nulls | `NULL-CONTROLS.md`: exact analytic controls and analysis mutants |
-| U(1) Fourier and periodic-angle representations | `U1-RUN.md`: both parities; 90 requests; scalar agreement in all ten cells |
-| U(1) exact parity and overlap bounds | `U1-CERTIFICATES-RUN.md`: all 50 rungs replayed; all ten finest rungs meet scalar and overlap budgets |
-| U(1) direct correlations and sampled gaps | `U1-SEMIGROUP-RUN.md`: 80 evolutions; every finest development cell has qualifying pairs for both even probes |
-| Consolidated schema and replay | `READINESS.md`: twenty development cells; target authorization disabled; external gates unresolved |
+| Recovered-design U(1) scalar representations | `U1-DESIGN-RUN.md`: coefficient 4g^2; cutoffs 40..640; all ten cells agree |
+| Recovered-design U(1) exact bounds | `U1-DESIGN-CERTIFICATES-RUN.md`: 50 bounded rungs; all ten finest meet scalar and overlap budgets |
+| Recovered-design U(1) correlations and gaps | `U1-DESIGN-SEMIGROUP-RUN.md`: 80 evolutions; all finest cells qualify for both even probes |
+| Specified analytic nulls and lessons | `DESIGN-NULLS.md` and `SOURCE-RECOVERY.md`: exact requested families and original fourteen-lesson query |
+| Historical consolidated audit | `READINESS.md`: earlier U(1) coefficient; needs a corrected-design successor |
 | Artifact lineage | Latest validated ket packet is recorded in `READINESS.md` |
 
 The tests replay archived sources, exact endpoints, overlaps, correlation
 intervals, effective-gap bounds and target accounting. The latest full run
-passed 87 tests, including exact parity, propagation, window and readiness replay.
+passed 109 tests, including corrected-design parity, propagation, windows
+and the specified analytic nulls.
 Certificates concern the stated single-angle model and its documented trusted
 arithmetic/analytic base, not a registered field-theory conclusion.
 
 ## Next work and unresolved inputs
 
-The recovered [experiment specification](DESIGN-ALIGNMENT.md) reveals that
-existing U(1) results use a different kinetic coefficient and cutoff ladder.
-The earlier readiness report remains a historical audit, not a qualification
-of the recovered specification.
+The recovered [experiment specification](DESIGN-ALIGNMENT.md) is now implemented
+for U(1) scalar, certificate and direct temporal development runs. The earlier
+coefficient-1 archives and readiness record remain historical evidence.
 
-1. Corrected U(1) scalar development comparisons are complete in
-   [U1-DESIGN-RUN.md](U1-DESIGN-RUN.md): coefficient 4 g^2, cutoffs 40..640,
-   all 90 requests and all ten scalar-agreement cells. Regenerate certificates
-   and direct window assessment for these new results.
-2. Add the exact null families specified by the recovered draft and reproduce
-   its original fourteen-lesson query. Retain earlier controls as additional cases.
-3. Obtain the separate `ym-gap-pilot-artifacts.zip`, whose expected hashes
-   are now recorded in the recovered handoff, to verify pilot replication.
-4. Obtain P/LC assignment through the owning workflow, address independent
+1. Consolidate a corrected-design readiness record and assess remaining
+   registration requirements, including target-domain cost estimation without
+   executing targets. Preserve all unresolved bounds and source distinctions.
+2. Obtain the separate `ym-gap-pilot-artifacts.zip`, whose expected hashes
+   are recorded in the recovered handoff, to verify full pilot replication.
+3. Obtain P/LC assignment through the owning workflow, address independent
    review, and freeze future work before any target execution.
-5. Stop for the user's target decision only when it is the next required step.
+4. Stop for the user's target decision only when it is the next required step.
    All 42 target rows remain unrun in every current report.

@@ -38,7 +38,11 @@ sampled windows therefore cannot stand in for the recovered design's results.
 ## Next numerical work
 
 Update: [U1-DESIGN-RUN.md](U1-DESIGN-RUN.md) records completion of the
-corrected scalar run. Certificates and temporal bounds remain to be regenerated.
+corrected scalar run. Exact bounds and direct temporal assessment are now in
+[U1-DESIGN-CERTIFICATES-RUN.md](U1-DESIGN-CERTIFICATES-RUN.md) and
+[U1-DESIGN-SEMIGROUP-RUN.md](U1-DESIGN-SEMIGROUP-RUN.md). The specified null
+families and original lessons query are also implemented. The table above
+records the differences found at recovery, not the current completion state.
 
 Preserve hash-locked historical instruments. Add a version using the recovered
 U(1) coefficient and ladder, independently verify Fourier/periodic agreement,
