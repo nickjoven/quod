@@ -1,0 +1,94 @@
+{
+  "schema_version": 1,
+  "state": "planning_only",
+  "registered": false,
+  "targets_run": 0,
+  "target_execution_authorized": false,
+  "theories": [
+    {
+      "theory": "SU2",
+      "target_count_for_planning_only": 21,
+      "stages": {
+        "representations": {
+          "mean_development_cell_seconds": "2631812654073/171798691840",
+          "slowest_development_cell_seconds": "268075234567/17179869184",
+          "target_count_times_mean_seconds": "55268065735533/171798691840",
+          "target_count_times_slowest_seconds": "5629579925907/17179869184"
+        },
+        "certificates": {
+          "mean_development_cell_seconds": "2447138020061/343597383680",
+          "slowest_development_cell_seconds": "281271542907/34359738368",
+          "target_count_times_mean_seconds": "51389898421281/343597383680",
+          "target_count_times_slowest_seconds": "5906702401047/34359738368"
+        },
+        "direct_evolution_and_ground": {
+          "mean_development_cell_seconds": "5110972266247/343597383680",
+          "slowest_development_cell_seconds": "1370382835767/34359738368",
+          "target_count_times_mean_seconds": "107330417591187/343597383680",
+          "target_count_times_slowest_seconds": "28778039551107/34359738368"
+        }
+      },
+      "planned_counts": {
+        "representation_requests": 189,
+        "certificate_rungs": 105,
+        "evolutions": 168
+      },
+      "scenario_seconds": {
+        "mean_development": "134628223741767/171798691840",
+        "slowest_development": "717873465687/536870912",
+        "four_times_slowest_stress_assumption": "717873465687/134217728"
+      }
+    },
+    {
+      "theory": "U1",
+      "target_count_for_planning_only": 21,
+      "stages": {
+        "representations": {
+          "mean_development_cell_seconds": "2387566341/42949672960",
+          "slowest_development_cell_seconds": "272358303/4294967296",
+          "target_count_times_mean_seconds": "50138893161/42949672960",
+          "target_count_times_slowest_seconds": "5719524363/4294967296"
+        },
+        "certificates": {
+          "mean_development_cell_seconds": "1815777208969/171798691840",
+          "slowest_development_cell_seconds": "415333164031/34359738368",
+          "target_count_times_mean_seconds": "38131321388349/171798691840",
+          "target_count_times_slowest_seconds": "8721996444651/34359738368"
+        },
+        "direct_evolution_and_ground": {
+          "mean_development_cell_seconds": "3991524468183/343597383680",
+          "slowest_development_cell_seconds": "144192494545/4294967296",
+          "target_count_times_mean_seconds": "83822013831843/343597383680",
+          "target_count_times_slowest_seconds": "3028042385445/4294967296"
+        }
+      },
+      "planned_counts": {
+        "representation_requests": 189,
+        "certificate_rungs": 105,
+        "evolutions": 168
+      },
+      "scenario_seconds": {
+        "mean_development": "160485767753829/343597383680",
+        "slowest_development": "32992091723115/34359738368",
+        "four_times_slowest_stress_assumption": "32992091723115/8589934592"
+      }
+    }
+  ],
+  "basis": "sum measured work durations; no target solver or target numerical observation",
+  "limitations": [
+    "Scenarios are not runtime bounds or precision guarantees",
+    "The 4x stress factor is an explicit planning assumption, not a measured confidence level",
+    "Checkpoint I/O, review, registration and failure repair are outside measured-work estimates",
+    "Only eta=1 development timings are measured; eta=0 and .5 costs and overlap windows remain unverified",
+    "Failure and unresolved outcomes must be retained; no window is selected by this estimate"
+  ],
+  "input_sha256": {
+    "refinement.json": "8db843cff6602953f2362a5b4bb23b70f4e21db7a64ef6960cebd6fd687fc70b",
+    "certificates.json": "416b46c9eb363475b43cf83e33a64c68a2d0b95433fd85092e9e646b856eef5c",
+    "late-times.json": "be56f1a21e1217c3ad738cd2cbefeccece5eafc6f37d1279f3774c9fd79918ad",
+    "u1-design-development.json": "92c81bdbfa4422ca7ad85b96326416cd00c1da41009b2350294623f727b3591b",
+    "u1-design-certificates.json": "dc2ab8d55a5c1d3f43577a11fc71db0f799ce7317d6930f9eef19dd6ae028e4b",
+    "u1-design-semigroup.json": "22c3f5234f07b6dca2d463f70ac4da811aa26d9ef23a581eec5065456b51d5d8"
+  },
+  "source_sha256": "9d42d9a1c72c5205fc8e738e5b592887976d124721dd0400129e9237a528a945"
+}
