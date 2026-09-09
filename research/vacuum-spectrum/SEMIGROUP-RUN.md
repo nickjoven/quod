@@ -66,6 +66,10 @@ quadrature uncertainty, and controls omitted-spectrum and integration errors.
 Only then can the sampled time intervals be assessed as usable channel windows.
 No continuum spectral conclusion or registration follows from this run.
 
+Follow-up: [rational model certificates](CERTIFICATES-RUN.md) now supply
+ordered spectral and overlap bounds and total angle error bounds at these
+sampled times. Temporal identification and registration remain separate.
+
 ## Results and provenance
 
 `semigroup.json` contains complete correlation matrices, per-rung comparisons,
