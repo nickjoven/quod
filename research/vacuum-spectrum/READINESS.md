@@ -42,7 +42,10 @@ missing requests, target execution and false external-completion claims.
 The source archives retain their original historical limitations; this
 consolidation supplies the current cross-archive view without rewriting them.
 
-## Outstanding requirements
+## Outstanding requirements at the original audit
+
+Updated external-source status is recorded in [SOURCE-RECOVERY.md](SOURCE-RECOVERY.md).
+The original audit below predates recovery of the LITCHECK draft and owning workflow.
 
 Execution evidence: all twenty development cells qualified in the consolidated
 replay; all 87 numerical tests passed. `git diff --check` passed.

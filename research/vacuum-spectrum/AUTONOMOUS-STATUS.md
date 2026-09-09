@@ -30,12 +30,14 @@ arithmetic/analytic base, not a registered field-theory conclusion.
 
 ## Next work and unresolved inputs
 
-1. Obtain and verify the source pilot, referenced draft/lessons workflow, and
-   owning P/LC registration process. The repository records their absence;
-   another filename search of the visible workspace and local AI checkouts
-   found no matching pilot, LITCHECK or registration files. This is not a claim
-   that they do not exist elsewhere.
-2. Address the incomplete independent review and freeze the complete result
-   schema, manifest, formulas and source hashes through the owning process.
+1. Obtain the companion `ym_vacuum_gap_registration_draft.md` and
+   `ym-gap-pilot-artifacts.zip` named in the recovered LITCHECK draft.
+   [SOURCE-RECOVERY.md](SOURCE-RECOVERY.md) records the original repository,
+   exact matching base commit, actual lessons query and workflow rules.
+   The literature draft, lessons tool and owning process have now been found;
+   the pilot convention and companion experiment specification remain unverified.
+2. Obtain P/LC assignment through the owning workflow, address independent
+   review, and freeze the future study before any target execution.
+   Completed development calculations remain exploratory, not preregistered.
 3. Stop for the user's target decision only when it is actually the next
    required step. All 42 target rows remain unrun in every current report.

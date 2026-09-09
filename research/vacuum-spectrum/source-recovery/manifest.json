@@ -1,0 +1,43 @@
+{
+  "repository": "https://github.com/nickjoven/proslambenomenos",
+  "commit": "da0084147986a97f355954be6b0eff4246b9d852",
+  "snapshots": {
+    "owner-guidance.txt": {
+      "source_path": "AGENTS.md",
+      "sha256": "24b063f98c4aa070c3f4937809376d632b4c39d5f3667a9c101ff6b3b1a86740"
+    },
+    "lessons-ledger.txt": {
+      "source_path": "LESSONS.md",
+      "sha256": "13b73e2512d26b76d46e41ca1d987232aeabd21f43bf1f5fe821fe627b23aa2b"
+    },
+    "lessons-tool.py.txt": {
+      "source_path": "scripts/tools/lessons.py",
+      "sha256": "4f02ce4826c9622da8c3778c044f729013e869dd2d99c5e9146a6ada221f344b"
+    }
+  },
+  "query_keywords": [
+    "vacuum",
+    "spectrum",
+    "gap",
+    "eigenvalue",
+    "overlap",
+    "correlation",
+    "truncation",
+    "normalization",
+    "preregistration",
+    "window",
+    "covariance",
+    "time",
+    "cutoff",
+    "solver",
+    "tolerance",
+    "integration",
+    "observable",
+    "null",
+    "parity"
+  ],
+  "query_exit_code": 0,
+  "query_sha256": "79c229c626cc8506244e3b418006dfd7c77bd2b214c21eba90677526843d63f6",
+  "litcheck_sha256": "7b337ad92eef91992189123904437c9f25c9da4bb0867a1623e44d03e60b3731",
+  "registration_ledger_sha256": "45ea32707d5852b45b532409f8950c67f001b23839ec6166fd1db9fd48cc16b1"
+}
