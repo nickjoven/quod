@@ -43,6 +43,11 @@ well as the exact certificate calculations.
 
 ## Next step
 
+Result commit: `d90c594`. Packet:
+`27509748ada151ac86b39c4819b7d9af53b87447a36c10f1a6b22dae7f0490e3`.
+Artifact validation passed and ket projection was clean. The packet includes
+the run document before this provenance paragraph, avoiding self-reference.
+
 Run direct periodic-angle propagation and assess sampled effective gaps
 against these intervals, using the first even gap as the observable reference.
 The full odd gap must remain separately reported. All 42 target rows remain
