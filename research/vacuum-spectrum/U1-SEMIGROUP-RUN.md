@@ -45,6 +45,11 @@ The implementation and trusted-base limits are documented in
 
 ## Remaining prerequisites
 
+Result commit: `e9c9fd8`. Packet:
+`db3c6a9fc70e5dc38b5dd126bc8fc0cc669019dfe4c9f76a5551d79cc24b2286`.
+Artifact validation passed and ket projection was clean. The packet retains
+the run document before this provenance paragraph, avoiding self-reference.
+
 Both theories now have development scalar comparisons, exact model
 spectral/overlap bounds, direct propagation and qualifying sampled pairs.
 The source-pilot convention, owning registration workflow and independent

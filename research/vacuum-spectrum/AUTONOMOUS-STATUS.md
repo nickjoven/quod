@@ -18,19 +18,20 @@ earlier, but optional implementation choices do not require renewed approval.
 | Hidden, tensor, gapless, disconnected nulls | `NULL-CONTROLS.md`: exact analytic controls and analysis mutants |
 | U(1) Fourier and periodic-angle representations | `U1-RUN.md`: both parities; 90 requests; scalar agreement in all ten cells |
 | U(1) exact parity and overlap bounds | `U1-CERTIFICATES-RUN.md`: all 50 rungs replayed; all ten finest rungs meet scalar and overlap budgets |
-| Artifact lineage | Latest validated ket packet is recorded in `U1-CERTIFICATES-RUN.md` |
+| U(1) direct correlations and sampled gaps | `U1-SEMIGROUP-RUN.md`: 80 evolutions; every finest development cell has qualifying pairs for both even probes |
+| Artifact lineage | Latest validated ket packet is recorded in `U1-SEMIGROUP-RUN.md` |
 
 The tests replay archived sources, exact endpoints, overlaps, correlation
 intervals, effective-gap bounds and target accounting. The latest full run
-passed 77 tests, including exact U(1) parity and archive checks.
+passed 82 tests, including exact U(1) parity, direct propagation and window replay.
 Certificates concern the stated single-angle model and its documented trusted
 arithmetic/analytic base, not a registered field-theory conclusion.
 
 ## Next work and unresolved inputs
 
-1. Extend independent propagation and temporal checks to U(1), keeping the
-   full odd gap separate from the even observable threshold. Its explicit
-   development convention remains unverified against the source pilot.
+1. Consolidate the two-theory evidence into a reviewable result schema and
+   readiness audit, retaining distinct full-gap and observable-gap fields.
+   Do not represent development qualification as registration or review.
 2. Obtain and verify the source pilot, referenced draft/lessons workflow, and
    owning P/LC registration process. The repository records their absence;
    another filename search of the visible workspace and local AI checkouts
