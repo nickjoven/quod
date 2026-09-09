@@ -49,8 +49,11 @@ coefficient-1 archives and readiness record remain historical evidence.
 1. The result contract and exact-zero/failure/unresolved handling are now
    implemented and reviewable in `RESULT-CONTRACT.md`. Owner review and
    final registration freeze remain outstanding; no target executor was run.
-2. Obtain the separate `ym-gap-pilot-artifacts.zip`, whose expected hashes
-   are recorded in the recovered handoff, to verify full pilot replication.
+2. The user confirmed the original pilot script and results are lost.
+   [PILOT-DISPOSITION.md](PILOT-DISPOSITION.md) records historical replication
+   as unverifiable and pins the current reproducible development baseline.
+   Future registration must disclose this provenance limitation; recovery is
+   no longer a pending input.
 3. Obtain P/LC assignment through the owning workflow, address independent
    review, and freeze future work before any target execution.
 4. Stop for the user's target decision only when it is the next required step.

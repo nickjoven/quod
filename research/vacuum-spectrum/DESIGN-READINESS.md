@@ -2,6 +2,12 @@
 
 ## Current numerical evidence
 
+Provenance update: the user confirmed the original pilot script and results
+are lost. [PILOT-DISPOSITION.md](PILOT-DISPOSITION.md) supersedes recovery
+requests below. The archived audit remains unchanged; its unresolved pilot
+status now means unverifiable due to source loss. Current development evidence
+is the reproducible baseline, subject to review and future registration.
+
 `design-readiness.json` supersedes the earlier readiness snapshot for the
 recovered specification. It consolidates ten SU(2) development cells and
 ten corrected U(1) cells, preserving full-gap versus observable-threshold

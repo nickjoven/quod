@@ -2,6 +2,11 @@
 
 ## Sources recovered
 
+Current pilot disposition: the user confirmed that the original script and
+results are lost. See [PILOT-DISPOSITION.md](PILOT-DISPOSITION.md); recovery is
+no longer a pending input, and historical replication remains unverified.
+The historical recovery account below is retained as provenance.
+
 Update: the companion design and handoff are now recovered in the user-supplied
 ZIP. See [DESIGN-ALIGNMENT.md](DESIGN-ALIGNMENT.md) for material differences and
 the current remaining work. The account below records the earlier recovery.

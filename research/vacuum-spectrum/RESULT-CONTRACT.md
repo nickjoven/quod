@@ -71,8 +71,10 @@ registration, the owner must approve/freeze the final target envelope, source
 hashes, clauses and per-cell window procedure. Any executor must use the
 correct physical sector and retain failed/unresolved rows. The current
 module has no target execution entry point; its CLI only adapts already
-archived development data. Original pilot replication, P/LC assignment and
-independent review remain external prerequisites.
+archived development data. P/LC assignment and independent review remain
+external prerequisites. The user has confirmed the original pilot is lost;
+[PILOT-DISPOSITION.md](PILOT-DISPOSITION.md) records its permanently unverified
+replication status and the development baseline for future registration.
 
 ## Reproduction and drift checks
 

@@ -2,6 +2,11 @@
 
 ## Authoritative design recovered
 
+Update: the user confirmed that the original pilot script and results are
+lost. [PILOT-DISPOSITION.md](PILOT-DISPOSITION.md) supersedes requests for their
+recovery below and identifies the reproducible development baseline. This
+does not establish original-pilot replication or waive registration/review.
+
 The user supplied `ym-vacuum-gap-litcheck-artifacts.zip`. Its original
 manifest verifies all five listed payload hashes. The bundled LITCHECK
 is byte-identical to the previously recovered Downloads draft. All six

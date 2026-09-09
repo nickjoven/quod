@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "user_update": {
+    "date": "2026-09-09",
+    "statement": "original script and results are lost."
+  },
+  "original_pilot_replication": "unverifiable_source_lost",
+  "recovery_required": false,
+  "baseline": "independently_reproduced_development_models",
+  "historical_replication_verified": false,
+  "registered": false,
+  "target_execution_authorized": false,
+  "remaining_prerequisites": [
+    "owner_assigned_identifiers",
+    "independent_review",
+    "future_registration"
+  ],
+  "sha256": {
+    "PILOT-DISPOSITION.md": "5818d4e288d8e8ce0f7180f33576ca1b4525dad8d77bc82085326873a64f70a9",
+    "design-bundle/notes/ym_vacuum_gap_handoff.md": "3f41efca8dfc2076cd3c2acdbeb34937e3253882545dae12f75249fa13605036",
+    "design-bundle/notes/ym_vacuum_gap_registration_draft.md": "dc01a22a08d8c3edd0228740fa43723dcff5e3db424a030c5bce84fa51d0fc86",
+    "design-readiness.json": "d6306b1dbfdbdeabcd2bb600d4724ef903acf18365ebd0776fbcb8276bf0e64c",
+    "result-contract.json": "1fc8c010a48fabf6152fe1d1591f568e8bb56cea77a0de443018632e4d40bf43"
+  }
+}
