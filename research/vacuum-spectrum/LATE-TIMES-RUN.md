@@ -1,6 +1,6 @@
 # Later-time execution and window results
 
-Date: 2026-09-09 UTC. Instrument commit: `5ef4f0a`.
+Date: 2026-09-09 UTC. Instrument commit: `5ef4f0a`; result commit: `b42f6f5`.
 State: **development window support established; unregistered; targets unrun**.
 
 ## Results
@@ -51,11 +51,19 @@ The report records all input and instrument source hashes, full correlation
 matrices, rational bounds, solver work counts and timings. The archive test
 checks this document's report checksum and recomputes the assessments.
 
+Local ignored ket packet:
+`54fd0ef9b63611ee0128b9d505a717072058d10fd8b8975fbe45d3fec8e1147c`.
+It parents the rational-certificate packet and includes the initial window
+assessment, later-time source/results/tests, and the subsequent analytic
+null controls at commit `f036256`. Catbus artifact validation passed and
+ket projection was clean. This paragraph was added after packaging.
+
 ## Remaining prerequisites
 
 The SU(2) development work now has scalar certificates, overlap bounds,
 independent angle propagation, and sampled effective-gap precision support.
 All 42 target rows remain unrun and no registered window or target is selected.
-U(1) with both parities, the remaining analytic controls, source-pilot
+The [remaining analytic controls](NULL-CONTROLS.md) have since been implemented
+and verified. U(1) with both parities, source-pilot
 conventions, owning registration process and the incomplete sieve review
 still require work before target selection can be the next decision.
