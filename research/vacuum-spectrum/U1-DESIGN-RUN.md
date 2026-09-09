@@ -35,3 +35,8 @@ Report: `u1-design-development.json`. SHA-256:
 Source hashes were unchanged during the run and request accounting passed.
 Reproduction commands and the exact parameter mapping are in
 [U1-DESIGN.md](U1-DESIGN.md). All 42 target rows remain unrun.
+
+Result commit: `f9b5dc3`. Validated packet:
+`c91a1a1c452b8d199ab31e1fc7be4c4eaa10947ce866fddf586be1205a62b60a`.
+Artifact validation passed and ket projection was clean. The packet retains
+this run document before the provenance paragraph, avoiding self-reference.
