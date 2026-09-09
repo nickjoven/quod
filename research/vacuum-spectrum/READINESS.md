@@ -44,6 +44,13 @@ consolidation supplies the current cross-archive view without rewriting them.
 
 ## Outstanding requirements
 
+Execution evidence: all twenty development cells qualified in the consolidated
+replay; all 87 numerical tests passed. `git diff --check` passed.
+Result commit: `622931e`. Validated packet:
+`cea7a92965892dc119ddb383245af3addf062e6e0cb4d52cf9a7911c860cf6e6`.
+Artifact validation passed and ket projection was clean. The packet includes
+this document before the execution paragraph, avoiding self-reference.
+
 | Requirement | Evidence needed | Current state |
 | --- | --- | --- |
 | Source conventions | Authoritative pilot and comparison with both implemented operators | Unresolved; paths requested from user |
