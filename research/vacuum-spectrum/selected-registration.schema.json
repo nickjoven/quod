@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object", "additionalProperties": false,
+  "required": ["schema_version", "registered", "target_execution_authorized", "authorization", "selected_target_ids", "cells", "protocol", "tau", "tolerances", "environment", "source_sha256", "baseline_sha256", "handoff", "failure_rules", "scope"],
+  "properties": {
+    "schema_version": {"const": 1}, "registered": {"const": true}, "target_execution_authorized": {"const": true},
+    "authorization": {"type": "string", "minLength": 1},
+    "selected_target_ids": {"type": "array", "minItems": 42, "maxItems": 42, "uniqueItems": true, "items": {"type": "string"}},
+    "cells": {"type": "array", "minItems": 42, "maxItems": 42, "items": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "theory", "g", "eta", "cutoffs", "grids"],
+      "properties": {"id": {"type": "string"}, "theory": {"enum": ["SU2", "U1"]},
+        "g": {"type": "string"}, "eta": {"type": "string"},
+        "cutoffs": {"type": "array", "items": {"type": "integer"}}, "grids": {"type": "array", "items": {"type": "integer"}}}
+    }},
+    "protocol": {"$ref": "urn:quod:execution-contract#/$defs/protocol"},
+    "tau": {"type": "array", "items": {"type": "string"}},
+    "tolerances": {"type": "array", "items": {"type": "array", "items": {"type": "number"}}},
+    "environment": {"type": "object"}, "source_sha256": {"$ref": "#/$defs/hashes"}, "baseline_sha256": {"$ref": "#/$defs/hashes"},
+    "handoff": {"type": "object"}, "failure_rules": {"type": "object"}, "scope": {"type": "string"}
+  },
+  "$defs": {"hashes": {"type": "object", "minProperties": 1, "additionalProperties": {"type": "string", "pattern": "^[0-9a-f]{64}$"}}}
+}

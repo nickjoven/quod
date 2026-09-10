@@ -1,12 +1,13 @@
 # Autonomous development status
 
-## Stopping boundary
+## Selected execution
 
-The authorized development work is complete through the point requiring the
-user’s target selection. All 42 candidate cells remain unselected and unrun.
-No target execution is authorized. The next input is the subset to characterize;
-registration and enabling the exact selected execution path follow that choice.
-The user's separate review of the report remains optional for this boundary.
+The user selected and authorized all 42 SU(2)/corrected-U(1) cells. The separate
+`selected-registration.json` freezes the exact selected execution path, full
+protocol, source/schema/dependency pins and archived baseline. Registration is
+committed and checked before target work. `selected-run/index.json` will be the
+live authority for selected, attempted and terminal outcomes. Historical draft
+artifacts remain unselected and nonexecuting; they are not current run status.
 
 ## Verified prerequisites
 
@@ -42,9 +43,10 @@ it does not authenticate execution. Version pins do not guarantee identical
 native binaries or hardware. Historical cost estimates exclude new integration
 and checkpoint overhead, and free/deformed runtimes remain unmeasured.
 
-## Next authorized decision
+## Execution and next research decision
 
-Candidates: both SU(2) and U(1), g = 0.125, 0.25, 0.40, 0.60, 0.85, 1.25, 2.50,
-with eta = 0, 0.5, 1. The user may choose a subset or the full 42-cell set.
-The current draft denies every execution attempt. Selection will be recorded
-in a separate committed registration before any target computation.
+Run all 42 cells once prerequisites pass, without further confirmation. Retain
+every checkpoint, failed stage and unresolved outcome; do not change the frozen
+budgets, ladders or schedule. Verify results and update `VACUUM-REPORT.html` with
+the next research decision. See `SELECTED-REGISTRATION.md` for execution commands,
+failure rules and scope.

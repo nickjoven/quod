@@ -1,0 +1,1010 @@
+{
+  "schema_version": 1,
+  "registered": true,
+  "target_execution_authorized": true,
+  "authorization": "User selected all 42 SU2/corrected-U1 cells and authorized committed registration, validation, then execution without further confirmation.",
+  "selected_target_ids": [
+    "SU2:g=0.125:eta=0",
+    "SU2:g=0.125:eta=0.5",
+    "SU2:g=0.125:eta=1",
+    "SU2:g=0.25:eta=0",
+    "SU2:g=0.25:eta=0.5",
+    "SU2:g=0.25:eta=1",
+    "SU2:g=0.40:eta=0",
+    "SU2:g=0.40:eta=0.5",
+    "SU2:g=0.40:eta=1",
+    "SU2:g=0.60:eta=0",
+    "SU2:g=0.60:eta=0.5",
+    "SU2:g=0.60:eta=1",
+    "SU2:g=0.85:eta=0",
+    "SU2:g=0.85:eta=0.5",
+    "SU2:g=0.85:eta=1",
+    "SU2:g=1.25:eta=0",
+    "SU2:g=1.25:eta=0.5",
+    "SU2:g=1.25:eta=1",
+    "SU2:g=2.50:eta=0",
+    "SU2:g=2.50:eta=0.5",
+    "SU2:g=2.50:eta=1",
+    "U1:g=0.125:eta=0",
+    "U1:g=0.125:eta=0.5",
+    "U1:g=0.125:eta=1",
+    "U1:g=0.25:eta=0",
+    "U1:g=0.25:eta=0.5",
+    "U1:g=0.25:eta=1",
+    "U1:g=0.40:eta=0",
+    "U1:g=0.40:eta=0.5",
+    "U1:g=0.40:eta=1",
+    "U1:g=0.60:eta=0",
+    "U1:g=0.60:eta=0.5",
+    "U1:g=0.60:eta=1",
+    "U1:g=0.85:eta=0",
+    "U1:g=0.85:eta=0.5",
+    "U1:g=0.85:eta=1",
+    "U1:g=1.25:eta=0",
+    "U1:g=1.25:eta=0.5",
+    "U1:g=1.25:eta=1",
+    "U1:g=2.50:eta=0",
+    "U1:g=2.50:eta=0.5",
+    "U1:g=2.50:eta=1"
+  ],
+  "cells": [
+    {
+      "id": "SU2:g=0.125:eta=0",
+      "theory": "SU2",
+      "g": "0.125",
+      "eta": "0",
+      "cutoffs": [
+        20,
+        40,
+        80,
+        160,
+        320
+      ],
+      "grids": [
+        600,
+        1200,
+        2400,
+        4800
+      ]
+    },
+    {
+      "id": "SU2:g=0.125:eta=0.5",
+      "theory": "SU2",
+      "g": "0.125",
+      "eta": "0.5",
+      "cutoffs": [
+        20,
+        40,
+        80,
+        160,
+        320
+      ],
+      "grids": [
+        600,
+        1200,
+        2400,
+        4800
+      ]
+    },
+    {
+      "id": "SU2:g=0.125:eta=1",
+      "theory": "SU2",
+      "g": "0.125",
+      "eta": "1",
+      "cutoffs": [
+        20,
+        40,
+        80,
+        160,
+        320
+      ],
+      "grids": [
+        600,
+        1200,
+        2400,
+        4800
+      ]
+    },
+    {
+      "id": "SU2:g=0.25:eta=0",
+      "theory": "SU2",
+      "g": "0.25",
+      "eta": "0",
+      "cutoffs": [
+        20,
+        40,
+        80,
+        160,
+        320
+      ],
+      "grids": [
+        600,
+        1200,
+        2400,
+        4800
+      ]
+    },
+    {
+      "id": "SU2:g=0.25:eta=0.5",
+      "theory": "SU2",
+      "g": "0.25",
+      "eta": "0.5",
+      "cutoffs": [
+        20,
+        40,
+        80,
+        160,
+        320
+      ],
+      "grids": [
+        600,
+        1200,
+        2400,
+        4800
+      ]
+    },
+    {
+      "id": "SU2:g=0.25:eta=1",
+      "theory": "SU2",
+      "g": "0.25",
+      "eta": "1",
+      "cutoffs": [
+        20,
+        40,
+        80,
+        160,
+        320
+      ],
+      "grids": [
+        600,
+        1200,
+        2400,
+        4800
+      ]
+    },
+    {
+      "id": "SU2:g=0.40:eta=0",
+      "theory": "SU2",
+      "g": "0.40",
+      "eta": "0",
+      "cutoffs": [
+        20,
+        40,
+        80,
+        160,
+        320
+      ],
+      "grids": [
+        600,
+        1200,
+        2400,
+        4800
+      ]
+    },
+    {
+      "id": "SU2:g=0.40:eta=0.5",
+      "theory": "SU2",
+      "g": "0.40",
+      "eta": "0.5",
+      "cutoffs": [
+        20,
+        40,
+        80,
+        160,
+        320
+      ],
+      "grids": [
+        600,
+        1200,
+        2400,
+        4800
+      ]
+    },
+    {
+      "id": "SU2:g=0.40:eta=1",
+      "theory": "SU2",
+      "g": "0.40",
+      "eta": "1",
+      "cutoffs": [
+        20,
+        40,
+        80,
+        160,
+        320
+      ],
+      "grids": [
+        600,
+        1200,
+        2400,
+        4800
+      ]
+    },
+    {
+      "id": "SU2:g=0.60:eta=0",
+      "theory": "SU2",
+      "g": "0.60",
+      "eta": "0",
+      "cutoffs": [
+        20,
+        40,
+        80,
+        160,
+        320
+      ],
+      "grids": [
+        600,
+        1200,
+        2400,
+        4800
+      ]
+    },
+    {
+      "id": "SU2:g=0.60:eta=0.5",
+      "theory": "SU2",
+      "g": "0.60",
+      "eta": "0.5",
+      "cutoffs": [
+        20,
+        40,
+        80,
+        160,
+        320
+      ],
+      "grids": [
+        600,
+        1200,
+        2400,
+        4800
+      ]
+    },
+    {
+      "id": "SU2:g=0.60:eta=1",
+      "theory": "SU2",
+      "g": "0.60",
+      "eta": "1",
+      "cutoffs": [
+        20,
+        40,
+        80,
+        160,
+        320
+      ],
+      "grids": [
+        600,
+        1200,
+        2400,
+        4800
+      ]
+    },
+    {
+      "id": "SU2:g=0.85:eta=0",
+      "theory": "SU2",
+      "g": "0.85",
+      "eta": "0",
+      "cutoffs": [
+        20,
+        40,
+        80,
+        160,
+        320
+      ],
+      "grids": [
+        600,
+        1200,
+        2400,
+        4800
+      ]
+    },
+    {
+      "id": "SU2:g=0.85:eta=0.5",
+      "theory": "SU2",
+      "g": "0.85",
+      "eta": "0.5",
+      "cutoffs": [
+        20,
+        40,
+        80,
+        160,
+        320
+      ],
+      "grids": [
+        600,
+        1200,
+        2400,
+        4800
+      ]
+    },
+    {
+      "id": "SU2:g=0.85:eta=1",
+      "theory": "SU2",
+      "g": "0.85",
+      "eta": "1",
+      "cutoffs": [
+        20,
+        40,
+        80,
+        160,
+        320
+      ],
+      "grids": [
+        600,
+        1200,
+        2400,
+        4800
+      ]
+    },
+    {
+      "id": "SU2:g=1.25:eta=0",
+      "theory": "SU2",
+      "g": "1.25",
+      "eta": "0",
+      "cutoffs": [
+        20,
+        40,
+        80,
+        160,
+        320
+      ],
+      "grids": [
+        600,
+        1200,
+        2400,
+        4800
+      ]
+    },
+    {
+      "id": "SU2:g=1.25:eta=0.5",
+      "theory": "SU2",
+      "g": "1.25",
+      "eta": "0.5",
+      "cutoffs": [
+        20,
+        40,
+        80,
+        160,
+        320
+      ],
+      "grids": [
+        600,
+        1200,
+        2400,
+        4800
+      ]
+    },
+    {
+      "id": "SU2:g=1.25:eta=1",
+      "theory": "SU2",
+      "g": "1.25",
+      "eta": "1",
+      "cutoffs": [
+        20,
+        40,
+        80,
+        160,
+        320
+      ],
+      "grids": [
+        600,
+        1200,
+        2400,
+        4800
+      ]
+    },
+    {
+      "id": "SU2:g=2.50:eta=0",
+      "theory": "SU2",
+      "g": "2.50",
+      "eta": "0",
+      "cutoffs": [
+        20,
+        40,
+        80,
+        160,
+        320
+      ],
+      "grids": [
+        600,
+        1200,
+        2400,
+        4800
+      ]
+    },
+    {
+      "id": "SU2:g=2.50:eta=0.5",
+      "theory": "SU2",
+      "g": "2.50",
+      "eta": "0.5",
+      "cutoffs": [
+        20,
+        40,
+        80,
+        160,
+        320
+      ],
+      "grids": [
+        600,
+        1200,
+        2400,
+        4800
+      ]
+    },
+    {
+      "id": "SU2:g=2.50:eta=1",
+      "theory": "SU2",
+      "g": "2.50",
+      "eta": "1",
+      "cutoffs": [
+        20,
+        40,
+        80,
+        160,
+        320
+      ],
+      "grids": [
+        600,
+        1200,
+        2400,
+        4800
+      ]
+    },
+    {
+      "id": "U1:g=0.125:eta=0",
+      "theory": "U1",
+      "g": "0.125",
+      "eta": "0",
+      "cutoffs": [
+        40,
+        80,
+        160,
+        320,
+        640
+      ],
+      "grids": [
+        600,
+        1200,
+        2400,
+        4800
+      ]
+    },
+    {
+      "id": "U1:g=0.125:eta=0.5",
+      "theory": "U1",
+      "g": "0.125",
+      "eta": "0.5",
+      "cutoffs": [
+        40,
+        80,
+        160,
+        320,
+        640
+      ],
+      "grids": [
+        600,
+        1200,
+        2400,
+        4800
+      ]
+    },
+    {
+      "id": "U1:g=0.125:eta=1",
+      "theory": "U1",
+      "g": "0.125",
+      "eta": "1",
+      "cutoffs": [
+        40,
+        80,
+        160,
+        320,
+        640
+      ],
+      "grids": [
+        600,
+        1200,
+        2400,
+        4800
+      ]
+    },
+    {
+      "id": "U1:g=0.25:eta=0",
+      "theory": "U1",
+      "g": "0.25",
+      "eta": "0",
+      "cutoffs": [
+        40,
+        80,
+        160,
+        320,
+        640
+      ],
+      "grids": [
+        600,
+        1200,
+        2400,
+        4800
+      ]
+    },
+    {
+      "id": "U1:g=0.25:eta=0.5",
+      "theory": "U1",
+      "g": "0.25",
+      "eta": "0.5",
+      "cutoffs": [
+        40,
+        80,
+        160,
+        320,
+        640
+      ],
+      "grids": [
+        600,
+        1200,
+        2400,
+        4800
+      ]
+    },
+    {
+      "id": "U1:g=0.25:eta=1",
+      "theory": "U1",
+      "g": "0.25",
+      "eta": "1",
+      "cutoffs": [
+        40,
+        80,
+        160,
+        320,
+        640
+      ],
+      "grids": [
+        600,
+        1200,
+        2400,
+        4800
+      ]
+    },
+    {
+      "id": "U1:g=0.40:eta=0",
+      "theory": "U1",
+      "g": "0.40",
+      "eta": "0",
+      "cutoffs": [
+        40,
+        80,
+        160,
+        320,
+        640
+      ],
+      "grids": [
+        600,
+        1200,
+        2400,
+        4800
+      ]
+    },
+    {
+      "id": "U1:g=0.40:eta=0.5",
+      "theory": "U1",
+      "g": "0.40",
+      "eta": "0.5",
+      "cutoffs": [
+        40,
+        80,
+        160,
+        320,
+        640
+      ],
+      "grids": [
+        600,
+        1200,
+        2400,
+        4800
+      ]
+    },
+    {
+      "id": "U1:g=0.40:eta=1",
+      "theory": "U1",
+      "g": "0.40",
+      "eta": "1",
+      "cutoffs": [
+        40,
+        80,
+        160,
+        320,
+        640
+      ],
+      "grids": [
+        600,
+        1200,
+        2400,
+        4800
+      ]
+    },
+    {
+      "id": "U1:g=0.60:eta=0",
+      "theory": "U1",
+      "g": "0.60",
+      "eta": "0",
+      "cutoffs": [
+        40,
+        80,
+        160,
+        320,
+        640
+      ],
+      "grids": [
+        600,
+        1200,
+        2400,
+        4800
+      ]
+    },
+    {
+      "id": "U1:g=0.60:eta=0.5",
+      "theory": "U1",
+      "g": "0.60",
+      "eta": "0.5",
+      "cutoffs": [
+        40,
+        80,
+        160,
+        320,
+        640
+      ],
+      "grids": [
+        600,
+        1200,
+        2400,
+        4800
+      ]
+    },
+    {
+      "id": "U1:g=0.60:eta=1",
+      "theory": "U1",
+      "g": "0.60",
+      "eta": "1",
+      "cutoffs": [
+        40,
+        80,
+        160,
+        320,
+        640
+      ],
+      "grids": [
+        600,
+        1200,
+        2400,
+        4800
+      ]
+    },
+    {
+      "id": "U1:g=0.85:eta=0",
+      "theory": "U1",
+      "g": "0.85",
+      "eta": "0",
+      "cutoffs": [
+        40,
+        80,
+        160,
+        320,
+        640
+      ],
+      "grids": [
+        600,
+        1200,
+        2400,
+        4800
+      ]
+    },
+    {
+      "id": "U1:g=0.85:eta=0.5",
+      "theory": "U1",
+      "g": "0.85",
+      "eta": "0.5",
+      "cutoffs": [
+        40,
+        80,
+        160,
+        320,
+        640
+      ],
+      "grids": [
+        600,
+        1200,
+        2400,
+        4800
+      ]
+    },
+    {
+      "id": "U1:g=0.85:eta=1",
+      "theory": "U1",
+      "g": "0.85",
+      "eta": "1",
+      "cutoffs": [
+        40,
+        80,
+        160,
+        320,
+        640
+      ],
+      "grids": [
+        600,
+        1200,
+        2400,
+        4800
+      ]
+    },
+    {
+      "id": "U1:g=1.25:eta=0",
+      "theory": "U1",
+      "g": "1.25",
+      "eta": "0",
+      "cutoffs": [
+        40,
+        80,
+        160,
+        320,
+        640
+      ],
+      "grids": [
+        600,
+        1200,
+        2400,
+        4800
+      ]
+    },
+    {
+      "id": "U1:g=1.25:eta=0.5",
+      "theory": "U1",
+      "g": "1.25",
+      "eta": "0.5",
+      "cutoffs": [
+        40,
+        80,
+        160,
+        320,
+        640
+      ],
+      "grids": [
+        600,
+        1200,
+        2400,
+        4800
+      ]
+    },
+    {
+      "id": "U1:g=1.25:eta=1",
+      "theory": "U1",
+      "g": "1.25",
+      "eta": "1",
+      "cutoffs": [
+        40,
+        80,
+        160,
+        320,
+        640
+      ],
+      "grids": [
+        600,
+        1200,
+        2400,
+        4800
+      ]
+    },
+    {
+      "id": "U1:g=2.50:eta=0",
+      "theory": "U1",
+      "g": "2.50",
+      "eta": "0",
+      "cutoffs": [
+        40,
+        80,
+        160,
+        320,
+        640
+      ],
+      "grids": [
+        600,
+        1200,
+        2400,
+        4800
+      ]
+    },
+    {
+      "id": "U1:g=2.50:eta=0.5",
+      "theory": "U1",
+      "g": "2.50",
+      "eta": "0.5",
+      "cutoffs": [
+        40,
+        80,
+        160,
+        320,
+        640
+      ],
+      "grids": [
+        600,
+        1200,
+        2400,
+        4800
+      ]
+    },
+    {
+      "id": "U1:g=2.50:eta=1",
+      "theory": "U1",
+      "g": "2.50",
+      "eta": "1",
+      "cutoffs": [
+        40,
+        80,
+        160,
+        320,
+        640
+      ],
+      "grids": [
+        600,
+        1200,
+        2400,
+        4800
+      ]
+    }
+  ],
+  "protocol": {
+    "SU2_cutoffs": [
+      20,
+      40,
+      80,
+      160,
+      320
+    ],
+    "U1_cutoffs": [
+      40,
+      80,
+      160,
+      320,
+      640
+    ],
+    "grids": [
+      600,
+      1200,
+      2400,
+      4800
+    ],
+    "tau": [
+      "0",
+      "1/8",
+      "1/4",
+      "1/2",
+      "1",
+      "2",
+      "4",
+      "8",
+      "12",
+      "16",
+      "20",
+      "24"
+    ],
+    "tolerances": [
+      [
+        1e-08,
+        1e-18
+      ],
+      [
+        1e-10,
+        1e-20
+      ]
+    ],
+    "moment_absolute_budget": "1/1000000",
+    "gap_relative_budget": "1/1000000",
+    "scalar_consistency_tolerance": "1/1000000000",
+    "clock_rule": "binary64-rounded tau / minimum accessible-gap midpoint at finest certificate",
+    "window_reporting": "retain every adjacent pair and all common qualifying pairs at finest grid and tighter tolerance; no result-dependent extension",
+    "control_rule": "replay all four pinned analytic/representation suites before requested cells; any failed control prevents execution",
+    "failure_rule": "retain every requested rung and tolerance; no finest-failure fallback; preserve partial evidence; insufficient precision is unresolved; failed controls or source/accounting drift invalidate success",
+    "deformation_comparison": "matched theory and g: subtract component intervals [a,b]-[c,d]=[a-d,b-c]; retain overlap uncertainty; no mechanism or continuum claim"
+  },
+  "tau": [
+    "0",
+    "1/8",
+    "1/4",
+    "1/2",
+    "1",
+    "2",
+    "4",
+    "8",
+    "12",
+    "16",
+    "20",
+    "24"
+  ],
+  "tolerances": [
+    [
+      1e-08,
+      1e-18
+    ],
+    [
+      1e-10,
+      1e-20
+    ]
+  ],
+  "environment": {
+    "python": "3.10.12",
+    "implementation": "CPython",
+    "packages": {
+      "numpy": "2.2.6",
+      "scipy": "1.15.3",
+      "jsonschema": "4.26.0",
+      "jsonpointer": "2.0",
+      "referencing": "0.37.0",
+      "rpds-py": "0.30.0",
+      "attrs": "26.1.0",
+      "jsonschema-specifications": "2025.9.1",
+      "typing-extensions": "4.15.0"
+    }
+  },
+  "source_sha256": {
+    "research/vacuum-spectrum/control-preflight.schema.json": "a8463db8617c8971aaf2116564a246a01e0dd17ff4b32d2956e2d2c2fdab06fe",
+    "research/vacuum-spectrum/design-bundle/notes/ym_vacuum_gap_registration_draft.md": "dc01a22a08d8c3edd0228740fa43723dcff5e3db424a030c5bce84fa51d0fc86",
+    "research/vacuum-spectrum/future-stage-input.schema.json": "e14add22de3a64f953e4422a2a8be3575c3efa842488f93d0b700b04f604b187",
+    "research/vacuum-spectrum/run-envelope.schema.json": "f0a75bfe175e10c18e508286b8fa2f2df062a23d25e0f3f41d2db1e241f5ed2c",
+    "scripts/vacuum_angle_refined.py": "112a7eade8384a76b66816454a2a7da774035d6ba81f2c324383ce39ef914265",
+    "scripts/vacuum_certificate_run.py": "a13d5b65c75c5949b6a83d4ef773b88568b5fde37f01e85598dcf3d83e25e75e",
+    "scripts/vacuum_certified.py": "c13ae2dcbcc197104e4e5ad98bb5e1899b229857edf2ad4a94169059768501e1",
+    "scripts/vacuum_channel_contract.py": "dbd7f8baa2cd04a51dbef164616f2051362465ef8dbd9603a7f575e5091ea540",
+    "scripts/vacuum_convergence.py": "3b1d034fd40dc9d2c42448af046a492ec0e9b02058f81dd4746e9d40cbc2f552",
+    "scripts/vacuum_design_nulls.py": "5433a0a284e105d9875fe7768f65c62953649d79ebd47a7d52ab63e87580a5e7",
+    "scripts/vacuum_development.py": "1983126d88bbec6d609d116bf6b6b9db7d2ff305a965ba2fb6e4a3bf0cc4fa8c",
+    "scripts/vacuum_future_adapter.py": "383d679b64b7fd668f83232541a8e88eac961d03cca645300eb2906c6ad4aa09",
+    "scripts/vacuum_intervals.py": "f5fc61ac448fa11156333fca0a6a82b16d125791982efc93cdef7d83d49e8988",
+    "scripts/vacuum_null_controls.py": "648fce648f2f53cc0ebc42b956b8f9d58ac88dfed828926b6a986610f0a451f1",
+    "scripts/vacuum_parameterized_certificate.py": "9698b3946593f11f18d568a394a2060b7ed3df2f8ecc78d82864b8c7b24e83bc",
+    "scripts/vacuum_parameterized_scalar.py": "0adde566726765f0e5fb3d12d0b3da1012ea80cccf925a648a36524bccdccc1e",
+    "scripts/vacuum_parameterized_temporal.py": "a591c8d36d56559589cdbc599790b13c443c3c121726185871f89873c54b531a",
+    "scripts/vacuum_preflight.py": "4a993f491fce26e0f1793b4e2d099b4caded8ae298bfa14bc3527ab0af1d858c",
+    "scripts/vacuum_refinement.py": "cdcb8e4147e46f84e841ff9c334602cb0cf7e3be92375c59218f41bb4d5d5cdf",
+    "scripts/vacuum_result_contract.py": "fb737121bc07c6ce48abe7e0c37cdd212728251391f4e6ab74a101baa75aecc2",
+    "scripts/vacuum_run_envelope.py": "fcf14f2ac37d5df96d0a85e0d08538bcaa245245bfde0f4cb821928914b3cad5",
+    "scripts/vacuum_run_replay.py": "675e131279f2d84e964c7b2b6fb16445dd995c77b8ed75a2ed5c52df4ca73a70",
+    "scripts/vacuum_scalar_replay.py": "8f2a37656f2bdc1f2167786f4e7e8476021a1658016846e343f4e5c0a4bfb5f5",
+    "scripts/vacuum_semigroup.py": "063546b2a7c8e4a2781c31015a2870dde84525b091d342077c3cf056c31d4519",
+    "scripts/vacuum_semigroup_run.py": "fce28929e0b578a6696de956e2b250c66564d00d5b0fae1eb176bebe21958882",
+    "scripts/vacuum_temporal_replay.py": "978aa035ebc77afdcf3a40e87a32a1ef13d1ab62afd4f46352cab519abc48590",
+    "scripts/vacuum_time_windows.py": "303e43fa4e55aaba658930f9d6537d0951807db819fefbf0041e2ea323d5d1ff",
+    "scripts/vacuum_u1.py": "a3198acf0a3c6f54f01467f61db1bbacbe454451fc9f762af7eda2902e671686",
+    "scripts/vacuum_u1_certified.py": "a8443d42fb41cda94bdcea6c4213632926ce8b74ca4feca68c393328fa115109",
+    "scripts/vacuum_u1_design.py": "4bd5288e371d1476ae4e2f06f4248ae01a4240d2f08a007e59bf13ad869241d0",
+    "scripts/vacuum_u1_design_certified.py": "5d28ff695e5213121c1a3240c4b35065f21e14677305c63a0bd3da3affc26f48",
+    "scripts/vacuum_u1_design_run.py": "51ba26f6de1889374c96bb8737d4a02b5ec701474a92802e6ca2660b26a6f3d5",
+    "scripts/vacuum_execution_contract.py": "fc089fe1db0b65bda6dff061e68d2d71e2d41a1e7dfb88246fca6e852e2a9c15",
+    "research/vacuum-spectrum/execution-contract.schema.json": "b1f0e71daf78f606f7f3f422b304c09947b18b6321b46aeaef293c5c74f1e1a9",
+    "research/vacuum-spectrum/requirements.txt": "4b81b6b6a549771115529e6900b9589835cdbfff0c6acf179aef53d283b744d5",
+    "research/vacuum-spectrum/requirements-readiness.txt": "58d8f0ad48e3d2ad33d88188a694b9dd442577eaaa6873ccbcf25c31ea1d6ed1",
+    "research/vacuum-spectrum/target-result-envelope.schema.json": "55a3c6419239ef9537b9f0e7cd46461144c639308b140c3f08c7637e8e6b1ab8",
+    "scripts/vacuum_target_envelope.py": "102211645c4570b52432e7bd3380d3c6ca01ba25dd97f4e0ab41e7c2b468dda4",
+    "scripts/vacuum_registered_run.py": "758ccdfe7e1f0498db48ea462103fdceab85847230e29613976938b978a857fb",
+    "research/vacuum-spectrum/selected-registration.schema.json": "00d4a81ad9025a52b46e7603519f2824113dbf5d87feee32b522f1572c8a4460",
+    "scripts/test_vacuum_registered_run.py": "b4b19873fb406f72c30f98a5e2d7223c9115023c81ea2697187f758812adb9d8"
+  },
+  "baseline_sha256": {
+    "refinement.json": "8db843cff6602953f2362a5b4bb23b70f4e21db7a64ef6960cebd6fd687fc70b",
+    "certificates.json": "416b46c9eb363475b43cf83e33a64c68a2d0b95433fd85092e9e646b856eef5c",
+    "late-times.json": "be56f1a21e1217c3ad738cd2cbefeccece5eafc6f37d1279f3774c9fd79918ad",
+    "u1-design-development.json": "92c81bdbfa4422ca7ad85b96326416cd00c1da41009b2350294623f727b3591b",
+    "u1-design-certificates.json": "dc2ab8d55a5c1d3f43577a11fc71db0f799ce7317d6930f9eef19dd6ae028e4b",
+    "u1-design-semigroup.json": "22c3f5234f07b6dca2d463f70ac4da811aa26d9ef23a581eec5065456b51d5d8",
+    "pilot-disposition.json": "39d2504c3cf16458e982ecb231b793d98f977d484c5e0fab1ed83eba9a7c4df7"
+  },
+  "handoff": {
+    "commit": "24d42a9abdbeb67c2ca4cbb6759d200af5ddeb19",
+    "path": "research/vacuum-spectrum/VACUUM-REPORT.html",
+    "original_pilot": "permanently unverifiable; script and results lost"
+  },
+  "failure_rules": {
+    "solver_failure": "retain partial evidence and continue later selected cells",
+    "checkpoint_failure": "stop immediately; no silent restart or overwrite",
+    "source_or_dependency_drift": "stop new target work and invalidate qualification",
+    "unresolved": "retain at fixed caps; never replace with zero or a gap-collapse claim",
+    "post_result_changes": "no budget widening, schedule extension or additional refinement",
+    "controls": "failed required preflight prevents every target attempt",
+    "verification": "replay every cell before qualification; retain invalid evidence as failure"
+  },
+  "scope": "Registered finite-rotor characterization; full gaps distinct from accessible thresholds; no uniform Yang-Mills gap proof."
+}
