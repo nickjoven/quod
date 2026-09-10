@@ -243,13 +243,20 @@ def main():
                 'scripts/vacuum_parameterized_scalar.py',
                 'scripts/test_vacuum_parameterized_scalar.py')}},
         'run_envelope': {
-            'status': 'development_and_calibration_integration_tested', 'tests_passed': 11,
+            'status': 'development_and_calibration_integration_tested', 'tests_passed': 12,
             'independent_review': 'development_envelope_accounting_exact_scalar_accuracy_and_control_preflight_repairs_reviewed',
             'scope': 'all requested rungs accounted; immutable checkpoint snapshots; exact scalar accuracy; common sampled windows; final source audit',
             'limitations': 'development couplings only; no registered target executor; no continuum conclusion',
             'source_sha256': {p: digest((ROOT/p).read_bytes()) for p in (
                 'scripts/vacuum_run_envelope.py', 'scripts/test_vacuum_run_envelope.py',
                 'research/vacuum-spectrum/run-envelope.schema.json')}},
+        'temporal_replay': {
+            'status': 'implemented_and_calibration_tested', 'tests_passed': 5,
+            'independent_review': 'no_blocking_defect_within_stored_arithmetic_and_accounting_scope',
+            'scope': 'certificate identity and clock; every requested grid/tolerance; correlation errors; sampled windows; retained failed prefixes',
+            'limitations': 'does not rerun or authenticate propagation; no standalone BDF error theorem; whole-result replay remains incomplete',
+            'source_sha256': {p:digest((ROOT/p).read_bytes()) for p in (
+                'scripts/vacuum_temporal_replay.py','scripts/test_vacuum_temporal_replay.py')}},
         'execution_protocol_draft': {
             'registered': False, 'selected_target_ids': [], 'target_execution_authorized': False,
             'scope': 'finite SU2 and corrected U1 rotor characterization',
@@ -347,7 +354,7 @@ print('Embedded data digest, exact interval ordering, target boundary and CAS ch
 <p>Consolidated 2026-09-09. Exploratory finite-rotor study; v3 source revision incorporated.
 The vacuum reduction is exact. A cutoff- and volume-uniform Yang–Mills gap is unproved.</p>
 <div class="cards"><div class="card"><b>20 development cells</b><br>Archived bounds, overlaps and sampled windows qualify.</div>
-<div class="card"><b>175 regression tests passed</b><br>Recorded development-envelope run: 65.573 s; source hashes embedded below.</div>
+<div class="card"><b>185 regression tests passed</b><br>Recorded development-envelope run: 68.844 s; source hashes embedded below.</div>
 <div class="card open"><b>42 targets unrun</b><br>No registration or target execution authorization.</div></div>
 <h2>1. Decisions needed from the user</h2>
 <p><b>Independent review:</b> a separate agent reviewed mathematical consistency, provenance,
@@ -527,7 +534,7 @@ error bounds (10⁻⁶ absolute for moments and relative for positive gaps), cer
 and a common qualifying adjacent sample pair for both observables at the finest grid and
 last tolerance. Agreement alone cannot qualify biased scalar values. The sampling clock is
 binary64-rounded τ divided by the minimum accessible-gap midpoint at the finest certificate;
-it is a declared numerical sampling rule, not a physical continuum scale. Eleven
+it is a declared numerical sampling rule, not a physical continuum scale. Twelve
 integration tests cover the two models, positive free-model qualification, biased-value rejection,
 failure retention, checkpoint failure, source drift and target rejection. This envelope
 does not implement registered target execution. Independent review found no blocking
@@ -537,8 +544,18 @@ fixed schedule. All 42 targets remain unrun.</p>
 nulls and both representation calibrations. Full verdicts are retained and their source
 files and referenced design are pinned. A failed check, unrejected mutant or control
 exception prevents requested-cell computation and yields instrument failure with complete
-request accounting. Eleven envelope tests include false control verdicts and exceptions.
+request accounting. Twelve envelope tests include false control verdicts, exceptions and
+rejection of corrupted temporal evidence without losing the propagation record.
 Independent review confirmed both the sum-rule and control-preflight repairs.</p>
+<p><b>Offline temporal replay:</b> development qualification now uses recomputed common
+sample pairs. The verifier binds the stored result to its verified certificate and exact
+clock, checks every grid/tolerance slot, recomputes full correlation-error matrices and
+channel-specific windows, and compares all retained assessment fields. Partial failed
+assessments retain their completed arithmetic prefix; failed stages cannot qualify.
+Five replay tests cover both models, changed evidence, failed propagation/assessment and
+coarse unresolved certificates. Independent review found no blocking defect in this scope.
+Replay checks stored arithmetic, not propagation authenticity or a standalone BDF bound.
+Scalar and whole-result semantic replay still need to be integrated.</p>
 <p><b>Execution protocol draft, still unregistered:</b> preserve the full recovered ladders,
 the schedule and error budgets above, all adjacent-pair assessments and every common
 qualifying pair. Do not extend a target's schedule or widen its budgets after inspecting

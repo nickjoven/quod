@@ -15,6 +15,7 @@ import vacuum_parameterized_temporal as temporal
 import vacuum_future_adapter as adapter
 import vacuum_design_nulls as design_nulls
 import vacuum_null_controls as analytic_nulls
+import vacuum_temporal_replay as temporal_replay
 
 SCHEMA = baseline.ROOT / 'research/vacuum-spectrum/run-envelope.schema.json'
 
@@ -226,13 +227,20 @@ def process_cell(spec, cell, manifest, emit):
     if any(r['status']=='failed' for r in stage['rungs']):
         stage.update(status='failed',reason='one or more requested certificate rungs failed; partial evidence retained')
     emit()
+    cell['temporal_replay']={'status':'not_attempted','reason':'verified temporal prerequisite unavailable',
+                             'common_sample_pairs':[]}
+    if final.get('retime_status')=='completed':
+        cell['temporal_replay']=temporal_replay.verify(final['record'],stages['temporal'],
+                                                     spec['grids'],manifest['tolerances'])
+        if cell['temporal_replay']['status']!='verified':
+            stages['temporal'].update(pre_replay_status=stages['temporal']['status'],status='failed',
+                                     reason='stored temporal evidence failed arithmetic replay: '+cell['temporal_replay']['reason'])
     adapted=adapter.adapt_cell(theory,g,eta,stages)
     cell['adaptation']=adapted
     cell['scalar_accuracy']=scalar_accuracy(stages,theory)
     common=[]
-    if stages['temporal']['status']=='completed':
-        last=stages['temporal']['result']['rungs'][-1]['evolutions'][-1]
-        common=[p['sample_indices'] for p in last['pairs'] if all(o['window']['qualifies'] for o in p['observables'])]
+    if stages['temporal']['status']=='completed' and cell['temporal_replay']['status']=='verified':
+        common=cell['temporal_replay']['common_sample_pairs']
     qualified=(adapted['status']=='available' and stages['scalar']['result']['cross_representation_agreement'] is True
                and stage.get('result',{}).get('scalar_budget_met') is True
                and cell['scalar_accuracy']['qualifies'] and bool(common))

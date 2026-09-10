@@ -15,6 +15,24 @@ def manifest(theories=('SU2',)):
 
 
 class RunEnvelopeTests(unittest.TestCase):
+    def test_corrupted_temporal_assessment_invalidates_cell_and_keeps_evidence(self):
+        original=runner.temporal.run
+        for missing_digest in (False,True):
+            def corrupted(*args,**kwargs):
+                result=original(*args,**kwargs)
+                if missing_digest:
+                    del result['result']['certificate_sha256']
+                else:
+                    result['result']['rungs'][-1]['evolutions'][-1]['angle_error_bounds']={}
+                return result
+            with patch.object(runner.temporal,'run',side_effect=corrupted):
+                result=runner.run(manifest())
+            cell=result['cells'][0]
+            self.assertEqual(cell['status'],'failure')
+            self.assertEqual(cell['temporal_replay']['status'],'invalid')
+            self.assertEqual(cell['qualifying_common_sample_pairs'],[])
+            self.assertIn('result',cell['stages']['temporal']['result']['rungs'][-1]['evolutions'][-1])
+
     def test_failed_or_exceptional_control_prevents_requested_cell_work(self):
         for effect in (lambda: {'pass':True,'checks':{'identity':False},'mutants_rejected':{'mutant':True}},
                        lambda: (_ for _ in ()).throw(RuntimeError('control failure'))):
