@@ -158,8 +158,7 @@ def main():
             'independent_review': 'identified_selection_failure_retention_and_schema_defects_fixed; no_outstanding_defect_in_adapter_scope',
             'repairs': ['eta_zero_selection_from_actual_certificates', 'partial_stage_retention',
                         'schema_validation_of_stage_results_and_reasons'],
-            'remaining': ['full_future_run_envelope', 'request_accounting',
-                          'full_run_orchestration', 'authorization_and_registration_integration'],
+            'remaining': ['registered_target_executor', 'authorization_and_registration_integration'],
             'source_sha256': {p: digest((ROOT/p).read_bytes()) for p in (
                 'scripts/vacuum_future_adapter.py', 'scripts/test_vacuum_future_adapter.py',
                 'research/vacuum-spectrum/future-stage-input.schema.json')}},
@@ -188,6 +187,14 @@ def main():
             'source_sha256': {p: digest((ROOT/p).read_bytes()) for p in (
                 'scripts/vacuum_parameterized_scalar.py',
                 'scripts/test_vacuum_parameterized_scalar.py')}},
+        'run_envelope': {
+            'status': 'development_and_calibration_integration_tested', 'tests_passed': 10,
+            'independent_review': 'no_blocking_issue_in_development_envelope_after_failure_accounting_repairs_and_exact_scalar_accuracy_review',
+            'scope': 'all requested rungs accounted; immutable checkpoint snapshots; exact scalar accuracy; common sampled windows; final source audit',
+            'limitations': 'development couplings only; no registered target executor; no continuum conclusion',
+            'source_sha256': {p: digest((ROOT/p).read_bytes()) for p in (
+                'scripts/vacuum_run_envelope.py', 'scripts/test_vacuum_run_envelope.py',
+                'research/vacuum-spectrum/run-envelope.schema.json')}},
         'blockers': {'independent_review': 'report_and_analytic_certificate_chain_reviewed; future_execution_and_registration_requirements_remain',
                      'user_review': 'user_will_review_completed_document; not_required_to_continue_repairs',
                      'owner_assigned_P_LC_ids': 'optional_in_quod; required_only_for_legacy_ledger_submission',
@@ -270,7 +277,7 @@ print('Embedded data digest, exact interval ordering, target boundary and CAS ch
 <p>Consolidated 2026-09-09. Exploratory finite-rotor study; v3 source revision incorporated.
 The vacuum reduction is exact. A cutoff- and volume-uniform Yang–Mills gap is unproved.</p>
 <div class="cards"><div class="card"><b>20 development cells</b><br>Archived bounds, overlaps and sampled windows qualify.</div>
-<div class="card"><b>130 regression tests passed</b><br>Recorded run: 62.583 s at candidate 4b96f84.</div>
+<div class="card"><b>170 regression tests passed</b><br>Recorded development-envelope run: 65.919 s; source hashes embedded below.</div>
 <div class="card open"><b>42 targets unrun</b><br>No registration or target execution authorization.</div></div>
 <h2>1. Decisions needed from the user</h2>
 <p><b>Independent review:</b> a separate agent reviewed mathematical consistency, provenance,
@@ -418,7 +425,7 @@ models, clock/coordinate rejection, continued work after an injected solver fail
 retention of computed correlations if assessment fails, and valid coarse-certificate
 uncertainty remaining unresolved. Propagation and assessment have separate status fields.
 Completed processing is not a precision verdict. The kernel does not authorize or execute
-target manifests; full-run accounting and registration remain open.
+target manifests; the development envelope below adds full-run accounting, while target registration remains open.
 Independent review confirmed the partial-evidence repair and unresolved-status handling,
 with no outstanding defect within the temporal-kernel scope.</p>
 <p><b>Parameterized scalar stage:</b> explicit g and η now drive both representation ladders:
@@ -430,6 +437,25 @@ cover both free models, a deformation and injected failures. Cross-representatio
 remains diagnostic; the exact model certificate is still required for precision claims.
 Independent review confirmed the comparison-failure and nonfinite-output repairs, with no
 outstanding defect in the scalar comparison/failure-handling scope.</p>
+<p><b>Integrated development envelope:</b> a schema-validated manifest pins the transitive
+local source files and runtime schemas before any solver starts. It permits existing development
+couplings only. Development runs require the recovered full ladders, fixed sample schedule
+and both tolerance pairs; smaller calibration requests are explicitly distinguished.
+Every requested scalar rung, certificate cutoff and propagation grid/tolerance has a terminal
+record. Failures retain available evidence and allow later cells to proceed; a failed
+checkpoint stops numerical work. Final source and request-accounting audits can invalidate
+an otherwise qualifying result.</p>
+<p>Qualification requires both scalar representations to meet exact certificate-based
+error bounds (10⁻⁶ absolute for moments and relative for positive gaps), certificate budgets,
+and a common qualifying adjacent sample pair for both observables at the finest grid and
+last tolerance. Agreement alone cannot qualify biased scalar values. The sampling clock is
+binary64-rounded τ divided by the minimum accessible-gap midpoint at the finest certificate;
+it is a declared numerical sampling rule, not a physical continuum scale. Ten integration
+tests cover the two models, positive free-model qualification, biased-value rejection,
+failure retention, checkpoint failure, source drift and target rejection. This envelope
+does not implement registered target execution. Independent review found no blocking
+issue in the development envelope after repairs, including exact scalar accuracy and the
+fixed schedule. All 42 targets remain unrun.</p>
 <h2>5. Counterexample and null obligations</h2>
 <p>On a fixed periodic circle, set ψβ ∝ exp[(β/2)cos(2θ)] and
 Vβ = κ[β²sin²(2θ) − 2βcos(2θ)]. Then Hβψβ = 0 and Hβ = κA* A,

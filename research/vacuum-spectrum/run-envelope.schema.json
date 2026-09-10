@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Development integration envelope; target execution disabled",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "purpose", "registered", "target_execution_authorized", "cells", "tau", "tolerances", "source_sha256"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "purpose": {"enum": ["development", "calibration"]},
+    "registered": {"const": false},
+    "target_execution_authorized": {"const": false},
+    "cells": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/cell"}},
+    "tau": {"type": "array", "minItems": 2, "items": {"type": "string"}},
+    "tolerances": {"type": "array", "minItems": 1, "items": {
+      "type": "array", "minItems": 2, "maxItems": 2,
+      "items": {"type": "number", "exclusiveMinimum": 0}
+    }},
+    "source_sha256": {"type": "object", "additionalProperties": {"type": "string", "pattern": "^[0-9a-f]{64}$"}}
+  },
+  "$defs": {
+    "cell": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "theory", "g", "eta", "cutoffs", "grids"],
+      "properties": {
+        "id": {"type": "string", "minLength": 1},
+        "theory": {"enum": ["SU2", "U1"]},
+        "g": {"type": "string"}, "eta": {"type": "string"},
+        "cutoffs": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "integer", "minimum": 4}},
+        "grids": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "integer", "minimum": 16}}
+      }
+    }
+  }
+}

@@ -26,12 +26,25 @@ earlier, but optional implementation choices do not require renewed approval.
 
 The tests replay archived sources, exact endpoints, overlaps, correlation
 intervals, effective-gap bounds and target accounting. The latest full run
-passed 130 tests, including corrected-design parity, propagation, windows,
-the specified analytic nulls, lost-pilot disposition and v3 preservation.
+passed 170 tests in 65.919 seconds, including corrected-design parity,
+propagation, windows, analytic nulls, lost-pilot disposition, v3 preservation,
+the report, parameterized kernels and integrated development envelope.
+Command: `OPENBLAS_NUM_THREADS=1 python3 -m unittest discover -s scripts -p 'test_vacuum*.py'`.
 Certificates concern the stated single-angle model and its documented trusted
 arithmetic/analytic base, not a registered field-theory conclusion.
 
 ## Next work and unresolved inputs
+
+The development/calibration envelope now connects scalar ladders, replayed
+certificates and temporal assessment. Ten integration tests pass. It checks
+actual scalar values against exact intervals, accounts for every requested rung
+and tolerance, preserves partial evidence, stops on checkpoint failure, and
+invalidates qualification on final source drift or incomplete accounting.
+Its manifest rejects all held-out target coordinates before numerical work.
+Independent review found no blocking issue after the failure-accounting repairs
+and the exact scalar-accuracy and fixed-schedule review.
+Registered target execution and its frozen authorization specification remain
+outstanding. The stage-specific paragraphs below record the earlier milestones.
 
 `vacuum_parameterized_scalar.py` completes the reusable scalar stage using the
 existing SU(2)/U(1) representation solvers. Seven development-only tests cover
@@ -85,10 +98,9 @@ mathematical development or review in quod. Earlier statements treating them
 as a general development blocker are superseded. Future target execution
 still requires a concrete registration and the user's target decision.
 
-[REVIEW-HANDOFF.md](REVIEW-HANDOFF.md) pins the current review candidate,
-maps the outstanding review questions to artifacts, and records the full
-130-test validation. No independent review verdict or owner assignment has
-been received; the handoff is prepared for those external steps.
+[REVIEW-HANDOFF.md](REVIEW-HANDOFF.md) preserves the earlier review candidate,
+questions and 130-test validation. Its then-pending review status is historical;
+the scoped independent reviews above and in the single report supersede it.
 
 The supplied version-3 bundle is preserved and compared in
 [V3-FOCUS.md](V3-FOCUS.md). Its numerical specification is unchanged. The new
@@ -118,7 +130,8 @@ coefficient-1 archives and readiness record remain historical evidence.
    as unverifiable and pins the current reproducible development baseline.
    Future registration must disclose this provenance limitation; recovery is
    no longer a pending input.
-3. Obtain P/LC assignment through the owning workflow, address independent
-   review, and freeze future work before any target execution.
+3. Freeze and verify the future execution specification before any target run.
+   P/LC labels are optional metadata in quod; assignment is needed only for
+   submission into the original ledger workflow.
 4. Stop for the user's target decision only when it is the next required step.
    All 42 target rows remain unrun in every current report.
