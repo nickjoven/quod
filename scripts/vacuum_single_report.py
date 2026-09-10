@@ -159,7 +159,7 @@ def main():
             'repairs': ['eta_zero_selection_from_actual_certificates', 'partial_stage_retention',
                         'schema_validation_of_stage_results_and_reasons'],
             'remaining': ['full_future_run_envelope', 'request_accounting',
-                          'scalar_and_temporal_orchestration', 'authorization_and_registration_integration'],
+                          'scalar_and_full_run_orchestration', 'authorization_and_registration_integration'],
             'source_sha256': {p: digest((ROOT/p).read_bytes()) for p in (
                 'scripts/vacuum_future_adapter.py', 'scripts/test_vacuum_future_adapter.py',
                 'research/vacuum-spectrum/future-stage-input.schema.json')}},
@@ -172,6 +172,15 @@ def main():
             'source_sha256': {p: digest((ROOT/p).read_bytes()) for p in (
                 'scripts/vacuum_parameterized_certificate.py',
                 'scripts/test_vacuum_parameterized_certificate.py')}},
+        'parameterized_temporal': {
+            'status': 'implemented_and_calibration_tested',
+            'independent_review': 'no_outstanding_defect_in_temporal_kernel_scope_after_partial_evidence_repair',
+            'tests_passed': 7,
+            'scope': 'direct propagation; exact sampled clocks; channel-specific thresholds; all requested grid/tolerance slots retained',
+            'limitations': 'no target CLI, registration or full-run authorization envelope',
+            'source_sha256': {p: digest((ROOT/p).read_bytes()) for p in (
+                'scripts/vacuum_parameterized_temporal.py',
+                'scripts/test_vacuum_parameterized_temporal.py')}},
         'blockers': {'independent_review': 'report_and_analytic_certificate_chain_reviewed; future_execution_and_registration_requirements_remain',
                      'user_review': 'user_will_review_completed_document; not_required_to_continue_repairs',
                      'owner_assigned_P_LC_ids': 'optional_in_quod; required_only_for_legacy_ledger_submission',
@@ -376,7 +385,7 @@ and nonblank failure/unresolved reasons. Six adapter tests cover the producer pa
 contradictory weights, partial failures and malformed evidence. An available adapter record
 means outputs and thresholds are structurally available; its precision status remains
 “not assessed.” The adapter has no solver or target-run entry point. A complete future-run
-envelope, request accounting, scalar/temporal orchestration and committed authorization procedure
+envelope, full-run request accounting, scalar orchestration and committed authorization procedure
 still need implementation before target execution.</p>
 <p>The separate reviewer verified the free-selection and failure-retention repairs and the
 schema's rejection of malformed stage containers, result types and reasons. No outstanding
@@ -391,6 +400,20 @@ Six tests at development calibration g=1 cover η=0, 1/2, 1; exact equality with
 budget flags, parity and malformed endpoint records. This producer is a kernel, not a
 registered execution envelope or authorization mechanism. Independent review verified the
 malformed-record repair and coordinate-bound adapter, with no outstanding defect in that scope.</p>
+<p><b>Parameterized temporal kernel:</b> a verified certificate now drives independent angle
+ground preparation, direct sparse BDF propagation and per-observable sampled assessment at
+each requested grid/tolerance. The exact certificate clock must equal the binary64 solver
+clock; otherwise it is rejected before numerical work. Each tolerance retains its own
+computed correlations, end-to-end error bound and adjacent-pair assessments. Free P² uses
+its second accessible level, and U(1) retains the even/full distinction.</p>
+<p>Seven temporal tests use development coordinates only. They check free and deformed
+models, clock/coordinate rejection, continued work after an injected solver failure,
+retention of computed correlations if assessment fails, and valid coarse-certificate
+uncertainty remaining unresolved. Propagation and assessment have separate status fields.
+Completed processing is not a precision verdict. The kernel does not authorize or execute
+target manifests; full-run accounting, scalar orchestration and registration remain open.
+Independent review confirmed the partial-evidence repair and unresolved-status handling,
+with no outstanding defect within the temporal-kernel scope.</p>
 <h2>5. Counterexample and null obligations</h2>
 <p>On a fixed periodic circle, set ψβ ∝ exp[(β/2)cos(2θ)] and
 Vβ = κ[β²sin²(2θ) − 2βcos(2θ)]. Then Hβψβ = 0 and Hβ = κA* A,

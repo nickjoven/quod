@@ -33,6 +33,13 @@ arithmetic/analytic base, not a registered field-theory conclusion.
 
 ## Next work and unresolved inputs
 
+`vacuum_parameterized_temporal.py` connects verified certificate coordinates and
+exact sample clocks to direct propagation and per-channel time-window assessment.
+Seven development-only tests cover deformations, failure continuation, retained
+post-propagation evidence and coarse certificates remaining unresolved. Each
+requested grid/tolerance is retained. Scalar orchestration, full-run accounting
+and the committed future execution envelope remain outstanding.
+
 `vacuum_parameterized_certificate.py` now accepts explicit η for both models,
 binds coordinates/cutoff/times into the certificate record, and replays all
 derived fields without an eigensolver before channel adaptation. Six tests at
