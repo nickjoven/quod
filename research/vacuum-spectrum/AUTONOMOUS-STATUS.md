@@ -33,6 +33,14 @@ arithmetic/analytic base, not a registered field-theory conclusion.
 
 ## Next work and unresolved inputs
 
+The independent analytic/code review now covers Sturm/Schur endpoints,
+U(1) parity and mapping, residual-to-vector bounds, signed overlaps, padded
+moments, PSD omitted tails and sampled error composition; no correctness
+defect was found in that scope. The single report records source hashes and
+qualifications. Four report tests pass, including standalone exact replay of
+80 finest-rung residual bounds. This is not proof-assistant verification or
+approval of a future target executor/registration.
+
 [VACUUM-REPORT.html](VACUUM-REPORT.html) is the self-contained review document:
 embedded SVG visuals, exact rational evidence, provenance hashes, full supporting
 arguments and executable SymPy checks. Three report-specific tests pass. A

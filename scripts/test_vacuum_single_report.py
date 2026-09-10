@@ -1,6 +1,7 @@
 """Check the offline report's exact payload and executable CAS/data instructions."""
 import base64
 import contextlib
+import copy
 import gzip
 import hashlib
 from html.parser import HTMLParser
@@ -35,6 +36,9 @@ class SingleReportTests(unittest.TestCase):
         self.assertEqual(hashlib.sha256(self.raw).hexdigest(), self.tag.group(1))
         for name, expected in self.payload['source_sha256'].items():
             self.assertEqual(hashlib.sha256((report.D/name).read_bytes()).hexdigest(), expected, name)
+        for review in ('combined_error_review', 'analytic_certificate_review'):
+            for name, expected in self.payload[review]['source_sha256'].items():
+                self.assertEqual(hashlib.sha256((report.ROOT/name).read_bytes()).hexdigest(), expected, name)
         for name in ('design-readiness.json', 'result-contract.json', 'pilot-disposition.json', 'vacuum-coercivity-check.json'):
             self.assertEqual(self.payload['data'][name], json.loads((report.D/name).read_text()))
         self.assertEqual(self.payload['cas_program'], report.CAS)
@@ -59,6 +63,14 @@ class SingleReportTests(unittest.TestCase):
             with self.assertRaises(AssertionError):
                 exec(compile(report.CAS.replace('expanded-remainder-divergence',
                                                 'expanded+remainder-divergence'), '<mutant>', 'exec'), {})
+
+    def test_residual_underestimate_rejected(self):
+        namespace = {}
+        exec(compile(report.RESIDUALS, '<residual-check>', 'exec'), namespace)
+        changed = copy.deepcopy(self.payload)
+        changed['data']['SU2_finest_certificates'][0]['result']['vector_bounds'][0]['residual_norm_upper'] = '0'
+        with self.assertRaises(AssertionError):
+            namespace['verify_residuals'](changed)
 
     def test_offline_document_and_embedded_verifier(self):
         from html import unescape

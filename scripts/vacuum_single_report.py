@@ -42,6 +42,47 @@ assert s.expand(H.charpoly(z).as_expr()-z*(z-2)*(z-2*epsilon)*(z-2-2*epsilon)) =
 print('Four exact CAS identities passed; analytic domain/limit hypotheses are not CAS-proved.')
 '''
 
+RESIDUALS = '''def verify_residuals(report):
+    from fractions import Fraction as F
+    count = 0
+    for theory in ('SU2', 'U1'):
+        for cell in report['data'][theory+'_finest_certificates']:
+            g = F(str(cell['g']))
+            hopping = -1/(g*g)  # all archived development cells have eta=1
+            result = cell['result']
+            eigen = result['enclosures' if theory=='SU2' else 'even_enclosures']
+            for k, (encoded, bound) in enumerate(zip(result['candidate_vectors_hex'], result['vector_bounds'])):
+                q = [F(float.fromhex(x)) for x in encoded]
+                assert q and any(q)
+                if theory == 'SU2':
+                    diagonal = [g*g*n*(n+2) for n in range(len(q))]
+                else:
+                    assert len(q)%2 == 1 and q == q[::-1]
+                    K = len(q)//2
+                    diagonal = [4*g*g*(n-K)**2 for n in range(len(q))]
+                mu = (F(eigen[k]['lower'])+F(eigen[k]['upper']))/2
+                separation = F(eigen[k+1]['lower'])-mu
+                if k:
+                    separation = min(separation, mu-F(eigen[k-1]['upper']))
+                norm = sum(x*x for x in q)
+                residual = [(diagonal[n]-mu)*q[n]
+                            +(hopping*q[n-1] if n else 0)
+                            +(hopping*q[n+1] if n+1<len(q) else 0)
+                            for n in range(len(q))]
+                residual.append(hopping*q[-1])
+                if theory == 'U1':
+                    residual.append(hopping*q[0])
+                squared = sum(x*x for x in residual)/norm
+                rho = F(bound['residual_norm_upper'])
+                assert norm == F(bound['norm_squared']) and mu == F(bound['rayleigh_reference'])
+                assert separation == F(bound['separation_lower']) and separation > 0
+                assert rho >= 0 and rho*rho >= squared
+                assert F(bound['distance_upper']) >= min(F(2),2*rho/separation)
+                count += 1
+    assert count == 80
+    print('80 full infinite-Jacobi residual bounds verified with exact rational arithmetic.')
+'''
+
 
 def digest(data):
     return hashlib.sha256(data).hexdigest()
@@ -98,11 +139,21 @@ def main():
             'status': 'no_blocking_defect_in_reviewed_composition',
             'reviewer': 'separate_agent_report_review',
             'scope': 'end-to-end sampled error, outward log slopes, mixture-plus-numerical bound, U1 even threshold',
-            'remaining': 'complete upstream Sturm/Schur/eigenvector proof audit',
+            'remaining': 'future-run executor and registration checks; not a formal proof',
             'source_sha256': {p: digest((ROOT/p).read_bytes()) for p in (
                 'scripts/vacuum_certificate_run.py', 'scripts/vacuum_time_windows.py',
                 'scripts/vacuum_semigroup.py', 'scripts/vacuum_u1_design_semigroup_run.py')}},
-        'blockers': {'independent_review': 'report_review_complete; full_numerical_instrument_review_outstanding',
+        'analytic_certificate_review': {
+            'status': 'no_correctness_defect_found_in_reviewed_analytic_chain',
+            'reviewer': 'separate_agent_report_review',
+            'scope': ['Sturm_Schur_endpoints', 'U1_parity_and_mapping',
+                      'infinite_residual_and_eigenvector_distance', 'signed_overlaps',
+                      'padded_moments', 'PSD_omitted_tail'],
+            'qualification': 'analytic/code inspection under stated arithmetic contracts; not proof-assistant verification',
+            'source_sha256': {p: digest((ROOT/p).read_bytes()) for p in (
+                'scripts/vacuum_certified.py', 'scripts/vacuum_u1_certified.py',
+                'scripts/vacuum_u1_design_certified.py', 'scripts/vacuum_intervals.py')}},
+        'blockers': {'independent_review': 'report_and_analytic_certificate_chain_reviewed; future_execution_and_registration_requirements_remain',
                      'user_review': 'user_will_review_completed_document; not_required_to_continue_repairs',
                      'owner_assigned_P_LC_ids': 'optional_in_quod; required_only_for_legacy_ledger_submission',
                      'registration': 'unregistered; required_before_future_target_execution'},
@@ -175,6 +226,7 @@ for theory in ('SU2','U1'):
 print('Embedded data digest, exact interval ordering, target boundary and CAS checks passed.')
 # For the full numerical certificate replay use the pinned repository sources.
 '''
+    extraction += '\n' + RESIDUALS + '\nverify_residuals(report)\n'
     appendix = ''.join('<details><summary>'+escape(n)+'</summary><pre>'+escape((D/n).read_text())+'</pre></details>' for n in documents)
     html = f'''<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Vacuum spectrum — evidence and proof obligations</title>
@@ -188,9 +240,12 @@ The vacuum reduction is exact. A cutoff- and volume-uniform Yang–Mills gap is 
 <h2>1. Decisions needed from the user</h2>
 <p><b>Independent review:</b> a separate agent reviewed mathematical consistency, provenance,
 executable checks and basic accessibility. Its two findings were corrected; no outstanding
-defects remain within that scope. All three report-specific tests pass, including the exact
-embedded verifier and rejection of a CAS sign-error mutant. This does not certify the complete
-numerical instrument, continuum coercivity or browser rendering. The user will review this
+defects remain within that scope. A subsequent independent analytic/code review found no
+correctness defect in the spectral endpoint, residual, overlap, covariance, omitted-tail and
+sampled-error chain. All four report-specific tests pass, including the exact embedded verifier,
+80 rational residual checks, and rejection of CAS sign-error and residual-underestimate mutants.
+This is not proof-assistant verification or certification of future execution,
+continuum coercivity or browser rendering. The user will review this
 completed document; clear defects can be repaired without waiting for further input.
 <b>P/LC identifiers:</b> P denotes a prediction/experiment registration and LC a literature check
 in the original proslambenomenos ledgers. Assignment is needed only if registering through that
@@ -236,6 +291,20 @@ and has not been Lean-formalized. It provides no positive weak-coupling certific
 aᵣ ≤ dνᵣ/dμᵣ ≤ bᵣ and Var<sub>μᵣ</sub>(f) ≤ Cᵣ∫|∇f|²dμᵣ.
 Uniformity requires inf κᵣaᵣ/(sᵣbᵣCᵣ) &gt; 0. None of the current moments defines
 these independent comparison constants.</p>
+<h3>From certified spectrum to overlap and tail bounds</h3>
+<p>For a normalized finite-support candidate v, compute its infinite-operator residual,
+including the hopping into omitted sites. If ρ ≥ ‖(H−μ)v‖ and s &gt; 0 separates μ
+from every other eigenvalue in the relevant physical sector, spectral expansion gives
+sin θ ≤ ρ/s. After phase alignment, ‖u−v‖ ≤ √2 sin θ ≤ 2ρ/s; the universal cap is 2.</p>
+<div class="equation">δₖ = min(2, 2ρₖ/sₖ)<br>
+|⟨uₖ,Ou₀⟩−⟨vₖ,Ov₀⟩| ≤ δₖ+δ₀ for ‖O‖ ≤ 1<br>
+|⟨u₀,Oᵐu₀⟩−⟨v₀,Oᵐv₀⟩| ≤ 2δ₀ for ‖Oᵐ‖ ≤ 1</div>
+<p>Signed amplitude intervals give squared-weight intervals; an interval containing zero
+cannot certify a nonzero overlap. Full multiplication before projection preserves moment
+identities. For omitted diagonal weight Rₐ, positivity gives
+Rₐ ≤ Var(Oₐ).upper − Σ retained weights.lower. With the next omitted gap bounded below by d,
+the omitted diagonal correlation is at most Rₐe⁻ᵈᵗ and its cross entry has absolute value
+at most √(R₀R₁)e⁻ᵈᵗ by Cauchy–Schwarz. The spectral and phase hypotheses are essential.</p>
 <h2>4. Archived numerical evidence</h2><figure>{spectra}<figcaption>Archived development spectra and probe-accessible thresholds; numerical alternatives appear below.</figcaption></figure>
 <p>Only the 20 pre-existing η=1 development cells are plotted. Lines guide the eye;
 they do not interpolate certified bounds. Error bars use exact archived interval widths
@@ -271,9 +340,10 @@ re-prove their Sturm, residual or omitted-tail construction.</p>
 <p><b>Independent composition review:</b> the separate agent found no blocking defect in
 this error composition, outward slope arithmetic, or use of the U(1) even threshold.
 The reviewed source hashes are embedded. It confirmed that a standalone BDF error bound
-is not required for this sampled end-to-end comparison. A complete upstream
-Sturm/Schur/eigenvector proof audit remains outstanding; the finding does not certify
-unsampled times or future target runs.</p>
+is not required for this sampled end-to-end comparison. The subsequent upstream
+Sturm/Schur, eigenvector, overlap and tail analytic/code review also found no correctness
+defect. These findings do not certify unsampled times or future target runs, and rely on
+the documented self-adjointness, spectral and arithmetic contracts.</p>
 <h2>5. Counterexample and null obligations</h2>
 <p>On a fixed periodic circle, set ψβ ∝ exp[(β/2)cos(2θ)] and
 Vβ = κ[β²sin²(2θ) − 2βcos(2θ)]. Then Hβψβ = 0 and Hβ = κA* A,
@@ -292,8 +362,9 @@ The embedded JSON includes all 20 audit records, all 42 unrun target records, fu
 data, finest-rung certificates, source SHA-256 hashes and explicit theorem statuses.
 The digest detects internal drift; it does not independently authenticate a scientific claim.</p>
 <p>Copy and run the following code next to this HTML using Python with SymPy {sp.__version__}.
-It checks four symbolic identities and exact data consistency. It does not prove the
-integration-by-parts hypotheses, min–max theorem, numerical certificates or continuum limit.</p>
+It checks four symbolic identities, all 80 finest-rung infinite-operator residual bounds
+in exact rational arithmetic, and exact data consistency. It does not prove the
+integration-by-parts hypotheses, min–max theorem, upstream spectral endpoints or continuum limit.</p>
 <pre>{escape(extraction)}</pre><details><summary>Exact CAS program</summary><pre>{escape(CAS)}</pre></details>
 <details><summary>Machine-data inventory and source hashes</summary><pre>{escape(json.dumps({k:v for k,v in payload.items() if k not in ('data','cas_program')},indent=2))}</pre></details>
 <script id="machine-data" type="application/octet-stream" data-sha256="{digest(raw)}">{encoded}</script>
