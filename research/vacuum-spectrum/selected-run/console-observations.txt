@@ -1,0 +1,11 @@
+Console observations from the live registered execution tool session 13862.
+The following warning appeared after cell 7 and before the cell-8 completion:
+
+[site-packages]/scipy/integrate/_ivp/bdf.py:415: RuntimeWarning: invalid value encountered in subtract
+  D[order + 2] = d - D[order + 1]
+
+Cell 8: SU2:g=0.40:eta=0.5 completed with instrument_agreement at
+elapsed_seconds=349.74466838501394. This observation does not supersede
+registered raw evidence or imply an unobserved solver failure. No rerun or
+budget change was made. This file records observed warnings, not a complete
+stdout/stderr capture or an additional registered qualification criterion.
