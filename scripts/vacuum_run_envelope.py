@@ -13,6 +13,8 @@ import vacuum_parameterized_scalar as scalar
 import vacuum_parameterized_certificate as certificates
 import vacuum_parameterized_temporal as temporal
 import vacuum_future_adapter as adapter
+import vacuum_design_nulls as design_nulls
+import vacuum_null_controls as analytic_nulls
 
 SCHEMA = baseline.ROOT / 'research/vacuum-spectrum/run-envelope.schema.json'
 
@@ -37,6 +39,7 @@ def source_hashes():
                 if local.is_file() and local not in seen:
                     pending.append(local)
     seen.update((SCHEMA, baseline.ROOT/'research/vacuum-spectrum/future-stage-input.schema.json'))
+    seen.update(baseline.ROOT/p for p in design_nulls.SOURCES)
     return {str(p.relative_to(baseline.ROOT)):hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted(seen)}
 
 
@@ -111,6 +114,29 @@ def terminalize(stage, status, reason):
         for slot in rung.get('evolutions',[]):
             if slot['status']=='pending':
                 slot.update(status=status,reason=reason)
+
+
+def control_preflight():
+    """Replay fixed analytic and representation controls; retain every verdict."""
+    suites={}
+    for name,evaluate in (('design_nulls',design_nulls.evaluate),
+                          ('analytic_nulls',analytic_nulls.evaluate),
+                          ('SU2_representation',scalar.refinement.calibration),
+                          ('U1_representation',scalar.u1.calibration)):
+        try:
+            record=certificates.encode(evaluate())
+            json.dumps(record,allow_nan=False)
+            checks=record['checks']
+            mutants=record.get('mutants_rejected',record.get('mutants'))
+            accepted=(record['pass'] is True and bool(checks) and bool(mutants)
+                      and all(v is True for v in checks.values())
+                      and all((v.get('rejected') if isinstance(v,dict) else v) is True
+                              for v in mutants.values()))
+            suites[name]={'status':'passed' if accepted else 'failed','result':record}
+        except Exception as exc:
+            suites[name]={'status':'failed','reason':f'{type(exc).__name__}: {exc}'}
+    return {'status':'passed' if all(s['status']=='passed' for s in suites.values()) else 'failed',
+            'suites':suites,'scope':'fixed analytic and development representation controls; no targets'}
 
 
 def scalar_accuracy(stages, theory):
@@ -267,7 +293,15 @@ def run(manifest, checkpoint=None):
             except Exception as exc:
                 raise CheckpointFailure('checkpoint failed; numerical work stopped') from exc
     emit()
+    result['control_preflight']=control_preflight()
+    emit()
     for spec,cell in zip(manifest['cells'],result['cells']):
+        if result['control_preflight']['status']!='passed':
+            cell.update(status='failure',reason='required control preflight failed')
+            for stage in cell['stages'].values():
+                terminalize(stage,'failed','required control preflight failed; cell not executed')
+            emit()
+            continue
         try:
             process_cell(spec,cell,manifest,emit)
         except CheckpointFailure:
@@ -284,8 +318,9 @@ def run(manifest, checkpoint=None):
     except Exception as exc:
         result.update(source_verification='failed',source_verification_reason=f'{type(exc).__name__}: {exc}')
     result['accounting_verified']=accounting(manifest,result)
-    if result['source_verification']=='failed' or not result['accounting_verified']:
-        result.update(state='instrument_failure',reason='source/schema drift or incomplete request accounting')
+    if (result['source_verification']=='failed' or not result['accounting_verified']
+            or result['control_preflight']['status']!='passed'):
+        result.update(state='instrument_failure',reason='control preflight failure, source/schema drift or incomplete request accounting')
         for cell in result['cells']:
             cell.update(pre_audit_status=cell['status'],status='failure',reason='final evidence audit invalidates qualification')
     emit()

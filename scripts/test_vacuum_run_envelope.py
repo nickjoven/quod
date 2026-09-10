@@ -15,10 +15,24 @@ def manifest(theories=('SU2',)):
 
 
 class RunEnvelopeTests(unittest.TestCase):
+    def test_failed_or_exceptional_control_prevents_requested_cell_work(self):
+        for effect in (lambda: {'pass':True,'checks':{'identity':False},'mutants_rejected':{'mutant':True}},
+                       lambda: (_ for _ in ()).throw(RuntimeError('control failure'))):
+            with patch.object(runner.design_nulls,'evaluate',side_effect=effect), patch.object(
+                    runner.scalar,'run',side_effect=AssertionError('requested solver reached')) as solver:
+                result=runner.run(manifest(('SU2','U1')))
+            solver.assert_not_called()
+            self.assertEqual(result['state'],'instrument_failure')
+            self.assertEqual(result['control_preflight']['suites']['design_nulls']['status'],'failed')
+            self.assertEqual(len(result['control_preflight']['suites']),4)
+            self.assertTrue(result['accounting_verified'])
+            self.assertTrue(all(c['status']=='failure' for c in result['cells']))
+
     def test_full_integration_and_checkpoint_snapshots(self):
         snapshots=[]
         result=runner.run(manifest(('SU2','U1')),snapshots.append)
         self.assertEqual(result['state'],'completed')
+        self.assertEqual(result['control_preflight']['status'],'passed')
         self.assertEqual(len(result['cells']),2)
         self.assertEqual(len(result['targets']),42)
         self.assertTrue(all(t['status']=='unrun' for t in result['targets']))

@@ -6,6 +6,40 @@ import vacuum_parameterized_scalar as scalar
 
 
 class ParameterizedScalarTests(unittest.TestCase):
+    def test_finite_inputs_cannot_hide_nonfinite_computed_defects(self):
+        record={'weights':[[1e200,1e200]],'cross_weights':[1e200],
+                'covariance':[[1e200,1e200],[1e200,1e200]],
+                'unrepresented_covariance':[[0,0],[0,0]],
+                'moments':[0,1e200,1e200,1e200,1e200]}
+        with scalar.np.errstate(over='ignore',invalid='ignore'):
+            with self.assertRaisesRegex(ValueError,'spectral consistency failed'):
+                scalar.spectral_consistency(record)
+
+    def test_changed_weights_and_cross_weights_fail_without_lost_record(self):
+        from copy import deepcopy
+        original=scalar.su2.character(1,0,8)
+        for key in ('weights','cross_weights'):
+            record=deepcopy(original)
+            if key=='weights':
+                record[key][0][0]+=.01
+            else:
+                record[key][0]+=.01
+            with patch.object(scalar.su2,'character',return_value=record):
+                result=scalar.run('SU2',1,0,[8],[32])
+            self.assertEqual(result['status'],'failed')
+            slot=result['result']['rungs'][0]
+            self.assertEqual(slot['result'],record)
+            self.assertIn('spectral consistency failed',slot['reason'])
+
+    def test_archived_finest_records_meet_sum_rules(self):
+        import json
+        for name in ('refinement.json','u1-design-development.json'):
+            archive=json.loads((scalar.su2.ROOT/'research/vacuum-spectrum'/name).read_text())
+            for cell in archive['cells']:
+                for method,record in cell['final'].items():
+                    with self.subTest(archive=name,g=cell['g'],method=method):
+                        self.assertEqual(scalar.spectral_consistency(record)['status'],'passed')
+
     def test_free_models_retain_all_requests_and_observables(self):
         for theory in ('SU2','U1'):
             with self.subTest(theory=theory):

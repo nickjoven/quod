@@ -26,7 +26,7 @@ earlier, but optional implementation choices do not require renewed approval.
 
 The tests replay archived sources, exact endpoints, overlaps, correlation
 intervals, effective-gap bounds and target accounting. The latest full run
-passed 170 tests in 65.919 seconds, including corrected-design parity,
+passed 175 tests in 65.573 seconds, including corrected-design parity,
 propagation, windows, analytic nulls, lost-pilot disposition, v3 preservation,
 the report, parameterized kernels and integrated development envelope.
 Command: `OPENBLAS_NUM_THREADS=1 python3 -m unittest discover -s scripts -p 'test_vacuum*.py'`.
@@ -34,6 +34,16 @@ Certificates concern the stated single-angle model and its documented trusted
 arithmetic/analytic base, not a registered field-theory conclusion.
 
 ## Next work and unresolved inputs
+
+The recovered-specification audit exposed two additional qualification gaps:
+recorded scalar sum rules were not enforced, and exact controls were not bound
+to execution. Both are repaired and independently reviewed. Scalar validation
+checks diagonal and signed cross weights, omitted covariance and full-basis
+padding; ten scalar tests pass. A fresh four-suite control preflight retains
+all verdicts and prevents requested-cell computation if any required control
+fails; eleven envelope tests pass. Control sources and the referenced design
+are pinned. The report also replays exact scalar accuracy for all 40 required
+finest representations across the twenty archived development cells.
 
 The development/calibration envelope now connects scalar ladders, replayed
 certificates and temporal assessment. Ten integration tests pass. It checks

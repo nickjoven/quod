@@ -14,6 +14,7 @@ import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import sympy as sp
+from vacuum_run_envelope import scalar_accuracy
 
 ROOT = Path(__file__).resolve().parents[1]
 D = ROOT / 'research/vacuum-spectrum'
@@ -88,6 +89,43 @@ def digest(data):
     return hashlib.sha256(data).hexdigest()
 
 
+SCALARS = '''def verify_scalar_accuracy(report):
+    from fractions import Fraction as F
+    count = 0
+    for theory in ('SU2', 'U1'):
+        cells = report['data'][theory+'_scalar_accuracy']
+        assert len(cells) == 10
+        for cell, certificate in zip(cells, report['data'][theory+'_finest_certificates']):
+            assert cell['g'] == certificate['g']
+            exact = certificate['result']
+            vacuum = exact['vacuum']
+            moments = [*vacuum['raw_moments'][:2], vacuum['covariance'][0][0],
+                       vacuum['covariance'][1][1], vacuum['covariance'][0][1]]
+            gaps = list(exact['first_three_gap_intervals' if theory=='SU2' else 'first_three_even_gap_intervals'])
+            if theory == 'U1':
+                gaps.append(exact['parity']['full_gap_interval'])
+            assert len(cell['values']) == len(cell['assessment']['methods']) == 2
+            for method, values in cell['values'].items():
+                bound = cell['assessment']['methods'][method]
+                for key, intervals, relative in (('moments', moments, False), ('gaps', gaps, True)):
+                    assert len(values[key]) == len(intervals)
+                    errors = []
+                    for value, endpoints in zip(values[key], intervals):
+                        lo, hi = map(F, endpoints)
+                        assert lo <= hi and (not relative or lo > 0)
+                        error = max(abs(F(value)-lo), abs(F(value)-hi))
+                        errors.append(error/lo if relative else error)
+                    field = 'gap_relative_error_upper' if relative else 'moment_absolute_error_upper'
+                    assert errors == list(map(F, bound[field]))
+                    assert all(e <= F(1, 10**6) for e in errors)
+                assert bound['qualifies'] is True
+                count += 1
+            assert cell['assessment']['qualifies'] is True
+    assert count == 40
+    return count
+'''
+
+
 def svg(fig):
     stream = io.StringIO()
     fig.savefig(stream, format='svg', metadata={'Date': None}, bbox_inches='tight')
@@ -120,6 +158,21 @@ def main():
              'finest_assessment': c['window_assessment']['rungs'][-1],
              'finest_correlation_error_bounds': c['angle_error_bounds'][-1]}
             for c in archive['cells']]
+    for theory,name in [('SU2','refinement.json'),('U1','u1-design-development.json')]:
+        archive=json.loads((D/name).read_text())
+        evaluated=[]
+        assert len(archive['cells']) == len(data[theory+'_finest_certificates']) == 10
+        for cell,certificate in zip(archive['cells'],data[theory+'_finest_certificates']):
+            assert cell['g']==certificate['g'] and cell['eta']==1
+            final={k:v for k,v in cell['final'].items() if k!='angle_second'}
+            assessment=scalar_accuracy({'scalar':{'result':{'final':final}},
+                'certificates':{'result':certificate['result']}},theory)
+            assert assessment['qualifies']
+            values={k:{'moments':[str(F(v)) for v in r['moments']],
+                       'gaps':[str(F(v)) for v in [*r['first_three_gaps'],
+                               *([r['full_gap']] if theory=='U1' else [])]]} for k,r in final.items()}
+            evaluated.append({'g':cell['g'],'values':values,'assessment':assessment})
+        data[theory+'_scalar_accuracy']=evaluated
     sources = names + documents + ['certificates.json', 'u1-design-certificates.json',
         'refinement.json', 'late-times.json', 'u1-design-development.json', 'u1-design-semigroup.json',
         'design-bundle-v3/manifest.json']
@@ -134,7 +187,7 @@ def main():
             'reviewer': 'separate_agent_report_review',
             'scope': ['mathematical_consistency', 'provenance', 'executable_checks', 'basic_accessibility'],
             'excluded': ['complete_numerical_instrument_certification', 'continuum_coercivity', 'browser_rendering'],
-            'report_tests_passed': 3},
+            'report_tests_passed': 5},
         'combined_error_review': {
             'status': 'no_blocking_defect_in_reviewed_composition',
             'reviewer': 'separate_agent_report_review',
@@ -181,20 +234,33 @@ def main():
                 'scripts/vacuum_parameterized_temporal.py',
                 'scripts/test_vacuum_parameterized_temporal.py')}},
         'parameterized_scalar': {
-            'status': 'implemented_and_calibration_tested', 'tests_passed': 7,
-            'independent_review': 'no_outstanding_defect_in_scalar_comparison_and_failure_handling_scope_after_repairs',
+            'status': 'implemented_and_calibration_tested', 'tests_passed': 10,
+            'independent_review': 'comparison_failure_and_spectral_sum_rule_repairs_reviewed; nonfinite_computed_defects_rejected',
             'scope': 'representation ladders; all rungs retained; no fallback after finest failure; agreement diagnostic only',
             'source_sha256': {p: digest((ROOT/p).read_bytes()) for p in (
                 'scripts/vacuum_parameterized_scalar.py',
                 'scripts/test_vacuum_parameterized_scalar.py')}},
         'run_envelope': {
-            'status': 'development_and_calibration_integration_tested', 'tests_passed': 10,
-            'independent_review': 'no_blocking_issue_in_development_envelope_after_failure_accounting_repairs_and_exact_scalar_accuracy_review',
+            'status': 'development_and_calibration_integration_tested', 'tests_passed': 11,
+            'independent_review': 'development_envelope_accounting_exact_scalar_accuracy_and_control_preflight_repairs_reviewed',
             'scope': 'all requested rungs accounted; immutable checkpoint snapshots; exact scalar accuracy; common sampled windows; final source audit',
             'limitations': 'development couplings only; no registered target executor; no continuum conclusion',
             'source_sha256': {p: digest((ROOT/p).read_bytes()) for p in (
                 'scripts/vacuum_run_envelope.py', 'scripts/test_vacuum_run_envelope.py',
                 'research/vacuum-spectrum/run-envelope.schema.json')}},
+        'execution_protocol_draft': {
+            'registered': False, 'selected_target_ids': [], 'target_execution_authorized': False,
+            'scope': 'finite SU2 and corrected U1 rotor characterization',
+            'moment_absolute_budget': '1/1000000', 'gap_relative_budget': '1/1000000',
+            'scalar_consistency_tolerance': '1/1000000000',
+            'tau': ['0','1/8','1/4','1/2','1','2','4','8','12','16','20','24'],
+            'tolerances': [[1e-8,1e-18],[1e-10,1e-20]],
+            'clock_rule': 'exact binary64 rounding of tau divided by minimum accessible-gap midpoint at finest certificate',
+            'window_reporting': 'retain every adjacent pair; retain all common qualifying pairs at finest grid and tighter tolerance; no post-result extension',
+            'deformation_comparison': 'at matched theory and g, subtract certified component intervals; report endpoint differences and overlap uncertainty; disjoint intervals establish only finite-model component change',
+            'remaining_before_registration': ['complete_target_result_schema_and_authorization_gate',
+                'pin_dependencies_and_execution_artifact', 'review_final_protocol', 'user_target_selection'],
+            'cost_limitations': 'historical eta=1 stage timings; integration checkpoint overhead and deformation runtimes unmeasured'},
         'blockers': {'independent_review': 'report_and_analytic_certificate_chain_reviewed; future_execution_and_registration_requirements_remain',
                      'user_review': 'user_will_review_completed_document; not_required_to_continue_repairs',
                      'owner_assigned_P_LC_ids': 'optional_in_quod; required_only_for_legacy_ledger_submission',
@@ -269,6 +335,7 @@ print('Embedded data digest, exact interval ordering, target boundary and CAS ch
 # For the full numerical certificate replay use the pinned repository sources.
 '''
     extraction += '\n' + RESIDUALS + '\nverify_residuals(report)\n'
+    extraction += '\n' + SCALARS + '\nverify_scalar_accuracy(report)\n'
     appendix = ''.join('<details><summary>'+escape(n)+'</summary><pre>'+escape((D/n).read_text())+'</pre></details>' for n in documents)
     html = f'''<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Vacuum spectrum — evidence and proof obligations</title>
@@ -277,14 +344,14 @@ print('Embedded data digest, exact interval ordering, target boundary and CAS ch
 <p>Consolidated 2026-09-09. Exploratory finite-rotor study; v3 source revision incorporated.
 The vacuum reduction is exact. A cutoff- and volume-uniform Yang–Mills gap is unproved.</p>
 <div class="cards"><div class="card"><b>20 development cells</b><br>Archived bounds, overlaps and sampled windows qualify.</div>
-<div class="card"><b>170 regression tests passed</b><br>Recorded development-envelope run: 65.919 s; source hashes embedded below.</div>
+<div class="card"><b>175 regression tests passed</b><br>Recorded development-envelope run: 65.573 s; source hashes embedded below.</div>
 <div class="card open"><b>42 targets unrun</b><br>No registration or target execution authorization.</div></div>
 <h2>1. Decisions needed from the user</h2>
 <p><b>Independent review:</b> a separate agent reviewed mathematical consistency, provenance,
 executable checks and basic accessibility. Its two findings were corrected; no outstanding
 defects remain within that scope. A subsequent independent analytic/code review found no
 correctness defect in the spectral endpoint, residual, overlap, covariance, omitted-tail and
-sampled-error chain. All four report-specific tests pass, including the exact embedded verifier,
+sampled-error chain. All five report-specific tests pass, including the exact embedded verifier,
 80 rational residual checks, and rejection of CAS sign-error and residual-underestimate mutants.
 This is not proof-assistant verification or certification of future execution,
 continuum coercivity or browser rendering. The user will review this
@@ -399,7 +466,7 @@ and nonblank failure/unresolved reasons. Six adapter tests cover the producer pa
 contradictory weights, partial failures and malformed evidence. An available adapter record
 means outputs and thresholds are structurally available; its precision status remains
 “not assessed.” The adapter has no solver or target-run entry point. A complete future-run
-envelope, full-run request accounting and committed authorization procedure
+envelope, target-run request accounting and committed authorization procedure
 still need implementation before target execution.</p>
 <p>The separate reviewer verified the free-selection and failure-retention repairs and the
 schema's rejection of malformed stage containers, result types and reasons. No outstanding
@@ -432,11 +499,18 @@ with no outstanding defect within the temporal-kernel scope.</p>
 SU(2) character/fourth-order angle and corrected U(1) Fourier/periodic angle. All requested
 cutoffs and grids are retained. A failed finest rung cannot be replaced silently by a
 coarser result. Final raw representations survive a comparison failure, and nonfinite
-solver/comparison outputs are rejected before serialization. Seven development-only tests
+solver/comparison outputs are rejected before serialization. Ten scalar tests
 cover both free models, a deformation and injected failures. Cross-representation agreement
 remains diagnostic; the exact model certificate is still required for precision claims.
 Independent review confirmed the comparison-failure and nonfinite-output repairs, with no
 outstanding defect in the scalar comparison/failure-handling scope.</p>
+<p>The scalar stage now checks diagonal and signed cross-weight sums, retained omitted
+covariance, full-basis padding tails, covariance/moment consistency and spectral positivity.
+Contradictions fail the stage with the original record retained. Its 10⁻⁹ consistency
+tolerance is a diagnostic, not a rigorous error bound. All archived finest scalar records
+pass these checks. Separately, all 40 required finest representations across the 20
+development cells meet the exact scalar-accuracy budgets; their binary64 values and
+rational error bounds are embedded and replayed by the standalone verifier below.</p>
 <p><b>Integrated development envelope:</b> a schema-validated manifest pins the transitive
 local source files and runtime schemas before any solver starts. It permits existing development
 couplings only. Development runs require the recovered full ladders, fixed sample schedule
@@ -450,12 +524,29 @@ error bounds (10⁻⁶ absolute for moments and relative for positive gaps), cer
 and a common qualifying adjacent sample pair for both observables at the finest grid and
 last tolerance. Agreement alone cannot qualify biased scalar values. The sampling clock is
 binary64-rounded τ divided by the minimum accessible-gap midpoint at the finest certificate;
-it is a declared numerical sampling rule, not a physical continuum scale. Ten integration
-tests cover the two models, positive free-model qualification, biased-value rejection,
+it is a declared numerical sampling rule, not a physical continuum scale. Eleven
+integration tests cover the two models, positive free-model qualification, biased-value rejection,
 failure retention, checkpoint failure, source drift and target rejection. This envelope
 does not implement registered target execution. Independent review found no blocking
 issue in the development envelope after repairs, including exact scalar accuracy and the
 fixed schedule. All 42 targets remain unrun.</p>
+<p>Before processing any requested cell, the envelope now replays the specified analytic
+nulls and both representation calibrations. Full verdicts are retained and their source
+files and referenced design are pinned. A failed check, unrejected mutant or control
+exception prevents requested-cell computation and yields instrument failure with complete
+request accounting. Eleven envelope tests include false control verdicts and exceptions.
+Independent review confirmed both the sum-rule and control-preflight repairs.</p>
+<p><b>Execution protocol draft, still unregistered:</b> preserve the full recovered ladders,
+the schedule and error budgets above, all adjacent-pair assessments and every common
+qualifying pair. Do not extend a target's schedule or widen its budgets after inspecting
+its output. A deformation comparison at matched theory and g subtracts certified component
+intervals: [a,b] − [c,d] = [a−d,b−c]. Report each component, its uncertainty and the named
+Hamiltonian change; an interval excluding zero establishes only finite-model separation.
+Unresolved overlap coverage stays explicit. The machine-readable draft has no selected
+targets and no execution authorization. A complete target-result schema, pinned dependency
+environment, final execution-artifact review and the user's target decision remain required.
+Historical cost scenarios exclude integration checkpoint overhead and do not measure
+the free/deformed runtime behavior.</p>
 <h2>5. Counterexample and null obligations</h2>
 <p>On a fixed periodic circle, set ψβ ∝ exp[(β/2)cos(2θ)] and
 Vβ = κ[β²sin²(2θ) − 2βcos(2θ)]. Then Hβψβ = 0 and Hβ = κA* A,

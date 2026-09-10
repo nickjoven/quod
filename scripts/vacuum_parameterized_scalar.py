@@ -24,6 +24,41 @@ def ladder(values, minimum, name):
     return values
 
 
+def spectral_consistency(record):
+    """Check recorded sum rules; tolerance is a consistency check, not a certificate."""
+    weights=np.asarray(record['weights'],dtype=float)
+    cross=np.asarray(record['cross_weights'],dtype=float)
+    covariance=np.asarray(record['covariance'],dtype=float)
+    omitted=np.asarray(record['unrepresented_covariance'],dtype=float)
+    moments=np.asarray(record['moments'],dtype=float)
+    if (weights.ndim!=2 or weights.shape[1]!=2 or cross.shape!=(len(weights),)
+            or covariance.shape!=(2,2) or omitted.shape!=(2,2) or moments.shape!=(5,)):
+        raise ValueError('spectral sum-rule shape mismatch')
+    if not all(np.isfinite(v).all() for v in (weights,cross,covariance,omitted,moments)):
+        raise ValueError('nonfinite spectral sum-rule evidence')
+    if (weights<0).any():
+        raise ValueError('negative spectral weight')
+    represented=np.array([[weights[:,0].sum(),cross.sum()],
+                          [cross.sum(),weights[:,1].sum()]])
+    errors={
+        'sum_rule':float(np.max(abs(represented+omitted-covariance))),
+        'cross_rank_one':float(np.max(abs(cross*cross-weights[:,0]*weights[:,1]),initial=0)),
+        'covariance_symmetry':float(np.max(abs(covariance-covariance.T))),
+        'omitted_symmetry':float(np.max(abs(omitted-omitted.T))),
+        'moment_covariance':float(np.max(abs(np.array([covariance[0,0],covariance[1,1],covariance[0,1]])-moments[2:]))),
+        'moment_redundancy':float(abs(moments[2]-(moments[1]-moments[0]**2))),
+        'omitted_psd':float(max(0,-np.linalg.eigvalsh((omitted+omitted.T)/2)[0]))}
+    if 'observable_projection_tail_gram' in record:
+        tail=np.asarray(record['observable_projection_tail_gram'],dtype=float)
+        if tail.shape!=(2,2) or not np.isfinite(tail).all():
+            raise ValueError('invalid padded projection tail')
+        errors['full_basis_padding']=float(np.max(abs(omitted-tail)))
+    if any(not np.isfinite(e) or e>1e-9 for e in errors.values()):
+        raise ValueError('spectral consistency failed: '+str(errors))
+    return {'status':'passed','absolute_consistency_tolerance':1e-9,
+            'defects':errors,'precision_certificate':False}
+
+
 def run(theory, g, eta, cutoffs, grids):
     g, eta = F(str(g)), F(str(eta))
     if theory not in ('SU2','U1') or g <= 0 or eta < 0:
@@ -49,6 +84,7 @@ def run(theory, g, eta, cutoffs, grids):
             json.dumps(record,allow_nan=False)
             slot['result'] = record
             validate(record)
+            slot['spectral_consistency'] = spectral_consistency(record)
             slot['status'] = 'completed'
         except Exception as exc:
             slot.update(status='failed', reason=f'{type(exc).__name__}: {exc}')

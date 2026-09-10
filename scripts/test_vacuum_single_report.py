@@ -25,6 +25,16 @@ class Tags(HTMLParser):
 
 
 class SingleReportTests(unittest.TestCase):
+    def test_scalar_error_underestimate_is_rejected(self):
+        namespace={}
+        exec(compile(report.SCALARS,'<scalar-replay>','exec'),namespace)
+        self.assertEqual(namespace['verify_scalar_accuracy'](self.payload),40)
+        changed=copy.deepcopy(self.payload)
+        record=changed['data']['SU2_scalar_accuracy'][0]['assessment']['methods']['angle_fourth']
+        record['gap_relative_error_upper'][0]='0'
+        with self.assertRaises(AssertionError):
+            namespace['verify_scalar_accuracy'](changed)
+
     @classmethod
     def setUpClass(cls):
         cls.html = report.OUTPUT.read_text()
