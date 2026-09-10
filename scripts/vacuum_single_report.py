@@ -1,0 +1,261 @@
+"""Build one offline HTML report with exact data, CAS checks and embedded SVG."""
+import base64
+import gzip
+from fractions import Fraction as F
+import hashlib
+from html import escape
+import io
+import json
+import os
+from pathlib import Path
+
+os.environ.setdefault('MPLCONFIGDIR', '/tmp/vacuum-report-matplotlib')
+import matplotlib
+matplotlib.use('Agg')
+import matplotlib.pyplot as plt
+import sympy as sp
+
+ROOT = Path(__file__).resolve().parents[1]
+D = ROOT / 'research/vacuum-spectrum'
+OUTPUT = D / 'VACUUM-REPORT.html'
+
+CAS = '''import sympy as s
+x, beta, kappa, epsilon = s.symbols('x beta kappa epsilon', positive=True)
+a, b, p = [s.Function(n)(x) for n in ('a', 'b', 'p')]
+# Real and imaginary components of f; p is the real positive vacuum.
+expanded = sum(s.diff(p*z,x)**2 for z in (a,b)) + (a*a+b*b)*p*s.diff(p,x,2)
+remainder = p*p*sum(s.diff(z,x)**2 for z in (a,b))
+divergence = s.diff((a*a+b*b)*p*s.diff(p,x),x)
+assert s.simplify(expanded-remainder-divergence) == 0
+vacuum = s.exp(beta*s.cos(2*x)/2)
+potential = kappa*(beta**2*s.sin(2*x)**2-2*beta*s.cos(2*x))
+assert s.simplify(-kappa*s.diff(vacuum,x,2)+potential*vacuum) == 0
+# A = d/dx + beta sin(2x), A* = -d/dx + beta sin(2x).
+u = s.Function('u')(x)
+Au = s.diff(u,x)+beta*s.sin(2*x)*u
+assert s.simplify(kappa*(-s.diff(Au,x)+beta*s.sin(2*x)*Au)
+                  -(-kappa*s.diff(u,x,2)+potential*u)) == 0
+I, X = s.eye(2), s.Matrix([[0,1],[1,0]])
+H = s.kronecker_product(I-X,I)+epsilon*s.kronecker_product(I,I-X)
+z = s.symbols('z')
+assert s.expand(H.charpoly(z).as_expr()-z*(z-2)*(z-2*epsilon)*(z-2-2*epsilon)) == 0
+print('Four exact CAS identities passed; analytic domain/limit hypotheses are not CAS-proved.')
+'''
+
+
+def digest(data):
+    return hashlib.sha256(data).hexdigest()
+
+
+def svg(fig):
+    stream = io.StringIO()
+    fig.savefig(stream, format='svg', metadata={'Date': None}, bbox_inches='tight')
+    plt.close(fig)
+    return stream.getvalue()[stream.getvalue().index('<svg'):]
+
+
+def main():
+    exec(compile(CAS, '<embedded-cas-checks>', 'exec'), {})
+    names = ['design-readiness.json', 'result-contract.json', 'pilot-disposition.json',
+             'vacuum-coercivity-check.json']
+    data = {n: json.loads((D/n).read_text()) for n in names}
+    audit = data['design-readiness.json']
+    rows = audit['cells']
+    assert len(rows) == 20 and all(r['status'] == 'development_qualified' for r in rows)
+    assert len(audit['targets']) == 42 and all(t['status'] == 'unrun' for t in audit['targets'])
+    assert data['pilot-disposition.json']['original_pilot_replication'] == 'unverifiable_source_lost'
+    documents = ['VACUUM-COERCIVITY.md', 'V3-FOCUS.md', 'REVIEW-HANDOFF.md',
+                 'PILOT-DISPOSITION.md', 'RESULT-CONTRACT.md', 'DESIGN-READINESS.md',
+                 'DESIGN-NULLS.md', 'TARGET-COST-PLAN.md']
+    # Exact archived finest-rung certificates are retained, not recomputed.
+    for theory, name in [('SU2', 'certificates.json'), ('U1', 'u1-design-certificates.json')]:
+        archive = json.loads((D/name).read_text())
+        data[theory+'_finest_certificates'] = [
+            {'g': c['g'], 'result': c['rungs'][-1]['result']} for c in archive['cells']]
+    sources = names + documents + ['certificates.json', 'u1-design-certificates.json',
+        'refinement.json', 'late-times.json', 'u1-design-development.json', 'u1-design-semigroup.json',
+        'design-bundle-v3/manifest.json']
+    hashes = {n: digest((D/n).read_bytes()) for n in sources}
+    payload = {'format': 'vacuum-report-v1', 'numerical_baseline_commit': '4b96f84614a5ceda04269af7a5a1d4e91a27ef95',
+        'report_generator_sha256': digest(Path(__file__).read_bytes()),
+        'scope': 'Exploratory single-angle development; no continuum gap proof; no target execution',
+        'tool_versions': {'sympy': sp.__version__, 'matplotlib': matplotlib.__version__},
+        'source_sha256': hashes, 'data': data, 'cas_program': CAS,
+        'cas_sha256': digest(CAS.encode()),
+        'report_review': {'status': 'no_outstanding_defects_in_reviewed_scope',
+            'reviewer': 'separate_agent_report_review',
+            'scope': ['mathematical_consistency', 'provenance', 'executable_checks', 'basic_accessibility'],
+            'excluded': ['complete_numerical_instrument_certification', 'continuum_coercivity', 'browser_rendering'],
+            'report_tests_passed': 3},
+        'blockers': {'independent_review': 'report_review_complete; full_numerical_instrument_review_outstanding',
+                     'user_review': 'user_will_review_completed_document; not_required_to_continue_repairs',
+                     'owner_assigned_P_LC_ids': 'optional_in_quod; required_only_for_legacy_ledger_submission',
+                     'registration': 'unregistered; required_before_future_target_execution'},
+        'analytic_claims': [
+            {'id': 'ground_transform', 'status': 'analytic_proof_with_CAS_local_identity',
+             'hypotheses': ['compact connected configuration manifold', 'theta=0',
+                 'smooth positive normalized invariant vacuum', 'H psi0=E0 psi0',
+                 'divergence-free kinetic derivatives', 'physical form core and closure']},
+            {'id': 'bounded_potential_comparison', 'status': 'analytic_minmax_proof_not_formalized',
+             'formula': 'gap(T+V) >= gap(T) - (sup(V)-inf(V))',
+             'hypotheses': ['self-adjoint nonnegative T with compact resolvent',
+                            'simple free vacuum', 'bounded self-adjoint multiplication V']},
+            {'id': 'uniform_YM_coercivity', 'status': 'unproved'}]}
+    raw = json.dumps(payload, sort_keys=True, separators=(',', ':')).encode()
+    encoded = base64.b64encode(gzip.compress(raw, mtime=0)).decode()
+    plt.rcParams.update({'svg.hashsalt': 'vacuum-single-report-v1', 'font.size': 10})
+    fig, axes = plt.subplots(1, 2, figsize=(11, 3.6), constrained_layout=True)
+    for ax, theory in zip(axes, ('SU2', 'U1')):
+        cells = [r for r in rows if r['theory'] == theory]
+        for field, label, marker in [('full_gap_interval','Full physical gap','o'),
+                                     ('observable_gap_interval','Probe threshold','x')]:
+            intervals = [(F(c[field][0]), F(c[field][1])) for c in cells]
+            mid = [float((a+b)/2) for a,b in intervals]
+            err = [float((b-a)/2) for a,b in intervals]
+            ax.errorbar([c['g'] for c in cells], mid, yerr=err, marker=marker, label=label)
+        ax.set(xscale='log', yscale='log', xlabel='g (development cells only)', ylabel='Energy in model units', title=theory+', eta = 1')
+        ax.grid(alpha=.2)
+        ax.legend()
+    spectra = svg(fig).replace('<svg ', '<svg role="img" aria-label="Development spectra: SU2 full gap and probe threshold coincide; U1 even probe threshold exceeds the full gap. Numeric values follow in the table." ', 1)
+    fig, ax = plt.subplots(figsize=(8, 3), constrained_layout=True)
+    samples = data['vacuum-coercivity-check.json']['samples']
+    ax.plot([r['m'] for r in samples], [float(F(r['gap_over_kappa_upper'])) for r in samples], 'o-')
+    ax.set(xscale='log', yscale='log', xlabel='m, with beta = m^4', ylabel='Certified upper bound on gap / kappa',
+           title='Fixed kinetic coefficient does not ensure a uniform gap')
+    ax.grid(alpha=.2)
+    counter = svg(fig).replace('<svg ', '<svg role="img" aria-label="Counterexample gap upper bounds decrease toward zero as m increases. Six numeric bounds follow in a table." ', 1)
+    counter_table = ''.join('<tr><td>'+str(r['m'])+'</td><td>'+format(float(F(r['gap_over_kappa_upper'])), '.9g')+'</td></tr>' for r in samples)
+    table = ''.join('<tr>'+''.join('<td>'+escape(str(v))+'</td>' for v in
+        (r['theory'], r['g'], format(float(sum(map(F,r['full_gap_interval']))/2), '.9g'),
+         format(float(sum(map(F,r['observable_gap_interval']))/2), '.9g'),
+         len(r['qualifying_common_sample_pairs'])))+'</tr>' for r in rows)
+    extraction = '''import base64, gzip, hashlib, json, re
+from fractions import Fraction
+from pathlib import Path
+html = Path('VACUUM-REPORT.html').read_text()
+tag = re.search(r'<script id="machine-data" type="application/octet-stream" data-sha256="([0-9a-f]+)">(.*?)</script>', html, re.S)
+raw = gzip.decompress(base64.b64decode(tag.group(2)))
+assert hashlib.sha256(raw).hexdigest() == tag.group(1)
+report = json.loads(raw)
+assert hashlib.sha256(report['cas_program'].encode()).hexdigest() == report['cas_sha256']
+exec(compile(report['cas_program'], '<report-cas>', 'exec'), {})
+audit = report['data']['design-readiness.json']
+assert len(audit['cells']) == 20
+assert len(audit['targets']) == 42 and all(t['status']=='unrun' for t in audit['targets'])
+for cell in audit['cells']:
+    for field in ('full_gap_interval','observable_gap_interval'):
+        lo, hi = map(Fraction, cell[field])
+        assert 0 < lo <= hi
+assert report['data']['pilot-disposition.json']['historical_replication_verified'] is False
+print('Embedded data digest, exact interval ordering, target boundary and CAS checks passed.')
+# For the full numerical certificate replay use the pinned repository sources.
+'''
+    appendix = ''.join('<details><summary>'+escape(n)+'</summary><pre>'+escape((D/n).read_text())+'</pre></details>' for n in documents)
+    html = f'''<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Vacuum spectrum — evidence and proof obligations</title>
+<style>body{{font:17px/1.55 system-ui,sans-serif;max-width:1120px;margin:auto;padding:32px;color:#182b39;background:#fafbfd}}h1,h2,h3{{line-height:1.2}}h2{{margin-top:2em;border-top:1px solid #ccd5dd;padding-top:1em}}pre{{white-space:pre-wrap;overflow-wrap:anywhere;background:#edf2f6;padding:18px;font-size:13px}}table{{border-collapse:collapse;width:100%;font-size:14px}}th,td{{padding:7px;border-bottom:1px solid #ccd5dd;text-align:left}}svg{{max-width:100%;height:auto}}.cards{{display:flex;gap:12px;flex-wrap:wrap}}.card{{padding:16px;background:#e7eff5;border-radius:8px;flex:1;min-width:200px}}.equation{{font-size:19px;background:#edf3ef;padding:18px}}summary{{cursor:pointer;font-weight:600;padding:12px}}.open{{background:#fff0d4}}@media print{{body{{background:white;padding:0}}details{{break-inside:avoid}}}}</style>
+<h1>Vacuum spectrum: evidence, exact math, and remaining decisions</h1>
+<p>Consolidated 2026-09-09. Exploratory finite-rotor study; v3 source revision incorporated.
+The vacuum reduction is exact. A cutoff- and volume-uniform Yang–Mills gap is unproved.</p>
+<div class="cards"><div class="card"><b>20 development cells</b><br>Archived bounds, overlaps and sampled windows qualify.</div>
+<div class="card"><b>130 regression tests passed</b><br>Recorded run: 62.583 s at candidate 4b96f84.</div>
+<div class="card open"><b>42 targets unrun</b><br>No registration or target execution authorization.</div></div>
+<h2>1. Decisions needed from the user</h2>
+<p><b>Independent review:</b> a separate agent reviewed mathematical consistency, provenance,
+executable checks and basic accessibility. Its two findings were corrected; no outstanding
+defects remain within that scope. All three report-specific tests pass, including the exact
+embedded verifier and rejection of a CAS sign-error mutant. This does not certify the complete
+numerical instrument, continuum coercivity or browser rendering. The user will review this
+completed document; clear defects can be repaired without waiting for further input.
+<b>P/LC identifiers:</b> P denotes a prediction/experiment registration and LC a literature check
+in the original proslambenomenos ledgers. Assignment is needed only if registering through that
+owner workflow; it does not block this report, mathematical development or review in quod.
+Labels are optional in quod: commit hashes, artifact checksums and manifests provide the
+present traceability. A committed future specification, not a label format, is the substantive
+prerequisite for target execution. The numerical baseline is
+4b96f84614a5ceda04269af7a5a1d4e91a27ef95; the earlier handoff was published at 690ce6b.
+This newer report identifies its generator by SHA-256 in the embedded metadata.
+Review repairs and a future registration remain prerequisites for target execution. The original pilot is permanently
+unverifiable because its script and results are lost; recovery is no longer requested.</p>
+<h2>2. Physical models and exact reduction</h2>
+<table><tr><th>Model</th><th>Physical space and operator</th><th>Free gap</th></tr>
+<tr><td>SU(2)</td><td>Haar class functions; H = 4g² C₂ − 2ηP/g²; P = cos x</td><td>3g²</td></tr>
+<tr><td>U(1)</td><td>Periodic Haar functions; H = −4g² ∂²θ − 2η cos θ/g²</td><td>4g², both parities</td></tr></table>
+<p>g &gt; 0, η ≥ 0. Work at theta angle zero. For the general compact-link form,
+H = −κΣXⱼ² + V, κ &gt; 0. Xⱼ are divergence-free invariant derivatives.
+The Gauss constraint restricts Ψ to invariant functions. Let ψ₀ be the smooth,
+strictly positive normalized vacuum and P₀ its projection. Set Ψ = ψ₀f and dν = ψ₀²dU.</p>
+<div class="equation">Hψ₀ = E₀ψ₀<br>q[ψ₀f] = ⟨ψ₀f,(H−E₀)ψ₀f⟩ = κ∫Σ|Xⱼf|²dν<br>‖(I−P₀)Ψ‖² = Var<sub>ν</sub>(f)</div>
+<p>Expanding the energy leaves a total derivative plus the displayed Dirichlet form.
+Haar integration by parts removes that derivative; the vacuum equation removes the residual
+potential term. Closure extends the identity from the smooth physical core. The potential
+still determines ν. This is not cancellation of uncontrolled continuum infinities.</p>
+<h2>3. Proof dependency map</h2>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 210" role="img" aria-label="Vacuum identity needs an independent positive estimate and a limit construction to prove a uniform gap">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#435d70"/></marker></defs>
+<g fill="#e7eff5" stroke="#435d70"><rect x="5" y="40" width="225" height="120" rx="8"/><rect x="265" y="40" width="220" height="120" rx="8"/><rect x="520" y="40" width="220" height="120" rx="8" fill="#fff0d4"/><rect x="775" y="40" width="220" height="120" rx="8" fill="#fff0d4"/></g>
+<g font-family="sans-serif" font-size="16" text-anchor="middle"><text x="117" y="80">Constraints + vacuum</text><text x="117" y="110">Exact Dirichlet identity</text><text x="117" y="140">Established conditionally</text><text x="375" y="80">Independent estimate</text><text x="375" y="110">Rotor comparison proved</text><text x="375" y="140">Positive-margin region</text><text x="630" y="80">Uniform physical constant</text><text x="630" y="110">All cutoffs and volumes</text><text x="630" y="140">Not established for YM</text><text x="885" y="80">Construct limiting theory</text><text x="885" y="110">Pass full-domain bound</text><text x="885" y="140">Not established</text></g>
+<g stroke="#435d70" stroke-width="2" marker-end="url(#arrow)"><path d="M230 100H260"/><path d="M485 100H515"/><path d="M740 100H770"/></g></svg>
+<p>The required inequality is qᵣ[Ψ] ≥ δ*sᵣ‖(I−P₀,ᵣ)Ψ‖² for every physical form-domain Ψ,
+with δ* &gt; 0 independent of r. The reference energy sᵣ must be fixed independently of the gap.
+If physical conversion multiplies energies by cᵣ, cᵣsᵣ must approach a finite nonzero scale.</p>
+<h3>Independent sufficient bound in the controlled models</h3>
+<p>For a self-adjoint nonnegative T with compact resolvent, simple free vacuum and gap γ,
+and bounded potential v₋I ≤ V ≤ v₊I, full-domain min–max yields λ₁(T+V) ≥ γ+v₋.
+Using the free vacuum as a trial state yields λ₀(T+V) ≤ v₊. Subtraction proves:</p>
+<div class="equation">Δ(T+V) ≥ γ − (v₊−v₋)<br>SU(2): Δ ≥ 3g² − 4η/g²; positive if 3g⁴ &gt; 4η<br>U(1): Δ ≥ 4g² − 4η/g²; positive if g⁴ &gt; η</div>
+<p>This uses the whole physical domain, not a finite-basis Rayleigh minimum. It is analytic
+and has not been Lean-formalized. It provides no positive weak-coupling certificate at fixed
+η &gt; 0, and total potential oscillation can grow with volume.</p>
+<p>A separate vacuum-measure comparison gives Δᵣ ≥ κᵣaᵣ/(bᵣCᵣ) when
+aᵣ ≤ dνᵣ/dμᵣ ≤ bᵣ and Var<sub>μᵣ</sub>(f) ≤ Cᵣ∫|∇f|²dμᵣ.
+Uniformity requires inf κᵣaᵣ/(sᵣbᵣCᵣ) &gt; 0. None of the current moments defines
+these independent comparison constants.</p>
+<h2>4. Archived numerical evidence</h2><figure>{spectra}<figcaption>Archived development spectra and probe-accessible thresholds; numerical alternatives appear below.</figcaption></figure>
+<p>Only the 20 pre-existing η=1 development cells are plotted. Lines guide the eye;
+they do not interpolate certified bounds. Error bars use exact archived interval widths
+and are generally smaller than the markers. U(1) even probes can miss the odd full-gap state.</p>
+<table><tr><th>Theory</th><th>g</th><th>Full gap midpoint</th><th>Probe threshold midpoint</th><th>Qualifying common sample pairs</th></tr>{table}</table>
+<p>Displayed midpoints are rounded. Exact rational endpoints, overlap certificates, covariance,
+omitted-tail bounds and result-contract channel records are embedded below. A qualifying sampled
+pair is not a registered target window. Numerical regressions replay existing certificates;
+the full solver and analytic premises remain independently reviewable.</p>
+<h2>5. Counterexample and null obligations</h2>
+<p>On a fixed periodic circle, set ψβ ∝ exp[(β/2)cos(2θ)] and
+Vβ = κ[β²sin²(2θ) − 2βcos(2θ)]. Then Hβψβ = 0 and Hβ = κA* A,
+A = ∂θ + βsin(2θ). The positive vacuum is unique for each β.
+The mean-zero physical trial function f = cos θ gives Δβ/κ ≤ Eν(sin²θ)/(1−Eν(sin²θ)).</p>
+<div class="equation">β = m⁴, m ≥ 2:<br>Eν(sin²θ) ≤ Bₘ = m⁻² + 6m exp(−m²)<br>0 &lt; Δβ/κ ≤ Bₘ/(1−Bₘ) → 0</div><figure>{counter}<figcaption>Certified upper bounds for the fixed-kinetic counterexample.</figcaption></figure>
+<table><tr><th>m</th><th>Upper bound on gap/κ (rounded display)</th></tr>{counter_table}</table>
+<p>The fixed kinetic coefficient and vacuum equation therefore do not imply one uniform
+constant. This potential is a counterexample to that inference, not to pure Yang–Mills.
+Other required controls include energy offsets, accumulating eigenvalues 1/n, circle gaps
+4π²κ/L², restricted trial spaces, hidden spectral states, gapless connected correlations,
+nonzero-mean raw correlations and exact symmetry selection rules.</p>
+<h2>6. Machine-readable content and executable checks</h2>
+<p>This file is self-contained: no network scripts, fonts, plotting services or external images.
+The embedded JSON includes all 20 audit records, all 42 unrun target records, full result-contract
+data, finest-rung certificates, source SHA-256 hashes and explicit theorem statuses.
+The digest detects internal drift; it does not independently authenticate a scientific claim.</p>
+<p>Copy and run the following code next to this HTML using Python with SymPy {sp.__version__}.
+It checks four symbolic identities and exact data consistency. It does not prove the
+integration-by-parts hypotheses, min–max theorem, numerical certificates or continuum limit.</p>
+<pre>{escape(extraction)}</pre><details><summary>Exact CAS program</summary><pre>{escape(CAS)}</pre></details>
+<details><summary>Machine-data inventory and source hashes</summary><pre>{escape(json.dumps({k:v for k,v in payload.items() if k not in ('data','cas_program')},indent=2))}</pre></details>
+<script id="machine-data" type="application/octet-stream" data-sha256="{digest(raw)}">{encoded}</script>
+<h2>7. Complete supporting arguments and review specification</h2>
+<p>The complete source documents are embedded verbatim below as historical supporting records.
+Their earlier treatment of P/LC identifiers as a general development blocker is superseded by
+section 1 of this report. References to other repository
+files remain provenance pointers; their contents are not silently claimed to be included.
+To reproduce the full numerical audit in the pinned checkout, run
+<code>OPENBLAS_NUM_THREADS=1 python3 -m unittest discover -s scripts -p 'test_vacuum*.py' -v</code>.</p>{appendix}
+<footer><p>Build: scripts/vacuum_single_report.py. CAS {sp.__version__}; plotting Matplotlib {matplotlib.__version__}.
+Report generation executes no target solver and allocates no registration identifiers.</p></footer></html>'''
+    OUTPUT.write_text(html)
+    print(f'Wrote {OUTPUT} ({OUTPUT.stat().st_size:,} bytes)')
+    return extraction
+
+
+if __name__ == '__main__':
+    main()

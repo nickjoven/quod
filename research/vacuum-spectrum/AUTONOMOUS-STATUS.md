@@ -33,6 +33,21 @@ arithmetic/analytic base, not a registered field-theory conclusion.
 
 ## Next work and unresolved inputs
 
+[VACUUM-REPORT.html](VACUUM-REPORT.html) is the self-contained review document:
+embedded SVG visuals, exact rational evidence, provenance hashes, full supporting
+arguments and executable SymPy checks. Three report-specific tests pass. A
+separate agent review found no outstanding defects in mathematical consistency,
+provenance, executable checks or basic accessibility after repairs. This is not
+certification of the complete numerical instrument or a continuum proof.
+
+User clarification for the consolidated report: a separate agent review is
+authorized, and the user will review the completed single-document report.
+Repairs need not wait for user input. P/LC identifiers belong to the original
+`proslambenomenos` registration workflow; they do not block reporting,
+mathematical development or review in quod. Earlier statements treating them
+as a general development blocker are superseded. Future target execution
+still requires a concrete registration and the user's target decision.
+
 [REVIEW-HANDOFF.md](REVIEW-HANDOFF.md) pins the current review candidate,
 maps the outstanding review questions to artifacts, and records the full
 130-test validation. No independent review verdict or owner assignment has
