@@ -1,0 +1,4042 @@
+{
+  "schema_version": 1,
+  "state": "awaiting_target_selection",
+  "contract_sha256": "28e9d71fda9086b38dc936c7a25908dd6a7d68f7420bf7a2391f634dcb44a633",
+  "selected_target_ids": [],
+  "target_execution_authorized": false,
+  "targets_run": 0,
+  "rows": [
+    {
+      "id": "SU2:g=0.125:eta=0",
+      "selected": false,
+      "status": "unrun",
+      "reason": "awaiting the user's target selection",
+      "result": null,
+      "requests": {
+        "scalar": [
+          {
+            "method": "character",
+            "rung": 20
+          },
+          {
+            "method": "character",
+            "rung": 40
+          },
+          {
+            "method": "character",
+            "rung": 80
+          },
+          {
+            "method": "character",
+            "rung": 160
+          },
+          {
+            "method": "character",
+            "rung": 320
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 600
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 1200
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 2400
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 4800
+          }
+        ],
+        "certificates": [
+          20,
+          40,
+          80,
+          160,
+          320
+        ],
+        "temporal": [
+          {
+            "nodes": 600,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 600,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 1200,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 1200,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 2400,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 2400,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 4800,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 4800,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          }
+        ]
+      }
+    },
+    {
+      "id": "SU2:g=0.125:eta=0.5",
+      "selected": false,
+      "status": "unrun",
+      "reason": "awaiting the user's target selection",
+      "result": null,
+      "requests": {
+        "scalar": [
+          {
+            "method": "character",
+            "rung": 20
+          },
+          {
+            "method": "character",
+            "rung": 40
+          },
+          {
+            "method": "character",
+            "rung": 80
+          },
+          {
+            "method": "character",
+            "rung": 160
+          },
+          {
+            "method": "character",
+            "rung": 320
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 600
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 1200
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 2400
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 4800
+          }
+        ],
+        "certificates": [
+          20,
+          40,
+          80,
+          160,
+          320
+        ],
+        "temporal": [
+          {
+            "nodes": 600,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 600,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 1200,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 1200,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 2400,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 2400,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 4800,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 4800,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          }
+        ]
+      }
+    },
+    {
+      "id": "SU2:g=0.125:eta=1",
+      "selected": false,
+      "status": "unrun",
+      "reason": "awaiting the user's target selection",
+      "result": null,
+      "requests": {
+        "scalar": [
+          {
+            "method": "character",
+            "rung": 20
+          },
+          {
+            "method": "character",
+            "rung": 40
+          },
+          {
+            "method": "character",
+            "rung": 80
+          },
+          {
+            "method": "character",
+            "rung": 160
+          },
+          {
+            "method": "character",
+            "rung": 320
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 600
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 1200
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 2400
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 4800
+          }
+        ],
+        "certificates": [
+          20,
+          40,
+          80,
+          160,
+          320
+        ],
+        "temporal": [
+          {
+            "nodes": 600,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 600,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 1200,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 1200,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 2400,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 2400,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 4800,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 4800,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          }
+        ]
+      }
+    },
+    {
+      "id": "SU2:g=0.25:eta=0",
+      "selected": false,
+      "status": "unrun",
+      "reason": "awaiting the user's target selection",
+      "result": null,
+      "requests": {
+        "scalar": [
+          {
+            "method": "character",
+            "rung": 20
+          },
+          {
+            "method": "character",
+            "rung": 40
+          },
+          {
+            "method": "character",
+            "rung": 80
+          },
+          {
+            "method": "character",
+            "rung": 160
+          },
+          {
+            "method": "character",
+            "rung": 320
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 600
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 1200
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 2400
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 4800
+          }
+        ],
+        "certificates": [
+          20,
+          40,
+          80,
+          160,
+          320
+        ],
+        "temporal": [
+          {
+            "nodes": 600,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 600,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 1200,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 1200,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 2400,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 2400,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 4800,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 4800,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          }
+        ]
+      }
+    },
+    {
+      "id": "SU2:g=0.25:eta=0.5",
+      "selected": false,
+      "status": "unrun",
+      "reason": "awaiting the user's target selection",
+      "result": null,
+      "requests": {
+        "scalar": [
+          {
+            "method": "character",
+            "rung": 20
+          },
+          {
+            "method": "character",
+            "rung": 40
+          },
+          {
+            "method": "character",
+            "rung": 80
+          },
+          {
+            "method": "character",
+            "rung": 160
+          },
+          {
+            "method": "character",
+            "rung": 320
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 600
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 1200
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 2400
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 4800
+          }
+        ],
+        "certificates": [
+          20,
+          40,
+          80,
+          160,
+          320
+        ],
+        "temporal": [
+          {
+            "nodes": 600,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 600,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 1200,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 1200,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 2400,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 2400,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 4800,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 4800,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          }
+        ]
+      }
+    },
+    {
+      "id": "SU2:g=0.25:eta=1",
+      "selected": false,
+      "status": "unrun",
+      "reason": "awaiting the user's target selection",
+      "result": null,
+      "requests": {
+        "scalar": [
+          {
+            "method": "character",
+            "rung": 20
+          },
+          {
+            "method": "character",
+            "rung": 40
+          },
+          {
+            "method": "character",
+            "rung": 80
+          },
+          {
+            "method": "character",
+            "rung": 160
+          },
+          {
+            "method": "character",
+            "rung": 320
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 600
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 1200
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 2400
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 4800
+          }
+        ],
+        "certificates": [
+          20,
+          40,
+          80,
+          160,
+          320
+        ],
+        "temporal": [
+          {
+            "nodes": 600,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 600,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 1200,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 1200,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 2400,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 2400,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 4800,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 4800,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          }
+        ]
+      }
+    },
+    {
+      "id": "SU2:g=0.40:eta=0",
+      "selected": false,
+      "status": "unrun",
+      "reason": "awaiting the user's target selection",
+      "result": null,
+      "requests": {
+        "scalar": [
+          {
+            "method": "character",
+            "rung": 20
+          },
+          {
+            "method": "character",
+            "rung": 40
+          },
+          {
+            "method": "character",
+            "rung": 80
+          },
+          {
+            "method": "character",
+            "rung": 160
+          },
+          {
+            "method": "character",
+            "rung": 320
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 600
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 1200
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 2400
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 4800
+          }
+        ],
+        "certificates": [
+          20,
+          40,
+          80,
+          160,
+          320
+        ],
+        "temporal": [
+          {
+            "nodes": 600,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 600,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 1200,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 1200,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 2400,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 2400,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 4800,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 4800,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          }
+        ]
+      }
+    },
+    {
+      "id": "SU2:g=0.40:eta=0.5",
+      "selected": false,
+      "status": "unrun",
+      "reason": "awaiting the user's target selection",
+      "result": null,
+      "requests": {
+        "scalar": [
+          {
+            "method": "character",
+            "rung": 20
+          },
+          {
+            "method": "character",
+            "rung": 40
+          },
+          {
+            "method": "character",
+            "rung": 80
+          },
+          {
+            "method": "character",
+            "rung": 160
+          },
+          {
+            "method": "character",
+            "rung": 320
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 600
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 1200
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 2400
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 4800
+          }
+        ],
+        "certificates": [
+          20,
+          40,
+          80,
+          160,
+          320
+        ],
+        "temporal": [
+          {
+            "nodes": 600,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 600,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 1200,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 1200,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 2400,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 2400,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 4800,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 4800,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          }
+        ]
+      }
+    },
+    {
+      "id": "SU2:g=0.40:eta=1",
+      "selected": false,
+      "status": "unrun",
+      "reason": "awaiting the user's target selection",
+      "result": null,
+      "requests": {
+        "scalar": [
+          {
+            "method": "character",
+            "rung": 20
+          },
+          {
+            "method": "character",
+            "rung": 40
+          },
+          {
+            "method": "character",
+            "rung": 80
+          },
+          {
+            "method": "character",
+            "rung": 160
+          },
+          {
+            "method": "character",
+            "rung": 320
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 600
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 1200
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 2400
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 4800
+          }
+        ],
+        "certificates": [
+          20,
+          40,
+          80,
+          160,
+          320
+        ],
+        "temporal": [
+          {
+            "nodes": 600,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 600,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 1200,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 1200,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 2400,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 2400,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 4800,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 4800,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          }
+        ]
+      }
+    },
+    {
+      "id": "SU2:g=0.60:eta=0",
+      "selected": false,
+      "status": "unrun",
+      "reason": "awaiting the user's target selection",
+      "result": null,
+      "requests": {
+        "scalar": [
+          {
+            "method": "character",
+            "rung": 20
+          },
+          {
+            "method": "character",
+            "rung": 40
+          },
+          {
+            "method": "character",
+            "rung": 80
+          },
+          {
+            "method": "character",
+            "rung": 160
+          },
+          {
+            "method": "character",
+            "rung": 320
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 600
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 1200
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 2400
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 4800
+          }
+        ],
+        "certificates": [
+          20,
+          40,
+          80,
+          160,
+          320
+        ],
+        "temporal": [
+          {
+            "nodes": 600,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 600,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 1200,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 1200,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 2400,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 2400,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 4800,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 4800,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          }
+        ]
+      }
+    },
+    {
+      "id": "SU2:g=0.60:eta=0.5",
+      "selected": false,
+      "status": "unrun",
+      "reason": "awaiting the user's target selection",
+      "result": null,
+      "requests": {
+        "scalar": [
+          {
+            "method": "character",
+            "rung": 20
+          },
+          {
+            "method": "character",
+            "rung": 40
+          },
+          {
+            "method": "character",
+            "rung": 80
+          },
+          {
+            "method": "character",
+            "rung": 160
+          },
+          {
+            "method": "character",
+            "rung": 320
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 600
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 1200
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 2400
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 4800
+          }
+        ],
+        "certificates": [
+          20,
+          40,
+          80,
+          160,
+          320
+        ],
+        "temporal": [
+          {
+            "nodes": 600,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 600,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 1200,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 1200,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 2400,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 2400,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 4800,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 4800,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          }
+        ]
+      }
+    },
+    {
+      "id": "SU2:g=0.60:eta=1",
+      "selected": false,
+      "status": "unrun",
+      "reason": "awaiting the user's target selection",
+      "result": null,
+      "requests": {
+        "scalar": [
+          {
+            "method": "character",
+            "rung": 20
+          },
+          {
+            "method": "character",
+            "rung": 40
+          },
+          {
+            "method": "character",
+            "rung": 80
+          },
+          {
+            "method": "character",
+            "rung": 160
+          },
+          {
+            "method": "character",
+            "rung": 320
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 600
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 1200
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 2400
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 4800
+          }
+        ],
+        "certificates": [
+          20,
+          40,
+          80,
+          160,
+          320
+        ],
+        "temporal": [
+          {
+            "nodes": 600,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 600,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 1200,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 1200,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 2400,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 2400,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 4800,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 4800,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          }
+        ]
+      }
+    },
+    {
+      "id": "SU2:g=0.85:eta=0",
+      "selected": false,
+      "status": "unrun",
+      "reason": "awaiting the user's target selection",
+      "result": null,
+      "requests": {
+        "scalar": [
+          {
+            "method": "character",
+            "rung": 20
+          },
+          {
+            "method": "character",
+            "rung": 40
+          },
+          {
+            "method": "character",
+            "rung": 80
+          },
+          {
+            "method": "character",
+            "rung": 160
+          },
+          {
+            "method": "character",
+            "rung": 320
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 600
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 1200
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 2400
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 4800
+          }
+        ],
+        "certificates": [
+          20,
+          40,
+          80,
+          160,
+          320
+        ],
+        "temporal": [
+          {
+            "nodes": 600,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 600,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 1200,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 1200,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 2400,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 2400,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 4800,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 4800,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          }
+        ]
+      }
+    },
+    {
+      "id": "SU2:g=0.85:eta=0.5",
+      "selected": false,
+      "status": "unrun",
+      "reason": "awaiting the user's target selection",
+      "result": null,
+      "requests": {
+        "scalar": [
+          {
+            "method": "character",
+            "rung": 20
+          },
+          {
+            "method": "character",
+            "rung": 40
+          },
+          {
+            "method": "character",
+            "rung": 80
+          },
+          {
+            "method": "character",
+            "rung": 160
+          },
+          {
+            "method": "character",
+            "rung": 320
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 600
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 1200
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 2400
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 4800
+          }
+        ],
+        "certificates": [
+          20,
+          40,
+          80,
+          160,
+          320
+        ],
+        "temporal": [
+          {
+            "nodes": 600,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 600,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 1200,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 1200,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 2400,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 2400,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 4800,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 4800,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          }
+        ]
+      }
+    },
+    {
+      "id": "SU2:g=0.85:eta=1",
+      "selected": false,
+      "status": "unrun",
+      "reason": "awaiting the user's target selection",
+      "result": null,
+      "requests": {
+        "scalar": [
+          {
+            "method": "character",
+            "rung": 20
+          },
+          {
+            "method": "character",
+            "rung": 40
+          },
+          {
+            "method": "character",
+            "rung": 80
+          },
+          {
+            "method": "character",
+            "rung": 160
+          },
+          {
+            "method": "character",
+            "rung": 320
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 600
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 1200
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 2400
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 4800
+          }
+        ],
+        "certificates": [
+          20,
+          40,
+          80,
+          160,
+          320
+        ],
+        "temporal": [
+          {
+            "nodes": 600,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 600,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 1200,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 1200,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 2400,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 2400,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 4800,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 4800,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          }
+        ]
+      }
+    },
+    {
+      "id": "SU2:g=1.25:eta=0",
+      "selected": false,
+      "status": "unrun",
+      "reason": "awaiting the user's target selection",
+      "result": null,
+      "requests": {
+        "scalar": [
+          {
+            "method": "character",
+            "rung": 20
+          },
+          {
+            "method": "character",
+            "rung": 40
+          },
+          {
+            "method": "character",
+            "rung": 80
+          },
+          {
+            "method": "character",
+            "rung": 160
+          },
+          {
+            "method": "character",
+            "rung": 320
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 600
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 1200
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 2400
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 4800
+          }
+        ],
+        "certificates": [
+          20,
+          40,
+          80,
+          160,
+          320
+        ],
+        "temporal": [
+          {
+            "nodes": 600,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 600,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 1200,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 1200,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 2400,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 2400,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 4800,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 4800,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          }
+        ]
+      }
+    },
+    {
+      "id": "SU2:g=1.25:eta=0.5",
+      "selected": false,
+      "status": "unrun",
+      "reason": "awaiting the user's target selection",
+      "result": null,
+      "requests": {
+        "scalar": [
+          {
+            "method": "character",
+            "rung": 20
+          },
+          {
+            "method": "character",
+            "rung": 40
+          },
+          {
+            "method": "character",
+            "rung": 80
+          },
+          {
+            "method": "character",
+            "rung": 160
+          },
+          {
+            "method": "character",
+            "rung": 320
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 600
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 1200
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 2400
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 4800
+          }
+        ],
+        "certificates": [
+          20,
+          40,
+          80,
+          160,
+          320
+        ],
+        "temporal": [
+          {
+            "nodes": 600,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 600,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 1200,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 1200,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 2400,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 2400,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 4800,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 4800,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          }
+        ]
+      }
+    },
+    {
+      "id": "SU2:g=1.25:eta=1",
+      "selected": false,
+      "status": "unrun",
+      "reason": "awaiting the user's target selection",
+      "result": null,
+      "requests": {
+        "scalar": [
+          {
+            "method": "character",
+            "rung": 20
+          },
+          {
+            "method": "character",
+            "rung": 40
+          },
+          {
+            "method": "character",
+            "rung": 80
+          },
+          {
+            "method": "character",
+            "rung": 160
+          },
+          {
+            "method": "character",
+            "rung": 320
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 600
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 1200
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 2400
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 4800
+          }
+        ],
+        "certificates": [
+          20,
+          40,
+          80,
+          160,
+          320
+        ],
+        "temporal": [
+          {
+            "nodes": 600,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 600,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 1200,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 1200,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 2400,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 2400,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 4800,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 4800,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          }
+        ]
+      }
+    },
+    {
+      "id": "SU2:g=2.50:eta=0",
+      "selected": false,
+      "status": "unrun",
+      "reason": "awaiting the user's target selection",
+      "result": null,
+      "requests": {
+        "scalar": [
+          {
+            "method": "character",
+            "rung": 20
+          },
+          {
+            "method": "character",
+            "rung": 40
+          },
+          {
+            "method": "character",
+            "rung": 80
+          },
+          {
+            "method": "character",
+            "rung": 160
+          },
+          {
+            "method": "character",
+            "rung": 320
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 600
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 1200
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 2400
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 4800
+          }
+        ],
+        "certificates": [
+          20,
+          40,
+          80,
+          160,
+          320
+        ],
+        "temporal": [
+          {
+            "nodes": 600,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 600,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 1200,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 1200,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 2400,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 2400,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 4800,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 4800,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          }
+        ]
+      }
+    },
+    {
+      "id": "SU2:g=2.50:eta=0.5",
+      "selected": false,
+      "status": "unrun",
+      "reason": "awaiting the user's target selection",
+      "result": null,
+      "requests": {
+        "scalar": [
+          {
+            "method": "character",
+            "rung": 20
+          },
+          {
+            "method": "character",
+            "rung": 40
+          },
+          {
+            "method": "character",
+            "rung": 80
+          },
+          {
+            "method": "character",
+            "rung": 160
+          },
+          {
+            "method": "character",
+            "rung": 320
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 600
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 1200
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 2400
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 4800
+          }
+        ],
+        "certificates": [
+          20,
+          40,
+          80,
+          160,
+          320
+        ],
+        "temporal": [
+          {
+            "nodes": 600,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 600,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 1200,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 1200,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 2400,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 2400,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 4800,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 4800,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          }
+        ]
+      }
+    },
+    {
+      "id": "SU2:g=2.50:eta=1",
+      "selected": false,
+      "status": "unrun",
+      "reason": "awaiting the user's target selection",
+      "result": null,
+      "requests": {
+        "scalar": [
+          {
+            "method": "character",
+            "rung": 20
+          },
+          {
+            "method": "character",
+            "rung": 40
+          },
+          {
+            "method": "character",
+            "rung": 80
+          },
+          {
+            "method": "character",
+            "rung": 160
+          },
+          {
+            "method": "character",
+            "rung": 320
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 600
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 1200
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 2400
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 4800
+          }
+        ],
+        "certificates": [
+          20,
+          40,
+          80,
+          160,
+          320
+        ],
+        "temporal": [
+          {
+            "nodes": 600,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 600,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 1200,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 1200,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 2400,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 2400,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 4800,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 4800,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          }
+        ]
+      }
+    },
+    {
+      "id": "U1:g=0.125:eta=0",
+      "selected": false,
+      "status": "unrun",
+      "reason": "awaiting the user's target selection",
+      "result": null,
+      "requests": {
+        "scalar": [
+          {
+            "method": "fourier",
+            "rung": 40
+          },
+          {
+            "method": "fourier",
+            "rung": 80
+          },
+          {
+            "method": "fourier",
+            "rung": 160
+          },
+          {
+            "method": "fourier",
+            "rung": 320
+          },
+          {
+            "method": "fourier",
+            "rung": 640
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 600
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 1200
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 2400
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 4800
+          }
+        ],
+        "certificates": [
+          40,
+          80,
+          160,
+          320,
+          640
+        ],
+        "temporal": [
+          {
+            "nodes": 600,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 600,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 1200,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 1200,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 2400,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 2400,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 4800,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 4800,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          }
+        ]
+      }
+    },
+    {
+      "id": "U1:g=0.125:eta=0.5",
+      "selected": false,
+      "status": "unrun",
+      "reason": "awaiting the user's target selection",
+      "result": null,
+      "requests": {
+        "scalar": [
+          {
+            "method": "fourier",
+            "rung": 40
+          },
+          {
+            "method": "fourier",
+            "rung": 80
+          },
+          {
+            "method": "fourier",
+            "rung": 160
+          },
+          {
+            "method": "fourier",
+            "rung": 320
+          },
+          {
+            "method": "fourier",
+            "rung": 640
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 600
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 1200
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 2400
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 4800
+          }
+        ],
+        "certificates": [
+          40,
+          80,
+          160,
+          320,
+          640
+        ],
+        "temporal": [
+          {
+            "nodes": 600,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 600,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 1200,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 1200,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 2400,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 2400,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 4800,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 4800,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          }
+        ]
+      }
+    },
+    {
+      "id": "U1:g=0.125:eta=1",
+      "selected": false,
+      "status": "unrun",
+      "reason": "awaiting the user's target selection",
+      "result": null,
+      "requests": {
+        "scalar": [
+          {
+            "method": "fourier",
+            "rung": 40
+          },
+          {
+            "method": "fourier",
+            "rung": 80
+          },
+          {
+            "method": "fourier",
+            "rung": 160
+          },
+          {
+            "method": "fourier",
+            "rung": 320
+          },
+          {
+            "method": "fourier",
+            "rung": 640
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 600
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 1200
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 2400
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 4800
+          }
+        ],
+        "certificates": [
+          40,
+          80,
+          160,
+          320,
+          640
+        ],
+        "temporal": [
+          {
+            "nodes": 600,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 600,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 1200,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 1200,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 2400,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 2400,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 4800,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 4800,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          }
+        ]
+      }
+    },
+    {
+      "id": "U1:g=0.25:eta=0",
+      "selected": false,
+      "status": "unrun",
+      "reason": "awaiting the user's target selection",
+      "result": null,
+      "requests": {
+        "scalar": [
+          {
+            "method": "fourier",
+            "rung": 40
+          },
+          {
+            "method": "fourier",
+            "rung": 80
+          },
+          {
+            "method": "fourier",
+            "rung": 160
+          },
+          {
+            "method": "fourier",
+            "rung": 320
+          },
+          {
+            "method": "fourier",
+            "rung": 640
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 600
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 1200
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 2400
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 4800
+          }
+        ],
+        "certificates": [
+          40,
+          80,
+          160,
+          320,
+          640
+        ],
+        "temporal": [
+          {
+            "nodes": 600,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 600,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 1200,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 1200,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 2400,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 2400,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 4800,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 4800,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          }
+        ]
+      }
+    },
+    {
+      "id": "U1:g=0.25:eta=0.5",
+      "selected": false,
+      "status": "unrun",
+      "reason": "awaiting the user's target selection",
+      "result": null,
+      "requests": {
+        "scalar": [
+          {
+            "method": "fourier",
+            "rung": 40
+          },
+          {
+            "method": "fourier",
+            "rung": 80
+          },
+          {
+            "method": "fourier",
+            "rung": 160
+          },
+          {
+            "method": "fourier",
+            "rung": 320
+          },
+          {
+            "method": "fourier",
+            "rung": 640
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 600
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 1200
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 2400
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 4800
+          }
+        ],
+        "certificates": [
+          40,
+          80,
+          160,
+          320,
+          640
+        ],
+        "temporal": [
+          {
+            "nodes": 600,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 600,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 1200,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 1200,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 2400,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 2400,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 4800,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 4800,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          }
+        ]
+      }
+    },
+    {
+      "id": "U1:g=0.25:eta=1",
+      "selected": false,
+      "status": "unrun",
+      "reason": "awaiting the user's target selection",
+      "result": null,
+      "requests": {
+        "scalar": [
+          {
+            "method": "fourier",
+            "rung": 40
+          },
+          {
+            "method": "fourier",
+            "rung": 80
+          },
+          {
+            "method": "fourier",
+            "rung": 160
+          },
+          {
+            "method": "fourier",
+            "rung": 320
+          },
+          {
+            "method": "fourier",
+            "rung": 640
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 600
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 1200
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 2400
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 4800
+          }
+        ],
+        "certificates": [
+          40,
+          80,
+          160,
+          320,
+          640
+        ],
+        "temporal": [
+          {
+            "nodes": 600,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 600,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 1200,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 1200,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 2400,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 2400,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 4800,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 4800,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          }
+        ]
+      }
+    },
+    {
+      "id": "U1:g=0.40:eta=0",
+      "selected": false,
+      "status": "unrun",
+      "reason": "awaiting the user's target selection",
+      "result": null,
+      "requests": {
+        "scalar": [
+          {
+            "method": "fourier",
+            "rung": 40
+          },
+          {
+            "method": "fourier",
+            "rung": 80
+          },
+          {
+            "method": "fourier",
+            "rung": 160
+          },
+          {
+            "method": "fourier",
+            "rung": 320
+          },
+          {
+            "method": "fourier",
+            "rung": 640
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 600
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 1200
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 2400
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 4800
+          }
+        ],
+        "certificates": [
+          40,
+          80,
+          160,
+          320,
+          640
+        ],
+        "temporal": [
+          {
+            "nodes": 600,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 600,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 1200,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 1200,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 2400,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 2400,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 4800,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 4800,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          }
+        ]
+      }
+    },
+    {
+      "id": "U1:g=0.40:eta=0.5",
+      "selected": false,
+      "status": "unrun",
+      "reason": "awaiting the user's target selection",
+      "result": null,
+      "requests": {
+        "scalar": [
+          {
+            "method": "fourier",
+            "rung": 40
+          },
+          {
+            "method": "fourier",
+            "rung": 80
+          },
+          {
+            "method": "fourier",
+            "rung": 160
+          },
+          {
+            "method": "fourier",
+            "rung": 320
+          },
+          {
+            "method": "fourier",
+            "rung": 640
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 600
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 1200
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 2400
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 4800
+          }
+        ],
+        "certificates": [
+          40,
+          80,
+          160,
+          320,
+          640
+        ],
+        "temporal": [
+          {
+            "nodes": 600,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 600,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 1200,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 1200,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 2400,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 2400,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 4800,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 4800,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          }
+        ]
+      }
+    },
+    {
+      "id": "U1:g=0.40:eta=1",
+      "selected": false,
+      "status": "unrun",
+      "reason": "awaiting the user's target selection",
+      "result": null,
+      "requests": {
+        "scalar": [
+          {
+            "method": "fourier",
+            "rung": 40
+          },
+          {
+            "method": "fourier",
+            "rung": 80
+          },
+          {
+            "method": "fourier",
+            "rung": 160
+          },
+          {
+            "method": "fourier",
+            "rung": 320
+          },
+          {
+            "method": "fourier",
+            "rung": 640
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 600
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 1200
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 2400
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 4800
+          }
+        ],
+        "certificates": [
+          40,
+          80,
+          160,
+          320,
+          640
+        ],
+        "temporal": [
+          {
+            "nodes": 600,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 600,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 1200,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 1200,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 2400,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 2400,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 4800,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 4800,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          }
+        ]
+      }
+    },
+    {
+      "id": "U1:g=0.60:eta=0",
+      "selected": false,
+      "status": "unrun",
+      "reason": "awaiting the user's target selection",
+      "result": null,
+      "requests": {
+        "scalar": [
+          {
+            "method": "fourier",
+            "rung": 40
+          },
+          {
+            "method": "fourier",
+            "rung": 80
+          },
+          {
+            "method": "fourier",
+            "rung": 160
+          },
+          {
+            "method": "fourier",
+            "rung": 320
+          },
+          {
+            "method": "fourier",
+            "rung": 640
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 600
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 1200
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 2400
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 4800
+          }
+        ],
+        "certificates": [
+          40,
+          80,
+          160,
+          320,
+          640
+        ],
+        "temporal": [
+          {
+            "nodes": 600,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 600,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 1200,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 1200,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 2400,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 2400,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 4800,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 4800,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          }
+        ]
+      }
+    },
+    {
+      "id": "U1:g=0.60:eta=0.5",
+      "selected": false,
+      "status": "unrun",
+      "reason": "awaiting the user's target selection",
+      "result": null,
+      "requests": {
+        "scalar": [
+          {
+            "method": "fourier",
+            "rung": 40
+          },
+          {
+            "method": "fourier",
+            "rung": 80
+          },
+          {
+            "method": "fourier",
+            "rung": 160
+          },
+          {
+            "method": "fourier",
+            "rung": 320
+          },
+          {
+            "method": "fourier",
+            "rung": 640
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 600
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 1200
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 2400
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 4800
+          }
+        ],
+        "certificates": [
+          40,
+          80,
+          160,
+          320,
+          640
+        ],
+        "temporal": [
+          {
+            "nodes": 600,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 600,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 1200,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 1200,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 2400,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 2400,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 4800,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 4800,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          }
+        ]
+      }
+    },
+    {
+      "id": "U1:g=0.60:eta=1",
+      "selected": false,
+      "status": "unrun",
+      "reason": "awaiting the user's target selection",
+      "result": null,
+      "requests": {
+        "scalar": [
+          {
+            "method": "fourier",
+            "rung": 40
+          },
+          {
+            "method": "fourier",
+            "rung": 80
+          },
+          {
+            "method": "fourier",
+            "rung": 160
+          },
+          {
+            "method": "fourier",
+            "rung": 320
+          },
+          {
+            "method": "fourier",
+            "rung": 640
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 600
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 1200
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 2400
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 4800
+          }
+        ],
+        "certificates": [
+          40,
+          80,
+          160,
+          320,
+          640
+        ],
+        "temporal": [
+          {
+            "nodes": 600,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 600,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 1200,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 1200,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 2400,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 2400,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 4800,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 4800,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          }
+        ]
+      }
+    },
+    {
+      "id": "U1:g=0.85:eta=0",
+      "selected": false,
+      "status": "unrun",
+      "reason": "awaiting the user's target selection",
+      "result": null,
+      "requests": {
+        "scalar": [
+          {
+            "method": "fourier",
+            "rung": 40
+          },
+          {
+            "method": "fourier",
+            "rung": 80
+          },
+          {
+            "method": "fourier",
+            "rung": 160
+          },
+          {
+            "method": "fourier",
+            "rung": 320
+          },
+          {
+            "method": "fourier",
+            "rung": 640
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 600
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 1200
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 2400
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 4800
+          }
+        ],
+        "certificates": [
+          40,
+          80,
+          160,
+          320,
+          640
+        ],
+        "temporal": [
+          {
+            "nodes": 600,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 600,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 1200,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 1200,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 2400,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 2400,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 4800,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 4800,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          }
+        ]
+      }
+    },
+    {
+      "id": "U1:g=0.85:eta=0.5",
+      "selected": false,
+      "status": "unrun",
+      "reason": "awaiting the user's target selection",
+      "result": null,
+      "requests": {
+        "scalar": [
+          {
+            "method": "fourier",
+            "rung": 40
+          },
+          {
+            "method": "fourier",
+            "rung": 80
+          },
+          {
+            "method": "fourier",
+            "rung": 160
+          },
+          {
+            "method": "fourier",
+            "rung": 320
+          },
+          {
+            "method": "fourier",
+            "rung": 640
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 600
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 1200
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 2400
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 4800
+          }
+        ],
+        "certificates": [
+          40,
+          80,
+          160,
+          320,
+          640
+        ],
+        "temporal": [
+          {
+            "nodes": 600,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 600,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 1200,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 1200,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 2400,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 2400,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 4800,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 4800,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          }
+        ]
+      }
+    },
+    {
+      "id": "U1:g=0.85:eta=1",
+      "selected": false,
+      "status": "unrun",
+      "reason": "awaiting the user's target selection",
+      "result": null,
+      "requests": {
+        "scalar": [
+          {
+            "method": "fourier",
+            "rung": 40
+          },
+          {
+            "method": "fourier",
+            "rung": 80
+          },
+          {
+            "method": "fourier",
+            "rung": 160
+          },
+          {
+            "method": "fourier",
+            "rung": 320
+          },
+          {
+            "method": "fourier",
+            "rung": 640
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 600
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 1200
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 2400
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 4800
+          }
+        ],
+        "certificates": [
+          40,
+          80,
+          160,
+          320,
+          640
+        ],
+        "temporal": [
+          {
+            "nodes": 600,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 600,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 1200,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 1200,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 2400,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 2400,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 4800,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 4800,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          }
+        ]
+      }
+    },
+    {
+      "id": "U1:g=1.25:eta=0",
+      "selected": false,
+      "status": "unrun",
+      "reason": "awaiting the user's target selection",
+      "result": null,
+      "requests": {
+        "scalar": [
+          {
+            "method": "fourier",
+            "rung": 40
+          },
+          {
+            "method": "fourier",
+            "rung": 80
+          },
+          {
+            "method": "fourier",
+            "rung": 160
+          },
+          {
+            "method": "fourier",
+            "rung": 320
+          },
+          {
+            "method": "fourier",
+            "rung": 640
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 600
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 1200
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 2400
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 4800
+          }
+        ],
+        "certificates": [
+          40,
+          80,
+          160,
+          320,
+          640
+        ],
+        "temporal": [
+          {
+            "nodes": 600,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 600,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 1200,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 1200,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 2400,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 2400,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 4800,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 4800,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          }
+        ]
+      }
+    },
+    {
+      "id": "U1:g=1.25:eta=0.5",
+      "selected": false,
+      "status": "unrun",
+      "reason": "awaiting the user's target selection",
+      "result": null,
+      "requests": {
+        "scalar": [
+          {
+            "method": "fourier",
+            "rung": 40
+          },
+          {
+            "method": "fourier",
+            "rung": 80
+          },
+          {
+            "method": "fourier",
+            "rung": 160
+          },
+          {
+            "method": "fourier",
+            "rung": 320
+          },
+          {
+            "method": "fourier",
+            "rung": 640
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 600
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 1200
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 2400
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 4800
+          }
+        ],
+        "certificates": [
+          40,
+          80,
+          160,
+          320,
+          640
+        ],
+        "temporal": [
+          {
+            "nodes": 600,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 600,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 1200,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 1200,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 2400,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 2400,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 4800,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 4800,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          }
+        ]
+      }
+    },
+    {
+      "id": "U1:g=1.25:eta=1",
+      "selected": false,
+      "status": "unrun",
+      "reason": "awaiting the user's target selection",
+      "result": null,
+      "requests": {
+        "scalar": [
+          {
+            "method": "fourier",
+            "rung": 40
+          },
+          {
+            "method": "fourier",
+            "rung": 80
+          },
+          {
+            "method": "fourier",
+            "rung": 160
+          },
+          {
+            "method": "fourier",
+            "rung": 320
+          },
+          {
+            "method": "fourier",
+            "rung": 640
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 600
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 1200
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 2400
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 4800
+          }
+        ],
+        "certificates": [
+          40,
+          80,
+          160,
+          320,
+          640
+        ],
+        "temporal": [
+          {
+            "nodes": 600,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 600,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 1200,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 1200,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 2400,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 2400,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 4800,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 4800,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          }
+        ]
+      }
+    },
+    {
+      "id": "U1:g=2.50:eta=0",
+      "selected": false,
+      "status": "unrun",
+      "reason": "awaiting the user's target selection",
+      "result": null,
+      "requests": {
+        "scalar": [
+          {
+            "method": "fourier",
+            "rung": 40
+          },
+          {
+            "method": "fourier",
+            "rung": 80
+          },
+          {
+            "method": "fourier",
+            "rung": 160
+          },
+          {
+            "method": "fourier",
+            "rung": 320
+          },
+          {
+            "method": "fourier",
+            "rung": 640
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 600
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 1200
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 2400
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 4800
+          }
+        ],
+        "certificates": [
+          40,
+          80,
+          160,
+          320,
+          640
+        ],
+        "temporal": [
+          {
+            "nodes": 600,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 600,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 1200,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 1200,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 2400,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 2400,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 4800,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 4800,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          }
+        ]
+      }
+    },
+    {
+      "id": "U1:g=2.50:eta=0.5",
+      "selected": false,
+      "status": "unrun",
+      "reason": "awaiting the user's target selection",
+      "result": null,
+      "requests": {
+        "scalar": [
+          {
+            "method": "fourier",
+            "rung": 40
+          },
+          {
+            "method": "fourier",
+            "rung": 80
+          },
+          {
+            "method": "fourier",
+            "rung": 160
+          },
+          {
+            "method": "fourier",
+            "rung": 320
+          },
+          {
+            "method": "fourier",
+            "rung": 640
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 600
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 1200
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 2400
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 4800
+          }
+        ],
+        "certificates": [
+          40,
+          80,
+          160,
+          320,
+          640
+        ],
+        "temporal": [
+          {
+            "nodes": 600,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 600,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 1200,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 1200,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 2400,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 2400,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 4800,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 4800,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          }
+        ]
+      }
+    },
+    {
+      "id": "U1:g=2.50:eta=1",
+      "selected": false,
+      "status": "unrun",
+      "reason": "awaiting the user's target selection",
+      "result": null,
+      "requests": {
+        "scalar": [
+          {
+            "method": "fourier",
+            "rung": 40
+          },
+          {
+            "method": "fourier",
+            "rung": 80
+          },
+          {
+            "method": "fourier",
+            "rung": 160
+          },
+          {
+            "method": "fourier",
+            "rung": 320
+          },
+          {
+            "method": "fourier",
+            "rung": 640
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 600
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 1200
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 2400
+          },
+          {
+            "method": "angle_fourth",
+            "rung": 4800
+          }
+        ],
+        "certificates": [
+          40,
+          80,
+          160,
+          320,
+          640
+        ],
+        "temporal": [
+          {
+            "nodes": 600,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 600,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 1200,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 1200,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 2400,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 2400,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          },
+          {
+            "nodes": 4800,
+            "rtol": 1e-08,
+            "atol": 1e-18
+          },
+          {
+            "nodes": 4800,
+            "rtol": 1e-10,
+            "atol": 1e-20
+          }
+        ]
+      }
+    }
+  ]
+}

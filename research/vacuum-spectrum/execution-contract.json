@@ -318,9 +318,11 @@
     "scripts/vacuum_u1_design.py": "4bd5288e371d1476ae4e2f06f4248ae01a4240d2f08a007e59bf13ad869241d0",
     "scripts/vacuum_u1_design_certified.py": "5d28ff695e5213121c1a3240c4b35065f21e14677305c63a0bd3da3affc26f48",
     "scripts/vacuum_u1_design_run.py": "51ba26f6de1889374c96bb8737d4a02b5ec701474a92802e6ca2660b26a6f3d5",
-    "scripts/vacuum_execution_contract.py": "364f32ec999c10c6ffce3880c7f3296e85940b32c965a2d09579b3499c92cd75",
+    "scripts/vacuum_execution_contract.py": "fc089fe1db0b65bda6dff061e68d2d71e2d41a1e7dfb88246fca6e852e2a9c15",
     "research/vacuum-spectrum/execution-contract.schema.json": "b1f0e71daf78f606f7f3f422b304c09947b18b6321b46aeaef293c5c74f1e1a9",
     "research/vacuum-spectrum/requirements.txt": "4b81b6b6a549771115529e6900b9589835cdbfff0c6acf179aef53d283b744d5",
-    "research/vacuum-spectrum/requirements-readiness.txt": "58d8f0ad48e3d2ad33d88188a694b9dd442577eaaa6873ccbcf25c31ea1d6ed1"
+    "research/vacuum-spectrum/requirements-readiness.txt": "58d8f0ad48e3d2ad33d88188a694b9dd442577eaaa6873ccbcf25c31ea1d6ed1",
+    "research/vacuum-spectrum/target-result-envelope.schema.json": "55a3c6419239ef9537b9f0e7cd46461144c639308b140c3f08c7637e8e6b1ab8",
+    "scripts/vacuum_target_envelope.py": "102211645c4570b52432e7bd3380d3c6ca01ba25dd97f4e0ab41e7c2b468dda4"
   }
 }

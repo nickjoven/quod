@@ -16,6 +16,7 @@ import matplotlib.pyplot as plt
 import sympy as sp
 from vacuum_run_envelope import scalar_accuracy
 import vacuum_execution_contract as execution_contract
+import vacuum_target_envelope as target_envelope
 
 ROOT = Path(__file__).resolve().parents[1]
 D = ROOT / 'research/vacuum-spectrum'
@@ -137,9 +138,10 @@ def svg(fig):
 def main():
     exec(compile(CAS, '<embedded-cas-checks>', 'exec'), {})
     names = ['design-readiness.json', 'result-contract.json', 'pilot-disposition.json',
-             'vacuum-coercivity-check.json', 'execution-contract.json']
+             'vacuum-coercivity-check.json', 'execution-contract.json', 'target-result-envelope.json']
     data = {n: json.loads((D/n).read_text()) for n in names}
     execution_contract.validate(data['execution-contract.json'])
+    target_envelope.validate(data['target-result-envelope.json'])
     audit = data['design-readiness.json']
     rows = audit['cells']
     assert len(rows) == 20 and all(r['status'] == 'development_qualified' for r in rows)
@@ -283,10 +285,19 @@ def main():
             'source_sha256': {p:digest((ROOT/p).read_bytes()) for p in (
                 'scripts/vacuum_execution_contract.py', 'scripts/test_vacuum_execution_contract.py',
                 'research/vacuum-spectrum/execution-contract.schema.json')},
-            'remaining_before_registration': ['target_execution_authorization_and_terminal_envelope',
-                'review_final_execution_artifact', 'user_target_selection'],
+            'next_required_input': 'user_target_selection',
+            'after_selection': ['commit_selected_registration', 'enable_and_validate_exact_subset_execution_path'],
             'cost_limitations': 'historical eta=1 stage timings; integration checkpoint overhead and deformation runtimes unmeasured'},
-        'blockers': {'independent_review': 'report_and_analytic_certificate_chain_reviewed; future_execution_and_registration_requirements_remain',
+        'target_envelope': {
+            'status': 'ready_for_user_target_selection', 'tests_passed': 3,
+            'independent_review': 'no_defect_within_preselection_envelope_and_denial_gate_scope',
+            'planned_requests': {'scalar':378,'certificates':210,'temporal':336},
+            'scope': 'all42unselected; nullresults; exact protocol requests; valid draft always denies execution',
+            'source_sha256': {p:digest((ROOT/p).read_bytes()) for p in (
+                'scripts/vacuum_target_envelope.py','scripts/test_vacuum_target_envelope.py',
+                'research/vacuum-spectrum/target-result-envelope.schema.json')}},
+        'blockers': {'independent_review': 'preselection_development_review_complete_with_stated_scope_limits',
+                     'next_required_input': 'user_target_selection',
                      'user_review': 'user_will_review_completed_document; not_required_to_continue_repairs',
                      'owner_assigned_P_LC_ids': 'optional_in_quod; required_only_for_legacy_ledger_submission',
                      'registration': 'unregistered; required_before_future_target_execution'},
@@ -340,6 +351,12 @@ assert hashlib.sha256(report['cas_program'].encode()).hexdigest() == report['cas
 exec(compile(report['cas_program'], '<report-cas>', 'exec'), {})
 audit = report['data']['design-readiness.json']
 assert len(audit['cells']) == 20
+target = report['data']['target-result-envelope.json']
+assert target['selected_target_ids'] == [] and target['target_execution_authorized'] is False
+assert target['targets_run'] == 0 and len(target['rows']) == 42
+assert all(r['selected'] is False and r['status'] == 'unrun' and r['result'] is None for r in target['rows'])
+assert target['contract_sha256'] == report['source_sha256']['execution-contract.json']
+assert [r['id'] for r in target['rows']] == [r['id'] for r in audit['targets']]
 assert len(audit['targets']) == 42 and all(t['status']=='unrun' for t in audit['targets'])
 for cell in audit['cells']:
     for field in ('full_gap_interval','observable_gap_interval'):
@@ -369,9 +386,16 @@ print('Embedded data digest, exact interval ordering, target boundary and CAS ch
 <p>Consolidated 2026-09-09. Exploratory finite-rotor study; v3 source revision incorporated.
 The vacuum reduction is exact. A cutoff- and volume-uniform Yang–Mills gap is unproved.</p>
 <div class="cards"><div class="card"><b>20 development cells</b><br>Archived bounds, overlaps and sampled windows qualify.</div>
-<div class="card"><b>199 regression tests passed</b><br>Recorded development-envelope run: 72.600 s; source hashes embedded below.</div>
+<div class="card"><b>202 regression tests passed</b><br>Recorded pre-selection run: 76.243 s; source hashes embedded below.</div>
 <div class="card open"><b>42 targets unrun</b><br>No registration or target execution authorization.</div></div>
 <h2>1. Decisions needed from the user</h2>
+<p><b>The development prerequisites are complete through the target-selection boundary.</b>
+The next required input is which target cells to characterize. The complete candidate set
+is both SU(2) and U(1), with g ∈ {{0.125, 0.25, 0.40, 0.60, 0.85, 1.25, 2.50}} and
+η ∈ {{0, 0.5, 1}}: 42 cells. A subset or the full set can be specified. None is selected.
+After that decision, commit the selected registration and enable and validate its exact
+execution path before running anything. Independent readiness review found no further
+numerical sweep necessary merely to make this selection.</p>
 <p><b>Independent review:</b> a separate agent reviewed mathematical consistency, provenance,
 executable checks and basic accessibility. Its two findings were corrected; no outstanding
 defects remain within that scope. A subsequent independent analytic/code review found no
@@ -389,7 +413,7 @@ present traceability. A committed future specification, not a label format, is t
 prerequisite for target execution. The numerical baseline is
 4b96f84614a5ceda04269af7a5a1d4e91a27ef95; the earlier handoff was published at 690ce6b.
 This newer report identifies its generator by SHA-256 in the embedded metadata.
-Review repairs and a future registration remain prerequisites for target execution. The original pilot is permanently
+The reviewed repairs are complete; a selected registration remains necessary before execution. The original pilot is permanently
 unverifiable because its script and results are lost; recovery is no longer requested.</p>
 <h2>2. Physical models and exact reduction</h2>
 <table><tr><th>Model</th><th>Physical space and operator</th><th>Free gap</th></tr>
@@ -490,9 +514,9 @@ at level two for both theories. Interacting uncertain overlaps remain unresolved
 and nonblank failure/unresolved reasons. Six adapter tests cover the producer path,
 contradictory weights, partial failures and malformed evidence. An available adapter record
 means outputs and thresholds are structurally available; its precision status remains
-“not assessed.” The adapter has no solver or target-run entry point. A complete future-run
-envelope, target-run request accounting and committed authorization procedure
-still need implementation before target execution.</p>
+“not assessed.” The adapter has no solver or target-run entry point. The integrated
+development replay and unselected target envelope below supply the current orchestration
+and request checks. Actual target execution follows a separate selected registration.</p>
 <p>The separate reviewer verified the free-selection and failure-retention repairs and the
 schema's rejection of malformed stage containers, result types and reasons. No outstanding
 defect remains from that adapter review. Certificate contents still require independent
@@ -603,11 +627,21 @@ partial failed evidence and rejects agreement with a failed required stage; stru
 acceptance cannot establish scientific validity or grant authority. Four contract tests
 check mutation rejection and preservation of partial evidence without solving target cells.
 Independent review found no defect within the nonexecuting draft and structural scope.
-Target execution authorization, the target terminal envelope, final artifact review and the
-user's target decision remain required. Dependency versions identify the Python environment;
+The user's target decision is now required. Dependency versions identify the Python environment;
 they do not guarantee identical native binaries or hardware behavior.
 Historical cost scenarios exclude integration checkpoint overhead and do not measure
 the free/deformed runtime behavior.</p>
+<p><b>Target-result envelope and stopping boundary:</b> the bound, machine-readable skeleton
+retains all 42 identities, empty selection and null results. Every row lists its exact
+representation, certificate and grid/tolerance requests. Across the full candidate set
+these total 378 scalar requests, 210 certificate cutoffs and 336 propagations; these are
+plans, not completed work. Three tests reject inventory, request, precision, result and
+authorization mutations. A valid draft always denies execution. Independent review found
+no defect in this pre-selection scope. The historical full-set cost scenarios are about
+20.85 minutes at mean measured stage cost and 38.29 minutes using per-stage observed maxima;
+the explicit fourfold stress scenario is 153.16 minutes. These exclude new integration and
+checkpoint overhead and are not runtime guarantees. Registration and an execution path for
+the chosen subset follow the user's selection.</p>
 <h2>5. Counterexample and null obligations</h2>
 <p>On a fixed periodic circle, set ψβ ∝ exp[(β/2)cos(2θ)] and
 Vβ = κ[β²sin²(2θ) − 2βcos(2θ)]. Then Hβψβ = 0 and Hβ = κA* A,

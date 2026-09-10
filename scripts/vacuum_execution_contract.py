@@ -36,7 +36,8 @@ def environment():
 def source_hashes():
     result=development.source_hashes()
     for path in (Path(__file__).resolve(),SCHEMA,DIRECTORY/'requirements.txt',
-                 DIRECTORY/'requirements-readiness.txt'):
+                 DIRECTORY/'requirements-readiness.txt',DIRECTORY/'target-result-envelope.schema.json',
+                 Path(__file__).resolve().parent/'vacuum_target_envelope.py'):
         result[str(path.relative_to(development.baseline.ROOT))]=hashlib.sha256(path.read_bytes()).hexdigest()
     return result
 

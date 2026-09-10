@@ -49,10 +49,10 @@ class SingleReportTests(unittest.TestCase):
         for review in ('combined_error_review', 'analytic_certificate_review', 'future_adapter',
                        'parameterized_certificate', 'parameterized_temporal', 'parameterized_scalar',
                        'run_envelope', 'execution_protocol_draft', 'temporal_replay', 'scalar_replay',
-                       'whole_result_replay'):
+                       'whole_result_replay', 'target_envelope'):
             for name, expected in self.payload[review]['source_sha256'].items():
                 self.assertEqual(hashlib.sha256((report.ROOT/name).read_bytes()).hexdigest(), expected, name)
-        for name in ('design-readiness.json', 'result-contract.json', 'pilot-disposition.json', 'vacuum-coercivity-check.json', 'execution-contract.json'):
+        for name in ('design-readiness.json', 'result-contract.json', 'pilot-disposition.json', 'vacuum-coercivity-check.json', 'execution-contract.json', 'target-result-envelope.json'):
             self.assertEqual(self.payload['data'][name], json.loads((report.D/name).read_text()))
         self.assertEqual(self.payload['cas_program'], report.CAS)
         self.assertEqual(self.payload['report_generator_sha256'],

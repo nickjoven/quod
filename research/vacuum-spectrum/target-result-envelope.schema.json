@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Unselected target result envelope; no execution authority",
+  "type": "object", "additionalProperties": false,
+  "required": ["schema_version", "state", "contract_sha256", "selected_target_ids", "target_execution_authorized", "targets_run", "rows"],
+  "properties": {
+    "schema_version": {"const": 1}, "state": {"const": "awaiting_target_selection"},
+    "contract_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "selected_target_ids": {"type": "array", "maxItems": 0},
+    "target_execution_authorized": {"const": false}, "targets_run": {"const": 0},
+    "rows": {"type": "array", "minItems": 42, "maxItems": 42, "items": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "selected", "status", "reason", "result", "requests"],
+      "properties": {
+        "id": {"type": "string", "pattern": "\\S"}, "selected": {"const": false},
+        "status": {"const": "unrun"}, "reason": {"type": "string", "pattern": "\\S"}, "result": {"type": "null"},
+        "requests": {"type": "object", "additionalProperties": false,
+          "required": ["scalar", "certificates", "temporal"],
+          "properties": {
+            "scalar": {"type": "array", "minItems": 9, "maxItems": 9, "items": {
+              "type": "object", "additionalProperties": false, "required": ["method", "rung"],
+              "properties": {"method": {"enum": ["character", "fourier", "angle_fourth"]}, "rung": {"type": "integer", "minimum": 4}}
+            }},
+            "certificates": {"type": "array", "minItems": 5, "maxItems": 5, "items": {"type": "integer", "minimum": 4}},
+            "temporal": {"type": "array", "minItems": 8, "maxItems": 8, "items": {
+              "type": "object", "additionalProperties": false, "required": ["nodes", "rtol", "atol"],
+              "properties": {"nodes": {"type": "integer", "minimum": 16}, "rtol": {"type": "number", "exclusiveMinimum": 0}, "atol": {"type": "number", "exclusiveMinimum": 0}}
+            }}
+          }
+        }
+      }
+    }}
+  }
+}
