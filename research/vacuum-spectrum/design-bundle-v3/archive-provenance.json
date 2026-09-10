@@ -1,0 +1,23 @@
+{
+  "archive_sha256": "2144f205f462cdb094d09a76e9c9bd577013143634ed8e56bd4968eedfded178",
+  "manifest_sha256": "499e1ae21b766c0c93fbbe97d331a0551f8e5077c5406a99f98d496f6d7c2cce",
+  "members": [
+    "README.md",
+    "changes.patch",
+    "github_delivery.json",
+    "github_issue_body.md",
+    "github_issue_request.json",
+    "history/v2/github_delivery.json",
+    "history/v2/github_issue_body.md",
+    "history/v2/github_issue_request.json",
+    "history/v2/manifest.json",
+    "manifest.json",
+    "notes/ym_vacuum_gap_handoff.md",
+    "notes/ym_vacuum_gap_litcheck.md",
+    "notes/ym_vacuum_gap_registration_draft.md",
+    "review/yang_mills_proposal_review_v1.md",
+    "v1_to_v2.patch",
+    "v2_to_v3.patch"
+  ],
+  "verification": "All 15 payload SHA-256 hashes match the supplied manifest; provenance is internal consistency, not independent review approval."
+}

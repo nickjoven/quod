@@ -33,6 +33,13 @@ arithmetic/analytic base, not a registered field-theory conclusion.
 
 ## Next work and unresolved inputs
 
+The supplied version-3 bundle is preserved and compared in
+[V3-FOCUS.md](V3-FOCUS.md). Its numerical specification is unchanged. The new
+proof milestone is addressed first by a full-domain bounded-potential lower
+bound for the existing rotors, with its positivity region and lack of a
+volume/continuum-uniform estimate explicit. The included conceptual proposal
+review does not close independent review of the numerical instrument.
+
 The subsequent mathematical derivation is in
 [VACUUM-COERCIVITY.md](VACUUM-COERCIVITY.md). The vacuum equation reduces the
 physical energy exactly to its weighted Dirichlet form. Uniform coercivity

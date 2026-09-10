@@ -1,0 +1,42 @@
+{
+  "task": "ym-vacuum-gap-litcheck",
+  "artifact_version": 2,
+  "date": "2026-09-09",
+  "original_date": "2026-09-08",
+  "literature_cutoff": "2026-09-08",
+  "source_repository": "nickjoven/proslambenomenos",
+  "issue_repository": "nickjoven/quod",
+  "base_commit": "da0084147986a97f355954be6b0eff4246b9d852",
+  "parent_source_commit": "b4da419ee2e26ad6f67b7084a7e82c1de53309e8",
+  "local_head": "dcab70b7e638bc692c3fe49c7c7cf84e859e6cfa",
+  "parent_archive_sha256": "40ea861688a607eb1fd4607c8dfbacfc29874e43d89ac37b72f606aef6ca1221",
+  "source_remote_written": false,
+  "github_issue_created": false,
+  "github_delivery": "github_delivery.json",
+  "registration": "unregistered draft",
+  "target_cells_run": false,
+  "checks": [
+    "notes gate passed",
+    "message gate passed",
+    "internal links and math/code delimiters checked",
+    "S1–S18 sequence checked",
+    "original experiment specification unchanged",
+    "git whitespace checks passed",
+    "full and incremental patch applicability checked",
+    "GitHub payload content and size checked",
+    "archive member hashes checked"
+  ],
+  "inherited_validation": "Version-1 analytic null algebra and Haar quadrature; not rerun for v2",
+  "full_repo_gates_run": false,
+  "sha256": {
+    "README.md": "59621f084dcacee7cb3d27255b66992c399e88cd37feac1b0c5f8fad95ff686e",
+    "changes.patch": "0c07d3f50245d5df0e782efcf04b71610d6e4a3e06ffc4fda8390b2aca5d48ff",
+    "github_delivery.json": "300443665efc87e4bbde6b1542f28adbd9af753d724ee83e0b4f0d304da43137",
+    "github_issue_body.md": "098b111fb899d83a465b728fb0521d161529b9ea477a1cc827faeb9fc2319b08",
+    "github_issue_request.json": "9ab3f2750a224c19a096b89310e94ae456f4f064aba1a3f7f106a34aed6eaadd",
+    "notes/ym_vacuum_gap_handoff.md": "508897e881e8aa6277b8703d43027fcc9c0e2ca851ab770274656d8a3b50203c",
+    "notes/ym_vacuum_gap_litcheck.md": "4013a9e780ca4b8d07ea5e109715845113661730adc0c86f79a9f1e4891dae17",
+    "notes/ym_vacuum_gap_registration_draft.md": "73b0135db3dfbf2793aa8bed46f421ab97b660f67603af3ba8f3532dadfe5bc3",
+    "v1_to_v2.patch": "396a2fafcbedcad1c0f702f32b39830b4ffbeda6587d55cad0eeec62980e2ae0"
+  }
+}

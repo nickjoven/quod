@@ -1,0 +1,13 @@
+{
+  "artifact_version": 3,
+  "date": "2026-09-09",
+  "repository": "nickjoven/quod",
+  "requested_method": "gh api",
+  "status": "prepared_not_attempted",
+  "issue_url": null,
+  "request_file": "github_issue_request.json",
+  "body_file": "github_issue_body.md",
+  "posting_attempts_this_revision": 0,
+  "previous_attempt_record": "history/v2/github_delivery.json",
+  "previous_attempt_request": "history/v2/github_issue_request.json"
+}

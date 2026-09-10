@@ -1,0 +1,15 @@
+{
+  "artifact_version": 2,
+  "date": "2026-09-09",
+  "repository": "nickjoven/quod",
+  "requested_method": "gh api",
+  "gh_available": false,
+  "attempted_method": "connected GitHub REST API",
+  "status": "not_created",
+  "http_status": 404,
+  "issue_url": null,
+  "reason": "The connected GitHub account could not resolve the repository or create an issue; GitHub returned 404 Not Found. This does not distinguish a missing repository from missing access.",
+  "request_file": "github_issue_request.json",
+  "body_file": "github_issue_body.md",
+  "posting_attempts": 1
+}

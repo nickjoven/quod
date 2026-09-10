@@ -1,0 +1,263 @@
+diff --git a/notes/ym_vacuum_gap_handoff.md b/notes/ym_vacuum_gap_handoff.md
+index 688fa98..f0e7633 100644
+--- a/notes/ym_vacuum_gap_handoff.md
++++ b/notes/ym_vacuum_gap_handoff.md
+@@ -1,13 +1,20 @@
+ <!-- commentary -->
+-# Vacuum–spectrum LITCHECK handoff
++# Vacuum–spectrum LITCHECK handoff v2
+ 
+-Task: `ym-vacuum-gap-litcheck`, 2026-09-08.
++Artifact version: **2**, revised 2026-09-09; first issued 2026-09-08.
++Task: `ym-vacuum-gap-litcheck`.
+ Repository: `nickjoven/proslambenomenos`.
+ Base: `da0084147986a97f355954be6b0eff4246b9d852`.
+ Owned worktree branch: `ym-vacuum-gap-litcheck`.
+ 
+ ## Deliverables
+ 
++Version 2 adds five primary sources and the 2026 glueball update to the
++LITCHECK. The registration draft adds a follow-on benchmark note. The
++existing mathematical derivations, numerical cells and target status
++are preserved. Literature reviewed through 2026-09-08 is incorporated;
++this revision does not purport to audit later publications.
++
+ - [LITCHECK draft](ym_vacuum_gap_litcheck.md): primary-source table,
+   exact conditional propositions, corrected necessity/sufficiency
+   logic, vacuum-measure/kinetic-form bridge, exclusions.
+@@ -69,7 +76,7 @@ implemented derive layer.
+ 
+ ## Checks and delivery
+ 
+-The existing notes gate and commit-message gate passed. Local Markdown
++For version 1, the notes gate and commit-message gate passed. Local Markdown
+ links, display-math delimiters, code fences and whitespace were checked.
+ The tensor-sum null's eigenvectors were checked in exact rational
+ arithmetic; SU(2) Haar moments were checked with Gauss–Chebyshev U
+@@ -78,8 +85,16 @@ checks concern the document and analytic controls, not target results.
+ The full repository gate suite was not run for this commentary-only
+ handoff; it remains part of integrator landing.
+ 
+-The task has a local commit, but no remote branch was created. The shell
+-push had no GitHub credentials; authenticated branch creation separately
+-returned HTTP 403, `Resource not accessible by integration`. Delivery is
+-therefore a self-contained artifact bundle, including an apply-ready
+-patch against the inspected base. No remote repository content changed.
++The version-1 source work had a local commit, but no remote branch was
++created. The shell push lacked GitHub credentials; authenticated branch
++creation separately returned HTTP 403. The version-2 bundle retains the
++source repository and base above as provenance and includes a patch
++against that base. Its manifest distinguishes current document checks
++from the analytic checks inherited from version 1. No numerical targets
++were executed for version 2.
++
++The user requested an issue in `nickjoven/quod` as a document archive.
++That issue destination is separate from the source/design repository.
++The prepared issue text contains the documents themselves; it does not
++depend on temporary file links. The bundle records the posting outcome
++separately in `github_delivery.json`.
+diff --git a/notes/ym_vacuum_gap_litcheck.md b/notes/ym_vacuum_gap_litcheck.md
+index a76689b..9f27f09 100644
+--- a/notes/ym_vacuum_gap_litcheck.md
++++ b/notes/ym_vacuum_gap_litcheck.md
+@@ -1,7 +1,9 @@
+ <!-- commentary -->
+-# Yang–Mills vacuum structure and spectral gap — LITCHECK draft
++# Yang–Mills vacuum structure and spectral gap — LITCHECK draft v2
+ 
+-Date: 2026-09-08. Task: `ym-vacuum-gap-litcheck`.
++Artifact version: **2**, revised 2026-09-09; first issued 2026-09-08.
++Literature cut-off for this revision: 2026-09-08.
++Task: `ym-vacuum-gap-litcheck`.
+ Repository: `nickjoven/proslambenomenos`.
+ Base inspected: `da0084147986a97f355954be6b0eff4246b9d852`.
+ 
+@@ -11,6 +13,13 @@ companion [experiment draft](ym_vacuum_gap_registration_draft.md) has not
+ been registered or run. Source classifications below concern the cited
+ literature; they do not change any repository claim.
+ 
++Revision 2 adds sources S14–S18 and a dated glueball update: the BESIII
++identification claim and its direct criticism, scalar structure and
++mixing calculations, and an SU(3) plaquette-chain continuum benchmark.
++The conditional mathematical propositions remain those of version 1.
++The companion design adds a follow-on benchmark note; no target cells,
++numerical tolerances, or execution status change in this revision.
++
+ ## Question and disposition
+ 
+ **What gauge-invariant information in the vacuum, together with specified
+@@ -58,6 +67,11 @@ derived later in this note stand on the displayed assumptions and algebra.
+ | S11 | [Clay's current Yang–Mills problem page](https://www.claymath.org/millennium/yang-mills-the-maths-gap/), read 2026-09-08 | The official problem is still listed as unsolved | Status source only; not an assessment of every claimed solution |
+ | S12 | Douglas, [The Yang–Mills Millennium problem](https://www.nature.com/articles/s42254-025-00909-2), Nature Reviews Physics 8 (2026), 86–97; [publisher listing](https://www.nature.com/natrevphys/articles?type=review-article&year=2026) and abstract | Review exists, published 12 January 2026; surveys the problem | Secondary context only. Full body was not accessible reliably; the preceding thread's stronger wording about no clear route is not imported as an exact statement |
+ | S13 | Morningstar–Peardon, [The glueball spectrum from an anisotropic lattice study](https://arxiv.org/abs/hep-lat/9901004), PRD 60 (1999), 034509; abstract | Operator-based glueball spectroscopy with finite-volume/discretization checks | One measured channel or finite operator basis does not certify the full Hilbert-space gap |
++| S14 | BESIII, [Lightest 0−+ Glueball as Dominant Constituent of X(2370)](https://arxiv.org/abs/2607.20366), submitted 22 July 2026; abstract and main HTML text | Combined production/decay evidence for the collaboration's composition claim | Preprint; composition inference is distinct from resonance measurements |
++| S15 | Ben–Yang–Zou, [On the Nature of X(2370)](https://arxiv.org/html/2609.01342v1), 1 September 2026; abstract and argument on suppressed decay | Direct challenge to S14 and a competing molecular interpretation | Preprint; the proposed alternative is not an established identification |
++| S16 | Abbott et al., [Lattice Evidence that Scalar Glueballs Are Small](https://doi.org/10.1103/67xg-qxhz), PRL 136 (2026), 041901, published 26 January; published abstract and [preprint main text](https://arxiv.org/html/2508.21821v1) | Scalar-glueball gravitational form factors in pure SU(3) | One lattice spacing; the radius is a defined form-factor quantity |
++| S17 | Gui et al., [Scalar glueball–s-sbar mixing in one flavor lattice QCD](https://arxiv.org/abs/2607.17294), submitted 19 July 2026; abstract | Exploratory scalar mixing calculation | One dynamical flavor and one spacing; continuum and quark-mass dependence remain open |
++| S18 | Siew–Chandrasekharan–Bhattacharya, [Continuum limit of a qubit-regularized SU(3) lattice gauge theory with glueballs](https://arxiv.org/abs/2603.01215), submitted 1 March 2026; main HTML text | A massive continuum benchmark on a plaquette chain | Quasi-one-dimensional, with a different critical theory from four-dimensional Yang–Mills |
+ 
+ Search angles: official existence/gap formulation; reconstruction and
+ clustering; gauge invariance; 2+1 and 3+1 vacuum-functionals; glueball and
+@@ -247,6 +261,116 @@ not new results. The ZIP's README names two notes absent from the ZIP;
+ their contents are not reconstructed or treated as available evidence.
+ The handoff records the exact source hashes.
+ 
++## 2026 glueball update
++
++The following are cited results and research implications, not new
++calculations performed for this artifact. Publication and access status
++are recorded in S14–S18. A headline describing a discovery is not used as
++a substitute for the underlying measurement or inference.
++
++### X(2370): separate the measurement from the composition argument
++
++S14 combines approximately ten billion J/psi events with the established
++pseudoscalar quantum numbers, a mass near 2.37 GeV, production information
++and decay patterns. A central new input is the absence of a significant
++K*(892)-Kbar signal in the selected decay channel. The authors infer
++flavor-singlet character and argue for a dominant glueball component.
++The resonance's observation predates this 2026 composition claim.
++
++S15 disputes the inference and proposes a predominantly Sigma–anti-Sigma
++molecule. In particular, a symmetry forbidding a decay does not establish
++that every state with a suppressed decay has that symmetry. Nor does
++flavor-singlet character by itself uniquely specify gluonic composition.
++The competing model is also an interpretation requiring further tests.
++
++The working literature classification is therefore **a substantial
++experimental identification claim with disputed composition**, rather
++than an agreed determination of a pure glueball. Keep measured channels,
++upper limits and quantum numbers separate from model interpretation.
++This is the same logical discipline as the predicate D discussion:
++compatibility with a predicted consequence is not a sufficiency theorem.
++
++Even an eventual definitive identification would concern a resonance in
++QCD with dynamical quarks. It would not construct pure Yang–Mills or
++exclude all lower-energy physical spectral support. The pseudoscalar
++0−+ channel must also remain separate from the scalar 0++ channel (S1,
++S13). A resonance peak is not automatically the lower endpoint of a
++positive spectral measure; lighter multiparticle states can contribute.
++
++### Scalar structure: information beyond a mass
++
++S16 reports a first scalar-glueball gravitational-form-factor calculation
++in pure SU(3), with mass radius 0.263(31) fm. It uses one lattice spacing;
++the quoted error does not replace a continuum extrapolation. These form
++factors parameterize matrix elements of the energy–momentum tensor
++between glueball states, schematically <G(p')|T_mu_nu|G(p)>. They are
++obtained using vacuum-subtracted two- and three-point correlations.
++The terminology does not mean dynamical gravity or curvature supplied
++the mass. The radius definition and scale-setting convention must travel
++with the number.
++
++Our classification places this on the excitation-structure side. It
++describes the identified state, not a one-point vacuum expectation.
++It suggests a later discrimination test for mechanisms that reproduce
++similar masses but predict different internal structure. That suggestion
++is a research-design inference, not a gap bound or a task to implement
++form factors in the current one-plaquette instrument.
++
++### Mixing: the pure-gauge-to-QCD comparison has extra obligations
++
++S17 finds substantial scalar glueball–strangeonium mixing, approximately
++40.7(2.7) degrees in its two-state analysis. This is a one-flavor,
++single-spacing lattice study. It is not a quantitative determination of
++the composition of physical scalar resonances with all relevant quark
++flavors and decay channels. The authors leave continuum and quark-mass
++dependence for further investigation.
++
++For a later full-QCD comparison, our inference is to retain the operator
++basis, normalization conventions, cross-correlators and overlaps, rather
++than match one mass to a pure-gauge prediction. Mixing angles depend on
++the stated analysis and should not be relabeled universal percentages
++of constituent glue. Adding quark operators is appropriate to that
++different theory; it is not required in the current pure-gauge pilot.
++
++### A plaquette-chain continuum benchmark
++
++S18 maps an SU(3) plaquette chain to a three-state clock model. Its
++massive continuum theory is a relevant perturbation of the Z3
++parafermion critical theory. Reported continuum ratios are
++
++\[
++m^-/m^+=1.459(2),\qquad \sqrt{\sigma}/m^+=0.2648(2),
++\]
++
++where the signs denote charge conjugation. The study includes scaling
++and relativistic-dispersion checks. These are published-in-preprint
++benchmark readings, not measurements by this project. The model is
++quasi-one-dimensional: its critical theory and relevant deformation
++must not be equated with four-dimensional Yang–Mills running or its
++dimensional-transmutation mechanism.
++
++Our proposed follow-on use is instrument validation on a connected
++family with explicit scaling, after the current calibration. Known
++ratios would be development/replication targets, never held-out
++predictions. The companion design records the remaining choices before
++any such benchmark could be registered.
++
++### What this revision changes in the research direction
++
++| Input | Use in this project | Inference excluded |
++|---|---|---|
++| X(2370) production and decay studies | Update the evidence map and track competing explanations | A resonance establishes the full pure-Yang–Mills gap |
++| Glueball form factors | Consider internal structure when comparing mechanisms in a later model | A measured radius or a tensor matrix element alone supplies a uniform lower bound |
++| Scalar mixing calculation | Require explicit composition and operator-coverage analysis for full-QCD comparisons | A mixing angle in an exploratory model identifies a physical resonance |
++| Plaquette-chain continuum study | Candidate benchmark for scaling, channel separation and extraction methods | A continuum limit in one theory establishes the desired four-dimensional universality class |
++
++The constructive target remains a quantitative bound derived from a
++specified vacuum property and kinetic form, with control of the full
++physical domain and regulator limits. None of these imports completes
++that target. They improve the evidence map and the available calibration
++models without converting a conditional proposition into a Yang–Mills
++existence or mass-gap result.
++
+ ## Exclusions and next action
+ 
+ - No inference from a nonzero condensate, susceptibility or classical
+diff --git a/notes/ym_vacuum_gap_registration_draft.md b/notes/ym_vacuum_gap_registration_draft.md
+index 8d9baf6..63ffeb1 100644
+--- a/notes/ym_vacuum_gap_registration_draft.md
++++ b/notes/ym_vacuum_gap_registration_draft.md
+@@ -1,7 +1,8 @@
+ <!-- commentary -->
+-# Vacuum–spectrum two-axis study — registration draft
++# Vacuum–spectrum two-axis study — registration draft v2
+ 
+-Date: 2026-09-08. Task: `ym-vacuum-gap-litcheck`.
++Artifact version: **2**, revised 2026-09-09; first issued 2026-09-08.
++Task: `ym-vacuum-gap-litcheck`.
+ State: **unregistered design; target cells unrun**. No P or LC ID assigned.
+ This note specifies the next finite-model instrument study. It does not
+ register a prediction, assert a repo status, or promise a continuum result.
+@@ -273,6 +274,30 @@ exists, rather than masquerading as observables already implemented:
+ - A proposed lower bound must control the full physical form domain.
+   Finite-basis variational estimates and ansatz fits alone do not do this.
+ 
++## Version 2 follow-on benchmark note
++
++The [LITCHECK v2](ym_vacuum_gap_litcheck.md) adds five sources on 2026
++glueball developments. Its SU(3) plaquette-chain source, S18, is a
++candidate follow-on benchmark because it supplies a connected model and
++a specified continuum scaling target. This is a recommendation for a
++later design; the cells, controls, tolerances and unrun status above are
++unchanged. Literature ratios are replication inputs, not fresh predictions.
++
++Before making that benchmark executable, specify the exact link
++Hamiltonian and representation content, physical sectors, mapping to
++the comparison model, and the chosen critical trajectory. Then freeze
++the chain lengths, numerical refinement and uncertainty budgets,
++space/time conversion, operator selection identities, and treatment of
++finite-volume and multiparticle contamination. Derive the detector nulls
++and window bounds for that model; do not reuse this rotor's bounds by
++analogy. Consult the lessons tool again for those concrete choices.
++
++Any success would calibrate an instrument within the selected theory.
++It would not establish four-dimensional universality or a uniform
++Yang–Mills lower bound. The new structure and mixing papers belong in
++later model-comparison designs. The experimental X(2370) composition
++claim supplies no target value for this one-plaquette Hamiltonian.
++
+ ## Before this draft becomes a registration
+ 
+ Allocate the P/LC identifiers through the repository assignment process;

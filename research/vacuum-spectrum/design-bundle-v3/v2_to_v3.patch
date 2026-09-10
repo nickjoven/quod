@@ -1,0 +1,341 @@
+diff --git a/notes/ym_vacuum_gap_handoff.md b/notes/ym_vacuum_gap_handoff.md
+--- a/notes/ym_vacuum_gap_handoff.md
++++ b/notes/ym_vacuum_gap_handoff.md
+@@ -1,19 +1,29 @@
+ <!-- commentary -->
+-# Vacuum–spectrum LITCHECK handoff v2
++# Vacuum–spectrum LITCHECK handoff v3
+ 
+-Artifact version: **2**, revised 2026-09-09; first issued 2026-09-08.
++Artifact version: **3**, revised 2026-09-09; first issued 2026-09-08.
+ Task: `ym-vacuum-gap-litcheck`.
+ Repository: `nickjoven/proslambenomenos`.
+ Base: `da0084147986a97f355954be6b0eff4246b9d852`.
+-Owned worktree branch: `ym-vacuum-gap-litcheck`.
++Historical source worktree branch: `ym-vacuum-gap-litcheck`.
+ 
+ ## Deliverables
++
++Version 3 clarifies the cancellation identity and the uniform coercivity
++estimate already implicit in the ground-state-transform route. It adds
++two primary geometric sources, distinguishes three meanings of geometry,
++and separates a lower-bound proof milestone from numerical calibration.
++The inherited glueball search ends on 2026-09-08; the focused geometry
++check is dated 2026-09-09. No new scientific target cells were added or run.
++The original pilot specification is preserved. The earlier proposal
++review already describes this route in section 5 and remains version 1;
++an unchanged copy is included under review/ in the bundle.
+ 
+ Version 2 adds five primary sources and the 2026 glueball update to the
+ LITCHECK. The registration draft adds a follow-on benchmark note. The
+ existing mathematical derivations, numerical cells and target status
+ are preserved. Literature reviewed through 2026-09-08 is incorporated;
+-this revision does not purport to audit later publications.
++that revision did not purport to audit later publications.
+ 
+ - [LITCHECK draft](ym_vacuum_gap_litcheck.md): primary-source table,
+   exact conditional propositions, corrected necessity/sufficiency
+@@ -98,3 +108,25 @@
+ The prepared issue text contains the documents themselves; it does not
+ depend on temporary file links. The bundle records the posting outcome
+ separately in `github_delivery.json`.
++
++## Version-3 validation and delivery boundary
++
++This revision updates document artifacts. It has no new source commit,
++remote write, GitHub posting attempt, ledger entry or claim promotion.
++The source branch and commit references above are historical provenance.
++The repository's current instructions and gates must be checked when an
++integrator lands the patch; no repository gates were run for version 3.
++
++Document checks cover preserved pilot content, source keys S1–S20,
++companion links, math/code delimiters, patch application in temporary
++workspaces, exact agreement between the issue body and its JSON payload,
++the GitHub body-size limit, and archive member hashes. Full-patch checks
++use an empty notes workspace; incremental checks use the exact archived
++version-2 notes. They do not constitute a rebase onto current repository
++main. No numerical targets, analytic-control reruns or Lean builds were
++performed in this revision.
++
++The version-3 issue payload is prepared but was not posted. The previous
++HTTP 404 delivery record and the exact version-2 request/body are retained
++under history/v2/. The current github_delivery.json distinguishes that
++historical failure from this revision's unattempted delivery.
+diff --git a/notes/ym_vacuum_gap_litcheck.md b/notes/ym_vacuum_gap_litcheck.md
+--- a/notes/ym_vacuum_gap_litcheck.md
++++ b/notes/ym_vacuum_gap_litcheck.md
+@@ -1,8 +1,9 @@
+ <!-- commentary -->
+-# Yang–Mills vacuum structure and spectral gap — LITCHECK draft v2
+-
+-Artifact version: **2**, revised 2026-09-09; first issued 2026-09-08.
+-Literature cut-off for this revision: 2026-09-08.
++# Yang–Mills vacuum structure and spectral gap — LITCHECK draft v3
++
++Artifact version: **3**, revised 2026-09-09; first issued 2026-09-08.
++Inherited glueball literature cut-off: 2026-09-08.
++Focused geometry/coercivity source check: 2026-09-09.
+ Task: `ym-vacuum-gap-litcheck`.
+ Repository: `nickjoven/proslambenomenos`.
+ Base inspected: `da0084147986a97f355954be6b0eff4246b9d852`.
+@@ -19,6 +20,14 @@
+ The conditional mathematical propositions remain those of version 1.
+ The companion design adds a follow-on benchmark note; no target cells,
+ numerical tolerances, or execution status change in this revision.
++
++Revision 3 clarifies the ground-state-transform/Poincaré route already
++present in §3. It identifies the exact cancellation, the geometry that
++remains in the kinetic form and vacuum measure, and the uniform positive
++remainder required in physical units. Sources S19–S20 locate the related
++geometric research program. The companion design adds a separate proof
++milestone; its existing numerical cells and budgets are preserved. The
++proposal review already contains this route in §5 and remains version 1.
+ 
+ ## Question and disposition
+ 
+@@ -72,6 +81,8 @@
+ | S16 | Abbott et al., [Lattice Evidence that Scalar Glueballs Are Small](https://doi.org/10.1103/67xg-qxhz), PRL 136 (2026), 041901, published 26 January; published abstract and [preprint main text](https://arxiv.org/html/2508.21821v1) | Scalar-glueball gravitational form factors in pure SU(3) | One lattice spacing; the radius is a defined form-factor quantity |
+ | S17 | Gui et al., [Scalar glueball–s-sbar mixing in one flavor lattice QCD](https://arxiv.org/abs/2607.17294), submitted 19 July 2026; abstract | Exploratory scalar mixing calculation | One dynamical flavor and one spacing; continuum and quark-mass dependence remain open |
+ | S18 | Siew–Chandrasekharan–Bhattacharya, [Continuum limit of a qubit-regularized SU(3) lattice gauge theory with glueballs](https://arxiv.org/abs/2603.01215), submitted 1 March 2026; main HTML text | A massive continuum benchmark on a plaquette chain | Quasi-one-dimensional, with a different critical theory from four-dimensional Yang–Mills |
++| S19 | Moncrief–Marini–Maitra, [Orbit Space Curvature as a Source of Mass in Quantum Gauge Theory](https://arxiv.org/abs/1809.06318), revised 2019; abstract, introduction and §II setup in the full PDF | Ground-state-weighted geometric gap estimates and a proposed Yang–Mills orbit-space approach | Finite-dimensional reasoning is distinguished from the proposed infinite-dimensional extension; regularized curvature and a suitable field-theory construction are not supplied by this import |
++| S20 | Mondal, [A Geometric Approach to the Yang–Mills Mass Gap](https://arxiv.org/abs/2301.06996), 2023; author abstract and record | An explicit conditional Bakry–Émery-curvature route | Assumes a quantized theory and the relevant positivity; the author describes the gap calculation as at least heuristic and identifies unresolved rigorous scale-setting issues |
+ 
+ Search angles: official existence/gap formulation; reconstruction and
+ clustering; gauge invariance; 2+1 and 3+1 vacuum-functionals; glueball and
+@@ -210,6 +221,118 @@
+ positive-measure derivation. A finite representation truncation also
+ needs its own form identity; positivity cannot simply be presumed.
+ 
++#### 3a. Cancellation, geometry and a uniform remainder — revision 3
++
++The algebraic cancellation already follows from the hypotheses of §3.
++The positive lower bound does not. The purpose of this clarification is
++to turn the proposed “positive leftover” into an explicit proof obligation,
++without treating it as a new physical mechanism or an established gap.
++
++For the same compact-link model, expand the kinetic term and integrate
++the cross terms by parts. On the stated smooth physical form core,
++
++\[
++\begin{aligned}
++q[f\psi_0]
++&:=\langle f\psi_0,(H-E_0)f\psi_0\rangle\\
++&=\kappa\int\psi_0^2\sum_{\ell,a}|X_{\ell a}f|^2\,dU\\
++&\quad+\int |f|^2\psi_0
++\left[-\kappa\sum_{\ell,a}X_{\ell a}^2\psi_0
+++(V-E_0)\psi_0\right]dU.
++\end{aligned}
++\]
++
++The bracket is zero by the ground-state equation. The remainder is
++exactly the Dirichlet form \(\mathcal E_\nu\) already defined above.
++This cancels explicit potential and cross terms in an identity; it does
++not cancel the effect of the dynamics. The potential enters through
++\(\psi_0\), the measure \(\nu\), and the domain. This calculation is at
++the finite regulator, not a subtraction of uncontrolled infinities.
++
++Three meanings of geometry must remain distinct:
++
++| Geometry or descriptive choice | What can be simplified | What still needs control |
++|---|---|---|
++| Gauge coordinates | Remove redundant descriptions or work with invariant functions | The Gauss-law physical subspace, its measure, and the induced kinetic form |
++| Configuration/orbit-space geometry | Express its contribution through an inequality or comparison constant | The metric/gradient and vacuum weight; flat spacetime does not make this space flat |
++| Regulator geometry: lattice, volume and boundaries | Seek a limit insensitive to the chosen regulator | Prove that the theory and the lower bound survive the specified limits |
++
++S19 explores weighted curvature of the configuration space as one way
++to obtain gap estimates. S20 makes the conditional inputs especially
++explicit. Neither source establishes a general boundary beyond which
++geometry ceases to matter. A valid proof could use geometric information
++only to establish a constant; that is different from proving it irrelevant.
++
++Let \(r\) denote an admissible regulator, let \(P_{0,r}\) project onto its
++ground space, and let \(s_r>0\) be a specified reference energy in the
++same units as \(H_r\). A sufficient target is
++
++\[
++q_r[\psi]\geq\delta_*s_r\|(I-P_{0,r})\psi\|^2
++\quad\text{for every physical }\psi,
++\qquad\delta_*>0\text{ independent of }r.
++\]
++
++Here the statement is about quadratic forms on their full domains;
++an identity on a core must be extended using the justified closed form.
++The reference scale must approach a finite, nonzero value after conversion
++to the chosen physical units; defining it as the candidate gap would make
++the normalization circular.
++In the positive ground-state representation this becomes
++
++\[
++\mathcal E_{\nu_r}(f,f)\geq
++\delta_*s_r\operatorname{Var}_{\nu_r}(f)
++\quad\text{for every physical }f.
++\]
++
++Since \(\mathcal E\) includes the kinetic coefficient, the equivalent
++sufficient condition on a Poincaré upper bound is
++\(C_rs_r\leq\delta_*^{-1}\). This avoids confusing a bound in lattice
++units with a fixed physical scale. The density comparison in §3 is one
++possible source of a bound; it helps only if its constants have the
++required regulator dependence. Merely defining the best \(C_r\) by the
++observed gap supplies no independent estimate.
++
++The remainder must also be robust to every approximation used in the
++argument. For example, write a proposed decomposition on the physical
++form domain as \(q_r=D_r+R_r\). If independently established estimates give
++
++\[
++D_r[\psi]\geq d_*s_r\|(I-P_{0,r})\psi\|^2,
++\qquad
++|R_r[\psi]|\leq e_*s_r\|(I-P_{0,r})\psi\|^2,
++\qquad d_*>e_*\geq0,
++\]
++
++then \(\delta_*=d_*-e_*\) is a valid lower bound. This is an illustrative
++certificate format, not a decomposition proved here for Yang–Mills.
++Small errors on a few sampled states do not supply the displayed
++full-domain error estimate.
++
++The following failures are already distinguishable mathematically:
++
++- **Vacuum offset:** \(H\mapsto H+cI\) changes both \(H\) and \(E_0\);
++  their difference is unchanged. A scalar energy offset is not a gap.
++- **Pointwise positivity:** positive energy for every normalized vector
++  orthogonal to the vacuum may coexist with a sequence of such energies
++  tending to zero. One common positive lower bound is required.
++- **Boundary-generated gap:** for \(-\kappa\partial_x^2\) on a periodic
++  circle of length \(L\), the gap above the constant ground state is
++  \(4\pi^2\kappa/L^2\), which vanishes as \(L\to\infty\). This is a
++  scalar control, not a Yang–Mills calculation.
++- **Finite-basis success:** minimizing a Rayleigh quotient over a subset
++  of physical trial functions gives an upper bound on the full-domain
++  infimum. It cannot certify the lower bound above.
++
++Even a uniform regulated estimate must accompany a construction of the
++intended nontrivial continuum theory and a justified passage of the form
++bound to that limit. At nonzero theta or without a positive ground
++function the particular transform used here requires a different treatment.
++The next mathematical milestone is an independent estimate controlling
++this remainder in a specified model; the current pilot remains an
++instrument-calibration study.
++
+ ### 4. What the proposed diagnostics actually measure
+ 
+ | Diagnostic | Interpretation | Experimental qualification |
+@@ -373,6 +496,9 @@
+ 
+ ## Exclusions and next action
+ 
++- No inference that removing gauge redundancy, crossing an infrared
++  scale, or obtaining a nonnegative sum of squares alone supplies a
++  uniform positive remainder on the physical form domain.
+ - No inference from a nonzero condensate, susceptibility or classical
+   winding label to a four-dimensional mass gap.
+ - No identification of confinement with the mass-gap property.
+@@ -391,3 +517,6 @@
+ overlaps and gap extraction with controls that can fail. A subsequent
+ connected-lattice study must specify its physical Hamiltonian and
+ scaling path before it acquires continuum or mechanism language.
++The companion's revision-3 proof milestone records the separate work
++needed for a lower-bound certificate. It is not an automatic output of
++the numerical instrument.
+diff --git a/notes/ym_vacuum_gap_registration_draft.md b/notes/ym_vacuum_gap_registration_draft.md
+--- a/notes/ym_vacuum_gap_registration_draft.md
++++ b/notes/ym_vacuum_gap_registration_draft.md
+@@ -1,12 +1,18 @@
+ <!-- commentary -->
+-# Vacuum–spectrum two-axis study — registration draft v2
+-
+-Artifact version: **2**, revised 2026-09-09; first issued 2026-09-08.
++# Vacuum–spectrum two-axis study — registration draft v3
++
++Artifact version: **3**, revised 2026-09-09; first issued 2026-09-08.
+ Task: `ym-vacuum-gap-litcheck`.
+ State: **unregistered design; target cells unrun**. No P or LC ID assigned.
+ This note specifies the next finite-model instrument study. It does not
+ register a prediction, assert a repo status, or promise a continuum result.
+ Its source context is [the LITCHECK draft](ym_vacuum_gap_litcheck.md).
++
++Revision 3 adds a separate coercivity/Poincaré proof milestone, clarifying
++an existing mathematical route. The development and target cells,
++refinement ladders, output specification and numerical budgets below
++retain their version-2 definitions. No new numerical target was executed
++or added by this documentation revision.
+ 
+ ## Scope and proposed question
+ 
+@@ -298,6 +304,75 @@
+ later model-comparison designs. The experimental X(2370) composition
+ claim supplies no target value for this one-plaquette Hamiltonian.
+ 
++## Version 3 proof milestone: certify the positive remainder
++
++This is a follow-on mathematical obligation, separate from the numerical
++instrument and the plaquette-chain benchmark. It makes explicit the
++ground-state-transform route already derived in the LITCHECK, now
++clarified in §3a. It does not assert that the present finite-model moments
++or eigenvalue fits determine a Poincaré constant.
++
++For a specified regulator \(r\), physical quadratic form \(q_r\), vacuum
++projection \(P_{0,r}\), and reference energy \(s_r>0\), the target is
++
++\[
++q_r[\psi]\geq\delta_*s_r\|(I-P_{0,r})\psi\|^2,
++\qquad \delta_*>0,
++\]
++
++uniformly on the intended regulator trajectory and on the whole physical
++form domain. In the positive ground-state representation, the equivalent
++target is a Poincaré bound for the actual vacuum measure and kinetic
++form. Exact cancellation alone proves nonnegativity, not this estimate.
++
++Before evaluating any candidate mechanism, specify the following:
++
++| Required item | Evidence it must contain |
++|---|---|
++| Physical model and domain | Gauge group, constraints, boundaries, theta, kinetic normalization, ground-space projection, and the core/closure used |
++| Exact transform or comparison | A derivation for the chosen generator; an approximate vacuum requires quantified error, not an assumed exact ground-state equation |
++| Independent sufficient input | A property from which a lower bound follows, such as justified density/curvature comparison estimates; the measured gap cannot define the input |
++| Uniform remainder estimate | A lower bound on the retained form and a full-domain bound on discarded terms, leaving a strictly positive difference |
++| Physical normalization | An independently specified reference energy with a finite, nonzero physical limit, and the behavior of every constant as volume and cutoffs change |
++| Continuum transfer | Construction and convergence hypotheses sufficient to pass the inequality to the intended continuum physical theory |
++
++Record the theorem type and assumptions separately from the numerical
++evidence. A proof that “if the form dominates \(\delta I\), then the gap
++is at least \(\delta\)” does not discharge the model-specific domination
++hypothesis. The next deliverable is the derivation of a sufficient input
++and its certified bound in a controlled model, followed by an explicit
++account of which constants lack the required uniformity.
++
++Analytic challenge cases for that future lemma are:
++
++1. Add a scalar multiple of the identity to the Hamiltonian: the claimed
++   excitation bound must be invariant under the corresponding vacuum shift.
++2. Use a positive operator with eigenvalues \(1/n\) above a unique vacuum:
++   every individual excited eigenvalue is positive, but the gap is zero.
++3. Increase the length of a periodic scalar circle: its Laplacian gap
++   \(4\pi^2\kappa/L^2\) tends to zero despite positivity at every finite L.
++4. Restrict the trial-function set: apparent success must not be promoted
++   from a finite-basis Rayleigh minimum to a full-domain lower bound.
++
++These are specification checks for a future proof, not newly registered
++data cells or newly executed tests. For a proposed quantitative bound,
++one admissible trial function with a certified upper enclosure of
++\(\mathcal E_r(f,f)/(s_r\operatorname{Var}_{\nu_r}(f))\) strictly below
++\(\delta_*\) refutes that bound at that regulator. Agreement on finitely
++many trial functions cannot verify its universal quantifier. Resolving
++the exact vacuum/form or controlling their approximation is part of
++making that counterexample admissible.
++
++The current mathlib audit supports beginning with the available Hilbert,
++projection, matrix-spectral and variational infrastructure. Its
++`LinearPMap` framework also includes unbounded adjoints and closedness.
++The audit did not locate a complete unbounded spectral-measure/QFT
++reconstruction chain. Formalization must identify the type and domain
++of each operator and distinguish missing library lemmas from the still
++unproved Yang–Mills estimates. Source snapshot:
++[mathlib e37d88a](https://github.com/leanprover-community/mathlib4/tree/e37d88a26f3791ed5a93daa1f949af1021b8d103),
++checked 2026-09-09. No Lean implementation or build is claimed here.
++
+ ## Before this draft becomes a registration
+ 
+ Allocate the P/LC identifiers through the repository assignment process;
