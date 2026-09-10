@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Non-executing future adapter stage input",
+  "type": "object",
+  "required": ["scalar", "certificates", "temporal"],
+  "additionalProperties": false,
+  "properties": {
+    "scalar": {"$ref": "#/$defs/stage"},
+    "certificates": {"$ref": "#/$defs/stage"},
+    "temporal": {"$ref": "#/$defs/stage"}
+  },
+  "$defs": {
+    "stage": {
+      "type": "object",
+      "required": ["status"],
+      "properties": {
+        "status": {"enum": ["completed", "failed", "unresolved"]},
+        "reason": {"type": "string", "pattern": "\\S"}
+      },
+      "if": {"properties": {"status": {"const": "completed"}}},
+      "then": {
+        "required": ["result"],
+        "properties": {"result": {"type": "object"}}
+      },
+      "else": {"required": ["reason"]}
+    }
+  }
+}

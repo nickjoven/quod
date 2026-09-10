@@ -153,6 +153,16 @@ def main():
             'source_sha256': {p: digest((ROOT/p).read_bytes()) for p in (
                 'scripts/vacuum_certified.py', 'scripts/vacuum_u1_certified.py',
                 'scripts/vacuum_u1_design_certified.py', 'scripts/vacuum_intervals.py')}},
+        'future_adapter': {
+            'status': 'non_executing_adapter_implemented',
+            'independent_review': 'identified_selection_failure_retention_and_schema_defects_fixed; no_outstanding_defect_in_adapter_scope',
+            'repairs': ['eta_zero_selection_from_actual_certificates', 'partial_stage_retention',
+                        'schema_validation_of_stage_results_and_reasons'],
+            'remaining': ['full_future_run_envelope', 'request_accounting',
+                          'parameterized_runners', 'authorization_and_registration_integration'],
+            'source_sha256': {p: digest((ROOT/p).read_bytes()) for p in (
+                'scripts/vacuum_future_adapter.py', 'scripts/test_vacuum_future_adapter.py',
+                'research/vacuum-spectrum/future-stage-input.schema.json')}},
         'blockers': {'independent_review': 'report_and_analytic_certificate_chain_reviewed; future_execution_and_registration_requirements_remain',
                      'user_review': 'user_will_review_completed_document; not_required_to_continue_repairs',
                      'owner_assigned_P_LC_ids': 'optional_in_quod; required_only_for_legacy_ledger_submission',
@@ -344,6 +354,25 @@ is not required for this sampled end-to-end comparison. The subsequent upstream
 Sturm/Schur, eigenvector, overlap and tail analytic/code review also found no correctness
 defect. These findings do not certify unsampled times or future target runs, and rely on
 the documented self-adjointness, spectral and arithmetic contracts.</p>
+<h3>Future execution: integration repairs and remaining work</h3>
+<p>Review of the older development-only result adapter found two gaps for future deformations:
+it did not attach the known free P² selection rule, and it assumed a successful final
+certificate rung. Those findings do not invalidate its η=1 archives. A separate non-executing
+adapter now intersects analytically forbidden weights with zero only at η=0, rejects
+contradictory certificates, and retains failed/unresolved stages and partial rung evidence.
+Real core-generated free certificates at calibration g=1 resolve P at level one and P²
+at level two for both theories. Interacting uncertain overlaps remain unresolved.</p>
+<p>JSON Schema validates stage presence, terminal statuses, object results on completion,
+and nonblank failure/unresolved reasons. Six adapter tests cover the producer path,
+contradictory weights, partial failures and malformed evidence. An available adapter record
+means outputs and thresholds are structurally available; its precision status remains
+“not assessed.” The adapter has no solver or target-run entry point. A complete future-run
+envelope, request accounting, parameterized runners and committed authorization procedure
+still need implementation before target execution.</p>
+<p>The separate reviewer verified the free-selection and failure-retention repairs and the
+schema's rejection of malformed stage containers, result types and reasons. No outstanding
+defect remains from that adapter review. Certificate contents still require independent
+verification against their declared model coordinates before adaptation.</p>
 <h2>5. Counterexample and null obligations</h2>
 <p>On a fixed periodic circle, set ψβ ∝ exp[(β/2)cos(2θ)] and
 Vβ = κ[β²sin²(2θ) − 2βcos(2θ)]. Then Hβψβ = 0 and Hβ = κA* A,

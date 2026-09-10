@@ -33,6 +33,14 @@ arithmetic/analytic base, not a registered field-theory conclusion.
 
 ## Next work and unresolved inputs
 
+Future-run integration review identified gaps in the historical development-only
+adapter. `vacuum_future_adapter.py` now integrates exact free selection identities,
+retains partial failed/unresolved stages, and validates stage input through JSON
+Schema. Six calibration/adapter tests pass; independent review confirms the
+identified defects are repaired. Full future-run accounting, parameterized
+runners and registration/authorization integration remain to be implemented.
+The single report includes this distinction and pins the new sources.
+
 The independent analytic/code review now covers Sturm/Schur endpoints,
 U(1) parity and mapping, residual-to-vector bounds, signed overlaps, padded
 moments, PSD omitted tails and sampled error composition; no correctness

@@ -36,7 +36,7 @@ class SingleReportTests(unittest.TestCase):
         self.assertEqual(hashlib.sha256(self.raw).hexdigest(), self.tag.group(1))
         for name, expected in self.payload['source_sha256'].items():
             self.assertEqual(hashlib.sha256((report.D/name).read_bytes()).hexdigest(), expected, name)
-        for review in ('combined_error_review', 'analytic_certificate_review'):
+        for review in ('combined_error_review', 'analytic_certificate_review', 'future_adapter'):
             for name, expected in self.payload[review]['source_sha256'].items():
                 self.assertEqual(hashlib.sha256((report.ROOT/name).read_bytes()).hexdigest(), expected, name)
         for name in ('design-readiness.json', 'result-contract.json', 'pilot-disposition.json', 'vacuum-coercivity-check.json'):
