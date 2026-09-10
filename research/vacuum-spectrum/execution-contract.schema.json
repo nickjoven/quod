@@ -1,0 +1,92 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Unselected execution specification; schema validation grants no authority",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "registered", "target_execution_authorized", "selected_target_ids", "targets_run", "targets", "protocol", "environment", "source_sha256"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "registered": {"const": false},
+    "target_execution_authorized": {"const": false},
+    "selected_target_ids": {"type": "array", "maxItems": 0},
+    "targets_run": {"const": 0},
+    "targets": {"type": "array", "minItems": 42, "maxItems": 42, "items": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "status", "result"],
+      "properties": {"id": {"type": "string"}, "status": {"const": "unrun"}, "result": {"type": "null"}}
+    }},
+    "protocol": {"$ref": "#/$defs/protocol"},
+    "environment": {
+      "type": "object", "additionalProperties": false,
+      "required": ["python", "implementation", "packages"],
+      "properties": {
+        "python": {"type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"},
+        "implementation": {"const": "CPython"},
+        "packages": {
+          "type": "object", "additionalProperties": false,
+          "required": ["numpy", "scipy", "jsonschema", "jsonpointer", "referencing", "rpds-py", "attrs", "jsonschema-specifications", "typing-extensions"],
+          "properties": {
+            "numpy": {"type": "string"}, "scipy": {"type": "string"},
+            "jsonschema": {"type": "string"}, "jsonpointer": {"type": "string"},
+            "referencing": {"type": "string"}, "rpds-py": {"type": "string"},
+            "attrs": {"type": "string"}, "jsonschema-specifications": {"type": "string"},
+            "typing-extensions": {"type": "string"}
+          }
+        }
+      }
+    },
+    "source_sha256": {"type": "object", "minProperties": 1, "additionalProperties": {"type": "string", "pattern": "^[0-9a-f]{64}$"}}
+  },
+  "$defs": {
+    "protocol": {
+      "type": "object", "additionalProperties": false,
+      "required": ["SU2_cutoffs", "U1_cutoffs", "grids", "tau", "tolerances", "moment_absolute_budget", "gap_relative_budget", "scalar_consistency_tolerance", "clock_rule", "window_reporting", "control_rule", "failure_rule", "deformation_comparison"],
+      "properties": {
+        "SU2_cutoffs": {"const": [20, 40, 80, 160, 320]},
+        "U1_cutoffs": {"const": [40, 80, 160, 320, 640]},
+        "grids": {"const": [600, 1200, 2400, 4800]},
+        "tau": {"const": ["0", "1/8", "1/4", "1/2", "1", "2", "4", "8", "12", "16", "20", "24"]},
+        "tolerances": {"const": [[1e-8, 1e-18], [1e-10, 1e-20]]},
+        "moment_absolute_budget": {"const": "1/1000000"},
+        "gap_relative_budget": {"const": "1/1000000"},
+        "scalar_consistency_tolerance": {"const": "1/1000000000"},
+        "clock_rule": {"const": "binary64-rounded tau / minimum accessible-gap midpoint at finest certificate"},
+        "window_reporting": {"const": "retain every adjacent pair and all common qualifying pairs at finest grid and tighter tolerance; no result-dependent extension"},
+        "control_rule": {"const": "replay all four pinned analytic/representation suites before requested cells; any failed control prevents execution"},
+        "failure_rule": {"const": "retain every requested rung and tolerance; no finest-failure fallback; preserve partial evidence; insufficient precision is unresolved; failed controls or source/accounting drift invalidate success"},
+        "deformation_comparison": {"const": "matched theory and g: subtract component intervals [a,b]-[c,d]=[a-d,b-c]; retain overlap uncertainty; no mechanism or continuum claim"}
+      }
+    },
+    "stage": {
+      "type": "object", "required": ["status"],
+      "properties": {"status": {"enum": ["completed", "failed", "unresolved"]}, "reason": {"type": "string", "pattern": "\\S"}},
+      "if": {"properties": {"status": {"const": "completed"}}},
+      "then": {"required": ["result"], "properties": {"result": {"type": "object"}}},
+      "else": {"required": ["reason"]}
+    },
+    "terminal_cell": {
+      "description": "Structural definition only; scientific qualification requires semantic replay against the committed manifest",
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "status", "reason", "stages", "assessment"],
+      "properties": {
+        "id": {"type": "string", "pattern": "\\S"},
+        "status": {"enum": ["instrument_agreement", "failure", "unresolved"]},
+        "reason": {"type": "string", "pattern": "\\S"},
+        "stages": {"type": "object", "additionalProperties": false, "required": ["scalar", "certificates", "temporal"],
+          "properties": {"scalar": {"$ref": "#/$defs/stage"}, "certificates": {"$ref": "#/$defs/stage"}, "temporal": {"$ref": "#/$defs/stage"}}},
+        "assessment": {"type": ["object", "null"]}
+      },
+      "allOf": [{
+        "if": {"properties": {"status": {"const": "instrument_agreement"}}},
+        "then": {"properties": {
+          "assessment": {"type": "object"},
+          "stages": {"properties": {
+            "scalar": {"properties": {"status": {"const": "completed"}}},
+            "certificates": {"properties": {"status": {"const": "completed"}}},
+            "temporal": {"properties": {"status": {"const": "completed"}}}
+          }}
+        }}
+      }]
+    }
+  }
+}

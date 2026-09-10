@@ -35,6 +35,16 @@ arithmetic/analytic base, not a registered field-theory conclusion.
 
 ## Next work and unresolved inputs
 
+`execution-contract.json` now records an unselected, nonexecuting protocol
+validated against `execution-contract.schema.json`. It pins source/schema
+hashes, CPython and nine computational dependency versions, and retains all
+42 target identities with null results. Four contract tests reject changed
+inventory, authorization, budgets and provenance, and check partial evidence
+retention in the separate terminal-cell structural definition. Independent
+review found no defect within the draft/structural scope. No structural
+validator grants authority or verifies scientific qualification. Terminal-result
+semantic replay, execution authorization and final artifact review remain open.
+
 The recovered-specification audit exposed two additional qualification gaps:
 recorded scalar sum rules were not enforced, and exact controls were not bound
 to execution. Both are repaired and independently reviewed. Scalar validation

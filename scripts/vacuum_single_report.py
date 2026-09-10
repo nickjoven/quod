@@ -15,6 +15,7 @@ matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import sympy as sp
 from vacuum_run_envelope import scalar_accuracy
+import vacuum_execution_contract as execution_contract
 
 ROOT = Path(__file__).resolve().parents[1]
 D = ROOT / 'research/vacuum-spectrum'
@@ -136,8 +137,9 @@ def svg(fig):
 def main():
     exec(compile(CAS, '<embedded-cas-checks>', 'exec'), {})
     names = ['design-readiness.json', 'result-contract.json', 'pilot-disposition.json',
-             'vacuum-coercivity-check.json']
+             'vacuum-coercivity-check.json', 'execution-contract.json']
     data = {n: json.loads((D/n).read_text()) for n in names}
+    execution_contract.validate(data['execution-contract.json'])
     audit = data['design-readiness.json']
     rows = audit['cells']
     assert len(rows) == 20 and all(r['status'] == 'development_qualified' for r in rows)
@@ -251,15 +253,16 @@ def main():
         'execution_protocol_draft': {
             'registered': False, 'selected_target_ids': [], 'target_execution_authorized': False,
             'scope': 'finite SU2 and corrected U1 rotor characterization',
-            'moment_absolute_budget': '1/1000000', 'gap_relative_budget': '1/1000000',
-            'scalar_consistency_tolerance': '1/1000000000',
-            'tau': ['0','1/8','1/4','1/2','1','2','4','8','12','16','20','24'],
-            'tolerances': [[1e-8,1e-18],[1e-10,1e-20]],
-            'clock_rule': 'exact binary64 rounding of tau divided by minimum accessible-gap midpoint at finest certificate',
-            'window_reporting': 'retain every adjacent pair; retain all common qualifying pairs at finest grid and tighter tolerance; no post-result extension',
-            'deformation_comparison': 'at matched theory and g, subtract certified component intervals; report endpoint differences and overlap uncertainty; disjoint intervals establish only finite-model component change',
-            'remaining_before_registration': ['complete_target_result_schema_and_authorization_gate',
-                'pin_dependencies_and_execution_artifact', 'review_final_protocol', 'user_target_selection'],
+            'definition': data['execution-contract.json']['protocol'],
+            'environment': data['execution-contract.json']['environment'],
+            'validation_scope': 'nonexecuting draft and terminal-cell structure; not scientific result replay or authorization',
+            'tests_passed': 4,
+            'independent_review': 'no_defect_in_nonexecuting_draft_and_terminal_cell_structural_scope',
+            'source_sha256': {p:digest((ROOT/p).read_bytes()) for p in (
+                'scripts/vacuum_execution_contract.py', 'scripts/test_vacuum_execution_contract.py',
+                'research/vacuum-spectrum/execution-contract.schema.json')},
+            'remaining_before_registration': ['terminal_result_semantic_replay_and_authorization_gate',
+                'review_final_execution_artifact', 'user_target_selection'],
             'cost_limitations': 'historical eta=1 stage timings; integration checkpoint overhead and deformation runtimes unmeasured'},
         'blockers': {'independent_review': 'report_and_analytic_certificate_chain_reviewed; future_execution_and_registration_requirements_remain',
                      'user_review': 'user_will_review_completed_document; not_required_to_continue_repairs',
@@ -543,8 +546,16 @@ its output. A deformation comparison at matched theory and g subtracts certified
 intervals: [a,b] − [c,d] = [a−d,b−c]. Report each component, its uncertainty and the named
 Hamiltonian change; an interval excluding zero establishes only finite-model separation.
 Unresolved overlap coverage stays explicit. The machine-readable draft has no selected
-targets and no execution authorization. A complete target-result schema, pinned dependency
-environment, final execution-artifact review and the user's target decision remain required.
+targets and no execution authorization. The checked draft pins source/schema hashes,
+CPython and nine computational dependency versions. Its schema freezes the protocol and
+preserves all 42 target identities. A separate terminal-cell structural definition permits
+partial failed evidence and rejects agreement with a failed required stage; structural
+acceptance cannot establish scientific validity or grant authority. Four contract tests
+check mutation rejection and preservation of partial evidence without solving target cells.
+Independent review found no defect within the nonexecuting draft and structural scope.
+Semantic replay of terminal results, execution authorization, final artifact review and the
+user's target decision remain required. Dependency versions identify the Python environment;
+they do not guarantee identical native binaries or hardware behavior.
 Historical cost scenarios exclude integration checkpoint overhead and do not measure
 the free/deformed runtime behavior.</p>
 <h2>5. Counterexample and null obligations</h2>
