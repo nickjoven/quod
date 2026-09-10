@@ -72,6 +72,13 @@ def main():
         archive = json.loads((D/name).read_text())
         data[theory+'_finest_certificates'] = [
             {'g': c['g'], 'result': c['rungs'][-1]['result']} for c in archive['cells']]
+    for theory, name in [('SU2', 'late-times.json'), ('U1', 'u1-design-semigroup.json')]:
+        archive = json.loads((D/name).read_text())
+        data[theory+'_time_window_evidence'] = [
+            {'g': c['g'], 'times': c['times'],
+             'finest_assessment': c['window_assessment']['rungs'][-1],
+             'finest_correlation_error_bounds': c['angle_error_bounds'][-1]}
+            for c in archive['cells']]
     sources = names + documents + ['certificates.json', 'u1-design-certificates.json',
         'refinement.json', 'late-times.json', 'u1-design-development.json', 'u1-design-semigroup.json',
         'design-bundle-v3/manifest.json']
@@ -87,6 +94,14 @@ def main():
             'scope': ['mathematical_consistency', 'provenance', 'executable_checks', 'basic_accessibility'],
             'excluded': ['complete_numerical_instrument_certification', 'continuum_coercivity', 'browser_rendering'],
             'report_tests_passed': 3},
+        'combined_error_review': {
+            'status': 'no_blocking_defect_in_reviewed_composition',
+            'reviewer': 'separate_agent_report_review',
+            'scope': 'end-to-end sampled error, outward log slopes, mixture-plus-numerical bound, U1 even threshold',
+            'remaining': 'complete upstream Sturm/Schur/eigenvector proof audit',
+            'source_sha256': {p: digest((ROOT/p).read_bytes()) for p in (
+                'scripts/vacuum_certificate_run.py', 'scripts/vacuum_time_windows.py',
+                'scripts/vacuum_semigroup.py', 'scripts/vacuum_u1_design_semigroup_run.py')}},
         'blockers': {'independent_review': 'report_review_complete; full_numerical_instrument_review_outstanding',
                      'user_review': 'user_will_review_completed_document; not_required_to_continue_repairs',
                      'owner_assigned_P_LC_ids': 'optional_in_quod; required_only_for_legacy_ledger_submission',
@@ -147,6 +162,16 @@ for cell in audit['cells']:
         lo, hi = map(Fraction, cell[field])
         assert 0 < lo <= hi
 assert report['data']['pilot-disposition.json']['historical_replication_verified'] is False
+for theory in ('SU2','U1'):
+    for cell in report['data'][theory+'_time_window_evidence']:
+        for pair in cell['finest_assessment']['pairs']:
+            for observable in pair['observables']:
+                if observable['qualifies']:
+                    mixture = Fraction(observable['relative_mixture_bias_upper'])
+                    numerical = Fraction(observable['relative_numerical_slope_error_upper'])
+                    total = Fraction(observable['relative_combined_error_upper'])
+                    assert mixture >= 0 and numerical >= 0 and total == mixture+numerical
+                    assert total <= Fraction(1,1000000) and observable['nonzero_first_overlap']
 print('Embedded data digest, exact interval ordering, target boundary and CAS checks passed.')
 # For the full numerical certificate replay use the pinned repository sources.
 '''
@@ -220,6 +245,35 @@ and are generally smaller than the markers. U(1) even probes can miss the odd fu
 omitted-tail bounds and result-contract channel records are embedded below. A qualifying sampled
 pair is not a registered target window. Numerical regressions replay existing certificates;
 the full solver and analytic premises remain independently reviewable.</p>
+<h3>How the combined error bound is established</h3>
+<p>Let the exact connected diagonal correlation satisfy C(tᵢ) ∈ [Lᵢ,Uᵢ],
+with Lᵢ &gt; 0. For any computed value cᵢ, its end-to-end error is at most
+εᵢ = max(|cᵢ−Lᵢ|, |cᵢ−Uᵢ|). This bound includes all discrepancies from the
+certified model at that sampled time; it does not require a separate rigorous BDF error estimate.
+Changes between grids and solver tolerances are diagnostics, not the justification for εᵢ.</p>
+<div class="equation">For h = tⱼ−tᵢ &gt; 0:<br>
+m = log[C(tᵢ)/C(tⱼ)]/h ∈ M = [log(Lᵢ/Uⱼ)/h, log(Uᵢ/Lⱼ)/h]<br>
+Computed slope m̂ ∈ O, using outward logarithm rounding<br>
+ν = max over x ∈ endpoints(M), y ∈ endpoints(O) of |x−y| / d₋<br>
+μ = max(0, sup M − d₋) / d₋<br>Relative total error ≤ μ + ν</div>
+<p>Here [d₋,d₊] encloses the first accessible excitation Δ, with d₋ &gt; 0.
+The positive spectral measure is supported at energies ≥ Δ, so C(tⱼ) ≤
+exp(−Δh)C(tᵢ) and m ≥ Δ. Therefore 0 ≤ m−Δ ≤ sup M−d₋.
+The triangle inequality gives |m̂−Δ|/Δ ≤ (|m̂−m|+|m−Δ|)/d₋ ≤ ν+μ.
+Qualification additionally requires a certified nonzero first accessible overlap and
+μ+ν ≤ 10⁻⁶. Nonpositive correlations remain unresolved. This is conservative:
+interval uncertainty enters more than once, but is never subtracted away.</p>
+<p>The embedded time-window evidence now retains all finest-grid sampled pairs, their
+exact rational mixture/numerical/combined bounds, and the end-to-end correlation error bounds
+for both theories. This proof of composition is conditional on the spectral and correlation
+enclosures being valid for the declared operator and clock; it does not independently
+re-prove their Sturm, residual or omitted-tail construction.</p>
+<p><b>Independent composition review:</b> the separate agent found no blocking defect in
+this error composition, outward slope arithmetic, or use of the U(1) even threshold.
+The reviewed source hashes are embedded. It confirmed that a standalone BDF error bound
+is not required for this sampled end-to-end comparison. A complete upstream
+Sturm/Schur/eigenvector proof audit remains outstanding; the finding does not certify
+unsampled times or future target runs.</p>
 <h2>5. Counterexample and null obligations</h2>
 <p>On a fixed periodic circle, set ψβ ∝ exp[(β/2)cos(2θ)] and
 Vβ = κ[β²sin²(2θ) − 2βcos(2θ)]. Then Hβψβ = 0 and Hβ = κA* A,

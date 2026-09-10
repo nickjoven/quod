@@ -43,6 +43,15 @@ class SingleReportTests(unittest.TestCase):
         self.assertEqual(self.payload['blockers']['owner_assigned_P_LC_ids'],
                          'optional_in_quod; required_only_for_legacy_ledger_submission')
         self.assertEqual(len(self.payload['data']['design-readiness.json']['targets']), 42)
+        for theory, name in [('SU2', 'late-times.json'), ('U1', 'u1-design-semigroup.json')]:
+            archive = json.loads((report.D/name).read_text())
+            embedded = self.payload['data'][theory+'_time_window_evidence']
+            self.assertEqual(len(embedded), 10)
+            for actual, source in zip(embedded, archive['cells']):
+                self.assertEqual(actual['g'], source['g'])
+                self.assertEqual(actual['times'], source['times'])
+                self.assertEqual(actual['finest_assessment'], source['window_assessment']['rungs'][-1])
+                self.assertEqual(actual['finest_correlation_error_bounds'], source['angle_error_bounds'][-1])
 
     def test_cas_checks_and_sign_error_rejection(self):
         with contextlib.redirect_stdout(io.StringIO()):
