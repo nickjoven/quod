@@ -33,6 +33,13 @@ arithmetic/analytic base, not a registered field-theory conclusion.
 
 ## Next work and unresolved inputs
 
+`vacuum_parameterized_scalar.py` completes the reusable scalar stage using the
+existing SU(2)/U(1) representation solvers. Seven development-only tests cover
+free/deformed models, all-rung retention, no finest-failure fallback, and
+comparison failures/nonfinite output without lost solver evidence. Agreement
+remains diagnostic. The complete execution envelope, full-run request accounting
+and registration/authorization integration remain outstanding.
+
 `vacuum_parameterized_temporal.py` connects verified certificate coordinates and
 exact sample clocks to direct propagation and per-channel time-window assessment.
 Seven development-only tests cover deformations, failure continuation, retained
