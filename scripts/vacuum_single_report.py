@@ -243,7 +243,7 @@ def main():
                 'scripts/vacuum_parameterized_scalar.py',
                 'scripts/test_vacuum_parameterized_scalar.py')}},
         'run_envelope': {
-            'status': 'development_and_calibration_integration_tested', 'tests_passed': 13,
+            'status': 'development_and_calibration_integration_tested', 'tests_passed': 14,
             'independent_review': 'development_envelope_accounting_exact_scalar_accuracy_and_control_preflight_repairs_reviewed',
             'scope': 'all requested rungs accounted; immutable checkpoint snapshots; exact scalar accuracy; common sampled windows; final source audit',
             'limitations': 'development couplings only; no registered target executor; no continuum conclusion',
@@ -254,16 +254,24 @@ def main():
             'status': 'implemented_and_calibration_tested', 'tests_passed': 5,
             'independent_review': 'no_blocking_defect_within_stored_arithmetic_and_accounting_scope',
             'scope': 'certificate identity and clock; every requested grid/tolerance; correlation errors; sampled windows; retained failed prefixes',
-            'limitations': 'does not rerun or authenticate propagation; no standalone BDF error theorem; whole-result replay remains incomplete',
+            'limitations': 'does not rerun or authenticate propagation; no standalone BDF error theorem',
             'source_sha256': {p:digest((ROOT/p).read_bytes()) for p in (
                 'scripts/vacuum_temporal_replay.py','scripts/test_vacuum_temporal_replay.py')}},
         'scalar_replay': {
             'status': 'implemented_and_calibration_tested', 'tests_passed': 5,
             'independent_review': 'no_blocking_defect_within_stored_scalar_arithmetic_and_request_identity_scope',
             'scope': 'coordinates; methods and sizes; completed-record consistency; finest-rung identity; recomputed comparisons; failed evidence retained',
-            'limitations': 'solver execution not authenticated; exact certificate accuracy remains separate; whole-result replay incomplete',
+            'limitations': 'solver execution not authenticated; exact certificate accuracy remains separate',
             'source_sha256': {p:digest((ROOT/p).read_bytes()) for p in (
                 'scripts/vacuum_scalar_replay.py','scripts/test_vacuum_scalar_replay.py')}},
+        'whole_result_replay': {
+            'status': 'implemented_and_calibration_tested', 'tests_passed': 7,
+            'independent_review': 'malformed_input_and_required_control_inventory_repairs_reviewed; no_qualification_bypass_found',
+            'scope': 'current-source development manifests; every successful certificate and retiming; scalar/temporal replay; exact accuracy; adaptation; cell and run outcomes; named controls',
+            'limitations': 'source drift is invalid for current-source replay; recorded controls/failures do not authenticate execution; targets disabled',
+            'source_sha256': {p:digest((ROOT/p).read_bytes()) for p in (
+                'scripts/vacuum_run_replay.py','scripts/test_vacuum_run_replay.py',
+                'research/vacuum-spectrum/control-preflight.schema.json')}},
         'execution_protocol_draft': {
             'registered': False, 'selected_target_ids': [], 'target_execution_authorized': False,
             'scope': 'finite SU2 and corrected U1 rotor characterization',
@@ -275,7 +283,7 @@ def main():
             'source_sha256': {p:digest((ROOT/p).read_bytes()) for p in (
                 'scripts/vacuum_execution_contract.py', 'scripts/test_vacuum_execution_contract.py',
                 'research/vacuum-spectrum/execution-contract.schema.json')},
-            'remaining_before_registration': ['terminal_result_semantic_replay_and_authorization_gate',
+            'remaining_before_registration': ['target_execution_authorization_and_terminal_envelope',
                 'review_final_execution_artifact', 'user_target_selection'],
             'cost_limitations': 'historical eta=1 stage timings; integration checkpoint overhead and deformation runtimes unmeasured'},
         'blockers': {'independent_review': 'report_and_analytic_certificate_chain_reviewed; future_execution_and_registration_requirements_remain',
@@ -361,7 +369,7 @@ print('Embedded data digest, exact interval ordering, target boundary and CAS ch
 <p>Consolidated 2026-09-09. Exploratory finite-rotor study; v3 source revision incorporated.
 The vacuum reduction is exact. A cutoff- and volume-uniform Yang–Mills gap is unproved.</p>
 <div class="cards"><div class="card"><b>20 development cells</b><br>Archived bounds, overlaps and sampled windows qualify.</div>
-<div class="card"><b>191 regression tests passed</b><br>Recorded development-envelope run: 68.250 s; source hashes embedded below.</div>
+<div class="card"><b>199 regression tests passed</b><br>Recorded development-envelope run: 72.600 s; source hashes embedded below.</div>
 <div class="card open"><b>42 targets unrun</b><br>No registration or target execution authorization.</div></div>
 <h2>1. Decisions needed from the user</h2>
 <p><b>Independent review:</b> a separate agent reviewed mathematical consistency, provenance,
@@ -541,7 +549,7 @@ error bounds (10⁻⁶ absolute for moments and relative for positive gaps), cer
 and a common qualifying adjacent sample pair for both observables at the finest grid and
 last tolerance. Agreement alone cannot qualify biased scalar values. The sampling clock is
 binary64-rounded τ divided by the minimum accessible-gap midpoint at the finest certificate;
-it is a declared numerical sampling rule, not a physical continuum scale. Thirteen
+it is a declared numerical sampling rule, not a physical continuum scale. Fourteen
 integration tests cover the two models, positive free-model qualification, biased-value rejection,
 failure retention, checkpoint failure, source drift and target rejection. This envelope
 does not implement registered target execution. Independent review found no blocking
@@ -551,7 +559,7 @@ fixed schedule. All 42 targets remain unrun.</p>
 nulls and both representation calibrations. Full verdicts are retained and their source
 files and referenced design are pinned. A failed check, unrejected mutant or control
 exception prevents requested-cell computation and yields instrument failure with complete
-request accounting. Thirteen envelope tests include false control verdicts, exceptions and
+request accounting. Fourteen envelope tests include false control verdicts, exceptions and
 rejection of corrupted temporal evidence without losing the propagation record.
 Independent review confirmed both the sum-rule and control-preflight repairs.</p>
 <p><b>Offline temporal replay:</b> development qualification now uses recomputed common
@@ -562,7 +570,7 @@ assessments retain their completed arithmetic prefix; failed stages cannot quali
 Five replay tests cover both models, changed evidence, failed propagation/assessment and
 coarse unresolved certificates. Independent review found no blocking defect in this scope.
 Replay checks stored arithmetic, not propagation authenticity or a standalone BDF bound.
-Whole-result semantic replay still needs to be integrated.</p>
+The whole-result gate below composes this check with the remaining evidence.</p>
 <p><b>Offline scalar replay:</b> development qualification also uses the recomputed
 representation agreement. Every requested method and size must match, completed solver
 records must satisfy their validators and spectral sum rules, final records must equal
@@ -571,6 +579,16 @@ Failed rungs and comparisons preserve their available records without a success 
 Five replay tests cover both models, altered identities and comparisons, finest failure,
 and retained malformed solver evidence. Independent review found no blocking issue in this
 scope. Replay does not authenticate solver execution or replace exact certificate accuracy.</p>
+<p><b>Whole development-result replay:</b> the final gate checks current source pins and
+complete request accounting, enforces the exact named control inventory through a schema,
+replays each successful certificate and its retiming, and recomputes scalar accuracy,
+adaptation, common temporal pairs, cell outcomes and the run outcome. A stored replay
+verdict must also match recomputation. Failed replay yields instrument failure with raw
+evidence and previous statuses retained. Seven whole-result tests cover both qualifying
+models, coarse unresolved evidence, failed controls and certificates, corrupted outputs,
+and malformed data. Independent review confirmed the repairs and found no qualification
+bypass. This verifies stored arithmetic under current source pins; it does not authenticate
+the reported solver execution, control execution or operational failures.</p>
 <p><b>Execution protocol draft, still unregistered:</b> preserve the full recovered ladders,
 the schedule and error budgets above, all adjacent-pair assessments and every common
 qualifying pair. Do not extend a target's schedule or widen its budgets after inspecting
@@ -585,7 +603,7 @@ partial failed evidence and rejects agreement with a failed required stage; stru
 acceptance cannot establish scientific validity or grant authority. Four contract tests
 check mutation rejection and preservation of partial evidence without solving target cells.
 Independent review found no defect within the nonexecuting draft and structural scope.
-Semantic replay of terminal results, execution authorization, final artifact review and the
+Target execution authorization, the target terminal envelope, final artifact review and the
 user's target decision remain required. Dependency versions identify the Python environment;
 they do not guarantee identical native binaries or hardware behavior.
 Historical cost scenarios exclude integration checkpoint overhead and do not measure

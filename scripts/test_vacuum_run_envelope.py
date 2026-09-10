@@ -15,6 +15,18 @@ def manifest(theories=('SU2',)):
 
 
 class RunEnvelopeTests(unittest.TestCase):
+    def test_whole_result_gate_rejects_post_aggregation_corruption(self):
+        original=runner.process_cell
+        def corrupted(spec,cell,manifest,emit):
+            original(spec,cell,manifest,emit)
+            cell['scalar_accuracy']={}
+        with patch.object(runner,'process_cell',side_effect=corrupted):
+            result=runner.run(manifest())
+        self.assertEqual(result['state'],'instrument_failure')
+        self.assertEqual(result['whole_result_replay']['status'],'invalid')
+        self.assertEqual(result['cells'][0]['status'],'failure')
+        self.assertIsNotNone(result['cells'][0]['stages']['scalar']['result']['final'])
+
     def test_corrupted_scalar_comparison_fails_without_losing_later_stages(self):
         original=runner.scalar.run
         def corrupted(*args,**kwargs):

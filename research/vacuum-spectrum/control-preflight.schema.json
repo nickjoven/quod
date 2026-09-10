@@ -1,0 +1,671 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Required named control evidence for whole-result replay",
+  "type": "object",
+  "required": [
+    "status",
+    "suites"
+  ],
+  "properties": {
+    "status": {
+      "enum": [
+        "passed",
+        "failed"
+      ]
+    },
+    "suites": {
+      "type": "object",
+      "required": [
+        "design_nulls",
+        "analytic_nulls",
+        "SU2_representation",
+        "U1_representation"
+      ],
+      "properties": {
+        "design_nulls": {
+          "type": "object",
+          "required": [
+            "status"
+          ],
+          "properties": {
+            "status": {
+              "enum": [
+                "passed",
+                "failed"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "pattern": "\\S"
+            }
+          },
+          "if": {
+            "properties": {
+              "status": {
+                "const": "passed"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "result"
+            ],
+            "properties": {
+              "result": {
+                "type": "object",
+                "required": [
+                  "pass",
+                  "checks",
+                  "mutants_rejected"
+                ],
+                "properties": {
+                  "pass": {
+                    "const": true
+                  },
+                  "checks": {
+                    "type": "object",
+                    "required": [
+                      "specified_tensor_eigenpairs",
+                      "tensor_fixed_ground",
+                      "tensor_full_gap",
+                      "specified_hidden_family",
+                      "exponential_measure_normalized",
+                      "exponential_measure_low_mass",
+                      "gapless_positive_decreasing_slopes",
+                      "raw_positive_decreasing_slopes",
+                      "centered_single_mode_gap"
+                    ],
+                    "properties": {
+                      "specified_tensor_eigenpairs": {
+                        "const": true
+                      },
+                      "tensor_fixed_ground": {
+                        "const": true
+                      },
+                      "tensor_full_gap": {
+                        "const": true
+                      },
+                      "specified_hidden_family": {
+                        "const": true
+                      },
+                      "exponential_measure_normalized": {
+                        "const": true
+                      },
+                      "exponential_measure_low_mass": {
+                        "const": true
+                      },
+                      "gapless_positive_decreasing_slopes": {
+                        "const": true
+                      },
+                      "raw_positive_decreasing_slopes": {
+                        "const": true
+                      },
+                      "centered_single_mode_gap": {
+                        "const": true
+                      }
+                    },
+                    "additionalProperties": false
+                  },
+                  "mutants_rejected": {
+                    "type": "object",
+                    "required": [
+                      "hidden_full_gap_as_probe_threshold",
+                      "raw_as_connected",
+                      "positive_floor_for_exponential_measure",
+                      "tensor_omit_epsilon_scaling"
+                    ],
+                    "properties": {
+                      "hidden_full_gap_as_probe_threshold": {
+                        "const": true
+                      },
+                      "raw_as_connected": {
+                        "const": true
+                      },
+                      "positive_floor_for_exponential_measure": {
+                        "const": true
+                      },
+                      "tensor_omit_epsilon_scaling": {
+                        "const": true
+                      }
+                    },
+                    "additionalProperties": false
+                  }
+                }
+              }
+            }
+          },
+          "else": {
+            "anyOf": [
+              {
+                "required": [
+                  "result"
+                ],
+                "properties": {
+                  "result": {
+                    "type": "object"
+                  }
+                }
+              },
+              {
+                "required": [
+                  "reason"
+                ]
+              }
+            ]
+          }
+        },
+        "analytic_nulls": {
+          "type": "object",
+          "required": [
+            "status"
+          ],
+          "properties": {
+            "status": {
+              "enum": [
+                "passed",
+                "failed"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "pattern": "\\S"
+            }
+          },
+          "if": {
+            "properties": {
+              "status": {
+                "const": "passed"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "result"
+            ],
+            "properties": {
+              "result": {
+                "type": "object",
+                "required": [
+                  "pass",
+                  "checks",
+                  "mutants_rejected"
+                ],
+                "properties": {
+                  "pass": {
+                    "const": true
+                  },
+                  "checks": {
+                    "type": "object",
+                    "required": [
+                      "hidden_state_threshold_differs_from_full_gap",
+                      "energy_offset_invariance",
+                      "clock_scales_gaps_not_weights",
+                      "tensor_dark_factor_changes_only_full_gap",
+                      "gapless_uniform_mass_fixtures",
+                      "gapless_effective_gap_decreases",
+                      "disconnected_ground_space_retained",
+                      "centering_removes_only_selected_vacuum_mean"
+                    ],
+                    "properties": {
+                      "hidden_state_threshold_differs_from_full_gap": {
+                        "const": true
+                      },
+                      "energy_offset_invariance": {
+                        "const": true
+                      },
+                      "clock_scales_gaps_not_weights": {
+                        "const": true
+                      },
+                      "tensor_dark_factor_changes_only_full_gap": {
+                        "const": true
+                      },
+                      "gapless_uniform_mass_fixtures": {
+                        "const": true
+                      },
+                      "gapless_effective_gap_decreases": {
+                        "const": true
+                      },
+                      "disconnected_ground_space_retained": {
+                        "const": true
+                      },
+                      "centering_removes_only_selected_vacuum_mean": {
+                        "const": true
+                      }
+                    },
+                    "additionalProperties": false
+                  },
+                  "mutants_rejected": {
+                    "type": "object",
+                    "required": [
+                      "assign_full_gap_to_dark_observable",
+                      "omit_centering",
+                      "drop_degenerate_zero_mode",
+                      "declare_positive_floor_for_uniform_measure"
+                    ],
+                    "properties": {
+                      "assign_full_gap_to_dark_observable": {
+                        "const": true
+                      },
+                      "omit_centering": {
+                        "const": true
+                      },
+                      "drop_degenerate_zero_mode": {
+                        "const": true
+                      },
+                      "declare_positive_floor_for_uniform_measure": {
+                        "const": true
+                      }
+                    },
+                    "additionalProperties": false
+                  }
+                }
+              }
+            }
+          },
+          "else": {
+            "anyOf": [
+              {
+                "required": [
+                  "result"
+                ],
+                "properties": {
+                  "result": {
+                    "type": "object"
+                  }
+                }
+              },
+              {
+                "required": [
+                  "reason"
+                ]
+              }
+            ]
+          }
+        },
+        "SU2_representation": {
+          "type": "object",
+          "required": [
+            "status"
+          ],
+          "properties": {
+            "status": {
+              "enum": [
+                "passed",
+                "failed"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "pattern": "\\S"
+            }
+          },
+          "if": {
+            "properties": {
+              "status": {
+                "const": "passed"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "result"
+            ],
+            "properties": {
+              "result": {
+                "type": "object",
+                "required": [
+                  "pass",
+                  "checks",
+                  "mutants"
+                ],
+                "properties": {
+                  "pass": {
+                    "const": true
+                  },
+                  "checks": {
+                    "type": "object",
+                    "required": [
+                      "free_character_gaps",
+                      "free_character_moments",
+                      "free_angle_discrete_gaps",
+                      "free_angle_haar",
+                      "centering",
+                      "energy_shift",
+                      "weight_sum",
+                      "coverage",
+                      "fourth_order_free_dispersion",
+                      "fourth_order_free_haar_moments"
+                    ],
+                    "properties": {
+                      "free_character_gaps": {
+                        "const": true
+                      },
+                      "free_character_moments": {
+                        "const": true
+                      },
+                      "free_angle_discrete_gaps": {
+                        "const": true
+                      },
+                      "free_angle_haar": {
+                        "const": true
+                      },
+                      "centering": {
+                        "const": true
+                      },
+                      "energy_shift": {
+                        "const": true
+                      },
+                      "weight_sum": {
+                        "const": true
+                      },
+                      "coverage": {
+                        "const": true
+                      },
+                      "fourth_order_free_dispersion": {
+                        "const": true
+                      },
+                      "fourth_order_free_haar_moments": {
+                        "const": true
+                      }
+                    },
+                    "additionalProperties": false
+                  },
+                  "mutants": {
+                    "type": "object",
+                    "required": [
+                      "wrong_haar",
+                      "omitted_centering",
+                      "absolute_E1",
+                      "missing_target"
+                    ],
+                    "properties": {
+                      "wrong_haar": {
+                        "type": "object",
+                        "required": [
+                          "rejected",
+                          "named_check"
+                        ],
+                        "properties": {
+                          "rejected": {
+                            "const": true
+                          },
+                          "named_check": {
+                            "const": "free_angle_haar"
+                          }
+                        }
+                      },
+                      "omitted_centering": {
+                        "type": "object",
+                        "required": [
+                          "rejected",
+                          "named_check"
+                        ],
+                        "properties": {
+                          "rejected": {
+                            "const": true
+                          },
+                          "named_check": {
+                            "const": "centering"
+                          }
+                        }
+                      },
+                      "absolute_E1": {
+                        "type": "object",
+                        "required": [
+                          "rejected",
+                          "named_check"
+                        ],
+                        "properties": {
+                          "rejected": {
+                            "const": true
+                          },
+                          "named_check": {
+                            "const": "energy_shift"
+                          }
+                        }
+                      },
+                      "missing_target": {
+                        "type": "object",
+                        "required": [
+                          "rejected",
+                          "named_check"
+                        ],
+                        "properties": {
+                          "rejected": {
+                            "const": true
+                          },
+                          "named_check": {
+                            "const": "coverage"
+                          }
+                        }
+                      }
+                    },
+                    "additionalProperties": false
+                  }
+                }
+              }
+            }
+          },
+          "else": {
+            "anyOf": [
+              {
+                "required": [
+                  "result"
+                ],
+                "properties": {
+                  "result": {
+                    "type": "object"
+                  }
+                }
+              },
+              {
+                "required": [
+                  "reason"
+                ]
+              }
+            ]
+          }
+        },
+        "U1_representation": {
+          "type": "object",
+          "required": [
+            "status"
+          ],
+          "properties": {
+            "status": {
+              "enum": [
+                "passed",
+                "failed"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "pattern": "\\S"
+            }
+          },
+          "if": {
+            "properties": {
+              "status": {
+                "const": "passed"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "result"
+            ],
+            "properties": {
+              "result": {
+                "type": "object",
+                "required": [
+                  "pass",
+                  "checks",
+                  "mutants_rejected",
+                  "shared_representation_calibration"
+                ],
+                "properties": {
+                  "pass": {
+                    "const": true
+                  },
+                  "checks": {
+                    "type": "object",
+                    "required": [
+                      "free_fourier_even_gaps",
+                      "free_full_gap",
+                      "free_periodic_even",
+                      "free_periodic_odd",
+                      "haar_moments",
+                      "potential_coefficient"
+                    ],
+                    "properties": {
+                      "free_fourier_even_gaps": {
+                        "const": true
+                      },
+                      "free_full_gap": {
+                        "const": true
+                      },
+                      "free_periodic_even": {
+                        "const": true
+                      },
+                      "free_periodic_odd": {
+                        "const": true
+                      },
+                      "haar_moments": {
+                        "const": true
+                      },
+                      "potential_coefficient": {
+                        "const": true
+                      }
+                    },
+                    "additionalProperties": false
+                  },
+                  "mutants_rejected": {
+                    "type": "object",
+                    "required": [
+                      "wrong_haar",
+                      "missing_periodic_wrap",
+                      "project_square_before_multiplication",
+                      "odd_full_gap_used_for_even_probe",
+                      "legacy_kinetic_coefficient"
+                    ],
+                    "properties": {
+                      "wrong_haar": {
+                        "const": true
+                      },
+                      "missing_periodic_wrap": {
+                        "const": true
+                      },
+                      "project_square_before_multiplication": {
+                        "const": true
+                      },
+                      "odd_full_gap_used_for_even_probe": {
+                        "const": true
+                      },
+                      "legacy_kinetic_coefficient": {
+                        "const": true
+                      }
+                    },
+                    "additionalProperties": false
+                  },
+                  "shared_representation_calibration": {
+                    "type": "object",
+                    "required": [
+                      "pass",
+                      "checks",
+                      "mutants_rejected"
+                    ],
+                    "properties": {
+                      "pass": {
+                        "const": true
+                      },
+                      "checks": {
+                        "type": "object",
+                        "required": [
+                          "free_fourier_moments",
+                          "free_periodic_dispersion_even",
+                          "free_periodic_dispersion_odd",
+                          "free_periodic_haar",
+                          "periodic_constant_ground",
+                          "odd_selection_rule",
+                          "projection_tail_accounting"
+                        ],
+                        "properties": {
+                          "free_fourier_moments": {
+                            "const": true
+                          },
+                          "free_periodic_dispersion_even": {
+                            "const": true
+                          },
+                          "free_periodic_dispersion_odd": {
+                            "const": true
+                          },
+                          "free_periodic_haar": {
+                            "const": true
+                          },
+                          "periodic_constant_ground": {
+                            "const": true
+                          },
+                          "odd_selection_rule": {
+                            "const": true
+                          },
+                          "projection_tail_accounting": {
+                            "const": true
+                          }
+                        },
+                        "additionalProperties": false
+                      },
+                      "mutants_rejected": {
+                        "type": "object",
+                        "required": [
+                          "wrong_haar",
+                          "missing_periodic_wrap",
+                          "project_square_before_multiplication",
+                          "odd_full_gap_used_for_even_probe"
+                        ],
+                        "properties": {
+                          "wrong_haar": {
+                            "const": true
+                          },
+                          "missing_periodic_wrap": {
+                            "const": true
+                          },
+                          "project_square_before_multiplication": {
+                            "const": true
+                          },
+                          "odd_full_gap_used_for_even_probe": {
+                            "const": true
+                          }
+                        },
+                        "additionalProperties": false
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "else": {
+            "anyOf": [
+              {
+                "required": [
+                  "result"
+                ],
+                "properties": {
+                  "result": {
+                    "type": "object"
+                  }
+                }
+              },
+              {
+                "required": [
+                  "reason"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

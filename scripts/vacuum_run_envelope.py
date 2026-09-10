@@ -41,6 +41,8 @@ def source_hashes():
                 if local.is_file() and local not in seen:
                     pending.append(local)
     seen.update((SCHEMA, baseline.ROOT/'research/vacuum-spectrum/future-stage-input.schema.json'))
+    seen.add(baseline.ROOT/'research/vacuum-spectrum/control-preflight.schema.json')
+    seen.add(baseline.ROOT/'scripts/vacuum_run_replay.py')
     seen.update(baseline.ROOT/p for p in design_nulls.SOURCES)
     return {str(p.relative_to(baseline.ROOT)):hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted(seen)}
 
@@ -337,5 +339,16 @@ def run(manifest, checkpoint=None):
         result.update(state='instrument_failure',reason='control preflight failure, source/schema drift or incomplete request accounting')
         for cell in result['cells']:
             cell.update(pre_audit_status=cell['status'],status='failure',reason='final evidence audit invalidates qualification')
+    if result['source_verification']=='passed' and result['accounting_verified']:
+        from vacuum_run_replay import verify as verify_whole_result
+        result['whole_result_replay']=verify_whole_result(result)
+        if result['whole_result_replay']['status']!='verified':
+            result.update(pre_replay_state=result['state'],state='instrument_failure',
+                          reason='whole-result arithmetic/outcome replay failed')
+            for cell in result['cells']:
+                cell.update(pre_whole_replay_status=cell['status'],status='failure',
+                            reason='whole-result replay invalidates qualification; original evidence retained')
+    else:
+        result['whole_result_replay']={'status':'not_attempted','reason':'current source and accounting prerequisites unavailable'}
     emit()
     return certificates.encode(result)

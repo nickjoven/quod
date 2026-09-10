@@ -286,6 +286,7 @@
     }
   },
   "source_sha256": {
+    "research/vacuum-spectrum/control-preflight.schema.json": "a8463db8617c8971aaf2116564a246a01e0dd17ff4b32d2956e2d2c2fdab06fe",
     "research/vacuum-spectrum/design-bundle/notes/ym_vacuum_gap_registration_draft.md": "dc01a22a08d8c3edd0228740fa43723dcff5e3db424a030c5bce84fa51d0fc86",
     "research/vacuum-spectrum/future-stage-input.schema.json": "e14add22de3a64f953e4422a2a8be3575c3efa842488f93d0b700b04f604b187",
     "research/vacuum-spectrum/run-envelope.schema.json": "f0a75bfe175e10c18e508286b8fa2f2df062a23d25e0f3f41d2db1e241f5ed2c",
@@ -305,7 +306,8 @@
     "scripts/vacuum_preflight.py": "4a993f491fce26e0f1793b4e2d099b4caded8ae298bfa14bc3527ab0af1d858c",
     "scripts/vacuum_refinement.py": "cdcb8e4147e46f84e841ff9c334602cb0cf7e3be92375c59218f41bb4d5d5cdf",
     "scripts/vacuum_result_contract.py": "fb737121bc07c6ce48abe7e0c37cdd212728251391f4e6ab74a101baa75aecc2",
-    "scripts/vacuum_run_envelope.py": "642a082fd66436ef1c0bd1cac9f21c2b3b06f5c82ebcd073090135dbde0bd85b",
+    "scripts/vacuum_run_envelope.py": "fcf14f2ac37d5df96d0a85e0d08538bcaa245245bfde0f4cb821928914b3cad5",
+    "scripts/vacuum_run_replay.py": "675e131279f2d84e964c7b2b6fb16445dd995c77b8ed75a2ed5c52df4ca73a70",
     "scripts/vacuum_scalar_replay.py": "8f2a37656f2bdc1f2167786f4e7e8476021a1658016846e343f4e5c0a4bfb5f5",
     "scripts/vacuum_semigroup.py": "063546b2a7c8e4a2781c31015a2870dde84525b091d342077c3cf056c31d4519",
     "scripts/vacuum_semigroup_run.py": "fce28929e0b578a6696de956e2b250c66564d00d5b0fae1eb176bebe21958882",
