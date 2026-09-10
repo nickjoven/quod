@@ -9,3 +9,16 @@ elapsed_seconds=349.74466838501394. This observation does not supersede
 registered raw evidence or imply an unobserved solver failure. No rerun or
 budget change was made. This file records observed warnings, not a complete
 stdout/stderr capture or an additional registered qualification criterion.
+
+The first U1 cell remained in temporal refinement at least 225.4 seconds after
+its last pre-temporal checkpoint. The registered stage emits no per-propagation
+checkpoints; this observation alone cannot identify the slow request. No
+runtime cutoff, budget extension, or restart was imposed. SU2 completion
+elapsed times are transcribed in su2-console-completions.json; subsequent
+nonempty console chunks are retained under console-chunks/.
+
+Read-only nonblocking samples are retained in runtime-diagnostic-01.json and
+runtime-diagnostic-02.json. Both identify the first U1 cell, grid 600, and
+the strict tolerance pair. Some sampled locals are internally inconsistent;
+they do not certify solver progress, failure, or a completion-time estimate.
+No registered execution state was modified.

@@ -35,6 +35,28 @@ class SingleReportTests(unittest.TestCase):
         with self.assertRaises(AssertionError):
             namespace['verify_scalar_accuracy'](changed)
 
+    def test_selected_exact_arithmetic_and_mutant(self):
+        if 'selected_run' not in self.payload:self.skipTest('selected run not yet reported')
+        namespace={}
+        exec(compile(report.selected_report.CHECKS,'<selected-replay>','exec'),namespace)
+        self.assertEqual(namespace['verify_selected'](self.payload),42)
+        changed=copy.deepcopy(self.payload)
+        changed['data']['selected-summary.json']['deformation_comparisons'][0]['difference_intervals']['full_gap']=['0','0']
+        with self.assertRaises(AssertionError):namespace['verify_selected'](changed)
+        for name,sha in self.payload['selected_run']['source_sha256'].items():
+            self.assertEqual(hashlib.sha256((report.ROOT/name).read_bytes()).hexdigest(),sha)
+
+    def test_live_snapshot_preserves_incomplete_and_unattempted(self):
+        if 'selected_live' not in self.payload:self.skipTest('no live snapshot')
+        namespace={};exec(report.selected_report.LIVE_CHECKS,namespace)
+        self.assertEqual(namespace['verify_live'](self.payload),self.payload['selected_live']['counts'])
+        changed=copy.deepcopy(self.payload)
+        row=next(r for r in changed['data']['selected-live-snapshot.json']['rows'] if r['raw'] is None)
+        row['status']='instrument_agreement'
+        with self.assertRaises(AssertionError):namespace['verify_live'](changed)
+        for name,sha in self.payload['selected_live']['source_sha256'].items():
+            self.assertEqual(hashlib.sha256((report.ROOT/name).read_bytes()).hexdigest(),sha)
+
     @classmethod
     def setUpClass(cls):
         cls.html = report.OUTPUT.read_text()
@@ -89,7 +111,7 @@ class SingleReportTests(unittest.TestCase):
         from html import unescape
         tags = Tags()
         tags.feed(self.html)
-        self.assertEqual(sum(t == 'svg' for t, a in tags.tags), 3)
+        self.assertEqual(sum(t == 'svg' for t, a in tags.tags), 4 if 'selected_run' in self.payload else 3)
         for tag, attrs in tags.tags:
             if tag == 'svg':
                 self.assertEqual(attrs.get('role'), 'img')

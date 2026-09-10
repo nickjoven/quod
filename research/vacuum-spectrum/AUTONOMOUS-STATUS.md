@@ -1,13 +1,32 @@
 # Autonomous development status
 
-## Selected execution
+## Selected execution: incomplete live handoff
 
-The user selected and authorized all 42 SU(2)/corrected-U(1) cells. The separate
-`selected-registration.json` freezes the exact selected execution path, full
-protocol, source/schema/dependency pins and archived baseline. Registration is
-committed and checked before target work. `selected-run/index.json` will be the
-live authority for selected, attempted and terminal outcomes. Historical draft
-artifacts remain unselected and nonexecuting; they are not current run status.
+All 42 cells were selected and authorized. Registration commit
+`4cbbe83cb8689a722f3bf20c92376725a7fefa55` froze the path before target work;
+211 pre-execution tests passed in 78.436 seconds, followed by a fresh committed
+source/schema/baseline/dependency check.
+
+The current snapshot has 21 completed SU(2) cells, each with instrument
+agreement and independent arithmetic replay; one U(1) cell is incomplete, and
+20 U(1) cells are unattempted. The first U(1) temporal stage is computationally
+expensive. Read-only, nonblocking samples identify the 600-node strict-tolerance
+BDF call but contain inconsistent locals and cannot certify progress or an ETA.
+The protocol contains no runtime cutoff or per-propagation checkpoint within
+that stage. No solver, budget, schedule, or frozen dependency was changed.
+
+`selected-run/index.json` remains the live operational index. The immutable
+report snapshot is `selected-live-snapshot.json`; `VACUUM-REPORT.html` embeds it
+and explicitly makes no complete-run verification claim. Completed raw cells
+and append-only checkpoints are retained. The original execution process is
+left running unless the user requests interruption. An optional runtime
+preference question is pending; elapsed time is not permission to interrupt.
+Historical unselected drafts remain provenance records, not current status.
+The final live-handoff suite ran 220 tests in 81.975 seconds: 219 passed and
+the completed-run-only report test was skipped because the run is unfinished. All 306
+listed checkpoints passed the available-prefix audit. The validation transcript
+is retained in `selected-live-validation.txt`. The smaller free calibrations
+did not establish full strict-tolerance periodic-solver runtime.
 
 ## Verified prerequisites
 
@@ -45,8 +64,14 @@ and checkpoint overhead, and free/deformed runtimes remain unmeasured.
 
 ## Execution and next research decision
 
-Run all 42 cells once prerequisites pass, without further confirmation. Retain
-every checkpoint, failed stage and unresolved outcome; do not change the frozen
-budgets, ladders or schedule. Verify results and update `VACUUM-REPORT.html` with
-the next research decision. See `SELECTED-REGISTRATION.md` for execution commands,
-failure rules and scope.
+Continue the frozen process unless the user requests operational interruption.
+An interruption must remain distinct from a registered numerical failure or a
+completed unresolved assessment; later cells remain unattempted. A replacement
+solver or stopping rule needs a separate protocol. Do not overwrite the current
+run, widen error budgets, or extend sample schedules.
+
+On completion, run the registered verifier, build `selected-summary.json`,
+regenerate `VACUUM-REPORT.html`, and extend independent review to all 42 cells.
+The final scientific decision concerns a regulated lattice/volume family and
+an analytic hypothesis capable of producing uniform coercivity. These finite
+rotor observations cannot supply that uniform theorem.

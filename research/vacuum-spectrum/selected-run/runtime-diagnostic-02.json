@@ -1,0 +1,77 @@
+{
+  "method": "py-spy 0.4.1 nonblocking read-only sampling; isolated /tmp installation",
+  "observed_utc": "2026-09-10T22:06:59.325770+00:00",
+  "scope": "Selected mathematical locals only; non-atomic samples supply no certified progress or completion-time estimate.",
+  "registered_environment_changed": false,
+  "frames": [
+    {
+      "function": "solve_bdf_system",
+      "source": "scipy/integrate/_ivp/bdf.py",
+      "line": 47,
+      "sampled_locals": {
+        "t_new": "108421677518960"
+      }
+    },
+    {
+      "function": "_step_impl",
+      "source": "scipy/integrate/_ivp/bdf.py",
+      "line": 354,
+      "sampled_locals": {
+        "t": "0.09847182913023797",
+        "h_abs": "0.000000017635734345100573",
+        "rtol": "0.0000000001",
+        "order": "1",
+        "h": "0.09847184676597232",
+        "t_new": "0.0000000148824762405912"
+      }
+    },
+    {
+      "function": "step",
+      "source": "scipy/integrate/_ivp/base.py",
+      "line": 197,
+      "sampled_locals": {
+        "t": "0.09847182913023797"
+      }
+    },
+    {
+      "function": "solve_ivp",
+      "source": "scipy/integrate/_ivp/ivp.py",
+      "line": 657,
+      "sampled_locals": {
+        "tf": "384.00000000002007",
+        "t_eval_i": "1"
+      }
+    },
+    {
+      "function": "propagate",
+      "source": "vacuum_semigroup.py",
+      "line": 66,
+      "sampled_locals": {
+        "rtol": "0.0000000001",
+        "atol": "0.00000000000000000001"
+      }
+    },
+    {
+      "function": "run",
+      "source": "vacuum_parameterized_temporal.py",
+      "line": 91,
+      "sampled_locals": {
+        "theory": "\"U1\"",
+        "g": "0.125",
+        "eta": "0",
+        "n": "600",
+        "slot": "{\"rtol\": 0.0000000001, \"atol\": 0.00000000000000000001, \"status\": \"pending\", \"propagation_status\": \"pending\", ...}"
+      }
+    },
+    {
+      "function": "process_cell",
+      "source": "vacuum_run_envelope.py",
+      "line": 228,
+      "sampled_locals": {
+        "theory": "\"U1\"",
+        "g": "\"0.125\"",
+        "eta": "\"0\""
+      }
+    }
+  ]
+}

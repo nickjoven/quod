@@ -1,0 +1,110 @@
+{
+  "provenance": "Completion lines transcribed from active execution tool outputs; observation only, not a registered criterion.",
+  "cells": [
+    {
+      "id": "SU2:g=0.125:eta=0",
+      "status": "instrument_agreement",
+      "elapsed_seconds": 37.36766726296628
+    },
+    {
+      "id": "SU2:g=0.125:eta=0.5",
+      "status": "instrument_agreement",
+      "elapsed_seconds": 83.60342428600416
+    },
+    {
+      "id": "SU2:g=0.125:eta=1",
+      "status": "instrument_agreement",
+      "elapsed_seconds": 128.62538408400724
+    },
+    {
+      "id": "SU2:g=0.25:eta=0",
+      "status": "instrument_agreement",
+      "elapsed_seconds": 166.51609148702119
+    },
+    {
+      "id": "SU2:g=0.25:eta=0.5",
+      "status": "instrument_agreement",
+      "elapsed_seconds": 213.96630674396874
+    },
+    {
+      "id": "SU2:g=0.25:eta=1",
+      "status": "instrument_agreement",
+      "elapsed_seconds": 260.96197427099105
+    },
+    {
+      "id": "SU2:g=0.40:eta=0",
+      "status": "instrument_agreement",
+      "elapsed_seconds": 299.668139129004
+    },
+    {
+      "id": "SU2:g=0.40:eta=0.5",
+      "status": "instrument_agreement",
+      "elapsed_seconds": 349.74466838501394
+    },
+    {
+      "id": "SU2:g=0.40:eta=1",
+      "status": "instrument_agreement",
+      "elapsed_seconds": 398.87257977499394
+    },
+    {
+      "id": "SU2:g=0.60:eta=0",
+      "status": "instrument_agreement",
+      "elapsed_seconds": 438.40479230496567
+    },
+    {
+      "id": "SU2:g=0.60:eta=0.5",
+      "status": "instrument_agreement",
+      "elapsed_seconds": 490.1733310709824
+    },
+    {
+      "id": "SU2:g=0.60:eta=1",
+      "status": "instrument_agreement",
+      "elapsed_seconds": 541.4071166199865
+    },
+    {
+      "id": "SU2:g=0.85:eta=0",
+      "status": "instrument_agreement",
+      "elapsed_seconds": 581.2956694060122
+    },
+    {
+      "id": "SU2:g=0.85:eta=0.5",
+      "status": "instrument_agreement",
+      "elapsed_seconds": 646.3608165080077
+    },
+    {
+      "id": "SU2:g=0.85:eta=1",
+      "status": "instrument_agreement",
+      "elapsed_seconds": 701.6147946959827
+    },
+    {
+      "id": "SU2:g=1.25:eta=0",
+      "status": "instrument_agreement",
+      "elapsed_seconds": 741.4141318689799
+    },
+    {
+      "id": "SU2:g=1.25:eta=0.5",
+      "status": "instrument_agreement",
+      "elapsed_seconds": 799.2640171169769
+    },
+    {
+      "id": "SU2:g=1.25:eta=1",
+      "status": "instrument_agreement",
+      "elapsed_seconds": 856.8586223010207
+    },
+    {
+      "id": "SU2:g=2.50:eta=0",
+      "status": "instrument_agreement",
+      "elapsed_seconds": 896.3566549699754
+    },
+    {
+      "id": "SU2:g=2.50:eta=0.5",
+      "status": "instrument_agreement",
+      "elapsed_seconds": 953.7849528410006
+    },
+    {
+      "id": "SU2:g=2.50:eta=1",
+      "status": "instrument_agreement",
+      "elapsed_seconds": 1023.0630365019897
+    }
+  ]
+}

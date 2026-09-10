@@ -17,6 +17,7 @@ import sympy as sp
 from vacuum_run_envelope import scalar_accuracy
 import vacuum_execution_contract as execution_contract
 import vacuum_target_envelope as target_envelope
+import vacuum_selected_report as selected_report
 
 ROOT = Path(__file__).resolve().parents[1]
 D = ROOT / 'research/vacuum-spectrum'
@@ -139,6 +140,11 @@ def main():
     exec(compile(CAS, '<embedded-cas-checks>', 'exec'), {})
     names = ['design-readiness.json', 'result-contract.json', 'pilot-disposition.json',
              'vacuum-coercivity-check.json', 'execution-contract.json', 'target-result-envelope.json']
+    selected = (D/'selected-summary.json').exists()
+    live = not selected and (D/'selected-live-snapshot.json').exists()
+    if live:names += ['selected-live-snapshot.json']
+    if selected:
+        names += ['selected-registration.json','selected-summary.json','selected-run/index.json','selected-run/verification.json']
     data = {n: json.loads((D/n).read_text()) for n in names}
     execution_contract.validate(data['execution-contract.json'])
     target_envelope.validate(data['target-result-envelope.json'])
@@ -150,6 +156,7 @@ def main():
     documents = ['VACUUM-COERCIVITY.md', 'V3-FOCUS.md', 'REVIEW-HANDOFF.md',
                  'PILOT-DISPOSITION.md', 'RESULT-CONTRACT.md', 'DESIGN-READINESS.md',
                  'DESIGN-NULLS.md', 'TARGET-COST-PLAN.md']
+    if selected or live:documents += ['SELECTED-REGISTRATION.md','selected-validation.txt','selected-run/console-observations.txt']
     # Exact archived finest-rung certificates are retained, not recomputed.
     for theory, name in [('SU2', 'certificates.json'), ('U1', 'u1-design-certificates.json')]:
         archive = json.loads((D/name).read_text())
@@ -311,6 +318,73 @@ def main():
              'hypotheses': ['self-adjoint nonnegative T with compact resolvent',
                             'simple free vacuum', 'bounded self-adjoint multiplication V']},
             {'id': 'uniform_YM_coercivity', 'status': 'unproved'}]}
+    plt.rcParams.update({'svg.hashsalt': 'vacuum-single-report-v1', 'font.size': 10})
+    selected_section = ''
+    if selected:
+        summary=data['selected-summary.json']
+        selected_namespace={}
+        exec(compile(selected_report.CHECKS,'<selected-checks>','exec'),selected_namespace)
+        selected_namespace['verify_selected'](payload)
+        payload['scope']='Registered 42-cell finite-rotor characterization plus archived development; no uniform Yang-Mills gap proof'
+        payload['selected_run']={'registration_commit':summary['registration_commit'],'verification':summary['verification'],
+            'source_sha256':{name:digest((ROOT/name).read_bytes()) for name in ('scripts/vacuum_selected_report.py','scripts/test_vacuum_selected_report.py')}}
+        payload['historical_preselection_records']=['execution-contract.json','target-result-envelope.json','design-readiness.json']
+        payload['blockers'].update(next_required_input='next_research_direction_after_fixed_run',registration='committed_and_executed_all42')
+        fig,ax=plt.subplots(figsize=(10,3.2),constrained_layout=True)
+        ordered=summary['cells']; gs=list(dict.fromkeys(r['g'] for r in ordered))
+        groups=[(t,e) for t in ('SU2','U1') for e in ('0','0.5','1')]
+        colors={'instrument_agreement':'#287d57','unresolved':'#d39b28','failure':'#b54747'}
+        for row in ordered:
+            x=gs.index(row['g']);y=groups.index((row['theory'],row['eta']))
+            ax.scatter(x,y,s=440,marker='s',color=colors[row['status']])
+        ax.set_xticks(range(7),gs);ax.set_yticks(range(6),[t+', η='+e for t,e in groups]);ax.set_xlabel('g');ax.invert_yaxis()
+        target_figure=svg(fig).replace('<svg ','<svg role="img" aria-label="All 42 registered cell outcomes. Green: instrument agreement; amber: unresolved; red: failure. Exact outcomes and gaps appear in the following table." ',1)
+        counts=summary['verification']['outcomes']
+        selected_section='<h2>Registered 42-cell results</h2><p><b>'+escape(str(counts))+'</b>. All 42 selected cells were attempted, with '+str(summary['verification']['checkpoints'])+' preserved checkpoints. Registration commit <code>'+summary['registration_commit']+'</code> preceded target execution. The final pre-execution suite passed 211 tests in 78.436 seconds. Full raw-evidence and checkpoint replay passed after execution.</p>'
+        lower=summary.get('finite_family_full_gap_lower')
+        if lower is not None and F(lower)>0:
+            floor=F(lower).numerator*10**9//F(lower).denominator
+            displayed=f'{floor//10**9}.{floor%10**9:09d}'
+            selected_section+='<p><b>Common bound on the selected finite family:</b> every full-gap lower endpoint is positive. Their minimum, c<sub>grid</sub>, is at least '+displayed+' (decimal rounded downward; exact rational minimum embedded). For rotor r, let dν<sub>r</sub>=|ψ₀,r|²dU<sub>r</sub> and Q<sub>r</sub>[f]=q<sub>Hᵣ</sub>[ψ₀,r f]−E₀,r‖ψ₀,r f‖². Then Q<sub>r</sub>[f] ≥ c<sub>grid</sub> Var<sub>νᵣ</sub>(f) for every physical form-domain f, under the stated ground-transform hypotheses. This minimum covers these 42 named Hamiltonians only. It supplies no lower bound uniform in an increasing lattice, physical volume, continuum limit, or an unselected coupling domain.</p>'
+        selected_section+='<p>The raw cells and append-only checkpoint inventory are retained in <code>research/vacuum-spectrum/selected-run/</code>. Reproduce the complete solver-free replay with <code>OPENBLAS_NUM_THREADS=1 python3 scripts/vacuum_registered_run.py verify --registration-commit '+summary['registration_commit']+'</code>. The embedded checks below verify summary bindings and exact interval arithmetic; spectral-certificate and stored-correlation error/window replay uses the pinned repository sources and raw files.</p>'
+        selected_section+='<figure>'+target_figure+'<figcaption>Fixed-run outcomes: green = instrument agreement; amber = unresolved; red = failure.</figcaption></figure>'
+        selected_section+='<p>Gap values below are rounded interval midpoints; exact rational endpoints, thresholds, finest evidence and all matched deformation differences are embedded in the machine data. A certificate interval can remain informative when the overall instrument outcome is unresolved. Sample-pair indices refer to τ=(0, 1/8, 1/4, 1/2, 1, 2, 4, 8, 12, 16, 20, 24), scaled by that cell’s frozen certificate clock. Every adjacent pair was assessed; all qualifying common pairs are shown.</p>'+selected_report.table(summary)
+        deformation_rows=[]
+        for comparison in summary['deformation_comparisons']:
+            values=[comparison['cell']]
+            for field in ('full_gap','P_threshold','P2_threshold','mean_P','variance_P'):
+                interval=comparison['difference_intervals'][field]
+                values.append('unresolved' if interval is None else '['+format(float(F(interval[0])),'.7g')+', '+format(float(F(interval[1])),'.7g')+']')
+            deformation_rows.append('<tr>'+''.join('<td>'+escape(v)+'</td>' for v in values)+'</tr>')
+        selected_section+='<details><summary>Matched deformation differences: η minus 0 at the same theory and g</summary><p>Displayed endpoints are rounded; exact interval subtraction [a,b]−[c,d]=[a−d,b−c] and all five vacuum-component differences are embedded. These describe the specified finite Hamiltonians.</p><table><tr><th>Cell</th><th>Δ full gap</th><th>Δ P threshold</th><th>Δ P² threshold</th><th>Δ mean P</th><th>Δ variance P</th></tr>'+''.join(deformation_rows)+'</table></details>'
+        selected_section+='<p>A BDF runtime warning was observed during SU(2), g=0.40, η=0.5. Its raw stage records completed and passed the registered replay. The warning observation is preserved in the supporting records; no rerun or budget change followed it.</p>'
+        if counts.get('failure',0):
+            decision='The next decision is how to address the retained instrument failures in a separate registration before extending the research model.'
+        elif counts.get('unresolved',0):
+            decision='The next decision is whether to design a separately registered instrument study for the explicitly unmet checks, or move to a specified lattice/volume family with a uniform-coercivity hypothesis.'
+        else:
+            decision='All registered checks were met, so this run supplies no unresolved-check reason to expand its schedule. The next research decision is the regulated lattice/volume family and the analytic hypothesis that could make its coercivity constant uniform. That choice must specify the physical quotient, norm, and limiting parameters before another target study.'
+        selected_section+='<p><b>Limits and next decision:</b> no budget, ladder or schedule was extended. Instrument agreement characterizes the named finite rotor. Unresolved precision or window checks do not establish a zero gap. Full gaps and observable-accessible thresholds remain distinct; P² can select a higher level at η=0, and corrected-U(1) even probes cannot detect an odd-sector full gap. Matched deformation intervals measure only the specified Hamiltonian change, and a change of accessible leading level must not be read as full-gap collapse. '+decision+' A uniform theorem does not follow from this finite family. The original pilot remains permanently unverifiable.</p>'
+    if live:
+        snapshot=data['selected-live-snapshot.json']; counts=snapshot['counts']
+        namespace={};exec(selected_report.LIVE_CHECKS,namespace);namespace['verify_live'](payload)
+        payload['scope']='Ongoing registered finite-rotor execution; partial results; no complete-run verification or uniform Yang-Mills proof'
+        payload['historical_preselection_records']=['execution-contract.json','target-result-envelope.json','design-readiness.json']
+        payload['selected_live']={'counts':counts,'snapshot_utc':snapshot['snapshot_utc'],
+            'source_sha256':{name:digest((ROOT/name).read_bytes()) for name in ('scripts/vacuum_selected_report.py','scripts/test_vacuum_selected_report.py')}}
+        payload['blockers'].update(next_required_input='optional_operational_runtime_preference; unchanged_run_continues_unless_interruption_requested',registration='committed_execution_ongoing')
+        selected_section='<h2>Registered execution: live partial handoff</h2><p><b>'+escape(str(counts))+'</b>, as of '+escape(snapshot['snapshot_utc'])+'. Registration <code>'+snapshot['index']['registration_commit']+'</code> was committed after 211 pre-execution tests passed and before the first target solver. Completed raw cells have been replayed, and all 21 SU(2) records were independently reviewed. This is not a complete-run verification.</p>'
+        selected_section+='<p>The pre-execution tests exercised smaller free-case calibrations; they did not establish completion cost for the full free periodic schedule at the registered strict tolerance. The first U(1) cell is in its 600-node, tight-tolerance BDF call. Read-only samples indicate expensive computation before its first positive scheduled sample; some sampled locals are inconsistent because inspection was nonblocking. They do not prove a numerical failure or provide a reliable completion-time estimate. The frozen protocol has no runtime cutoff and no per-propagation checkpoint inside this stage. It remains unchanged and active unless the user requests interruption. Unfinished work is not classified as a completed unresolved assessment.</p>'
+        visible=[]
+        for row in snapshot['rows']:
+            values=[row['theory'],row['g'],row['eta'],row['status'],selected_report.display(row['full_gap_interval']) if row['raw'] else 'not available']
+            for observable in ('P','P2'):
+                channel=row['thresholds'].get(observable,{})
+                values.append(selected_report.display(channel.get('gap_interval')) if row['raw'] else 'not available')
+            visible.append('<tr>'+''.join('<td>'+escape(v)+'</td>' for v in values)+'</tr>')
+        selected_section+='<table><tr><th>Theory</th><th>g</th><th>η</th><th>Snapshot status</th><th>Full gap midpoint</th><th>P threshold midpoint</th><th>P² threshold midpoint</th></tr>'+''.join(visible)+'</table>'
+        selected_section+='<p>Exact rational intervals and completed finest certificates are embedded. A running or unrun row has no reported final numerical result; partial scalar and certificate evidence for the active cell remains in the retained checkpoints. For the free corrected-U(1) model, C<sub>PP</sub>(t)=½e<sup>−4g²t</sup> and C<sub>P²P²</sub>(t)=⅛e<sup>−16g²t</sup>, with zero cross-correlation. These analytic diagnostics do not substitute for the registered numerical requests or imply that long runtime is physical gap collapse.</p>'
+        selected_section+='<p><b>Next operational decision:</b> continue the unchanged registered computation, or explicitly interrupt and retain incomplete evidence. Until instructed otherwise, execution continues. Any revised solver or stopping rule requires a separate protocol; current budgets and schedules are not widened. The original pilot remains permanently unverifiable. Partial finite-rotor evidence supplies no uniform Yang–Mills gap proof.</p>'
     raw = json.dumps(payload, sort_keys=True, separators=(',', ':')).encode()
     encoded = base64.b64encode(gzip.compress(raw, mtime=0)).decode()
     plt.rcParams.update({'svg.hashsalt': 'vacuum-single-report-v1', 'font.size': 10})
@@ -378,6 +452,8 @@ print('Embedded data digest, exact interval ordering, target boundary and CAS ch
 '''
     extraction += '\n' + RESIDUALS + '\nverify_residuals(report)\n'
     extraction += '\n' + SCALARS + '\nverify_scalar_accuracy(report)\n'
+    if selected:extraction += '\n'+selected_report.CHECKS+'\nverify_selected(report)\n'
+    if live:extraction += '\n'+selected_report.LIVE_CHECKS+'\nverify_live(report)\n'
     appendix = ''.join('<details><summary>'+escape(n)+'</summary><pre>'+escape((D/n).read_text())+'</pre></details>' for n in documents)
     html = f'''<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Vacuum spectrum — evidence and proof obligations</title>
@@ -388,7 +464,8 @@ The vacuum reduction is exact. A cutoff- and volume-uniform Yang–Mills gap is 
 <div class="cards"><div class="card"><b>20 development cells</b><br>Archived bounds, overlaps and sampled windows qualify.</div>
 <div class="card"><b>202 regression tests passed</b><br>Recorded pre-selection run: 76.243 s; source hashes embedded below.</div>
 <div class="card open"><b>42 targets unrun</b><br>No registration or target execution authorization.</div></div>
-<h2>1. Decisions needed from the user</h2>
+{selected_section}
+<h2>1. Historical pre-selection handoff</h2>
 <p><b>The development prerequisites are complete through the target-selection boundary.</b>
 The next required input is which target cells to characterize. The complete candidate set
 is both SU(2) and U(1), with g ∈ {{0.125, 0.25, 0.40, 0.60, 0.85, 1.25, 2.50}} and
@@ -675,6 +752,18 @@ To reproduce the full numerical audit in the pinned checkout, run
 <code>OPENBLAS_NUM_THREADS=1 python3 -m unittest discover -s scripts -p 'test_vacuum*.py' -v</code>.</p>{appendix}
 <footer><p>Build: scripts/vacuum_single_report.py. CAS {sp.__version__}; plotting Matplotlib {matplotlib.__version__}.
 Report generation executes no target solver and allocates no registration identifiers.</p></footer></html>'''
+    if selected or live:
+        html=html.replace('Consolidated 2026-09-09. Exploratory finite-rotor study;', 'Updated 2026-09-10. Registered finite-rotor characterization;')
+        html=html.replace('<b>202 regression tests passed</b><br>Recorded pre-selection run: 76.243 s; source hashes embedded below.', '<b>211 pre-execution tests passed</b><br>Frozen-path validation: 78.436 s; committed before target computation.')
+        card='<b>42 selected cells executed</b><br>Committed registration; fixed-budget results and verification below.' if selected else '<b>'+str(counts['completed'])+' completed; '+str(counts['incomplete'])+' incomplete</b><br>'+str(counts['unattempted'])+' unattempted; registered execution remains active.'
+        html=html.replace('<b>42 targets unrun</b><br>No registration or target execution authorization.',card)
+        start=html.index('<h2>1. Historical pre-selection handoff</h2>')
+        stop=html.index('<p><b>Independent review:</b>',start)
+        html=html[:start]+'<h2>1. Scope and review</h2><p>The user selected all 42 cells after the development handoff at commit 24d42a9. Selected registration 4cbbe83, its reviewed execution path, and the results above supersede the historical unselected drafts. Those drafts remain embedded as provenance. P/LC labels are optional within quod; they add no mathematical assurance beyond the explicitly stated checks.</p>'+html[stop:]
+        html=html.replace('All 42 targets remain unrun.', 'At that historical checkpoint all 42 targets remained unrun; the registered run above supersedes that status.')
+        html=html.replace("The user's target decision is now required.", "That historical target decision was subsequently supplied: all 42 cells.")
+        html=html.replace("Registration and an execution path for\nthe chosen subset follow the user's selection.", 'The separate selected registration and exact execution path now supersede this historical stopping boundary.')
+        html=html.replace('all 42 unrun target records', 'the historical unrun target records and all 42 selected result summaries')
     OUTPUT.write_text(html)
     print(f'Wrote {OUTPUT} ({OUTPUT.stat().st_size:,} bytes)')
     return extraction

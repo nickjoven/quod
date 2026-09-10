@@ -1,0 +1,22 @@
+{
+  "scope": "Analytic free-U1 diagnostic; not replacement data for the registered numerical path.",
+  "hamiltonian": "-4*g^2*d^2/dtheta^2; normalized uniform vacuum; eta=0",
+  "connected_correlations": {
+    "P,P": "exp(-4*g^2*t)/2",
+    "P2,P2": "exp(-16*g^2*t)/8",
+    "P,P2": "0 by Fourier orthogonality"
+  },
+  "full_gap": "4*g^2",
+  "P2_accessible_threshold": "16*g^2",
+  "CAS": {
+    "sympy": "1.14.0",
+    "checks": "two decay equations and their initial amplitudes",
+    "residuals": [
+      "0",
+      "0",
+      "0",
+      "0"
+    ]
+  },
+  "limitation": "Does not diagnose floating-point adaptive-solver behavior or fulfill the registered independent propagation requests."
+}

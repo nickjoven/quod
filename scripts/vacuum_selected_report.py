@@ -91,11 +91,6 @@ def table(summary):
     return '<table><tr>'+''.join('<th>'+s+'</th>' for s in ('Theory','g','η','Outcome','Full gap','P threshold','P² threshold','Common sample pairs','Unmet checks'))+'</tr>'+''.join(rows)+'</table>'
 
 
-if __name__=='__main__':
-    result=summarize(); registered.core.baseline.write_report(OUTPUT,result)
-    print(json.dumps(result['verification']))
-
-
 CHECKS=r'''
 def verify_selected(report):
     from fractions import Fraction as F
@@ -159,3 +154,159 @@ def verify_selected(report):
     print('42 selected cells: exact free spectra, interval ordering and matched deformation arithmetic checked.')
     return 42
 '''
+
+
+def live_checkpoints(index):
+    """Audit the captured checkpoint prefix; newer active-cell files may exist."""
+    refs=index['checkpoints']; offset=0; snapshots=[]; paths=[r['path'] for r in refs]
+    if len(set(paths))!=len(paths):raise ValueError('duplicate live checkpoint')
+    for number,row in enumerate(index['cells']):
+        prefix=f'checkpoints/{number:02d}-'; sequence=0; last=None
+        while offset<len(refs) and refs[offset]['path'].startswith(prefix):
+            ref=refs[offset]
+            if ref['path']!=prefix+f'{sequence:03d}.json.gz':
+                raise ValueError('noncanonical live checkpoint sequence')
+            raw=(registered.OUTPUT/ref['path']).read_bytes(); decoded=gzip.decompress(raw)
+            if registered.digest(raw)!=ref['sha256'] or registered.digest(decoded)!=ref['json_sha256']:
+                raise ValueError('live checkpoint digest mismatch')
+            last=json.loads(decoded)
+            if last['id']!=row['id']:raise ValueError('live checkpoint identity mismatch')
+            sequence+=1; offset+=1
+        if row['result'] is not None and sequence<2:
+            raise ValueError('completed live cell lacks initial/final checkpoints')
+        if not row['attempted'] and sequence:
+            raise ValueError('unattempted live cell has checkpoints')
+        snapshots.append(last)
+    if offset!=len(refs):raise ValueError('live checkpoint outside selected sequence')
+    present={str(p.relative_to(registered.OUTPUT)) for p in (registered.OUTPUT/'checkpoints').glob('*.json.gz')}
+    if not set(paths)<=present:raise ValueError('missing live checkpoint file')
+    extras=present-set(paths)
+    for path in extras:
+        allowed=False
+        for number,row in enumerate(index['cells']):
+            prefix=f'checkpoints/{number:02d}-'
+            if row['attempted'] and row['result'] is None and path.startswith(prefix):
+                suffix=path[len(prefix):]
+                allowed=(len(suffix)==11 and suffix[:3].isdigit() and suffix[3:]=='.json.gz')
+                if allowed:
+                    listed=sum(p.startswith(prefix) for p in paths)
+                    allowed=int(suffix[:3])>=listed
+                break
+        if not allowed:raise ValueError('unindexed checkpoint outside active cell')
+    return snapshots,{'listed_verified':len(refs),'newer_active_files_not_in_snapshot':sorted(extras)}
+
+
+def live_snapshot():
+    """Verify completed records while preserving running and unattempted slots."""
+    from datetime import datetime, timezone
+    registration=json.loads(registered.REGISTRATION.read_text())
+    index=json.loads((registered.OUTPUT/'index.json').read_text())
+    registered.committed(registration,index['registration_commit'])
+    if index['registration_sha256']!=registered.digest(registered.REGISTRATION.read_bytes()):
+        raise ValueError('live registration digest mismatch')
+    if [r['id'] for r in index['cells']]!=registration['selected_target_ids']:
+        raise ValueError('live index identity mismatch')
+    if not registered.replay.control_verdict(index['control_preflight']):
+        raise ValueError('live controls failed')
+    last_checkpoints,checkpoint_audit=live_checkpoints(index)
+    rows=[]
+    for number,(spec,entry) in enumerate(zip(registration['cells'],index['cells'])):
+        row={k:spec[k] for k in ('id','theory','g','eta')}
+        row.update(status=entry['status'],attempted=entry['attempted'],raw=entry['result'],
+                   full_gap_interval=None,thresholds={},finest_certificate=None)
+        if entry['result'] is not None:
+            ref=entry['result']; raw=(registered.OUTPUT/ref['path']).read_bytes(); decoded=gzip.decompress(raw)
+            if registered.digest(raw)!=ref['sha256'] or registered.digest(decoded)!=ref['json_sha256']:
+                raise ValueError('live raw digest mismatch')
+            cell=json.loads(decoded)
+            if cell!=last_checkpoints[number]:raise ValueError('live final record differs from final checkpoint')
+            verdict=registered.assess(spec,cell,registration)
+            if verdict!=entry['verification'] or verdict['outcome']!=entry['status']:
+                raise ValueError('live completed-cell replay mismatch')
+            certificate=cell['stages']['certificates']['rungs'][-1].get('record')
+            if certificate is not None and registered.core.certificates.verify(certificate):
+                result=certificate['result']
+                row['full_gap_interval']=(result.get('first_three_gap_intervals',[None])[0] if spec['theory']=='SU2' else result.get('parity',{}).get('full_gap_interval'))
+                row['thresholds']={c['certificate']['observable']:c['threshold'] for c in registered.core.certificates.verified_channels(certificate)}
+                row['finest_certificate']=certificate
+            row['verification']=verdict
+        rows.append(row)
+    # These are observations of the ongoing run, not terminal-run qualification.
+    observations={p.name:json.loads(p.read_text()) for p in registered.OUTPUT.glob('*diagnostic*.json')}
+    review=json.loads((registered.OUTPUT/'independent-review.json').read_text())
+    registered.validate(registration)
+    return {'snapshot_utc':datetime.now(timezone.utc).isoformat(),
+            'scope':'Live snapshot; completed cells replayed; no complete-run verification claim.',
+            'registration':registration,'index':index,'rows':rows,'independent_review':review,
+            'observations':observations,'checkpoint_audit':checkpoint_audit,
+            'snapshot_index_sha256':registered.digest(registered.replay.encoded(index).encode()),
+            'counts':{'selected':len(rows),'attempted':sum(r['attempted'] for r in rows),
+                      'completed':sum(r['raw'] is not None for r in rows),
+                      'incomplete':sum(r['attempted'] and r['raw'] is None for r in rows),
+                      'unattempted':sum(not r['attempted'] for r in rows)}}
+
+
+LIVE_CHECKS=r'''
+def verify_live(report):
+    import hashlib,json
+    from fractions import Fraction as F
+    snapshot=report['data']['selected-live-snapshot.json']
+    registration=snapshot['registration']; index=snapshot['index']; rows=snapshot['rows']
+    assert [r['id'] for r in rows]==registration['selected_target_ids']
+    assert [r['id'] for r in registration['cells']]==registration['selected_target_ids']
+    assert [r['id'] for r in index['cells']]==registration['selected_target_ids']
+    assert registration['registered'] is True and registration['target_execution_authorized'] is True
+    encoded=json.dumps(index,sort_keys=True,separators=(',',':'),allow_nan=False).encode()
+    assert hashlib.sha256(encoded).hexdigest()==snapshot['snapshot_index_sha256']
+    assert len(rows)==42
+    counts={'selected':len(rows),'attempted':sum(r['attempted'] for r in rows),
+            'completed':sum(r['raw'] is not None for r in rows),
+            'incomplete':sum(r['attempted'] and r['raw'] is None for r in rows),
+            'unattempted':sum(not r['attempted'] for r in rows)}
+    assert counts==snapshot['counts']
+    for row,spec,entry in zip(rows,registration['cells'],index['cells']):
+        assert all(row[k]==spec[k] for k in ('id','theory','g','eta'))
+        assert row['id']==entry['id']
+        assert row['status']==entry['status'] and row['raw']==entry['result'] and row['attempted']==entry['attempted']
+        assert type(row['attempted']) is bool
+        if row['raw'] is not None:
+            assert row['attempted'] and row['status'] in ('instrument_agreement','unresolved','failure')
+            assert row['verification']==entry['verification']
+            assert row['verification']['outcome']==row['status']
+        else:
+            assert row['status']==('running' if row['attempted'] else 'unrun')
+            assert 'verification' not in row
+            assert row['full_gap_interval'] is None and row['thresholds']=={} and row['finest_certificate'] is None
+        certificate=row['finest_certificate']
+        if certificate is None:
+            assert row['full_gap_interval'] is None and row['thresholds']=={}
+        else:
+            assert certificate['theory']==row['theory']
+            assert F(certificate['g'])==F(row['g']) and F(certificate['eta'])==F(row['eta'])
+            result=certificate['result']
+            gaps=result['first_three_gap_intervals' if row['theory']=='SU2' else 'first_three_even_gap_intervals']
+            full=gaps[0] if row['theory']=='SU2' else result.get('parity',{}).get('full_gap_interval')
+            assert row['full_gap_interval']==full
+            for threshold in row['thresholds'].values():
+                if threshold['status']=='resolved':
+                    level=threshold['leading_level']
+                    assert type(level) is int and 1<=level<=len(gaps)
+                    assert threshold['gap_interval']==gaps[level-1]
+        if row['full_gap_interval'] is not None:
+            lo,hi=map(F,row['full_gap_interval']);assert lo<=hi
+        for threshold in row['thresholds'].values():
+            if threshold['status']=='resolved':
+                lo,hi=map(F,threshold['gap_interval']);assert 0<lo<=hi
+    print('Live snapshot bindings and completed/incomplete/unattempted accounting checked; no complete-run verdict.')
+    return counts
+'''
+
+
+if __name__=='__main__':
+    import argparse
+    parser=argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--live',action='store_true')
+    args=parser.parse_args()
+    result=live_snapshot() if args.live else summarize()
+    registered.core.baseline.write_report(D/'selected-live-snapshot.json' if args.live else OUTPUT,result)
+    print(json.dumps(result['counts'] if args.live else result['verification']))

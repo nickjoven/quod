@@ -90,4 +90,69 @@ class SelectedReportTests(unittest.TestCase):
             with self.assertRaises(AssertionError):self.check(value)
 
 
+class LiveReportTests(unittest.TestCase):
+    def fixture(self):
+        import hashlib,json
+        value=fixture(); data=value['data']; registration=data['selected-registration.json']
+        rows=deepcopy(data['selected-summary.json']['cells'])
+        for row in rows:
+            row.update(status='unrun',attempted=False,raw=None,thresholds={},finest_certificate=None)
+            row.pop('verification')
+        rows[0].update(status='running',attempted=True)
+        index={'cells':[{'id':r['id'],'status':r['status'],'attempted':r['attempted'],'result':r['raw']} for r in rows]}
+        snapshot={'registration':registration,'index':index,'rows':rows,
+                  'counts':{'selected':42,'attempted':1,'completed':0,'incomplete':1,'unattempted':41},
+                  'snapshot_index_sha256':hashlib.sha256(json.dumps(index,sort_keys=True,separators=(',',':'),allow_nan=False).encode()).hexdigest()}
+        return {'data':{'selected-live-snapshot.json':snapshot}}
+
+    def check(self,value):
+        namespace={};exec(report.LIVE_CHECKS,namespace)
+        with contextlib.redirect_stdout(io.StringIO()):return namespace['verify_live'](value)
+
+    def test_live_inventory_and_certificate_binding(self):
+        self.assertEqual(self.check(self.fixture())['incomplete'],1)
+        for mutate in (lambda x:x['registration']['cells'].pop(),
+                       lambda x:x['index']['cells'].pop(),
+                       lambda x:x['index']['cells'][0].update(id='wrong'),
+                       lambda x:x['rows'][0].update(full_gap_interval=['1','2'])):
+            value=self.fixture(); mutate(value['data']['selected-live-snapshot.json'])
+            with self.assertRaises(AssertionError):self.check(value)
+        value=self.fixture(); x=value['data']['selected-live-snapshot.json']; row=x['rows'][0]
+        row.update(status='instrument_agreement',raw={'path':'fixture'},
+                   verification={'status':'verified','outcome':'instrument_agreement'},
+                   full_gap_interval=['2','4'],finest_certificate={'theory':'SU2','g':'1','eta':'0',
+                   'result':{'first_three_gap_intervals':[['2','4']]}})
+        x['index']['cells'][0].update(status=row['status'],result=row['raw'],verification=row['verification'])
+        x['counts'].update(completed=1,incomplete=0)
+        import hashlib,json
+        x['snapshot_index_sha256']=hashlib.sha256(json.dumps(x['index'],sort_keys=True,separators=(',',':'),allow_nan=False).encode()).hexdigest()
+        self.check(value)
+        row['full_gap_interval']=['3','4']
+        with self.assertRaises(AssertionError):self.check(value)
+
+    def test_live_checkpoint_prefix_and_active_extras(self):
+        import gzip,json,tempfile
+        from pathlib import Path
+        from unittest.mock import patch
+        with tempfile.TemporaryDirectory() as directory, patch.object(report.registered,'OUTPUT',Path(directory)):
+            output=Path(directory); (output/'checkpoints').mkdir()
+            def write(number,sequence,identity):
+                raw=json.dumps({'id':identity,'sequence':sequence}).encode(); compressed=gzip.compress(raw)
+                path=f'checkpoints/{number:02d}-{sequence:03d}.json.gz'; (output/path).write_bytes(compressed)
+                return {'path':path,'sha256':report.registered.digest(compressed),'json_sha256':report.registered.digest(raw)}
+            refs=[write(0,0,'done'),write(0,1,'done'),write(1,0,'active')]
+            extra=write(1,1,'active')
+            index={'cells':[{'id':'done','attempted':True,'result':{}},{'id':'active','attempted':True,'result':None}],
+                   'checkpoints':refs}
+            last,audit=report.live_checkpoints(index)
+            self.assertEqual(last[0]['id'],'done'); self.assertEqual(audit['listed_verified'],3)
+            self.assertEqual(audit['newer_active_files_not_in_snapshot'],[extra['path']])
+            for mutated in ([refs[0],refs[2]], [refs[1],refs[0],refs[2]], refs+[refs[2]]):
+                with self.assertRaises(ValueError):report.live_checkpoints(dict(index,checkpoints=mutated))
+            bad=deepcopy(index); bad['cells'][0]['id']='wrong'
+            with self.assertRaises(ValueError):report.live_checkpoints(bad)
+            write(0,2,'done')
+            with self.assertRaises(ValueError):report.live_checkpoints(index)
+
+
 if __name__=='__main__':unittest.main()

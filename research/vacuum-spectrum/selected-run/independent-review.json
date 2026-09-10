@@ -1,0 +1,889 @@
+{
+  "schema_version": 1,
+  "status": "partial",
+  "reviewed_at_utc": "2026-09-10T21:56:57.433102+00:00",
+  "reviewer": "independent report_review agent",
+  "registration_commit": "4cbbe83cb8689a722f3bf20c92376725a7fefa55",
+  "registration_sha256": "7a8cb075ca70a8a908a35f389bd2136b743a8e1b73591f552f0202c1cd382bcd",
+  "index_snapshot_sha256": "1607342a6a495e9942768b1091f468eff058466411762916421d250669a6d019",
+  "reviewed_count": 21,
+  "selected_count": 42,
+  "remaining_scope": "21 U1 cells not included in this partial review",
+  "method": [
+    "Checked registration and all registered source/baseline blobs against frozen commit using committed().",
+    "Checked each reviewed final raw compressed and decompressed JSON SHA256 against the captured index.",
+    "Replayed request accounting and all per-cell certificate, scalar, temporal, clock, adapter and outcome arithmetic through frozen assess(); no eigensolver or propagation solver invoked.",
+    "Independently checked positive full-gap intervals, resolved observable thresholds, and free SU2 selection: P level 1 at 3g^2; P2 level 2 at 8g^2."
+  ],
+  "findings": [],
+  "observations": [
+    "All 21 reviewed SU2 cells replayed as instrument_agreement.",
+    "For eta=0, P2 selects the second accessible level and does not establish the full gap; for eta=0.5 and 1 both reported channels select level 1.",
+    "The recorded BDF warning between cells 7 and 8 remains in console-observations.txt; cell 8 replay passed."
+  ],
+  "scope": "Post-run independent arithmetic review of completed SU2 final evidence only; not a new execution criterion, not solver execution authentication, and not whole-run checkpoint/control audit. Finite named rotor Hamiltonians only; no lattice, volume or continuum uniform Yang-Mills gap proof.",
+  "original_pilot": "permanently unverifiable; original script and results lost",
+  "cells": [
+    {
+      "id": "SU2:g=0.125:eta=0",
+      "theory": "SU2",
+      "g": "0.125",
+      "eta": "0",
+      "raw": {
+        "path": "cells/00.json.gz",
+        "sha256": "64f299f78469db143738ae3593159fea45c2d2decdf74d6421e50798a27b82d8",
+        "json_sha256": "71c7dc7bc8a5403e0789bb5b766b3e89e8b99f3aec9a6ef2c4b9301e41aa3c11"
+      },
+      "replay": {
+        "status": "verified",
+        "outcome": "instrument_agreement"
+      },
+      "full_gap_interval": [
+        "118842243771242891421776084311/2535301200456458802993406410752",
+        "3377699720528553/72057594037927936"
+      ],
+      "observable_thresholds": {
+        "P": {
+          "status": "resolved",
+          "reason": "nonzero overlap with all preceding levels exactly excluded",
+          "leading_level": 1,
+          "gap_interval": [
+            "118842243771242891421776084311/2535301200456458802993406410752",
+            "3377699720528553/72057594037927936"
+          ],
+          "full_gap_claim_supported": true
+        },
+        "P2": {
+          "status": "resolved",
+          "reason": "nonzero overlap with all preceding levels exactly excluded",
+          "leading_level": 2,
+          "gap_interval": [
+            "316912650056918442473169091349/2535301200456458802993406410752",
+            "9007199254742251/72057594037927936"
+          ],
+          "full_gap_claim_supported": false
+        }
+      }
+    },
+    {
+      "id": "SU2:g=0.125:eta=0.5",
+      "theory": "SU2",
+      "g": "0.125",
+      "eta": "0.5",
+      "raw": {
+        "path": "cells/01.json.gz",
+        "sha256": "1330d80cb7504d44901d64f4e5b3aed2f40b61dde2267b1b5a132c7384a50c50",
+        "json_sha256": "90ea96bfe835a142abb8277842e43d8abfbc4615ac94d545506629dded1dcaa2"
+      },
+      "replay": {
+        "status": "verified",
+        "outcome": "instrument_agreement"
+      },
+      "full_gap_interval": [
+        "7121112800110248920286377583125/2535301200456458802993406410752",
+        "14242225600220934191986861137925/5070602400912917605986812821504"
+      ],
+      "observable_thresholds": {
+        "P": {
+          "status": "resolved",
+          "reason": "nonzero overlap with all preceding levels exactly excluded",
+          "leading_level": 1,
+          "gap_interval": [
+            "7121112800110248920286377583125/2535301200456458802993406410752",
+            "14242225600220934191986861137925/5070602400912917605986812821504"
+          ],
+          "full_gap_claim_supported": true
+        },
+        "P2": {
+          "status": "resolved",
+          "reason": "nonzero overlap with all preceding levels exactly excluded",
+          "leading_level": 1,
+          "gap_interval": [
+            "7121112800110248920286377583125/2535301200456458802993406410752",
+            "14242225600220934191986861137925/5070602400912917605986812821504"
+          ],
+          "full_gap_claim_supported": true
+        }
+      }
+    },
+    {
+      "id": "SU2:g=0.125:eta=1",
+      "theory": "SU2",
+      "g": "0.125",
+      "eta": "1",
+      "raw": {
+        "path": "cells/02.json.gz",
+        "sha256": "8b153e75c780373512829b5a5660133dd3bc164475a77cb64603d6bd1caa387c",
+        "json_sha256": "c869134d9556c3f4649527905046674114e417290c6bd5fa7cd0ab662ded8128"
+      },
+      "replay": {
+        "status": "verified",
+        "outcome": "instrument_agreement"
+      },
+      "full_gap_interval": [
+        "40365947996275581763075008623187/10141204801825835211973625643008",
+        "20182973998138364418209620171371/5070602400912917605986812821504"
+      ],
+      "observable_thresholds": {
+        "P": {
+          "status": "resolved",
+          "reason": "nonzero overlap with all preceding levels exactly excluded",
+          "leading_level": 1,
+          "gap_interval": [
+            "40365947996275581763075008623187/10141204801825835211973625643008",
+            "20182973998138364418209620171371/5070602400912917605986812821504"
+          ],
+          "full_gap_claim_supported": true
+        },
+        "P2": {
+          "status": "resolved",
+          "reason": "nonzero overlap with all preceding levels exactly excluded",
+          "leading_level": 1,
+          "gap_interval": [
+            "40365947996275581763075008623187/10141204801825835211973625643008",
+            "20182973998138364418209620171371/5070602400912917605986812821504"
+          ],
+          "full_gap_claim_supported": true
+        }
+      }
+    },
+    {
+      "id": "SU2:g=0.25:eta=0",
+      "theory": "SU2",
+      "g": "0.25",
+      "eta": "0",
+      "raw": {
+        "path": "cells/03.json.gz",
+        "sha256": "577990b220acb082822e2190202210ce3e47d46db10d186668d5cb61f8a52100",
+        "json_sha256": "9c549d6f2d05b1715459b9383f9638a3f149ad0a693ee3f8176be32b8d8cb6f3"
+      },
+      "replay": {
+        "status": "verified",
+        "outcome": "instrument_agreement"
+      },
+      "full_gap_interval": [
+        "950737950170983550849061483297/5070602400912917605986812821504",
+        "27021597764226271/144115188075855872"
+      ],
+      "observable_thresholds": {
+        "P": {
+          "status": "resolved",
+          "reason": "nonzero overlap with all preceding levels exactly excluded",
+          "leading_level": 1,
+          "gap_interval": [
+            "950737950170983550849061483297/5070602400912917605986812821504",
+            "27021597764226271/144115188075855872"
+          ],
+          "full_gap_claim_supported": true
+        },
+        "P2": {
+          "status": "resolved",
+          "reason": "nonzero overlap with all preceding levels exactly excluded",
+          "leading_level": 2,
+          "gap_interval": [
+            "5070602400912392655155247443119/10141204801825835211973625643008",
+            "144115188075860817/288230376151711744"
+          ],
+          "full_gap_claim_supported": false
+        }
+      }
+    },
+    {
+      "id": "SU2:g=0.25:eta=0.5",
+      "theory": "SU2",
+      "g": "0.25",
+      "eta": "0.5",
+      "raw": {
+        "path": "cells/04.json.gz",
+        "sha256": "dd1e79cfdcb4f9b0681ee76a84d0ad83a2a563a9c3c67782a69f3639490639c6",
+        "json_sha256": "1f7425b2042773032fa0692255f699f5f17e6247c5512c740229fefab1793426"
+      },
+      "replay": {
+        "status": "verified",
+        "outcome": "instrument_agreement"
+      },
+      "full_gap_interval": [
+        "13936187864675097168182844617367/5070602400912917605986812821504",
+        "27872375729351049349895145873325/10141204801825835211973625643008"
+      ],
+      "observable_thresholds": {
+        "P": {
+          "status": "resolved",
+          "reason": "nonzero overlap with all preceding levels exactly excluded",
+          "leading_level": 1,
+          "gap_interval": [
+            "13936187864675097168182844617367/5070602400912917605986812821504",
+            "27872375729351049349895145873325/10141204801825835211973625643008"
+          ],
+          "full_gap_claim_supported": true
+        },
+        "P2": {
+          "status": "resolved",
+          "reason": "nonzero overlap with all preceding levels exactly excluded",
+          "leading_level": 1,
+          "gap_interval": [
+            "13936187864675097168182844617367/5070602400912917605986812821504",
+            "27872375729351049349895145873325/10141204801825835211973625643008"
+          ],
+          "full_gap_claim_supported": true
+        }
+      }
+    },
+    {
+      "id": "SU2:g=0.25:eta=1",
+      "theory": "SU2",
+      "g": "0.25",
+      "eta": "1",
+      "raw": {
+        "path": "cells/05.json.gz",
+        "sha256": "0634607352ed7b638724597f9e92f011ed19980ebb534f1760d62540d605b879",
+        "json_sha256": "a3e722bc143c960442d0c575ad628ac0d79404440d7a38e1a1684c1d903bc044"
+      },
+      "replay": {
+        "status": "verified",
+        "outcome": "instrument_agreement"
+      },
+      "full_gap_interval": [
+        "159037329870246685022461500030519/40564819207303340847894502572032",
+        "79518664935125601381171541752921/20282409603651670423947251286016"
+      ],
+      "observable_thresholds": {
+        "P": {
+          "status": "resolved",
+          "reason": "nonzero overlap with all preceding levels exactly excluded",
+          "leading_level": 1,
+          "gap_interval": [
+            "159037329870246685022461500030519/40564819207303340847894502572032",
+            "79518664935125601381171541752921/20282409603651670423947251286016"
+          ],
+          "full_gap_claim_supported": true
+        },
+        "P2": {
+          "status": "resolved",
+          "reason": "nonzero overlap with all preceding levels exactly excluded",
+          "leading_level": 1,
+          "gap_interval": [
+            "159037329870246685022461500030519/40564819207303340847894502572032",
+            "79518664935125601381171541752921/20282409603651670423947251286016"
+          ],
+          "full_gap_claim_supported": true
+        }
+      }
+    },
+    {
+      "id": "SU2:g=0.40:eta=0",
+      "theory": "SU2",
+      "g": "0.40",
+      "eta": "0",
+      "raw": {
+        "path": "cells/06.json.gz",
+        "sha256": "df18d6bdc6db46cabda91f6ab3ae275b0ce8bc695a96592c5a79bb8a06d404f3",
+        "json_sha256": "9685e5f6d4034fd49bc8af0d1e8f8ee5df446f4e3c45aea1d649e6a132cb686a"
+      },
+      "replay": {
+        "status": "verified",
+        "outcome": "instrument_agreement"
+      },
+      "full_gap_interval": [
+        "48677783048761037862617049976031/101412048018258352119736256430080",
+        "1383505805528281889/2882303761517117440"
+      ],
+      "observable_thresholds": {
+        "P": {
+          "status": "resolved",
+          "reason": "nonzero overlap with all preceding levels exactly excluded",
+          "leading_level": 1,
+          "gap_interval": [
+            "48677783048761037862617049976031/101412048018258352119736256430080",
+            "1383505805528281889/2882303761517117440"
+          ],
+          "full_gap_claim_supported": true
+        },
+        "P2": {
+          "status": "resolved",
+          "reason": "nonzero overlap with all preceding levels exactly excluded",
+          "leading_level": 2,
+          "gap_interval": [
+            "519229685853475718801019960256163/405648192073033408478945025720320",
+            "1475739525896792953/1152921504606846976"
+          ],
+          "full_gap_claim_supported": false
+        }
+      }
+    },
+    {
+      "id": "SU2:g=0.40:eta=0.5",
+      "theory": "SU2",
+      "g": "0.40",
+      "eta": "0.5",
+      "raw": {
+        "path": "cells/07.json.gz",
+        "sha256": "c663671754b14c0af3a8f00aada35342a4ff5fa3e56a30e2fab23a688cdd0ff8",
+        "json_sha256": "33a0f5d6d83d7dce3f107460c4a9596e6a4e6120466b4e2762a8a503c4c3ab41"
+      },
+      "replay": {
+        "status": "verified",
+        "outcome": "instrument_agreement"
+      },
+      "full_gap_interval": [
+        "8485590306169808860679762408236979/3245185536584267267831560205762560",
+        "2121397576542517612718652019963801/811296384146066816957890051440640"
+      ],
+      "observable_thresholds": {
+        "P": {
+          "status": "resolved",
+          "reason": "nonzero overlap with all preceding levels exactly excluded",
+          "leading_level": 1,
+          "gap_interval": [
+            "8485590306169808860679762408236979/3245185536584267267831560205762560",
+            "2121397576542517612718652019963801/811296384146066816957890051440640"
+          ],
+          "full_gap_claim_supported": true
+        },
+        "P2": {
+          "status": "resolved",
+          "reason": "nonzero overlap with all preceding levels exactly excluded",
+          "leading_level": 1,
+          "gap_interval": [
+            "8485590306169808860679762408236979/3245185536584267267831560205762560",
+            "2121397576542517612718652019963801/811296384146066816957890051440640"
+          ],
+          "full_gap_claim_supported": true
+        }
+      }
+    },
+    {
+      "id": "SU2:g=0.40:eta=1",
+      "theory": "SU2",
+      "g": "0.40",
+      "eta": "1",
+      "raw": {
+        "path": "cells/08.json.gz",
+        "sha256": "99a41b0186f774a79b034f64eadee335abbdbd5434d40d26d14b50b237e9614c",
+        "json_sha256": "56ee04daf91aa8d9d84139fb9dcf9cf654613fa0a8d67a6eae6f4b9c2333ad19"
+      },
+      "replay": {
+        "status": "verified",
+        "outcome": "instrument_agreement"
+      },
+      "full_gap_interval": [
+        "6151029156366074141728040397869211/1622592768292133633915780102881280",
+        "615102915636624890178839512249089/162259276829213363391578010288128"
+      ],
+      "observable_thresholds": {
+        "P": {
+          "status": "resolved",
+          "reason": "nonzero overlap with all preceding levels exactly excluded",
+          "leading_level": 1,
+          "gap_interval": [
+            "6151029156366074141728040397869211/1622592768292133633915780102881280",
+            "615102915636624890178839512249089/162259276829213363391578010288128"
+          ],
+          "full_gap_claim_supported": true
+        },
+        "P2": {
+          "status": "resolved",
+          "reason": "nonzero overlap with all preceding levels exactly excluded",
+          "leading_level": 1,
+          "gap_interval": [
+            "6151029156366074141728040397869211/1622592768292133633915780102881280",
+            "615102915636624890178839512249089/162259276829213363391578010288128"
+          ],
+          "full_gap_claim_supported": true
+        }
+      }
+    },
+    {
+      "id": "SU2:g=0.60:eta=0",
+      "theory": "SU2",
+      "g": "0.60",
+      "eta": "0",
+      "raw": {
+        "path": "cells/09.json.gz",
+        "sha256": "617db25cfaea27f8527e6acd724e151ec10b3958acfdb2dd3a86c681b3a846bf",
+        "json_sha256": "3739b21dd7b1fbd630f00ced97fcc59c9c7f33db47acbae6727dbbe2e0bd6ee8"
+      },
+      "replay": {
+        "status": "verified",
+        "outcome": "instrument_agreement"
+      },
+      "full_gap_interval": [
+        "219050023719432290467068580232473/202824096036516704239472512860160",
+        "3112888062438507239/2882303761517117440"
+      ],
+      "observable_thresholds": {
+        "P": {
+          "status": "resolved",
+          "reason": "nonzero overlap with all preceding levels exactly excluded",
+          "leading_level": 1,
+          "gap_interval": [
+            "219050023719432290467068580232473/202824096036516704239472512860160",
+            "3112888062438507239/2882303761517117440"
+          ],
+          "full_gap_claim_supported": true
+        },
+        "P2": {
+          "status": "resolved",
+          "reason": "nonzero overlap with all preceding levels exactly excluded",
+          "leading_level": 2,
+          "gap_interval": [
+            "1168266793170323830887067707435863/405648192073033408478945025720320",
+            "16602069666338772137/5764607523034234880"
+          ],
+          "full_gap_claim_supported": false
+        }
+      }
+    },
+    {
+      "id": "SU2:g=0.60:eta=0.5",
+      "theory": "SU2",
+      "g": "0.60",
+      "eta": "0.5",
+      "raw": {
+        "path": "cells/10.json.gz",
+        "sha256": "eb4a92996acb0648f97066fdd6c5ce0b40e1b27d1be85cfe782e7df350494a41",
+        "json_sha256": "ad9f1dfe3a878786ef49ca8523e151e91dffcc99eaf527d7ca6ba983c11d0b00"
+      },
+      "replay": {
+        "status": "verified",
+        "outcome": "instrument_agreement"
+      },
+      "full_gap_interval": [
+        "5602991403015668643358062327535571/2433889152438200450873670154321920",
+        "933831900502640913131098847770317/405648192073033408478945025720320"
+      ],
+      "observable_thresholds": {
+        "P": {
+          "status": "resolved",
+          "reason": "nonzero overlap with all preceding levels exactly excluded",
+          "leading_level": 1,
+          "gap_interval": [
+            "5602991403015668643358062327535571/2433889152438200450873670154321920",
+            "933831900502640913131098847770317/405648192073033408478945025720320"
+          ],
+          "full_gap_claim_supported": true
+        },
+        "P2": {
+          "status": "resolved",
+          "reason": "nonzero overlap with all preceding levels exactly excluded",
+          "leading_level": 1,
+          "gap_interval": [
+            "5602991403015668643358062327535571/2433889152438200450873670154321920",
+            "933831900502640913131098847770317/405648192073033408478945025720320"
+          ],
+          "full_gap_claim_supported": true
+        }
+      }
+    },
+    {
+      "id": "SU2:g=0.60:eta=1",
+      "theory": "SU2",
+      "g": "0.60",
+      "eta": "1",
+      "raw": {
+        "path": "cells/11.json.gz",
+        "sha256": "b1070221af3ddb5d3d61449909ea5e44efac0c0e888909063a3130aa7d85ec1d",
+        "json_sha256": "0a767a206a05c6761cabf4cd00f6f44bc83cf71a9656c0d3896f57831e181a0f"
+      },
+      "replay": {
+        "status": "verified",
+        "outcome": "instrument_agreement"
+      },
+      "full_gap_interval": [
+        "5671214855194160353507178698279201/1622592768292133633915780102881280",
+        "2835607427597161239499770888538223/811296384146066816957890051440640"
+      ],
+      "observable_thresholds": {
+        "P": {
+          "status": "resolved",
+          "reason": "nonzero overlap with all preceding levels exactly excluded",
+          "leading_level": 1,
+          "gap_interval": [
+            "5671214855194160353507178698279201/1622592768292133633915780102881280",
+            "2835607427597161239499770888538223/811296384146066816957890051440640"
+          ],
+          "full_gap_claim_supported": true
+        },
+        "P2": {
+          "status": "resolved",
+          "reason": "nonzero overlap with all preceding levels exactly excluded",
+          "leading_level": 1,
+          "gap_interval": [
+            "5671214855194160353507178698279201/1622592768292133633915780102881280",
+            "2835607427597161239499770888538223/811296384146066816957890051440640"
+          ],
+          "full_gap_claim_supported": true
+        }
+      }
+    },
+    {
+      "id": "SU2:g=0.85:eta=0",
+      "theory": "SU2",
+      "g": "0.85",
+      "eta": "0",
+      "raw": {
+        "path": "cells/12.json.gz",
+        "sha256": "6ce6a53839579e7665f4ddc638333b00c4eb4a37db67155624e574bef0698bf1",
+        "json_sha256": "b1c9a05b380b218dd2a7a8e32e50e9c5e58265bf31a468aab573db8e4555dbae"
+      },
+      "replay": {
+        "status": "verified",
+        "outcome": "instrument_agreement"
+      },
+      "full_gap_interval": [
+        "1758484912636553242597559119110341/811296384146066816957890051440640",
+        "4997914722470725183/2305843009213693952"
+      ],
+      "observable_thresholds": {
+        "P": {
+          "status": "resolved",
+          "reason": "nonzero overlap with all preceding levels exactly excluded",
+          "leading_level": 1,
+          "gap_interval": [
+            "1758484912636553242597559119110341/811296384146066816957890051440640",
+            "4997914722470725183/2305843009213693952"
+          ],
+          "full_gap_claim_supported": true
+        },
+        "P2": {
+          "status": "resolved",
+          "reason": "nonzero overlap with all preceding levels exactly excluded",
+          "leading_level": 2,
+          "gap_interval": [
+            "3751434480291374150301011860147155/649037107316853453566312041152512",
+            "133277725932551963873/23058430092136939520"
+          ],
+          "full_gap_claim_supported": false
+        }
+      }
+    },
+    {
+      "id": "SU2:g=0.85:eta=0.5",
+      "theory": "SU2",
+      "g": "0.85",
+      "eta": "0.5",
+      "raw": {
+        "path": "cells/13.json.gz",
+        "sha256": "9b90187885f758de84bbf064062b0082ee98cebb756363e6bc08312123606f50",
+        "json_sha256": "7cc555713d2da6bad801be6293e7f1383e5b489d36000733ce5082908a762b5f"
+      },
+      "replay": {
+        "status": "verified",
+        "outcome": "instrument_agreement"
+      },
+      "full_gap_interval": [
+        "71863872635720822796492426776425317/29308081877276663762603778108293120",
+        "287455490542890770048504916795904503/117232327509106655050415112433172480"
+      ],
+      "observable_thresholds": {
+        "P": {
+          "status": "resolved",
+          "reason": "nonzero overlap with all preceding levels exactly excluded",
+          "leading_level": 1,
+          "gap_interval": [
+            "71863872635720822796492426776425317/29308081877276663762603778108293120",
+            "287455490542890770048504916795904503/117232327509106655050415112433172480"
+          ],
+          "full_gap_claim_supported": true
+        },
+        "P2": {
+          "status": "resolved",
+          "reason": "nonzero overlap with all preceding levels exactly excluded",
+          "leading_level": 1,
+          "gap_interval": [
+            "71863872635720822796492426776425317/29308081877276663762603778108293120",
+            "287455490542890770048504916795904503/117232327509106655050415112433172480"
+          ],
+          "full_gap_claim_supported": true
+        }
+      }
+    },
+    {
+      "id": "SU2:g=0.85:eta=1",
+      "theory": "SU2",
+      "g": "0.85",
+      "eta": "1",
+      "raw": {
+        "path": "cells/14.json.gz",
+        "sha256": "2ff45483aefc50556846c08dbf37d26fdf18e096d998a827a6a3b0f9ef3a0280",
+        "json_sha256": "f53ebd791775ed3154ebb1e16463bd9af7e262922dad7660093cfa598ee70fb1"
+      },
+      "replay": {
+        "status": "verified",
+        "outcome": "instrument_agreement"
+      },
+      "full_gap_interval": [
+        "1457654208369878996779499715694597659/468929310036426620201660449732689920",
+        "728827104184959830361629303007234093/234464655018213310100830224866344960"
+      ],
+      "observable_thresholds": {
+        "P": {
+          "status": "resolved",
+          "reason": "nonzero overlap with all preceding levels exactly excluded",
+          "leading_level": 1,
+          "gap_interval": [
+            "1457654208369878996779499715694597659/468929310036426620201660449732689920",
+            "728827104184959830361629303007234093/234464655018213310100830224866344960"
+          ],
+          "full_gap_claim_supported": true
+        },
+        "P2": {
+          "status": "resolved",
+          "reason": "nonzero overlap with all preceding levels exactly excluded",
+          "leading_level": 1,
+          "gap_interval": [
+            "1457654208369878996779499715694597659/468929310036426620201660449732689920",
+            "728827104184959830361629303007234093/234464655018213310100830224866344960"
+          ],
+          "full_gap_claim_supported": true
+        }
+      }
+    },
+    {
+      "id": "SU2:g=1.25:eta=0",
+      "theory": "SU2",
+      "g": "1.25",
+      "eta": "0",
+      "raw": {
+        "path": "cells/15.json.gz",
+        "sha256": "e971d65605bd9aa7d10b61cc03e7e4a0b32bbdbf91d833546fc4cde1882ae973",
+        "json_sha256": "8f6660d382b36643e5ebdd2bf61cef72a3fa89536fb961567c4d1d17d7e22901"
+      },
+      "replay": {
+        "status": "verified",
+        "outcome": "instrument_agreement"
+      },
+      "full_gap_interval": [
+        "3042361440547720353867999756672735/649037107316853453566312041152512",
+        "21617278211378389281/4611686018427387904"
+      ],
+      "observable_thresholds": {
+        "P": {
+          "status": "resolved",
+          "reason": "nonzero overlap with all preceding levels exactly excluded",
+          "leading_level": 1,
+          "gap_interval": [
+            "3042361440547720353867999756672735/649037107316853453566312041152512",
+            "21617278211378389281/4611686018427387904"
+          ],
+          "full_gap_claim_supported": true
+        },
+        "P2": {
+          "status": "resolved",
+          "reason": "nonzero overlap with all preceding levels exactly excluded",
+          "leading_level": 2,
+          "gap_interval": [
+            "32451855365842535819270950825724945/2596148429267413814265248164610048",
+            "115292150460684727279/9223372036854775808"
+          ],
+          "full_gap_claim_supported": false
+        }
+      }
+    },
+    {
+      "id": "SU2:g=1.25:eta=0.5",
+      "theory": "SU2",
+      "g": "1.25",
+      "eta": "0.5",
+      "raw": {
+        "path": "cells/16.json.gz",
+        "sha256": "2b3d4bf0c70e7af21dad5a9dc3dff71fc95eb8e6ad825978bf4ca6d809635f04",
+        "json_sha256": "cf85b4bfd565074615a759cd511c3327773ad3fe0fa248f6a608707b49c1dc58"
+      },
+      "replay": {
+        "status": "verified",
+        "outcome": "instrument_agreement"
+      },
+      "full_gap_interval": [
+        "153106430575905882361091328687241569/32451855365842672678315602057625600",
+        "38276607643977208981473590056267101/8112963841460668169578900514406400"
+      ],
+      "observable_thresholds": {
+        "P": {
+          "status": "resolved",
+          "reason": "nonzero overlap with all preceding levels exactly excluded",
+          "leading_level": 1,
+          "gap_interval": [
+            "153106430575905882361091328687241569/32451855365842672678315602057625600",
+            "38276607643977208981473590056267101/8112963841460668169578900514406400"
+          ],
+          "full_gap_claim_supported": true
+        },
+        "P2": {
+          "status": "resolved",
+          "reason": "nonzero overlap with all preceding levels exactly excluded",
+          "leading_level": 1,
+          "gap_interval": [
+            "153106430575905882361091328687241569/32451855365842672678315602057625600",
+            "38276607643977208981473590056267101/8112963841460668169578900514406400"
+          ],
+          "full_gap_claim_supported": true
+        }
+      }
+    },
+    {
+      "id": "SU2:g=1.25:eta=1",
+      "theory": "SU2",
+      "g": "1.25",
+      "eta": "1",
+      "raw": {
+        "path": "cells/17.json.gz",
+        "sha256": "e2292a6a90be3f7f941dcfbcb0059d3674fc0a1714dbb426543565755a354105",
+        "json_sha256": "36b02a6c988f0f5b06e23c17803d9906803df86025486ec7bbc5541b4f3ace0f"
+      },
+      "replay": {
+        "status": "verified",
+        "outcome": "instrument_agreement"
+      },
+      "full_gap_interval": [
+        "15602321705454737711277189891188373/3245185536584267267831560205762560",
+        "39005804263637500790161037588814681/8112963841460668169578900514406400"
+      ],
+      "observable_thresholds": {
+        "P": {
+          "status": "resolved",
+          "reason": "nonzero overlap with all preceding levels exactly excluded",
+          "leading_level": 1,
+          "gap_interval": [
+            "15602321705454737711277189891188373/3245185536584267267831560205762560",
+            "39005804263637500790161037588814681/8112963841460668169578900514406400"
+          ],
+          "full_gap_claim_supported": true
+        },
+        "P2": {
+          "status": "resolved",
+          "reason": "nonzero overlap with all preceding levels exactly excluded",
+          "leading_level": 1,
+          "gap_interval": [
+            "15602321705454737711277189891188373/3245185536584267267831560205762560",
+            "39005804263637500790161037588814681/8112963841460668169578900514406400"
+          ],
+          "full_gap_claim_supported": true
+        }
+      }
+    },
+    {
+      "id": "SU2:g=2.50:eta=0",
+      "theory": "SU2",
+      "g": "2.50",
+      "eta": "0",
+      "raw": {
+        "path": "cells/18.json.gz",
+        "sha256": "30d49cf99b046c4494cfbafbbeb149df88448d2dfd419fad064ea42a8f267db2",
+        "json_sha256": "a1b3f7d2b97a59462177f5733f22faefc2b7f5981b9c88fc8a22dc6b7db5c215"
+      },
+      "replay": {
+        "status": "verified",
+        "outcome": "instrument_agreement"
+      },
+      "full_gap_interval": [
+        "389422264390111347707076714521703603/20769187434139310514121985316880384",
+        "691752902764109220685/36893488147419103232"
+      ],
+      "observable_thresholds": {
+        "P": {
+          "status": "resolved",
+          "reason": "nonzero overlap with all preceding levels exactly excluded",
+          "leading_level": 1,
+          "gap_interval": [
+            "389422264390111347707076714521703603/20769187434139310514121985316880384",
+            "691752902764109220685/36893488147419103232"
+          ],
+          "full_gap_claim_supported": true
+        },
+        "P2": {
+          "status": "resolved",
+          "reason": "nonzero overlap with all preceding levels exactly excluded",
+          "leading_level": 2,
+          "gap_interval": [
+            "259614842926741149039658144236437631/5192296858534827628530496329220096",
+            "230584300921369526145/4611686018427387904"
+          ],
+          "full_gap_claim_supported": false
+        }
+      }
+    },
+    {
+      "id": "SU2:g=2.50:eta=0.5",
+      "theory": "SU2",
+      "g": "2.50",
+      "eta": "0.5",
+      "raw": {
+        "path": "cells/19.json.gz",
+        "sha256": "ed0317070c36faf65a28717866a0d9170cf35d4687bab5696db07c7e0de466ca",
+        "json_sha256": "96b4d169c9ede7ba3f26b629c5ce4c0b5cdd6ffa2dc10cd0094140666c69e7f0"
+      },
+      "replay": {
+        "status": "verified",
+        "outcome": "instrument_agreement"
+      },
+      "full_gap_interval": [
+        "973580472825009038376088653734382977/51922968585348276285304963292200960",
+        "304243897757816433161309526642517031/16225927682921336339157801028812800"
+      ],
+      "observable_thresholds": {
+        "P": {
+          "status": "resolved",
+          "reason": "nonzero overlap with all preceding levels exactly excluded",
+          "leading_level": 1,
+          "gap_interval": [
+            "973580472825009038376088653734382977/51922968585348276285304963292200960",
+            "304243897757816433161309526642517031/16225927682921336339157801028812800"
+          ],
+          "full_gap_claim_supported": true
+        },
+        "P2": {
+          "status": "resolved",
+          "reason": "nonzero overlap with all preceding levels exactly excluded",
+          "leading_level": 1,
+          "gap_interval": [
+            "973580472825009038376088653734382977/51922968585348276285304963292200960",
+            "304243897757816433161309526642517031/16225927682921336339157801028812800"
+          ],
+          "full_gap_claim_supported": true
+        }
+      }
+    },
+    {
+      "id": "SU2:g=2.50:eta=1",
+      "theory": "SU2",
+      "g": "2.50",
+      "eta": "1",
+      "raw": {
+        "path": "cells/20.json.gz",
+        "sha256": "b1dccbe076f9c66135f876f41bb92276f20a16b7d917ce366a4e9f83ccbcf494",
+        "json_sha256": "2d7a65e3085ef2e8c334c8195f1f83ff5f7c6c0f6ab38337e9eb43db67ab858e"
+      },
+      "replay": {
+        "status": "verified",
+        "outcome": "instrument_agreement"
+      },
+      "full_gap_interval": [
+        "9736549035004256728853439337629399447/519229685853482762853049632922009600",
+        "608534314687768418767417083690807069/32451855365842672678315602057625600"
+      ],
+      "observable_thresholds": {
+        "P": {
+          "status": "resolved",
+          "reason": "nonzero overlap with all preceding levels exactly excluded",
+          "leading_level": 1,
+          "gap_interval": [
+            "9736549035004256728853439337629399447/519229685853482762853049632922009600",
+            "608534314687768418767417083690807069/32451855365842672678315602057625600"
+          ],
+          "full_gap_claim_supported": true
+        },
+        "P2": {
+          "status": "resolved",
+          "reason": "nonzero overlap with all preceding levels exactly excluded",
+          "leading_level": 1,
+          "gap_interval": [
+            "9736549035004256728853439337629399447/519229685853482762853049632922009600",
+            "608534314687768418767417083690807069/32451855365842672678315602057625600"
+          ],
+          "full_gap_claim_supported": true
+        }
+      }
+    }
+  ]
+}
