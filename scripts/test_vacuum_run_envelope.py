@@ -15,6 +15,20 @@ def manifest(theories=('SU2',)):
 
 
 class RunEnvelopeTests(unittest.TestCase):
+    def test_corrupted_scalar_comparison_fails_without_losing_later_stages(self):
+        original=runner.scalar.run
+        def corrupted(*args,**kwargs):
+            result=original(*args,**kwargs)
+            result['result']['cross_representation_difference']={}
+            return result
+        with patch.object(runner.scalar,'run',side_effect=corrupted):
+            result=runner.run(manifest())
+        cell=result['cells'][0]
+        self.assertEqual(cell['status'],'failure')
+        self.assertEqual(cell['scalar_replay']['status'],'invalid')
+        self.assertEqual(cell['stages']['temporal']['status'],'completed')
+        self.assertIsNotNone(cell['stages']['scalar']['result']['final'])
+
     def test_corrupted_temporal_assessment_invalidates_cell_and_keeps_evidence(self):
         original=runner.temporal.run
         for missing_digest in (False,True):

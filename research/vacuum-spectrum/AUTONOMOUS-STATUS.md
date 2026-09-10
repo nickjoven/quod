@@ -26,7 +26,7 @@ earlier, but optional implementation choices do not require renewed approval.
 
 The tests replay archived sources, exact endpoints, overlaps, correlation
 intervals, effective-gap bounds and target accounting. The latest full run
-passed 185 tests in 68.844 seconds, including corrected-design parity,
+passed 191 tests in 68.250 seconds, including corrected-design parity,
 propagation, windows, analytic nulls, lost-pilot disposition, v3 preservation,
 the report, parameterized kernels and integrated development envelope.
 Command: `OPENBLAS_NUM_THREADS=1 python3 -m unittest discover -s scripts -p 'test_vacuum*.py'`.
@@ -34,6 +34,14 @@ Certificates concern the stated single-angle model and its documented trusted
 arithmetic/analytic base, not a registered field-theory conclusion.
 
 ## Next work and unresolved inputs
+
+Scalar replay now checks requested coordinates/methods/sizes, completed-record
+consistency, final-to-finest identity and recomputed differences/agreement.
+Development qualification requires this replayed agreement. Five scalar replay
+tests and thirteen envelope tests pass, including comparison corruption with
+later-stage evidence retained. Independent review found no blocking issue in
+the stated stored-arithmetic scope. Exact certificate accuracy is separate;
+whole-result replay and execution authorization remain open.
 
 Offline temporal replay now checks stored correlation-error matrices and every
 sampled-window assessment against the verified certificate, exact clock and

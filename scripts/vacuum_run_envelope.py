@@ -16,6 +16,7 @@ import vacuum_future_adapter as adapter
 import vacuum_design_nulls as design_nulls
 import vacuum_null_controls as analytic_nulls
 import vacuum_temporal_replay as temporal_replay
+import vacuum_scalar_replay as scalar_replay
 
 SCHEMA = baseline.ROOT / 'research/vacuum-spectrum/run-envelope.schema.json'
 
@@ -178,6 +179,10 @@ def process_cell(spec, cell, manifest, emit):
         stages['scalar']=scalar.run(theory,g,eta,spec['cutoffs'],spec['grids'])
     except Exception as exc:
         terminalize(stages['scalar'],'failed',f'unexpected scalar stage error: {type(exc).__name__}: {exc}')
+    cell['scalar_replay']=scalar_replay.verify(theory,g,eta,spec['cutoffs'],spec['grids'],stages['scalar'])
+    if cell['scalar_replay']['status']!='verified':
+        stages['scalar'].update(pre_replay_status=stages['scalar']['status'],status='failed',
+            reason='stored scalar evidence failed arithmetic replay: '+cell['scalar_replay']['reason'])
     emit()
     stage=stages['certificates']
     for rung in stage['rungs']:
@@ -241,7 +246,8 @@ def process_cell(spec, cell, manifest, emit):
     common=[]
     if stages['temporal']['status']=='completed' and cell['temporal_replay']['status']=='verified':
         common=cell['temporal_replay']['common_sample_pairs']
-    qualified=(adapted['status']=='available' and stages['scalar']['result']['cross_representation_agreement'] is True
+    qualified=(adapted['status']=='available' and cell['scalar_replay']['status']=='verified'
+               and cell['scalar_replay']['cross_representation_agreement'] is True
                and stage.get('result',{}).get('scalar_budget_met') is True
                and cell['scalar_accuracy']['qualifies'] and bool(common))
     cell.update(status='failure' if adapted['status']=='failure' else ('development_qualified' if qualified else 'unresolved'),
