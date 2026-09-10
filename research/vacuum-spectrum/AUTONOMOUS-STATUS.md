@@ -33,6 +33,13 @@ arithmetic/analytic base, not a registered field-theory conclusion.
 
 ## Next work and unresolved inputs
 
+`vacuum_parameterized_certificate.py` now accepts explicit η for both models,
+binds coordinates/cutoff/times into the certificate record, and replays all
+derived fields without an eigensolver before channel adaptation. Six tests at
+the development calibration g=1 cover η=0, 1/2, 1, equality with the preserved
+η=1 producers, exact free selection and malformed/mismatched-record rejection.
+Scalar/temporal orchestration and the full future execution envelope remain open.
+
 Future-run integration review identified gaps in the historical development-only
 adapter. `vacuum_future_adapter.py` now integrates exact free selection identities,
 retains partial failed/unresolved stages, and validates stage input through JSON

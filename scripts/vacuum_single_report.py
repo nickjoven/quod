@@ -159,10 +159,19 @@ def main():
             'repairs': ['eta_zero_selection_from_actual_certificates', 'partial_stage_retention',
                         'schema_validation_of_stage_results_and_reasons'],
             'remaining': ['full_future_run_envelope', 'request_accounting',
-                          'parameterized_runners', 'authorization_and_registration_integration'],
+                          'scalar_and_temporal_orchestration', 'authorization_and_registration_integration'],
             'source_sha256': {p: digest((ROOT/p).read_bytes()) for p in (
                 'scripts/vacuum_future_adapter.py', 'scripts/test_vacuum_future_adapter.py',
                 'research/vacuum-spectrum/future-stage-input.schema.json')}},
+        'parameterized_certificate': {
+            'status': 'implemented_and_calibration_tested',
+            'independent_review': 'no_outstanding_defect_in_producer_and_verified_adapter_scope_after_endpoint_validation_repair',
+            'calibration_scope': 'g=1 only; eta=0,1/2,1; SU2 and U1; cutoff=8; no target coordinates',
+            'tests_passed': 6,
+            'verified_adapter_entry': 'vacuum_parameterized_certificate.verified_channels',
+            'source_sha256': {p: digest((ROOT/p).read_bytes()) for p in (
+                'scripts/vacuum_parameterized_certificate.py',
+                'scripts/test_vacuum_parameterized_certificate.py')}},
         'blockers': {'independent_review': 'report_and_analytic_certificate_chain_reviewed; future_execution_and_registration_requirements_remain',
                      'user_review': 'user_will_review_completed_document; not_required_to_continue_repairs',
                      'owner_assigned_P_LC_ids': 'optional_in_quod; required_only_for_legacy_ledger_submission',
@@ -367,12 +376,21 @@ and nonblank failure/unresolved reasons. Six adapter tests cover the producer pa
 contradictory weights, partial failures and malformed evidence. An available adapter record
 means outputs and thresholds are structurally available; its precision status remains
 “not assessed.” The adapter has no solver or target-run entry point. A complete future-run
-envelope, request accounting, parameterized runners and committed authorization procedure
+envelope, request accounting, scalar/temporal orchestration and committed authorization procedure
 still need implementation before target execution.</p>
 <p>The separate reviewer verified the free-selection and failure-retention repairs and the
 schema's rejection of malformed stage containers, result types and reasons. No outstanding
 defect remains from that adapter review. Certificate contents still require independent
 verification against their declared model coordinates before adaptation.</p>
+<p><b>Parameterized certificate producer:</b> the reviewed exact SU(2) and corrected U(1)
+engines now accept explicit η and bind theory, g, η, cutoff and exact sample times into each
+record. Verification replays every derived field without invoking the eigensolver. The
+verified channel entry point rejects a failed replay before using the record's coordinates.
+Six tests at development calibration g=1 cover η=0, 1/2, 1; exact equality with the preserved
+η=1 producers; the free P² selection path; and rejection of changed coordinates, clocks,
+budget flags, parity and malformed endpoint records. This producer is a kernel, not a
+registered execution envelope or authorization mechanism. Independent review verified the
+malformed-record repair and coordinate-bound adapter, with no outstanding defect in that scope.</p>
 <h2>5. Counterexample and null obligations</h2>
 <p>On a fixed periodic circle, set ψβ ∝ exp[(β/2)cos(2θ)] and
 Vβ = κ[β²sin²(2θ) − 2βcos(2θ)]. Then Hβψβ = 0 and Hβ = κA* A,
