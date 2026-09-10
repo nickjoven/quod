@@ -26,12 +26,17 @@ earlier, but optional implementation choices do not require renewed approval.
 
 The tests replay archived sources, exact endpoints, overlaps, correlation
 intervals, effective-gap bounds and target accounting. The latest full run
-passed 126 tests, including corrected-design parity, propagation, windows
-and the specified analytic nulls.
+passed 130 tests, including corrected-design parity, propagation, windows,
+the specified analytic nulls, lost-pilot disposition and v3 preservation.
 Certificates concern the stated single-angle model and its documented trusted
 arithmetic/analytic base, not a registered field-theory conclusion.
 
 ## Next work and unresolved inputs
+
+[REVIEW-HANDOFF.md](REVIEW-HANDOFF.md) pins the current review candidate,
+maps the outstanding review questions to artifacts, and records the full
+130-test validation. No independent review verdict or owner assignment has
+been received; the handoff is prepared for those external steps.
 
 The supplied version-3 bundle is preserved and compared in
 [V3-FOCUS.md](V3-FOCUS.md). Its numerical specification is unchanged. The new
