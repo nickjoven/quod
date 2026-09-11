@@ -9,7 +9,7 @@ Target program: iterate on the Millennium Prize problems. Expected output:
 no solutions. Real output: a shared, content-addressed corpus of locked
 statements, checked reductions and lemmas, and a gate suite that is
 calibrated on BOTH polarities, so that a claim marked correct is correct
-and a claim of the AIX / "P = NP was `True`" kind is rejected with the
+and a claim of the "P = NP was `True`" kind is rejected with the
 reason attached.
 
 The bar, set by the owner: *that nothing could be claimed as correct is a
@@ -58,7 +58,7 @@ elaborator solves the "language problem" gnosis flagged, for this domain.
 Two people who state the same theorem under different names produce one
 node.
 
-**Custom definitions are the trapdoor** (the AIX `Tower` namespace; the
+**Custom definitions are the trapdoor** (a private `Tower` namespace; the
 `def Claim : Prop := True` case). So the lock also records the transitive
 set of constants in the type that are NOT in pinned Mathlib. Each such
 constant needs an **anchor**: a checked `Iff` or `=` lemma relating it to a
@@ -72,7 +72,7 @@ distinct bound variables and `rhs` free of `c`; every custom constant in
 `rhs` must be anchored in turn, cycles count as unanchored, so the chain
 ends in the pinned libraries or the claim stays `stated`. This was added
 after the recheck of 2026-09-06 found that without it a single forged row
-(any rfl lemma under any name) turned the AIX template into `proven`
+(any rfl lemma under any name) turned the induction-template control into `proven`
 (N6, N7 below).
 
 **Target fidelity for the Millennium problems**: the registry types are the
@@ -99,7 +99,7 @@ Statuses, in order of strength:
 
 - `stated`      type elaborates; body may be `sorry`.
 - `conditional` sorry-free proof whose premises include named claim ids or
-                explicit hypotheses not discharged (the AIX template
+                explicit hypotheses not discharged (the induction template
                 `(step : ∀ n, T n → T (n+1)) : ∀ n, T n` lands here, with
                 `step` listed, and can never be promoted by wording).
 - `proven`      all three L0 checks pass, axiom set exact, every custom
@@ -140,7 +140,7 @@ Descriptors (computed, never gate status): hypotheses, custom constants,
 grounded, anchored (per constant, gate reason kept), reduces_to_True,
 registry_match, dedup, mutants. They say what D is worth. "Counts against
 a Millennium problem" is exactly the registry lock relation. Under these
-semantics the AIX template is `proven` as the implication it is, with
+semantics the induction-template control is `proven` as the implication it is, with
 `step` listed and no registry match; offered against the registry
 demonstrandum it is rejected at the lock. Full text: SEMANTICS.md.
 
@@ -186,7 +186,7 @@ wrong, not the theorem):
 
 Negative controls (MUST be classified as shown, with the reason attached):
 
-- N1  the AIX template (`step` hypothesis, custom `Tower.declInv`) ->
+- N1  the induction template (`step` hypothesis, custom `Tower.declInv`) ->
       `stated`: the anchor rule catches it before status ever reaches
       the hypotheses, because the statement is about an unanchored private
       predicate. (`conditional` remains the status for sorry-free proofs
@@ -276,7 +276,7 @@ Three computed fields on every claim, none typed by hand:
   joined to one by a checked Iff). This, not a status, is what "counts
   against a Millennium problem" means.
 - `hypotheses`: explicit Prop binders of the type, listed from the
-  elaborated statement (Q-1). The AIX control's `step` appears here.
+  elaborated statement (Q-1). The induction-template control's `step` appears here.
 
 Which of grounded/anchored `proven` requires is owner decision Q-22.
 
@@ -321,7 +321,7 @@ unanchored; anchoring them is the next work item.
 - What the ledger will say at any time, for each problem: the registry
   lock, the checked reductions to it, the proven lemmas beneath them, and
   the named hypotheses that remain. That table is the deliverable. It is
-  the thing the AIX release and the P = NP repo could not produce.
+  the thing the public Millennium-claim releases could not produce.
 
 ## 9. Costs and first moves
 
@@ -347,5 +347,6 @@ known and unlisted is a defect of the ledger, not of the gap.
 
 Sources consulted: jinshanmu/CrouzeixConjecture (tip f9d5c8d, Lean/ pins);
 lean-dojo/LeanMillenniumPrizeProblems (README, pins); crouzeix-audit/
-LEDGER.md; gnosis and sieve READMEs; the AIX Millennium-claims account at
-postquantum.com (the `Tower` template and the `True` top-level case).
+LEDGER.md; gnosis and sieve READMEs; a public 2026 set of Millennium claims
+(postquantum.com) whose statements follow this template (a `Tower`
+namespace, a `True` top-level case).

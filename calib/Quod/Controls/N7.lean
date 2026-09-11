@@ -1,5 +1,5 @@
 import Mathlib.Tactic
-/-! N7: anchor laundering. The AIX template again, but this time the private
+/-! N7: anchor laundering. The induction template again, but this time the private
 predicate carries an anchor of the admissible shape whose right-hand side is
 another private constant. The anchor chain does not end in the pinned
 libraries, so the claim must still land as `stated`. -/
