@@ -1,0 +1,21 @@
+{
+ "tier": "A",
+ "exit_condition": 3,
+ "pilot": {
+  "run": "pilot-A-neg",
+  "n": 50,
+  "accepted": 0,
+  "manifest_cid": "844901a0feb4a8d9b71937f2ab0984ce560c8d97cbfd005a0b2c45a853a90472"
+ },
+ "test": {
+  "run": "test200-A-neg",
+  "n": 200,
+  "accepted": 0,
+  "by_outcome": {
+   "no_proof_found": 200
+  },
+  "manifest_cid": "17e221c54cc41b07cdb1262ed32d6f772ba3b4ef5b0a06ad8a60d47e6f50a477"
+ },
+ "pass": true,
+ "note": "\u00acT for every positive-control theorem; any gated acceptance would halt the run (pin inconsistent)."
+}
