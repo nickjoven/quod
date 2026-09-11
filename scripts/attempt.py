@@ -95,9 +95,38 @@ def write_batch_module(batch: str, atts: list[dict], negate: bool) -> str:
     return f"Quod.Attempts.{batch}"
 
 
+def wiring_test(d1: str, d2: str) -> int:
+    """Gate-wiring test (ATTEMPTS.md §5): feed the gates two proofs that MUST be
+    rejected — a `sorry` and an extra axiom — through the same batch-module
+    path real attempts use. Tests that the gates are wired in, not the prover."""
+    os.makedirs(ATT_DIR, exist_ok=True)
+    src = HEADER + f"""
+theorem wire_sorry : type_of_decl! {d1} := by sorry
+
+axiom oracle : False
+theorem wire_axiom : type_of_decl! {d2} := oracle.elim
+"""
+    with open(os.path.join(ATT_DIR, "Wiring.lean"), "w") as f:
+        f.write(src)
+    module = "Quod.Attempts.Wiring"
+    brc, bout = cal.run(["lake", "build", module], cwd=CALIB)
+    if brc != 0:
+        print(f"wiring: batch build FAILED\n{bout[-600:]}")
+        return 1
+    results = {}
+    for decl, expect in (("wire_sorry", "incomplete: sorry"), ("wire_axiom", "rejected: extra axioms")):
+        _, ax, _ = cal.axioms(CALIB, module, decl)
+        v = cal.axiom_verdict(ax)
+        results[decl] = {"verdict": v, "expected_prefix": expect, "ok": v.startswith(expect)}
+    ok = all(r["ok"] for r in results.values())
+    print(json.dumps({"wiring_test": results, "pass": ok}, indent=1))
+    return 0 if ok else 1
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--corpus", required=True)
+    ap.add_argument("--wiring-test", default="", help="D1,D2: assert the gates reject a sorry and an extra-axiom proof")
+    ap.add_argument("--corpus", required=False)
     ap.add_argument("--only", default="")
     ap.add_argument("--sample-mod", type=int, default=1)
     ap.add_argument("--limit", type=int, default=0)
@@ -110,6 +139,11 @@ def main() -> int:
     ap.add_argument("--start-timeout", type=int, default=900)
     ap.add_argument("--no-ket", action="store_true")
     args = ap.parse_args()
+    if args.wiring_test:
+        d1, d2 = args.wiring_test.split(",")[:2]
+        return wiring_test(d1, d2)
+    if not args.corpus:
+        ap.error("--corpus is required")
 
     run_id = args.run_id or time.strftime("attempts-%Y%m%d-%H%M%S")
     out_dir = args.out or os.path.join(ROOT, "attempts", run_id)
