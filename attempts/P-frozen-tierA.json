@@ -1,0 +1,11 @@
+{
+ "tier": "A",
+ "prover": "ladder-A",
+ "prover_config_cid": "9e83adf4c6bafb26a1afdaf43f2be620162f0bab7003aa5ac0ed718edc917b7a",
+ "pilot_run_id": "pilot-A",
+ "pilot_manifest_cid": "d1a766a815d4b2795eae962078dfd7c7ea5d39e6f22f7963d1bfee032d3f887b",
+ "pilot_n": 50,
+ "pilot_accepted": 16,
+ "P": 0.32,
+ "rule": "P frozen from the 50-theorem pilot BEFORE the 200 (ATTEMPTS.md decision 2); not revised after seeing the 200"
+}
