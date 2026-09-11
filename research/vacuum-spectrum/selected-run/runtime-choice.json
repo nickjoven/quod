@@ -1,0 +1,5 @@
+{
+  "user_instruction": "continue",
+  "recorded_utc": "2026-09-10T23:49:11.910573+00:00",
+  "scope": "Continue the existing frozen run; no interruption, restart, solver replacement, budget widening, or schedule extension."
+}

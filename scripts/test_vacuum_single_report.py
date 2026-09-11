@@ -50,6 +50,8 @@ class SingleReportTests(unittest.TestCase):
         if 'selected_live' not in self.payload:self.skipTest('no live snapshot')
         namespace={};exec(report.selected_report.LIVE_CHECKS,namespace)
         self.assertEqual(namespace['verify_live'](self.payload),self.payload['selected_live']['counts'])
+        self.assertEqual(self.payload['data']['selected-live-snapshot.json']['operational_instruction'],
+                         json.loads((report.D/'selected-run/runtime-choice.json').read_text()))
         changed=copy.deepcopy(self.payload)
         row=next(r for r in changed['data']['selected-live-snapshot.json']['rows'] if r['raw'] is None)
         row['status']='instrument_agreement'

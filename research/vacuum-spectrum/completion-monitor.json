@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "scope": "Wait for the existing frozen process, then verify and publish its artifacts.\n\nNo target solver, restart, runtime cutoff, or numerical parameter mutation.\n",
+  "registration_commit": "4cbbe83cb8689a722f3bf20c92376725a7fefa55",
+  "publication": {
+    "branch": "research/vacuum-spectrum-preflight",
+    "origin_url": "git@github.com:nickjoven/quod.git",
+    "origin_push_url": "git@github.com:nickjoven/quod.git",
+    "upstream": "origin/research/vacuum-spectrum-preflight"
+  },
+  "registration_sha256": "7a8cb075ca70a8a908a35f389bd2136b743a8e1b73591f552f0202c1cd382bcd",
+  "source_sha256": {
+    "scripts/vacuum_completion_monitor.py": "6c364d0bf7fc76b8fe35abd4a90670799470fa24bdd20b97d4993934085d0f75",
+    "scripts/test_vacuum_completion_monitor.py": "db8ab8261cb02b26cacea64c5d3d5fa594fb6b54b9b1e76c129611ca81e3d622",
+    "scripts/vacuum_selected_report.py": "d6560138656670924d69678c68ea7ad959966883111a820cc3d7ddd5bb5a5f99",
+    "scripts/test_vacuum_selected_report.py": "e02b93edd4125508f9ffe6e168256158417180c9c400b6db73d546e506aaf321",
+    "scripts/vacuum_single_report.py": "7d144e8277f622b4034181219fb25060ca8d9bff3579b15e77db430c08b5aa4c",
+    "scripts/test_vacuum_single_report.py": "c6e5644c5aef1dbaff6ead402d06c09d7297352436383dc6f0adff649ecdce9c"
+  },
+  "report_dependencies": {
+    "sympy": "1.14.0",
+    "matplotlib": "3.10.8"
+  },
+  "commands": [
+    [
+      "python3",
+      "scripts/vacuum_registered_run.py",
+      "verify",
+      "--registration-commit",
+      "4cbbe83cb8689a722f3bf20c92376725a7fefa55"
+    ],
+    [
+      "python3",
+      "scripts/vacuum_selected_report.py"
+    ],
+    [
+      "python3",
+      "scripts/vacuum_single_report.py"
+    ],
+    [
+      "python3",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "scripts",
+      "-p",
+      "test_vacuum*.py"
+    ]
+  ],
+  "poll_seconds": 30,
+  "failures": "Preserve evidence; stop monitor on drift, unexpected process exit, failed verification/test/publication; never restart targets or silently retry finalization."
+}

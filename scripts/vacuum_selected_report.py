@@ -238,6 +238,7 @@ def live_snapshot():
     return {'snapshot_utc':datetime.now(timezone.utc).isoformat(),
             'scope':'Live snapshot; completed cells replayed; no complete-run verification claim.',
             'registration':registration,'index':index,'rows':rows,'independent_review':review,
+            'operational_instruction':json.loads((registered.OUTPUT/'runtime-choice.json').read_text()) if (registered.OUTPUT/'runtime-choice.json').exists() else None,
             'observations':observations,'checkpoint_audit':checkpoint_audit,
             'snapshot_index_sha256':registered.digest(registered.replay.encoded(index).encode()),
             'counts':{'selected':len(rows),'attempted':sum(r['attempted'] for r in rows),

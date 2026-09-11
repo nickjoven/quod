@@ -18,9 +18,10 @@ that stage. No solver, budget, schedule, or frozen dependency was changed.
 `selected-run/index.json` remains the live operational index. The immutable
 report snapshot is `selected-live-snapshot.json`; `VACUUM-REPORT.html` embeds it
 and explicitly makes no complete-run verification claim. Completed raw cells
-and append-only checkpoints are retained. The original execution process is
-left running unless the user requests interruption. An optional runtime
-preference question is pending; elapsed time is not permission to interrupt.
+and append-only checkpoints are retained. The user explicitly instructed continuation after reviewing the runtime
+bottleneck. The original process continues unchanged; no runtime preference
+question remains pending. This instruction is recorded in
+`selected-run/runtime-choice.json`.
 Historical unselected drafts remain provenance records, not current status.
 The final live-handoff suite ran 220 tests in 81.975 seconds: 219 passed and
 the completed-run-only report test was skipped because the run is unfinished. All 306

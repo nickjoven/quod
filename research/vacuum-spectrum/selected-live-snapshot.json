@@ -1,5 +1,5 @@
 {
-  "snapshot_utc": "2026-09-10T22:18:18.270569+00:00",
+  "snapshot_utc": "2026-09-10T23:55:06.075659+00:00",
   "scope": "Live snapshot; completed cells replayed; no complete-run verification claim.",
   "registration": {
     "schema_version": 1,
@@ -72098,6 +72098,11 @@
         }
       }
     ]
+  },
+  "operational_instruction": {
+    "user_instruction": "continue",
+    "recorded_utc": "2026-09-10T23:49:11.910573+00:00",
+    "scope": "Continue the existing frozen run; no interruption, restart, solver replacement, budget widening, or schedule extension."
   },
   "observations": {
     "runtime-diagnostic-01.json": {
