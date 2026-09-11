@@ -1,0 +1,17 @@
+{
+ "tier": "A",
+ "exit_condition": 1,
+ "test_run_id": "test200-A",
+ "test_manifest_cid": "3755cabeee88b964aecb935fb0d26fbec0efd61d2abbf8a71976b5ca28f492ac",
+ "n": 200,
+ "accepted": 50,
+ "rate": 0.25,
+ "P_frozen": 0.32,
+ "pass": false,
+ "by_outcome": {
+  "rejected: self-proof": 146,
+  "accepted": 50,
+  "no_proof_found": 4
+ },
+ "note": "P frozen from the 50-pilot before the 200 (decision 2) and NOT revised after; tier A alone fails its pilot-derived bar. Pilot 95% CI ~[0.19,0.45] at n=50; the 200 is consistent with it. Escalation: tier B (decision 1)."
+}
