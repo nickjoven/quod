@@ -189,7 +189,7 @@
     checked Iff/Eq chain to a Mathlib-named declaration (strong fidelity;
     available for Riemann only among the seven). GROUNDED: the
     definitional closure ends in the pinned libraries with nothing hidden
-    (available for all seven, and also for the AIX control's private
+    (available for all seven, and also for the induction-template control's private
     predicate, which is a grounded def). The status rule today caps a
     claim at `stated` unless every custom constant is ANCHORED, which
     leaves six Millennium problems unreachable by any proof at this pin.
@@ -198,9 +198,9 @@
     B (recommended): `proven` requires GROUNDED for every custom constant;
     ANCHORED is recorded as a separate fidelity field; "counts against a
     Millennium problem" stays a lock relation (registry_match, or a
-    checked Iff to a registry lock). Consequence: the AIX control N1
+    checked Iff to a registry lock). Consequence: the induction-template control N1
     computes `proven` as the implication it is, with `step` listed under
-    hypotheses and registry_match none; the fraud is then caught by the
+    hypotheses and registry_match none; the mismatch is then caught by the
     lock relation and the generated label (Q-5), not by a status. N1's
     calibration requirement changes accordingly and Q-1 gets its rule
     (conditional = proven with explicit Prop hypotheses that name claim

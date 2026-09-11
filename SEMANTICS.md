@@ -74,7 +74,7 @@ for sieve, and for the label. They are not for `proven`.
 Exactly one relation: the demonstrandum is one of the seven registry
 locks at the registry pin, or is joined to one by a discharged Iff
 demonstrandum. A proof of any other D, however named, counts against
-nothing. This is where the AIX case lands: their D is proven as the
+nothing. This is where the induction-template control lands: its D is proven as the
 implication it is, its `hypotheses` lists `step`, its `registry_match` is
 none, and the registry demonstrandum stays `stated`. Offering their proof
 against the registry demonstrandum is rejected at test 1, lock mismatch.
@@ -98,7 +98,7 @@ table says, on status and on descriptors:
 | P1 | Jin's `crouzeixConjecture` | itself | proven; grounded; 3/3 anchored; hyps 0 |
 | P2 | `QuodP2.sharp_two` | itself | proven |
 | P3 | restated infinitude of primes | itself | proven; dedup = Mathlib lock |
-| N1 | AIX template | itself | proven; hyps = [step]; registry_match none; anchored none |
+| N1 | induction template | itself | proven; hyps = [step]; registry_match none; anchored none |
 | N2 | `True` behind a name | itself | proven; reduces_to_True |
 | N3 | theorem on an `axiom` | itself | stated; proof rejected: extra axiom |
 | N4 | Crouzeix with constant 1 | refutation `N4_refuted` | refuted |

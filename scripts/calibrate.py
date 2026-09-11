@@ -64,7 +64,7 @@ CONTROLS = [
          checker_module="Quod.P3", dedup_with="Nat.exists_infinite_primes",
          require=dict(status="proven", dedup=True)),
     dict(id="N1", polarity="negative", proj=CALIB, module="Quod.Controls.N1", decl="navier_stokes",
-         gloss="The AIX template: a step hypothesis over a private predicate Tower.declInv, proved by induction. Proven as the implication it is; counts against nothing.",
+         gloss="The induction-template control: a step hypothesis over a private predicate Tower.declInv, proved by induction. Proven as the implication it is; counts against nothing.",
          checker_module="Quod.Controls.N1",
          require=dict(status="proven", hypotheses=["step"], registry_match=None, anchored_all=False)),
     dict(id="N2", polarity="negative", proj=CALIB, module="Quod.Controls.N2", decl="p_vs_np",
