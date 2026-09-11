@@ -215,3 +215,20 @@
     stale variable before any status was written. Nothing was misrecorded,
     but a `--smoke` mode (one cheap control, no ket) should run before any
     full run, and the run log should record the sha256 of the runner it ran.
+- id: Q-24
+  severity: low
+  status: open
+  title: ill-formed hypothesis-deletion mutants carry non-reproducible locks
+  detail: >
+    In corpus mutants-20260911, a hyp_del_k mutant whose deleted binder was
+    depended on by a later binder leaves a dangling free variable; pp.all prints
+    it with a process-specific `_uniq.N` name, so its recorded `lock` differs
+    between runs (found 2026-09-11: 37/37 such records mismatched a
+    byte-identical re-derivation via Quod.Mutate, while 17/17 elaborates=true
+    mutants and every swap matched). A lock is only defined for an elaborated
+    type; these records are `elaborates: false` and are already excluded from
+    attempts (ATTEMPTS.md §5) and from S4 as ill-formed.
+  fix: mutant_extract.py records `lock: null` (and `lock_changed: null`) when
+    `elaborates` is false; MutantWalk emits no canonical form for them. Apply on
+    the next corpus run; the existing corpus is unaffected for every use that
+    filters on elaborates.
