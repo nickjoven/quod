@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "monitor_commit": "7d01ddf906fd72b35517908b18f9d2c2df849ff7",
+  "registration_commit": "4cbbe83cb8689a722f3bf20c92376725a7fefa55",
+  "initial_observation": {
+    "phase": "waiting_for_original_run",
+    "observed_utc": "2026-09-11T00:14:29.100446+00:00",
+    "pid": 2415468,
+    "attempted": 22,
+    "completed": 21,
+    "checkpoints": 306,
+    "registration_commit": "4cbbe83cb8689a722f3bf20c92376725a7fefa55"
+  },
+  "runtime_status_path": "/tmp/quod-vacuum-completion-monitor/status.json",
+  "scope": "Existing frozen run; postprocessing only; no runtime cutoff or numerical changes."
+}

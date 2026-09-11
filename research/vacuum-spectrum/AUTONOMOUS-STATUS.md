@@ -65,6 +65,17 @@ and checkpoint overhead, and free/deformed runtimes remain unmeasured.
 
 ## Execution and next research decision
 
+The reviewed completion monitor was launched from commit
+`7d01ddf906fd72b35517908b18f9d2c2df849ff7` and observed the original solver
+running with 21 completed cells and 306 checkpoints. Its initial observation
+is retained in `completion-monitor-launch.json`; current operational status is
+`/tmp/quod-vacuum-completion-monitor/status.json`. The pre-launch suite ran
+231 tests: 230 passed and one completion-only test was skipped. The monitor
+automatically verifies, generates the final report, tests, commits, and pushes
+once all 42 cells have terminal outcomes. Any failed gate stops publication
+and records the reason. See `COMPLETION-MONITOR.md` for the frozen completion
+path and its limits.
+
 Continue the frozen process unless the user requests operational interruption.
 An interruption must remain distinct from a registered numerical failure or a
 completed unresolved assessment; later cells remain unattempted. A replacement
