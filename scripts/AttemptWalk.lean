@@ -21,8 +21,12 @@ CORPUS_RESUME_AFTER (as CorpusWalk); CORPUS_NEGATE=1 attempts `¬ T` instead
 of `T` (the prover-negative control: any acceptance means the pin is
 inconsistent and the driver halts); ATTEMPT_HEARTBEATS (per rung, default
 2e7); ATTEMPT_LADDER (comma list, default rfl,decide,simp,omega,exact?,aesop).
-Output lines: INFO / START / ATT\t<json>. -/
-import Mathlib
+CORPUS_MUTATE=1: instead of the theorem itself, attempt each ELABORATED
+statement mutant of it (Quod.Mutate — the same operators that built the
+mutant corpus), emitting `mutant_operator` and `mutant_canonical` so the
+driver can verify by lock equality that the attempt is for the corpus
+mutant. Output lines: INFO / START / ATT\t<json>. -/
+import Quod.Mutate
 open Lean Meta Elab
 
 def wanted (env : Environment) (n : Name) (ci : ConstantInfo) : Bool :=
@@ -68,6 +72,56 @@ def kernelAccept (nm : Name) (lps : List Name) (ty pf : Expr) : MetaM (Except St
     return .ok axs
   catch e => return .error (← e.toMessageData.toString)
 
+/-- Budgeted, exception-safe type-correctness (as MutantWalk's `elaborates`). -/
+def wellTyped (t : Expr) : MetaM Bool :=
+  tryCatchRuntimeEx
+    (withTheReader Core.Context (fun ctx => { ctx with maxHeartbeats := 20000000 }) do
+      withCurrHeartbeats do
+        try isTypeCorrect t catch _ => pure false)
+    (fun _ => pure false)
+
+/-- Run the ladder on one goal type; kernel-check a success. Returns the ATT
+json (without the base fields) and the next attempt counter. -/
+def attemptType (n : Name) (ci : ConstantInfo) (ty : Expr) (ladder : List String) (hb k : Nat)
+    : MetaM (Json × Nat) := do
+  let mut rungs : Array Json := #[]
+  let mut found : Option (String × Expr) := none
+  for tac in ladder do
+    if found.isSome then break
+    -- Theorem statements are ∀-telescopes; every rung needs the binders
+    -- introduced first. Parenthesized: `runParserCategory \`tactic` parses ONE
+    -- tactic and `a; b` is a tacticSeq. The recorded script is replayed verbatim.
+    let script := s!"(intros; {tac})"
+    match ← tryRung ty script hb with
+    | .ok pf =>
+      rungs := rungs.push (Json.mkObj [("tactic", Json.str script), ("ok", Json.bool true)])
+      found := some (script, pf)
+    | .error e =>
+      rungs := rungs.push (Json.mkObj [("tactic", Json.str script), ("ok", Json.bool false),
+                                       ("err", Json.str (e.take 160).toString)])
+  let ladderJ := Json.mkObj [("ladder", Json.arr rungs)]
+  match found with
+  | none => return (ladderJ.mergeObj (Json.mkObj [("outcome", Json.str "no_proof_found")]), k)
+  | some (tac, pf) =>
+    let k := k + 1
+    let nm := Name.mkSimple s!"attempt_{k}"
+    let used := pf.getUsedConstants
+    let kres ← kernelAccept nm ci.levelParams ty pf
+    let pfStr ← ppExpr pf
+    let extra := match kres with
+      | .ok axs => Json.mkObj [
+          ("outcome", Json.str "accepted"), ("tactic", Json.str tac), ("kernel_ok", Json.bool true),
+          ("axioms", Json.arr (axs.map (Json.str ·.toString))),
+          ("used_consts", Json.arr (used.map (Json.str ·.toString))),
+          ("uses_self", Json.bool (used.contains n)),
+          ("proof_pp", Json.str (((toString pfStr).replace "\n" " ").take 4000).toString)]
+      | .error e => Json.mkObj [
+          ("outcome", Json.str "kernel_rejected"), ("tactic", Json.str tac), ("kernel_ok", Json.bool false),
+          ("kernel_err", Json.str (e.take 300).toString),
+          ("used_consts", Json.arr (used.map (Json.str ·.toString))),
+          ("uses_self", Json.bool (used.contains n))]
+    return (ladderJ.mergeObj extra, k)
+
 set_option maxHeartbeats 0 in
 run_meta do
   let env ← getEnv
@@ -76,6 +130,7 @@ run_meta do
   let only := (((← IO.getEnv "CORPUS_ONLY").getD "").splitOn ",").filter (· != "")
   let sampleMod := (((← IO.getEnv "CORPUS_SAMPLE_MOD").getD "1").toNat?).getD 1
   let negate := (← IO.getEnv "CORPUS_NEGATE").getD "0" == "1"
+  let mutate := (← IO.getEnv "CORPUS_MUTATE").getD "0" == "1"
   let hb := (((← IO.getEnv "ATTEMPT_HEARTBEATS").getD "20000000").toNat?).getD 20000000
   let ladder := (((← IO.getEnv "ATTEMPT_LADDER").getD "rfl,decide,simp,omega,exact?,aesop").splitOn ",").filter (· != "")
   let outPath := (← IO.getEnv "CORPUS_OUT").getD "/dev/stdout"
@@ -85,7 +140,7 @@ run_meta do
     if wanted env n ci && (only.isEmpty || only.contains n.toString)
        && (sampleMod ≤ 1 || (hash n.toString).toNat % sampleMod == 0) then acc.push n else acc
   let sorted := names.qsort fun a b => a.toString < b.toString
-  emit s!"INFO\t{sorted.size} demonstranda (negate={negate}, ladder={ladder}, heartbeats={hb}, limit={limit})"
+  emit s!"INFO\t{sorted.size} demonstranda (negate={negate}, mutate={mutate}, ladder={ladder}, heartbeats={hb}, limit={limit})"
   let mut emitted := 0
   let mut skipping := resumeAfter != ""
   let mut k := 0
@@ -98,56 +153,39 @@ run_meta do
       match env.find? n with
       | none => emit s!"INFO\tVANISHED {n}"
       | some ci =>
-        let ty := if negate then mkApp (mkConst ``Not) ci.type else ci.type
-        let mut rungs : Array Json := #[]
-        let mut found : Option (String × Expr) := none
-        for tac in ladder do
-          if found.isSome then break
-          -- Theorem statements are ∀-telescopes; every rung needs the binders
-          -- introduced first (rfl/decide/omega fail outright on a ∀ goal). The
-          -- recorded script is the FULL script the driver replays verbatim.
-          -- Parenthesized: `runParserCategory \`tactic` parses ONE tactic, and
-          -- `a; b` is a tacticSeq, not a tactic — `(a; b)` is.
-          let script := s!"(intros; {tac})"
-          match ← tryRung ty script hb with
-          | .ok pf =>
-            rungs := rungs.push (Json.mkObj [("tactic", Json.str script), ("ok", Json.bool true)])
-            found := some (script, pf)
-          | .error e =>
-            rungs := rungs.push (Json.mkObj [("tactic", Json.str script), ("ok", Json.bool false),
-                                             ("err", Json.str (e.take 160).toString)])
         let base := Json.mkObj [
           ("demonstrandum", Json.str n.toString),
           ("module", Json.str ((env.getModuleFor? n).getD `_local).toString),
           ("n_levels", Json.num ci.levelParams.length),
-          ("negated", Json.bool negate),
-          ("ladder", Json.arr rungs)]
-        match found with
-        | none =>
-          emit s!"ATT\t{(base.mergeObj (Json.mkObj [("outcome", Json.str "no_proof_found")])).compress}"
-        | some (tac, pf) =>
-          k := k + 1
-          let nm := Name.mkSimple s!"attempt_{k}"
-          let used := pf.getUsedConstants
-          let kres ← kernelAccept nm ci.levelParams ty pf
-          let pfStr ← ppExpr pf
-          let extra := match kres with
-            | .ok axs => Json.mkObj [
-                ("outcome", Json.str "accepted"),
-                ("tactic", Json.str tac),
-                ("kernel_ok", Json.bool true),
-                ("axioms", Json.arr (axs.map (Json.str ·.toString))),
-                ("used_consts", Json.arr (used.map (Json.str ·.toString))),
-                ("uses_self", Json.bool (used.contains n)),
-                ("proof_pp", Json.str (((toString pfStr).replace "\n" " ").take 4000).toString)]
-            | .error e => Json.mkObj [
-                ("outcome", Json.str "kernel_rejected"),
-                ("tactic", Json.str tac),
-                ("kernel_ok", Json.bool false),
-                ("kernel_err", Json.str (e.take 300).toString),
-                ("used_consts", Json.arr (used.map (Json.str ·.toString))),
-                ("uses_self", Json.bool (used.contains n))]
-          emit s!"ATT\t{(base.mergeObj extra).compress}"
+          ("negated", Json.bool negate)]
+        if mutate then
+          -- attempt every ELABORATED statement mutant of this theorem, built by
+          -- the same shared operators as the corpus; the driver verifies the
+          -- lock of `mutant_canonical` against the corpus record
+          let muts ← tryCatchRuntimeEx
+            (withTheReader Core.Context (fun ctx => { ctx with maxHeartbeats := 400000 }) do
+              withCurrHeartbeats do
+                try Quod.Mutate.mutantsOf ci.type catch _ => pure #[])
+            (fun _ => pure #[])
+          for m in muts do
+            if !(← wellTyped m.ty) then continue
+            let ty := if negate then mkApp (mkConst ``Not) m.ty else m.ty
+            let canon ← Quod.Mutate.canonOf m.ty ci.levelParams
+            let (j, k') ← tryCatchRuntimeEx
+              (withTheReader Core.Context (fun ctx => { ctx with maxHeartbeats := 400000 }) do
+                withCurrHeartbeats do attemptType n ci ty ladder hb k)
+              (fun _ => pure (Json.mkObj [("outcome", Json.str "no_proof_found"), ("budget", Json.bool true)], k))
+            k := k'
+            let mj := Json.mkObj [("mutant_operator", Json.str m.op), ("mutant_canonical", Json.str canon)]
+            emit s!"ATT\t{((base.mergeObj mj).mergeObj j).compress}"
+        else
+          let ty := if negate then mkApp (mkConst ``Not) ci.type else ci.type
+          let (j, k') ← tryCatchRuntimeEx
+            (withTheReader Core.Context (fun ctx => { ctx with maxHeartbeats := 400000 }) do
+              withCurrHeartbeats do attemptType n ci ty ladder hb k)
+            (fun _ => pure (Json.mkObj [("outcome", Json.str "no_proof_found"), ("budget", Json.bool true)], k))
+          k := k'
+          emit s!"ATT\t{(base.mergeObj j).compress}"
       emitted := emitted + 1
       if emitted % 100 == 0 then emit s!"INFO\t{emitted}/{sorted.size}"
   emit s!"INFO\tdone, {emitted} demonstranda"
