@@ -111,6 +111,28 @@ CONTROLS = [
 ]
 
 
+PINS = {  # full 40-char commits; verified against the checkouts before they are recorded
+    "lean": "v4.28.0",
+    "mathlib": "8f9d9cff6bd728b17a24e163c9402775d9e6a365",
+    "jin": "f9d5c8d39bece41ceedf6346ef50ad1fb393260e",
+    "lean4checker": "66e11cea12f5ba215d76b15b7f8495141bf52c6c",
+}
+PIN_DIRS = {"mathlib": os.path.join(CALIB, ".lake", "packages", "mathlib"),
+            "jin": os.path.join(CALIB, "jin"), "lean4checker": os.path.join(CALIB, "lean4checker")}
+
+
+def verified_pins() -> dict:
+    """The pin table, after checking every checkout's HEAD equals the recorded
+    full commit. A mismatch is fatal: nothing downstream may run at a pin other
+    than the one it records."""
+    for k, d in PIN_DIRS.items():
+        rc, out = run(["git", "-C", d, "rev-parse", "HEAD"])
+        head = out.strip().splitlines()[-1] if out.strip() else ""
+        if rc != 0 or head != PINS[k]:
+            sys.exit(f"pin mismatch: {k} checkout at {d} is {head!r}, recorded {PINS[k]}")
+    return dict(PINS)
+
+
 def runner_shas():
     """sha256 of every gate script (Q-23): the run record names the exact
     runner that produced it, so a mid-run refactor is detectable after the fact."""
@@ -386,7 +408,7 @@ def main() -> int:
         with open(os.path.join(ROOT, "claims", f"{c['id'].lower()}.yml"), "w") as f:
             yaml.safe_dump(claim, f, sort_keys=False, allow_unicode=True)
     if only is None:
-        out = {"semantics": "SEMANTICS.md", "pins": {"crouzeix": {"lean": "v4.28.0", "mathlib": "8f9d9cff", "jin": "f9d5c8d"}},
+        out = {"semantics": "SEMANTICS.md", "pins": {"crouzeix": verified_pins()},
                "runner": runner_shas(), "controls": results, "pass": all_ok}
         with open(os.path.join(CALIB, "RESULTS.json"), "w") as f:
             json.dump(out, f, indent=1)

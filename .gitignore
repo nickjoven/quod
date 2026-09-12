@@ -16,3 +16,4 @@ corpus/extract-*.log
 calib/Quod/Attempts/
 attempts/*/records.raw
 attempts/*/walker.err
+attempts/*/transitions/

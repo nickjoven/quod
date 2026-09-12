@@ -25,7 +25,21 @@ CORPUS_MUTATE=1: instead of the theorem itself, attempt each ELABORATED
 statement mutant of it (Quod.Mutate — the same operators that built the
 mutant corpus), emitting `mutant_operator` and `mutant_canonical` so the
 driver can verify by lock equality that the attempt is for the corpus
-mutant. Output lines: INFO / START / ATT\t<json>. -/
+mutant.
+
+TRANSITIONS (the world-model corpus): every tactic step of every attempt is
+recorded, whatever its outcome. A rung `(intros; tac)` is run as two steps —
+`intros` on the initial goal, then `tac` on what it produced — so a rung that
+makes progress without closing yields its remaining goals, and a failing rung
+yields an error CLASS (`budget` = the heartbeat cap was hit: a CENSORED
+observation, not a failure at infinite cost). Every goal is closed over its
+local context (∀ over the hypotheses) and canonicalised exactly like a
+statement (Quod.Mutate.canonOf: binders erased, universes renamed, pp.all), so
+the driver hashes it with lock_of and a goal state has an identity; the
+readable form (ppGoal) is recorded alongside, once per distinct goal.
+
+Output lines: INFO / START / ATT\t<json> / GOAL\t<json> / TRANS\t<json>.
+ATT and TRANS share `aid` (attempt counter); TRANS and GOAL share `gid`. -/
 import Quod.Mutate
 open Lean Meta Elab
 
@@ -35,34 +49,148 @@ def wanted (env : Environment) (n : Name) (ci : ConstantInfo) : Bool :=
   && !(`Mathlib.Tactic).isPrefixOf ((env.getModuleFor? n).getD `_local)
   && (match env.getModuleFor? n with | some m => (`Mathlib).isPrefixOf m | none => false)
 
-structure Rung where
-  name : String
-  ok : Bool
-  err : String := ""
+/-- Goal identities. `canon → gid`, shared by the whole walk; a GOAL line is
+emitted the first time a canonical form is seen. -/
+structure GoalTable where
+  ids : Std.HashMap String Nat := {}
+  next : Nat := 0
+  emit : String → IO Unit := fun _ => pure ()
 
-/-- Run one tactic (given as source text) on a fresh goal of type `ty`.
-Returns the closed proof term, or the failure reason. Budgeted; runtime
-exceptions (heartbeats) are caught and reported as a failure, never fatal. -/
-def tryRung (ty : Expr) (tac : String) (heartbeats : Nat) : MetaM (Except String Expr) := do
+/-- Walk-wide mutable state (a script has no `initialize`; the ref is created
+in `run_meta` and passed down). -/
+abbrev Walk := IO.Ref GoalTable
+
+/-- Close the goal over its local context and canonicalise it as a statement. -/
+def goalCanon (g : MVarId) (lps : List Name) : MetaM (String × String) := g.withContext do
+  let ty ← instantiateMVars (← g.getType)
+  let lctx ← getLCtx
+  let fvars := lctx.foldl (init := #[]) fun acc d => if d.isImplementationDetail then acc else acc.push d.toExpr
+  let closed ← mkForallFVars fvars ty
+  let canon ← Quod.Mutate.canonOf closed lps
+  let readable ← ppGoal g
+  return (canon, toString readable)
+
+def goalId (w : Walk) (g : MVarId) (lps : List Name) : MetaM Nat := do
+  let (canon, readable) ← goalCanon g lps
+  let tbl ← w.get
+  match tbl.ids[canon]? with
+  | some i => return i
+  | none =>
+    let i := tbl.next
+    w.set { tbl with ids := tbl.ids.insert canon i, next := i + 1 }
+    let r := readable.take 6000
+    let j := Json.mkObj [("gid", Json.num i), ("readable", Json.str r.toString),
+                         ("readable_truncated", Json.bool (readable.length > 6000)),
+                         ("canonical", Json.str canon)]
+    tbl.emit s!"GOAL\t{j.compress}"
+    return i
+
+/-- One recorded tactic step. `after` is `"closed"`, `"error"`, or the list of
+remaining goal ids; `errClass` ∈ {"", budget, no_progress, failed, parse, error}. -/
+structure Step where
+  pos : Nat
+  kind : String
+  tactic : String
+  before : Nat
+  after : Json
+  errClass : String := ""
+  err : String := ""
+  heartbeats : Nat := 0
+  cap : Nat
+  wallMs : Nat := 0
+  deriving Inhabited
+
+def Step.toJson (s : Step) : Json :=
+  Json.mkObj [("pos", Json.num s.pos), ("kind", Json.str s.kind), ("tactic", Json.str s.tactic),
+              ("before", Json.num s.before), ("after", s.after), ("err_class", Json.str s.errClass),
+              ("err", Json.str s.err), ("heartbeats", Json.num s.heartbeats), ("heartbeat_cap", Json.num s.cap),
+              ("wall_ms", Json.num s.wallMs)]
+
+def errClassOf (msg : String) : String :=
+  if msg.startsWith "parse:" then "parse"
+  else if (msg.splitOn "made no progress").length > 1 then "no_progress"
+  else if (msg.splitOn "failed").length > 1 then "failed"
+  else "error"
+
+/-- Run one tactic syntax on one goal; the remaining goals. Ordinary tactic
+errors are caught here; runtime (heartbeat) exceptions propagate to the caller. -/
+def runTacOn (g : MVarId) (stx : Syntax) : MetaM (Except String (List MVarId)) := do
+  try
+    let gs ← Term.TermElabM.run' (ctx := {}) (s := {}) do
+      Term.withoutErrToSorry do
+        let gs ← Tactic.run g (Tactic.evalTactic stx)
+        Term.synthesizeSyntheticMVarsNoPostponing
+        pure gs
+    return .ok gs
+  catch e => return .error (← e.toMessageData.toString)
+
+/-- Run one rung `(intros; tac)` as two recorded steps on a fresh goal of
+type `ty`. Returns the steps and, if the goal closed, the proof term. The
+heartbeat cap applies to the whole rung; hitting it yields a `budget` step. -/
+def tryRung (w : Walk) (ty : Expr) (lps : List Name) (pos : Nat) (tac : String) (heartbeats : Nat)
+    : MetaM (Array Step × Except String Expr) := do
   let env ← getEnv
-  let stx ← match Parser.runParserCategory env `tactic tac "<attempt>" with
-    | .ok s => pure s
-    | .error e => return .error s!"parse: {e}"
-  tryCatchRuntimeEx
+  let parse (s : String) : Except String Syntax :=
+    match Parser.runParserCategory env `tactic s "<attempt>" with
+    | .ok stx => .ok stx | .error e => .error s!"parse: {e}"
+  let goalId := goalId w
+  let mvar ← mkFreshExprMVar ty
+  let g0 := mvar.mvarId!
+  let gid0 ← goalId g0 lps
+  let cur : Step := { pos, kind := "intros", tactic := "intros", before := gid0, after := Json.str "error", cap := heartbeats }
+  -- the heartbeat counter is process-global and monotone; deltas are the step's cost
+  let hb0 ← IO.getNumHeartbeats
+  let t0 ← IO.monoMsNow
+  let r : Except (Step × String) (Array Step × Expr) ← tryCatchRuntimeEx
     (withTheReader Core.Context (fun ctx => { ctx with maxHeartbeats := heartbeats }) do
-      withCurrHeartbeats do
-        try
-          let pf ← Term.TermElabM.run' (ctx := {}) (s := {}) do
-            Term.withoutErrToSorry do
-              let mvar ← mkFreshExprMVar ty
-              Term.runTactic mvar.mvarId! stx .term
-              Term.synthesizeSyntheticMVarsNoPostponing
-              let pf ← instantiateMVars mvar
-              if pf.hasMVar || pf.hasSorry then throwError "open goals or sorry"
-              pure pf
-          return .ok pf
-        catch e => return .error (← e.toMessageData.toString))
-    (fun _ => return .error "budget exceeded")
+      withCurrHeartbeats (do
+        -- step 1: intros
+        let introsStx ← match parse "intros" with
+          | .ok s => pure s | .error e => return .error (cur, e)
+        let gs1 ← match ← runTacOn g0 introsStx with
+          | .ok gs => pure gs
+          | .error e => return .error ({ cur with errClass := errClassOf e, err := (e.take 160).toString }, "intros failed")
+        let hb1 ← IO.getNumHeartbeats; let t1 ← IO.monoMsNow
+        let ids1 ← gs1.mapM (goalId · lps)
+        let after1 := if gs1.isEmpty then Json.str "closed" else Json.arr (ids1.map Json.num).toArray
+        let s1 : Step := { cur with after := after1, heartbeats := hb1 - hb0, wallMs := t1 - t0 }
+        match gs1 with
+        | [] => return .ok (#[s1], mvar)          -- intros alone closed it (degenerate; recorded)
+        | g1 :: _ =>
+          -- step 2: the rung's tactic on the first (normally only) goal
+          let s2base : Step := { pos, kind := "rung", tactic := tac, before := ids1.head!, after := Json.str "error", cap := heartbeats }
+          let tacStx ← match parse tac with
+            | .ok s => pure s | .error e => return .error (s2base, e)
+          let hb2 ← IO.getNumHeartbeats; let t2 ← IO.monoMsNow
+          match ← runTacOn g1 tacStx with
+          | .error e =>
+            let hb3 ← IO.getNumHeartbeats; let t3 ← IO.monoMsNow
+            let s2 : Step := { s2base with errClass := errClassOf e, err := (e.take 160).toString, heartbeats := hb3 - hb2, wallMs := t3 - t2 }
+            return .error (s2, e)
+          | .ok gs2 =>
+            let hb3 ← IO.getNumHeartbeats; let t3 ← IO.monoMsNow
+            let ids2 ← gs2.mapM (goalId · lps)
+            let after2 := if gs2.isEmpty then Json.str "closed" else Json.arr (ids2.map Json.num).toArray
+            let s2 : Step := { s2base with after := after2, heartbeats := hb3 - hb2, wallMs := t3 - t2 }
+            if gs2.isEmpty then return .ok (#[s1, s2], mvar)
+            else return .error (s2, s!"open goals: {gs2.length}")
+        : MetaM (Except (Step × String) (Array Step × Expr))))
+    (fun _ => do
+      let hb ← IO.getNumHeartbeats; let t ← IO.monoMsNow
+      let sb : Step := { cur with kind := "rung", tactic := tac, errClass := "budget", err := "budget exceeded", heartbeats := hb - hb0, wallMs := t - t0 }
+      return .error (sb, "budget exceeded"))
+  match r with
+  | .ok (ss, mv) =>
+    let pf ← instantiateMVars mv
+    if pf.hasMVar || pf.hasSorry then
+      return (ss.push { (ss.back!) with after := Json.str "error", errClass := "error", err := "open goals or sorry" }, .error "open goals or sorry")
+    return (ss, .ok pf)
+  | .error (s, e) =>
+    -- a failed rung: the intros step (which succeeded iff the failure is at the
+    -- rung step) followed by the failing step
+    let introsStep : Step := { pos, kind := "intros", tactic := "intros", before := gid0, after := Json.arr #[Json.num s.before], cap := heartbeats }
+    let ss : Array Step := if s.kind == "rung" then #[introsStep, s] else #[s]
+    return (ss, .error e)
 
 /-- Kernel check: add the term as a theorem. Returns the axioms it depends on. -/
 def kernelAccept (nm : Name) (lps : List Name) (ty pf : Expr) : MetaM (Except String (Array Name)) := do
@@ -82,27 +210,37 @@ def wellTyped (t : Expr) : MetaM Bool :=
 
 /-- Run the ladder on one goal type; kernel-check a success. Returns the ATT
 json (without the base fields) and the next attempt counter. -/
-def attemptType (n : Name) (ci : ConstantInfo) (ty : Expr) (ladder : List String) (hb k : Nat)
+def attemptType (w : Walk) (n : Name) (ci : ConstantInfo) (ty : Expr) (ladder : List String) (hb k aid : Nat)
     : MetaM (Json × Nat) := do
+  let emit := (← w.get).emit
   let mut rungs : Array Json := #[]
-  let mut found : Option (String × Expr) := none
+  let mut found : Option (String × Expr × Nat) := none
+  let mut pos := 0
   for tac in ladder do
     if found.isSome then break
     -- Theorem statements are ∀-telescopes; every rung needs the binders
     -- introduced first. Parenthesized: `runParserCategory \`tactic` parses ONE
-    -- tactic and `a; b` is a tacticSeq. The recorded script is replayed verbatim.
+    -- tactic and `a; b` is a tacticSeq. The recorded script is replayed verbatim
+    -- by the gate module; the transition record splits it into its two steps.
     let script := s!"(intros; {tac})"
-    match ← tryRung ty script hb with
+    let (steps, res) ← tryRung w ty ci.levelParams pos tac hb
+    -- the intros step is identical for every rung; record it once (pos 0)
+    for s in steps do
+      if s.kind == "intros" && pos > 0 then continue
+      emit s!"TRANS\t{(Json.mkObj [("aid", Json.num aid)]).mergeObj s.toJson |>.compress}"
+    match res with
     | .ok pf =>
       rungs := rungs.push (Json.mkObj [("tactic", Json.str script), ("ok", Json.bool true)])
-      found := some (script, pf)
+      found := some (script, pf, pos)
     | .error e =>
       rungs := rungs.push (Json.mkObj [("tactic", Json.str script), ("ok", Json.bool false),
                                        ("err", Json.str (e.take 160).toString)])
-  let ladderJ := Json.mkObj [("ladder", Json.arr rungs)]
+    pos := pos + 1
+  let ladderJ := Json.mkObj [("ladder", Json.arr rungs), ("aid", Json.num aid)]
   match found with
   | none => return (ladderJ.mergeObj (Json.mkObj [("outcome", Json.str "no_proof_found")]), k)
-  | some (tac, pf) =>
+  | some (tac, pf, apos) =>
+    let ladderJ := ladderJ.mergeObj (Json.mkObj [("accepted_pos", Json.num apos)])
     let k := k + 1
     let nm := Name.mkSimple s!"attempt_{k}"
     let used := pf.getUsedConstants
@@ -136,6 +274,8 @@ run_meta do
   let outPath := (← IO.getEnv "CORPUS_OUT").getD "/dev/stdout"
   let out ← IO.FS.Handle.mk outPath IO.FS.Mode.append
   let emit (s : String) : IO Unit := do out.putStr (s ++ "\n"); out.flush
+  let w : Walk ← IO.mkRef { emit }
+  let mut aid := 0
   let names : Array Name := env.constants.fold (init := #[]) fun acc n ci =>
     if wanted env n ci && (only.isEmpty || only.contains n.toString)
        && (sampleMod ≤ 1 || (hash n.toString).toNat % sampleMod == 0) then acc.push n else acc
@@ -171,19 +311,21 @@ run_meta do
             if !(← wellTyped m.ty) then continue
             let ty := if negate then mkApp (mkConst ``Not) m.ty else m.ty
             let canon ← Quod.Mutate.canonOf m.ty ci.levelParams
+            aid := aid + 1
             let (j, k') ← tryCatchRuntimeEx
               (withTheReader Core.Context (fun ctx => { ctx with maxHeartbeats := 400000 }) do
-                withCurrHeartbeats do attemptType n ci ty ladder hb k)
-              (fun _ => pure (Json.mkObj [("outcome", Json.str "no_proof_found"), ("budget", Json.bool true)], k))
+                withCurrHeartbeats do attemptType w n ci ty ladder hb k aid)
+              (fun _ => pure (Json.mkObj [("outcome", Json.str "no_proof_found"), ("budget", Json.bool true), ("aid", Json.num aid)], k))
             k := k'
             let mj := Json.mkObj [("mutant_operator", Json.str m.op), ("mutant_canonical", Json.str canon)]
             emit s!"ATT\t{((base.mergeObj mj).mergeObj j).compress}"
         else
           let ty := if negate then mkApp (mkConst ``Not) ci.type else ci.type
+          aid := aid + 1
           let (j, k') ← tryCatchRuntimeEx
             (withTheReader Core.Context (fun ctx => { ctx with maxHeartbeats := 400000 }) do
-              withCurrHeartbeats do attemptType n ci ty ladder hb k)
-            (fun _ => pure (Json.mkObj [("outcome", Json.str "no_proof_found"), ("budget", Json.bool true)], k))
+              withCurrHeartbeats do attemptType w n ci ty ladder hb k aid)
+            (fun _ => pure (Json.mkObj [("outcome", Json.str "no_proof_found"), ("budget", Json.bool true), ("aid", Json.num aid)], k))
           k := k'
           emit s!"ATT\t{(base.mergeObj j).compress}"
       emitted := emitted + 1

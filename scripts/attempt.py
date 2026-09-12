@@ -45,14 +45,81 @@ def corpus_locks(corpus_dir: str) -> dict[str, str]:
     return locks
 
 
-def parse_atts(raw_path: str):
+def parse_tagged(raw_path: str, tags: tuple[str, ...]):
+    """(tag, json) for every well-formed `TAG\\t<json>` line of the walker output."""
     with open(raw_path, errors="replace") as f:
         for line in f:
-            if line.startswith("ATT\t"):
+            tag, sep, rest = line.partition("\t")
+            if sep and tag in tags:
                 try:
-                    yield json.loads(line[4:])
+                    yield tag, json.loads(rest)
                 except json.JSONDecodeError:
                     continue
+
+
+def parse_atts(raw_path: str):
+    for _, j in parse_tagged(raw_path, ("ATT",)):
+        yield j
+
+
+def write_transitions(out_dir: str, raw: str, atts: list[dict], locks: dict[str, str], run_id: str,
+                      prover: str, prover_config_cid, put_file, shard: int = 10000) -> dict:
+    """The transition corpus: every recorded tactic step of every attempt, with
+    goal identities hashed exactly like locks (lock_of over the walker's
+    canonical form), sharded under <out_dir>/transitions/ with per-shard sha256
+    and CID. `on_accepted_path` = the step lies on the rung that the kernel
+    accepted. A `budget` step is CENSORED (cap hit), never a cost. Returns the
+    manifest section: counts, outcome distribution per ladder position,
+    accepted-path fraction, shard table."""
+    by_aid = {a["aid"]: a for a in atts if "aid" in a}
+    tdir = os.path.join(out_dir, "transitions")
+    os.makedirs(tdir, exist_ok=True)
+    goals: dict[int, str] = {}
+    grows, trows = [], []
+    by_pos: dict[str, dict[str, int]] = {}
+    for tag, j in parse_tagged(raw, ("GOAL", "TRANS")):
+        if tag == "GOAL":
+            lock, _ = ce.lock_of(ce.normalize(j["canonical"]))
+            goals[j["gid"]] = lock
+            grows.append({"lock": lock, "readable": j["readable"], "readable_truncated": j["readable_truncated"],
+                          "canonical": j["canonical"]})
+            continue
+        a = by_aid.get(j["aid"])
+        if a is None or j["before"] not in goals:
+            continue
+        after = j["after"]
+        after_locks = after if isinstance(after, str) else [goals[g] for g in after if g in goals]
+        outcome = ("budget" if j["err_class"] == "budget" else after if isinstance(after, str) else "open")
+        on_path = a["outcome"] == "accepted" and (j["kind"] == "intros" or j["pos"] == a.get("accepted_pos"))
+        key = f"{j['pos']}:{j['kind']}"
+        by_pos.setdefault(key, {})[outcome] = by_pos.setdefault(key, {}).get(outcome, 0) + 1
+        trows.append({"attempt_id": f"{run_id}:{j['aid']}", "demonstrandum": a["demonstrandum"],
+                      "demonstrandum_lock": a.get("mutant_lock") or locks.get(a["demonstrandum"]),
+                      "mutant_operator": a.get("mutant_operator"), "negated": bool(a.get("negated", False)),
+                      "prover": prover, "prover_config_cid": prover_config_cid, "source": "ladder", "predictor_cid": None,
+                      "pos": j["pos"], "kind": j["kind"], "tactic": j["tactic"],
+                      "goal_before": goals[j["before"]], "goal_after": after_locks, "outcome": outcome,
+                      "err_class": j["err_class"], "err": j["err"],
+                      "heartbeats": j["heartbeats"], "heartbeat_cap": j["heartbeat_cap"],
+                      "censored": j["err_class"] == "budget", "wall_ms": j["wall_ms"],
+                      "on_accepted_path": on_path, "attempt_outcome": a["outcome"], "attempt_verdict": a.get("verdict")})
+    shards = []
+    for kind, rows in (("goals", grows), ("transitions", trows)):
+        for i in range(0, max(len(rows), 1), shard):
+            chunk = rows[i:i + shard]
+            if not chunk:
+                break
+            p = os.path.join(tdir, f"{kind}-{i // shard:04d}.jsonl")
+            with open(p, "w") as f:
+                for r in chunk:
+                    f.write(json.dumps(r, ensure_ascii=False) + "\n")
+            shards.append({"file": os.path.relpath(p, out_dir), "kind": kind, "records": len(chunk),
+                           "sha256": ce.sha256_file(p), "cid": put_file(p)})
+    return {"n_transitions": len(trows), "n_goals": len(grows),
+            "censored": sum(r["censored"] for r in trows),
+            "on_accepted_path": sum(r["on_accepted_path"] for r in trows),
+            "accepted_path_fraction": round(sum(r["on_accepted_path"] for r in trows) / len(trows), 4) if trows else None,
+            "by_position": by_pos, "shards": shards}
 
 
 def selfproof_check(att: dict, locks: dict[str, str]) -> tuple[bool, list[str]]:
@@ -243,6 +310,7 @@ def main() -> int:
     ap.add_argument("--timeout", type=int, default=60, help="per-demonstrandum wall-clock watchdog (decision 3)")
     ap.add_argument("--start-timeout", type=int, default=900)
     ap.add_argument("--no-ket", action="store_true")
+    ap.add_argument("--regate", default="", help="run dir: re-derive verdicts from its sealed records.raw under a new run id (no walk)")
     args = ap.parse_args()
     if args.wiring_test:
         d1, d2 = args.wiring_test.split(",")[:2]
@@ -255,9 +323,31 @@ def main() -> int:
     os.makedirs(out_dir, exist_ok=True)
     raw, err = os.path.join(out_dir, "records.raw"), os.path.join(out_dir, "walker.err")
     prover = "ladder-A"
+    regate_of, carried_skips, walker_sha = None, [], ce.sha256_file(WALKER)
+    if args.regate:
+        # re-derive verdicts from a sealed run's walker output: the ORIGINAL prover
+        # config (ladder, budgets, walker sha) is what produced the records, so it
+        # is what gets recorded; the original manifest and raw are inputs by hash
+        oman = sorted(glob.glob(os.path.join(args.regate, "manifest-*.json")))[-1]
+        orig = json.load(open(oman))
+        raw = os.path.join(args.regate, "records.raw")
+        pc = orig["prover_config"]
+        args.ladder, args.heartbeats = ",".join(pc["ladder"]), pc["heartbeats_per_rung"]
+        args.timeout, args.negate, args.mutate = pc["wall_s_per_demonstrandum"], orig["negate"], orig["mutate"]
+        walker_sha = pc["walker_sha256"]
+        if args.mutate and not args.mutants:
+            args.mutants = os.path.join(ROOT, "corpus", orig["mutant_corpus"])
+        oatt = os.path.join(args.regate, "attempts.jsonl")
+        if os.path.exists(oatt):
+            carried_skips = [{"name": r["demonstrandum"], "status": "carried", "outcome": "no_proof_found",
+                              "reason": "wall-clock watchdog (original run)"}
+                             for r in map(json.loads, open(oatt)) if r.get("watchdog")]
+        regate_of = {"run_id": orig["run_id"], "manifest": os.path.relpath(oman, ROOT),
+                     "manifest_sha256": ce.sha256_file(oman), "records_raw_sha256": ce.sha256_file(raw),
+                     "prover_config_cid": orig.get("prover_config_cid")}
     prover_config = {"prover": prover, "ladder": args.ladder.split(","), "heartbeats_per_rung": args.heartbeats,
                      "wall_s_per_demonstrandum": args.timeout, "negate": args.negate,
-                     "walker_sha256": ce.sha256_file(WALKER)}
+                     "walker_sha256": walker_sha}
     def put_bytes(b: bytes, name: str):
         if args.no_ket:
             return None
@@ -284,8 +374,8 @@ def main() -> int:
             ap.error("--mutate requires --mutants <mutant corpus dir>")
         env["CORPUS_MUTATE"] = "1"
         prover_config["mutate"] = True
-    resume, skips, no_progress, t0 = "", [], 0, time.time()
-    while True:
+    resume, skips, no_progress, t0 = "", list(carried_skips), 0, time.time()
+    while not args.regate:
         before = os.path.getsize(raw) if os.path.exists(raw) else 0
         seg = dict(env)
         if resume:
@@ -323,13 +413,21 @@ def main() -> int:
     accepted = []
     for i, a in enumerate(atts):
         a["prover"], a["prover_config_cid"] = prover, prover_config_cid
+        a["source"], a["predictor_cid"] = "ladder", None
         if a["outcome"] != "accepted" or a.get("verdict"):
             continue
         ok, offenders = selfproof_check(a, locks)
         a["selfproof_ok"], a["selfproof_offenders"] = ok, offenders
         if not ok:
-            a["verdict"] = "rejected: self-proof"
-            continue
+            if a.get("mutant_operator") and not args.negate:
+                # a same-lock library constant on a MUTANT demonstrandum means the
+                # mutant coincides with an existing theorem (SEMANTICS.md dedup):
+                # a legitimate proof, recorded as dedup and still sent through
+                # the gates — not contamination (PR #2 implementation note)
+                a["dedup"], a["dedup_of"] = True, offenders
+            else:
+                a["verdict"] = "rejected: self-proof"
+                continue
         a["attempt_name"] = f"attempt_{i}"
         accepted.append(a)
 
@@ -349,6 +447,12 @@ def main() -> int:
             sys.exit(f"HALT: {len(bad)} negated demonstranda ACCEPTED through all gates — pin inconsistent or "
                      f"harness bug: {bad[:5]}")
 
+    # the transition corpus (every recorded step of every attempt)
+    transitions = write_transitions(out_dir, raw, atts, locks, run_id, prover, prover_config_cid,
+                                    (lambda p: None) if args.no_ket else ce.ket_put_file)
+    print(f"attempt: transitions {transitions['n_transitions']} over {transitions['n_goals']} goals "
+          f"(censored {transitions['censored']}, on accepted path {transitions['on_accepted_path']})", file=sys.stderr, flush=True)
+
     # write the attempt corpus
     path = os.path.join(out_dir, "attempts.jsonl")
     n_by = {}
@@ -364,6 +468,7 @@ def main() -> int:
                 "prover_config_cid": prover_config_cid, "negate": args.negate,
                 "mutate": args.mutate, "mutant_corpus": os.path.basename(os.path.normpath(args.mutants)) if args.mutate else None,
                 "mutant_lock_audit": mut_audit if args.mutate else None,
+                "regate_of": regate_of, "pins": cal.verified_pins(), "transitions": transitions,
                 "elapsed_s": round(time.time() - t0, 1), "attempts": len(atts) + len(skips),
                 "by_outcome": n_by, "watchdog_skips": len(skips),
                 "scripts": {f: ce.sha256_file(os.path.join(SCRIPTS, f)) for f in sorted(os.listdir(SCRIPTS))
