@@ -90,13 +90,17 @@ def write_transitions(out_dir: str, raw: str, atts: list[dict], locks: dict[str,
         after = j["after"]
         after_locks = after if isinstance(after, str) else [goals[g] for g in after if g in goals]
         outcome = ("budget" if j["err_class"] == "budget" else after if isinstance(after, str) else "open")
-        on_path = a["outcome"] == "accepted" and (j["kind"] == "intros" or j["pos"] == a.get("accepted_pos"))
+        if "path_sids" in a:      # stepping prover: the accepted path is a list of step ids
+            on_path = a["outcome"] == "accepted" and j.get("sid") in set(a["path_sids"])
+        else:
+            on_path = a["outcome"] == "accepted" and (j["kind"] == "intros" or j["pos"] == a.get("accepted_pos"))
         key = f"{j['pos']}:{j['kind']}"
         by_pos.setdefault(key, {})[outcome] = by_pos.setdefault(key, {}).get(outcome, 0) + 1
         trows.append({"attempt_id": f"{run_id}:{j['aid']}", "demonstrandum": a["demonstrandum"],
                       "demonstrandum_lock": a.get("mutant_lock") or locks.get(a["demonstrandum"]),
                       "mutant_operator": a.get("mutant_operator"), "negated": bool(a.get("negated", False)),
-                      "prover": prover, "prover_config_cid": prover_config_cid, "source": "ladder", "predictor_cid": None,
+                      "prover": prover, "prover_config_cid": prover_config_cid,
+                      "source": "ladder" if prover == "ladder-A" else "search", "predictor_cid": None,
                       "pos": j["pos"], "kind": j["kind"], "tactic": j["tactic"],
                       "goal_before": goals[j["before"]], "goal_after": after_locks, "outcome": outcome,
                       "err_class": j["err_class"], "err": j["err"],
@@ -304,6 +308,12 @@ def main() -> int:
     ap.add_argument("--mutate", action="store_true", help="attempt the elaborated statement mutants of each theorem")
     ap.add_argument("--mutants", default="", help="mutant corpus dir (required with --mutate): locks to verify against")
     ap.add_argument("--ladder", default="rfl,decide,simp,omega,exact?,aesop")
+    ap.add_argument("--prover", choices=["ladder", "step"], default="ladder",
+                    help="ladder = tier-A single-rung ladder (ladder-A); step = the STEPPING prover (ladder-S): "
+                         "bounded-depth search over remaining goals with the step ladder, dead ends recorded")
+    ap.add_argument("--step-ladder", default="rfl,decide,omega,norm_num,simp,constructor,ext,push_neg,simp_all,ring_nf,aesop,exact?")
+    ap.add_argument("--step-depth", type=int, default=4)
+    ap.add_argument("--step-nodes", type=int, default=30, help="node budget per demonstrandum (states expanded)")
     ap.add_argument("--heartbeats", type=int, default=20_000_000)
     ap.add_argument("--run-id", default=None)
     ap.add_argument("--out", default=None)
@@ -322,7 +332,7 @@ def main() -> int:
     out_dir = args.out or os.path.join(ROOT, "attempts", run_id)
     os.makedirs(out_dir, exist_ok=True)
     raw, err = os.path.join(out_dir, "records.raw"), os.path.join(out_dir, "walker.err")
-    prover = "ladder-A"
+    prover = "ladder-S" if args.prover == "step" else "ladder-A"
     regate_of, carried_skips, walker_sha = None, [], ce.sha256_file(WALKER)
     if args.regate:
         # re-derive verdicts from a sealed run's walker output: the ORIGINAL prover
@@ -332,6 +342,10 @@ def main() -> int:
         orig = json.load(open(oman))
         raw = os.path.join(args.regate, "records.raw")
         pc = orig["prover_config"]
+        prover = orig["prover"]
+        if pc.get("step"):
+            args.prover, args.step_ladder = "step", ",".join(pc["step"]["ladder"])
+            args.step_depth, args.step_nodes = pc["step"]["depth"], pc["step"]["nodes"]
         args.ladder, args.heartbeats = ",".join(pc["ladder"]), pc["heartbeats_per_rung"]
         args.timeout, args.negate, args.mutate = pc["wall_s_per_demonstrandum"], orig["negate"], orig["mutate"]
         walker_sha = pc["walker_sha256"]
@@ -348,6 +362,10 @@ def main() -> int:
     prover_config = {"prover": prover, "ladder": args.ladder.split(","), "heartbeats_per_rung": args.heartbeats,
                      "wall_s_per_demonstrandum": args.timeout, "negate": args.negate,
                      "walker_sha256": walker_sha}
+    if args.prover == "step":
+        prover_config["step"] = {"ladder": args.step_ladder.split(","), "depth": args.step_depth, "nodes": args.step_nodes,
+                                 "search": "depth-first on the first open goal; exact backtracking (Meta.saveState); "
+                                           "no-progress and error branches are dead ends"}
     def put_bytes(b: bytes, name: str):
         if args.no_ket:
             return None
@@ -363,6 +381,9 @@ def main() -> int:
     ce.WALKER = WALKER
     env = {"CORPUS_SAMPLE_MOD": str(args.sample_mod), "ATTEMPT_LADDER": args.ladder,
            "ATTEMPT_HEARTBEATS": str(args.heartbeats)}
+    if args.prover == "step":
+        env.update({"CORPUS_PROVER": "step", "ATTEMPT_LADDER": args.step_ladder,
+                    "STEP_DEPTH": str(args.step_depth), "STEP_NODES": str(args.step_nodes)})
     if args.only:
         env["CORPUS_ONLY"] = args.only
     if args.limit:
@@ -413,7 +434,7 @@ def main() -> int:
     accepted = []
     for i, a in enumerate(atts):
         a["prover"], a["prover_config_cid"] = prover, prover_config_cid
-        a["source"], a["predictor_cid"] = "ladder", None
+        a["source"], a["predictor_cid"] = ("ladder" if prover == "ladder-A" else "search"), None
         if a["outcome"] != "accepted" or a.get("verdict"):
             continue
         ok, offenders = selfproof_check(a, locks)

@@ -260,6 +260,241 @@ def attemptType (w : Walk) (n : Name) (ci : ConstantInfo) (ty : Expr) (ladder : 
           ("uses_self", Json.bool (used.contains n))]
     return (ladderJ.mergeObj extra, k)
 
+/-- Kernel-check a found proof and build the ATT fields shared by both provers. -/
+def acceptFound (n : Name) (ci : ConstantInfo) (ty : Expr) (script : String) (pf : Expr) (k : Nat)
+    : MetaM (Json × Nat) := do
+  let k := k + 1
+  let nm := Name.mkSimple s!"attempt_{k}"
+  let used := pf.getUsedConstants
+  let kres ← kernelAccept nm ci.levelParams ty pf
+  let pfStr ← ppExpr pf
+  let extra := match kres with
+    | .ok axs => Json.mkObj [
+        ("outcome", Json.str "accepted"), ("tactic", Json.str script), ("kernel_ok", Json.bool true),
+        ("axioms", Json.arr (axs.map (Json.str ·.toString))),
+        ("used_consts", Json.arr (used.map (Json.str ·.toString))),
+        ("uses_self", Json.bool (used.contains n)),
+        ("proof_pp", Json.str (((toString pfStr).replace "\n" " ").take 4000).toString)]
+    | .error e => Json.mkObj [
+        ("outcome", Json.str "kernel_rejected"), ("tactic", Json.str script), ("kernel_ok", Json.bool false),
+        ("kernel_err", Json.str (e.take 300).toString),
+        ("used_consts", Json.arr (used.map (Json.str ·.toString))),
+        ("uses_self", Json.bool (used.contains n))]
+  return (extra, k)
+
+/-- Search bookkeeping for the stepping prover. -/
+structure Search where
+  expanded : Nat := 0        -- states expanded
+  deadEnds : Nat := 0        -- states where every tactic failed, or the depth cap was hit
+  budgetOut : Bool := false  -- node budget exhausted
+  sid : Nat := 0             -- per-attempt step id (TRANS rows carry it; the ATT lists the accepted path)
+  maxDepth : Nat := 0
+
+/-- The STEPPING prover (ladder-S): depth-first over goal lists. At each state
+the step ladder is tried on the FIRST goal; a tactic that errors is a recorded
+dead branch, one that makes progress recurses (remaining goals appended)
+until every goal is closed, the depth cap, or the node budget. Meta state is
+saved/restored around every branch so backtracking is exact. Every step is a
+transition; the accepted path is returned as step ids. -/
+partial def stepSearch (w : Walk) (aid : Nat) (lps : List Name) (ladder : List String) (hb depthCap : Nat)
+    (budget : IO.Ref Nat) (st : IO.Ref Search) (goals : List MVarId) (depth : Nat)
+    : MetaM (Option (List (String × Nat))) := do
+  match goals with
+  | [] => return some []
+  | g :: rest =>
+    let emit := (← w.get).emit
+    if depth ≥ depthCap then
+      st.modify fun s => { s with deadEnds := s.deadEnds + 1 }
+      return none
+    if (← budget.get) == 0 then
+      st.modify fun s => { s with budgetOut := true }
+      return none
+    budget.modify (· - 1)
+    st.modify fun s => { s with expanded := s.expanded + 1, maxDepth := max s.maxDepth depth }
+    let env ← getEnv
+    let gid ← goalId w g lps
+    let mut anyProgress := false
+    for tac in ladder do
+      let stx ← match Parser.runParserCategory env `tactic tac "<step>" with
+        | .ok s => pure s | .error _ => continue
+      let saved ← Meta.saveState
+      let hb0 ← IO.getNumHeartbeats; let t0 ← IO.monoMsNow
+      let res ← tryCatchRuntimeEx
+        (withTheReader Core.Context (fun ctx => { ctx with maxHeartbeats := hb }) do
+          withCurrHeartbeats do runTacOn g stx)
+        (fun _ => pure (.error "budget exceeded"))
+      let hb1 ← IO.getNumHeartbeats; let t1 ← IO.monoMsNow
+      let sid := (← st.get).sid
+      st.modify fun s => { s with sid := s.sid + 1 }
+      let base : Step := { pos := depth, kind := "rung", tactic := tac, before := gid, after := Json.str "error",
+                           cap := hb, heartbeats := hb1 - hb0, wallMs := t1 - t0 }
+      match res with
+      | .error e =>
+        let cls := if e == "budget exceeded" then "budget" else errClassOf e
+        let s := { base with errClass := cls, err := (e.take 160).toString }
+        emit s!"TRANS\t{(Json.mkObj [("aid", Json.num aid), ("sid", Json.num sid)]).mergeObj s.toJson |>.compress}"
+        saved.restore
+      | .ok gs' =>
+        -- a tactic that returns the same single goal made no progress: dead branch
+        let ids ← gs'.mapM (goalId w · lps)
+        let same := ids == [gid]
+        let after := if gs'.isEmpty then Json.str "closed" else Json.arr (ids.map Json.num).toArray
+        let s := { base with after := after, errClass := if same then "no_progress" else "", err := if same then "goal unchanged" else "" }
+        emit s!"TRANS\t{(Json.mkObj [("aid", Json.num aid), ("sid", Json.num sid)]).mergeObj s.toJson |>.compress}"
+        if same then
+          saved.restore
+        else
+          anyProgress := true
+          match ← stepSearch w aid lps ladder hb depthCap budget st (gs' ++ rest) (depth + 1) with
+          | some path => return some ((tac, sid) :: path)
+          | none => saved.restore
+    if !anyProgress then st.modify fun s => { s with deadEnds := s.deadEnds + 1 }
+    return none
+
+/-- Stepping-prover attempt: `intros` first (recorded), then the search. -/
+def attemptStep (w : Walk) (n : Name) (ci : ConstantInfo) (ty : Expr) (ladder : List String)
+    (hb depthCap nodes k aid : Nat) : MetaM (Json × Nat) := do
+  let emit := (← w.get).emit
+  let env ← getEnv
+  let mvar ← mkFreshExprMVar ty
+  let g0 := mvar.mvarId!
+  let gid0 ← goalId w g0 ci.levelParams
+  let st ← IO.mkRef ({} : Search)
+  let budget ← IO.mkRef nodes
+  let introsStx ← match Parser.runParserCategory env `tactic "intros" "<step>" with
+    | .ok s => pure s | .error e => throwError "intros parse: {e}"
+  let hb0 ← IO.getNumHeartbeats; let t0 ← IO.monoMsNow
+  let r0 ← tryCatchRuntimeEx
+    (withTheReader Core.Context (fun ctx => { ctx with maxHeartbeats := hb }) do
+      withCurrHeartbeats do runTacOn g0 introsStx)
+    (fun _ => pure (.error "budget exceeded"))
+  let hb1 ← IO.getNumHeartbeats; let t1 ← IO.monoMsNow
+  let goals ← match r0 with
+    | .ok gs => pure gs
+    | .error e =>
+      let s : Step := { pos := 0, kind := "intros", tactic := "intros", before := gid0, after := Json.str "error",
+                        errClass := errClassOf e, err := (e.take 160).toString, cap := hb, heartbeats := hb1 - hb0, wallMs := t1 - t0 }
+      emit s!"TRANS\t{(Json.mkObj [("aid", Json.num aid), ("sid", Json.num 0)]).mergeObj s.toJson |>.compress}"
+      return (Json.mkObj [("aid", Json.num aid), ("outcome", Json.str "no_proof_found"), ("search", Json.mkObj [("intros_failed", Json.bool true)])], k)
+  let ids ← goals.mapM (goalId w · ci.levelParams)
+  let s0 : Step := { pos := 0, kind := "intros", tactic := "intros", before := gid0,
+                     after := if goals.isEmpty then Json.str "closed" else Json.arr (ids.map Json.num).toArray,
+                     cap := hb, heartbeats := hb1 - hb0, wallMs := t1 - t0 }
+  emit s!"TRANS\t{(Json.mkObj [("aid", Json.num aid), ("sid", Json.num 0)]).mergeObj s0.toJson |>.compress}"
+  st.modify fun s => { s with sid := 1 }
+  let path ← stepSearch w aid ci.levelParams ladder hb depthCap budget st goals 1
+  let fin ← st.get
+  let searchJ := Json.mkObj [("expanded", Json.num fin.expanded), ("dead_ends", Json.num fin.deadEnds),
+                             ("budget_exhausted", Json.bool fin.budgetOut), ("max_depth", Json.num fin.maxDepth),
+                             ("steps", Json.num fin.sid)]
+  let baseJ := Json.mkObj [("aid", Json.num aid), ("search", searchJ)]
+  match path with
+  | none => return (baseJ.mergeObj (Json.mkObj [("outcome", Json.str "no_proof_found")]), k)
+  | some p =>
+    let pf ← instantiateMVars mvar
+    if pf.hasMVar || pf.hasSorry then
+      return (baseJ.mergeObj (Json.mkObj [("outcome", Json.str "no_proof_found"), ("note", Json.str "open goals or sorry after search")]), k)
+    let script := "(" ++ "; ".intercalate ("intros" :: p.map (·.1)) ++ ")"
+    let sids := Json.arr ((0 :: p.map (·.2)).map Json.num).toArray
+    let (extra, k') ← acceptFound n ci ty script pf k
+    return ((baseJ.mergeObj (Json.mkObj [("path_sids", sids), ("depth", Json.num p.length)])).mergeObj extra, k')
+
+/-- Run one tactic on a whole goal list (main goal first), as Lean would inside
+a `by` block; the remaining goals. -/
+def runTacOnGoals (goals : List MVarId) (stx : Syntax) : MetaM (Except String (List MVarId)) := do
+  match goals with
+  | [] => return .error "no goals"
+  | g :: _ =>
+    try
+      let gs ← Term.TermElabM.run' (ctx := {}) (s := {}) do
+        Term.withoutErrToSorry do
+          let gs ← Tactic.run g (do Tactic.setGoals goals; Tactic.evalTactic stx)
+          Term.synthesizeSyntheticMVarsNoPostponing
+          pure gs
+      return .ok gs
+    catch e => return .error (← e.toMessageData.toString)
+
+/-- Split a proof script (the body of a `by` block) into its top-level tactics,
+each with its source text. The script is parsed as ONE parenthesised tactic
+`(script)`; the tacticSeq inside is walked. -/
+def splitScript (env : Environment) (script : String) : Except String (Array (Syntax × String)) := do
+  -- inside `( … )` every line of the sequence must sit at a column ≥ the first tactic's (column 1): shift the script right by one
+  let wrapped := "(" ++ script.replace "\n" "\n " ++ "\n)"
+  let stx ← match Parser.runParserCategory env `tactic wrapped "<script>" with
+    | .ok s => pure s | .error e => throw s!"parse: {e}"
+  -- paren: args = ["(", tacticSeq, ")"]; tacticSeq -> tacticSeq1Indented -> sepByIndent items (even indices)
+  let seq := stx.getArg 1
+  let items := (seq.getArg 0).getArg 0
+  let mut out := #[]
+  for i in [0:items.getNumArgs] do
+    if i % 2 == 0 then
+      let t := items.getArg i
+      let src := match t.getPos?, t.getTailPos? with
+        | some a, some b => (String.Pos.Raw.extract wrapped a b)
+        | _, _ => "<?>"
+      out := out.push (t, src)
+  return out
+
+/-- SCRIPT mode (tier B): replay an externally proposed proof script STEPWISE
+on the demonstrandum's goal, recording every top-level tactic as a transition
+(source = search, set by the driver), and returning the first failing step's
+Lean error for the next round. A script that closes every goal is kernel-
+checked exactly like a ladder proof; the driver then runs the external gates. -/
+def attemptScript (w : Walk) (n : Name) (ci : ConstantInfo) (ty : Expr) (script : String) (hb k aid : Nat)
+    : MetaM (Json × Nat) := do
+  let emit := (← w.get).emit
+  let env ← getEnv
+  let tactics ← match splitScript env script with
+    | .ok ts => pure ts
+    | .error e => return (Json.mkObj [("aid", Json.num aid), ("outcome", Json.str "no_proof_found"),
+                                      ("error_step", Json.num 0), ("err_class", Json.str "parse"), ("err", Json.str (e.take 600).toString)], k)
+  let mvar ← mkFreshExprMVar ty
+  let mut goals := [mvar.mvarId!]
+  let mut failed : Option (Nat × String × String) := none
+  let mut sids : Array Nat := #[]
+  for i in [0:tactics.size] do
+    if failed.isSome then break
+    let (stx, src) := tactics[i]!
+    let gidB ← goalId w goals.head! ci.levelParams
+    let hb0 ← IO.getNumHeartbeats; let t0 ← IO.monoMsNow
+    let res ← tryCatchRuntimeEx
+      (withTheReader Core.Context (fun ctx => { ctx with maxHeartbeats := hb }) do
+        withCurrHeartbeats do runTacOnGoals goals stx)
+      (fun _ => pure (.error "budget exceeded"))
+    let hb1 ← IO.getNumHeartbeats; let t1 ← IO.monoMsNow
+    let base : Step := { pos := i, kind := "script", tactic := src, before := gidB, after := Json.str "error",
+                         cap := hb, heartbeats := hb1 - hb0, wallMs := t1 - t0 }
+    sids := sids.push i
+    match res with
+    | .error e =>
+      let cls := if e == "budget exceeded" then "budget" else errClassOf e
+      let s := { base with errClass := cls, err := (e.take 160).toString }
+      emit s!"TRANS\t{(Json.mkObj [("aid", Json.num aid), ("sid", Json.num i)]).mergeObj s.toJson |>.compress}"
+      failed := some (i, cls, e)
+    | .ok gs =>
+      let ids ← gs.mapM (goalId w · ci.levelParams)
+      let s := { base with after := if gs.isEmpty then Json.str "closed" else Json.arr (ids.map Json.num).toArray }
+      emit s!"TRANS\t{(Json.mkObj [("aid", Json.num aid), ("sid", Json.num i)]).mergeObj s.toJson |>.compress}"
+      goals := gs
+      if gs.isEmpty && i + 1 < tactics.size then
+        failed := some (i + 1, "error", "no goals to be proved (script continues after the goal closed)")
+  let baseJ := Json.mkObj [("aid", Json.num aid), ("script_steps", Json.num tactics.size), ("steps_run", Json.num sids.size)]
+  match failed with
+  | some (i, cls, e) =>
+    return (baseJ.mergeObj (Json.mkObj [("outcome", Json.str "no_proof_found"), ("error_step", Json.num i),
+                                         ("err_class", Json.str cls), ("err", Json.str (e.take 1200).toString)]), k)
+  | none =>
+    if !goals.isEmpty then
+      return (baseJ.mergeObj (Json.mkObj [("outcome", Json.str "no_proof_found"), ("error_step", Json.num tactics.size),
+                                           ("err_class", Json.str "open_goals"),
+                                           ("err", Json.str s!"unsolved goals: {goals.length} remain after the script")]), k)
+    let pf ← instantiateMVars mvar
+    if pf.hasMVar || pf.hasSorry then
+      return (baseJ.mergeObj (Json.mkObj [("outcome", Json.str "no_proof_found"), ("err_class", Json.str "error"),
+                                           ("err", Json.str "open metavariables or sorry in the term")]), k)
+    let (extra, k') ← acceptFound n ci ty ("(" ++ script.replace "\n" "\n " ++ ")") pf k
+    return ((baseJ.mergeObj (Json.mkObj [("path_sids", Json.arr (sids.map fun (i : Nat) => Json.num i))])).mergeObj extra, k')
+
 set_option maxHeartbeats 0 in
 run_meta do
   let env ← getEnv
@@ -271,6 +506,10 @@ run_meta do
   let mutate := (← IO.getEnv "CORPUS_MUTATE").getD "0" == "1"
   let hb := (((← IO.getEnv "ATTEMPT_HEARTBEATS").getD "20000000").toNat?).getD 20000000
   let ladder := (((← IO.getEnv "ATTEMPT_LADDER").getD "rfl,decide,simp,omega,exact?,aesop").splitOn ",").filter (· != "")
+  let step := (← IO.getEnv "CORPUS_PROVER").getD "ladder" == "step"
+  let scriptsPath := (← IO.getEnv "CORPUS_SCRIPTS").getD ""
+  let stepDepth := (((← IO.getEnv "STEP_DEPTH").getD "4").toNat?).getD 4
+  let stepNodes := (((← IO.getEnv "STEP_NODES").getD "30").toNat?).getD 30
   let outPath := (← IO.getEnv "CORPUS_OUT").getD "/dev/stdout"
   let out ← IO.FS.Handle.mk outPath IO.FS.Mode.append
   let emit (s : String) : IO Unit := do out.putStr (s ++ "\n"); out.flush
@@ -280,7 +519,34 @@ run_meta do
     if wanted env n ci && (only.isEmpty || only.contains n.toString)
        && (sampleMod ≤ 1 || (hash n.toString).toNat % sampleMod == 0) then acc.push n else acc
   let sorted := names.qsort fun a b => a.toString < b.toString
-  emit s!"INFO\t{sorted.size} demonstranda (negate={negate}, mutate={mutate}, ladder={ladder}, heartbeats={hb}, limit={limit})"
+  if scriptsPath != "" then
+    -- SCRIPT mode: one line per proposal {"id":..,"name":..,"script":..}; replayed in file order
+    let lines := ((← IO.FS.readFile scriptsPath).splitOn "\n").filter (· != "")
+    emit s!"INFO\t{lines.length} scripts (mode=script, heartbeats={hb})"
+    let mut k := 0
+    for line in lines do
+      let j ← match Json.parse line with
+        | .ok j => pure j | .error e => do emit s!"INFO\tBAD LINE {e}"; continue
+      let some nm := (j.getObjValAs? String "name").toOption | do emit s!"INFO\tBAD LINE no name"; continue
+      let some script := (j.getObjValAs? String "script").toOption | do emit s!"INFO\tBAD LINE no script"; continue
+      let sid := (j.getObjValAs? String "id").toOption.getD ""
+      let n := nm.toName
+      emit s!"START\t{n}"
+      match env.find? n with
+      | none => emit s!"INFO\tVANISHED {n}"
+      | some ci =>
+        aid := aid + 1
+        let base := Json.mkObj [("demonstrandum", Json.str n.toString), ("script_id", Json.str sid),
+          ("module", Json.str ((env.getModuleFor? n).getD `_local).toString),
+          ("n_levels", Json.num ci.levelParams.length), ("negated", Json.bool false)]
+        let (r, k') ← tryCatchRuntimeEx (attemptScript w n ci ci.type script hb k aid)
+          (fun _ => pure (Json.mkObj [("outcome", Json.str "no_proof_found"), ("budget", Json.bool true), ("aid", Json.num aid),
+                                      ("err_class", Json.str "budget"), ("err", Json.str "budget exceeded")], k))
+        k := k'
+        emit s!"ATT\t{(base.mergeObj r).compress}"
+    emit s!"INFO\tdone, {lines.length} scripts"
+    return
+  emit s!"INFO\t{sorted.size} demonstranda (negate={negate}, mutate={mutate}, prover={if step then "step" else "ladder"}, ladder={ladder}, depth={stepDepth}, nodes={stepNodes}, heartbeats={hb}, limit={limit})"
   let mut emitted := 0
   let mut skipping := resumeAfter != ""
   let mut k := 0
@@ -313,8 +579,8 @@ run_meta do
             let canon ← Quod.Mutate.canonOf m.ty ci.levelParams
             aid := aid + 1
             let (j, k') ← tryCatchRuntimeEx
-              (withTheReader Core.Context (fun ctx => { ctx with maxHeartbeats := 400000 }) do
-                withCurrHeartbeats do attemptType w n ci ty ladder hb k aid)
+              (withTheReader Core.Context (fun ctx => { ctx with maxHeartbeats := if step then 0 else 400000 }) do
+                withCurrHeartbeats do (if step then attemptStep w n ci ty ladder hb stepDepth stepNodes k aid else attemptType w n ci ty ladder hb k aid))
               (fun _ => pure (Json.mkObj [("outcome", Json.str "no_proof_found"), ("budget", Json.bool true), ("aid", Json.num aid)], k))
             k := k'
             let mj := Json.mkObj [("mutant_operator", Json.str m.op), ("mutant_canonical", Json.str canon)]
@@ -323,8 +589,8 @@ run_meta do
           let ty := if negate then mkApp (mkConst ``Not) ci.type else ci.type
           aid := aid + 1
           let (j, k') ← tryCatchRuntimeEx
-            (withTheReader Core.Context (fun ctx => { ctx with maxHeartbeats := 400000 }) do
-              withCurrHeartbeats do attemptType w n ci ty ladder hb k aid)
+            (withTheReader Core.Context (fun ctx => { ctx with maxHeartbeats := if step then 0 else 400000 }) do
+              withCurrHeartbeats do (if step then attemptStep w n ci ty ladder hb stepDepth stepNodes k aid else attemptType w n ci ty ladder hb k aid))
             (fun _ => pure (Json.mkObj [("outcome", Json.str "no_proof_found"), ("budget", Json.bool true), ("aid", Json.num aid)], k))
           k := k'
           emit s!"ATT\t{(base.mergeObj j).compress}"

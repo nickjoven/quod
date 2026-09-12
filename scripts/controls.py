@@ -11,7 +11,7 @@ reproducible selection — never a hand-typed list:
 The selection rule and the corpus manifest it was drawn from are written into
 attempts/controls-<seed>.json so the nomination is verifiable.
 """
-import argparse, glob, hashlib, json, os, sys
+import re, argparse, glob, hashlib, json, os, sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -35,7 +35,8 @@ def main() -> int:
     key = lambda n: hashlib.blake2b(f"{args.seed}:{n}".encode(), digest_size=8).hexdigest()
     ordered = sorted(names, key=key)
     pilot, test = ordered[:args.pilot], ordered[args.pilot:args.pilot + args.test]
-    manifests = sorted(glob.glob(os.path.join(args.corpus, "manifest-*.json")))
+    # the CORPUS manifest (manifest-<run>.json), not a derived table's (manifest-dag-*, manifest-derived-*)
+    manifests = sorted(p for p in glob.glob(os.path.join(args.corpus, "manifest-*.json")) if not re.search(r"manifest-(dag|derived)-", p))
     out = {"rule": f"blake2b('{args.seed}:'+name) ascending over kind==theorem; first {args.pilot} pilot, next {args.test} test",
            "seed": args.seed, "corpus_manifest": os.path.basename(manifests[0]) if manifests else None,
            "theorems_in_corpus": len(names), "pilot": pilot, "test": test}
