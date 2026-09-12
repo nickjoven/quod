@@ -120,6 +120,7 @@ def main() -> int:
     ap.add_argument("--poll", type=int, default=30)
     ap.add_argument("--no-ket", action="store_true")
     ap.add_argument("--dry-run", action="store_true", help="build the pre-manifest and round-1 requests; submit nothing")
+    ap.add_argument("--resume", action="store_true", help="continue a run from its per-round checkpoint (state.json) under the SAME run id")
     ap.add_argument("--out", default=None)
     args = ap.parse_args()
     pin = args.price_in
@@ -202,12 +203,30 @@ def main() -> int:
     # ---- state
     state = {n: {"history": [], "accepted_round": None, "verdict": None, "refusals": 0} for n in names}
     spent_cents = 0.0
-    round_costs: list[float] = []
+    round_costs: list = []
     usage_total = {"input": 0, "output": 0, "cache_write": 0, "cache_read": 0}
     att_rows: list[dict] = []
     trans_sections = []
     refusals = selfproof_rejections = 0
     t0 = time.time()
+    start_round = 1
+    ckpt_path = os.path.join(out_dir, "state.json")
+    if args.resume and os.path.exists(ckpt_path):
+        ck = json.load(open(ckpt_path))
+        state, spent_cents, round_costs = ck["state"], ck["spent_cents"], [tuple(x) for x in ck["round_costs"]]
+        usage_total, att_rows, trans_sections = ck["usage_total"], ck["att_rows"], ck["trans_sections"]
+        refusals, selfproof_rejections, start_round = ck["refusals"], ck["selfproof_rejections"], ck["next_round"]
+        print(f"resumed from {ckpt_path}: next round {start_round}, spent {spent_cents:.1f}c", file=sys.stderr, flush=True)
+
+    def checkpoint(next_round: int):
+        # everything the run knows, on disk after EVERY round: a crash, a purged workspace or
+        # a lost batch costs at most the round in flight; --resume continues from here
+        tmp = ckpt_path + ".tmp"
+        with open(tmp, "w") as f:
+            json.dump({"state": state, "spent_cents": spent_cents, "round_costs": round_costs, "usage_total": usage_total,
+                       "att_rows": att_rows, "trans_sections": trans_sections, "refusals": refusals,
+                       "selfproof_rejections": selfproof_rejections, "next_round": next_round}, f)
+        os.replace(tmp, ckpt_path)
 
     def round_requests(r: int, open_names: list[str]):
         reqs = []
@@ -230,7 +249,7 @@ def main() -> int:
                           "sample_user_message": reqs[0]["params"]["messages"][0]["content"][:600]}, indent=1))
         return 0
 
-    for r in range(1, args.rounds + 1):
+    for r in range(start_round, args.rounds + 1):
         open_names = [n for n in names if state[n]["accepted_round"] is None]
         if not open_names:
             break
@@ -243,6 +262,8 @@ def main() -> int:
                 break
         reqs = round_requests(r, open_names)
         batch = client.messages.batches.create(requests=reqs)
+        with open(os.path.join(out_dir, "batches.log"), "a") as f:
+            f.write(json.dumps({"round": r, "batch_id": batch.id, "requests": len(reqs), "created": time.strftime("%Y-%m-%dT%H:%M:%S%z")}) + "\n")
         print(f"round {r}: batch {batch.id} over {len(reqs)} open demonstranda", file=sys.stderr, flush=True)
         while True:
             b = client.messages.batches.retrieve(batch.id)
@@ -250,7 +271,9 @@ def main() -> int:
                 break
             time.sleep(args.poll)
         proposals, round_cost, n_req = [], 0.0, 0
+        raw_results = []
         for res in client.messages.batches.results(batch.id):
+            raw_results.append(res.model_dump() if hasattr(res, "model_dump") else str(res))
             i = int(res.custom_id); n = open_names[i]
             n_req += 1
             rec = {"round": r, "demonstrandum": n, "batch_id": batch.id, "result_type": res.result.type}
@@ -276,10 +299,13 @@ def main() -> int:
             script = extract_script(text)
             rec["script"] = script
             proposals.append({"id": f"{r}:{i}", "name": n, "script": script, "rec": rec})
+        with open(os.path.join(out_dir, f"batch-results-r{r}.json"), "w") as f:
+            json.dump(raw_results, f, default=str)       # the verbatim API results: our copy, independent of the workspace
         spent_cents += round_cost
         round_costs.append((round_cost, n_req))
         print(f"round {r}: {len(proposals)} proposals, {round_cost:.1f}c this round, {spent_cents:.1f}c total", file=sys.stderr, flush=True)
         if not proposals:
+            checkpoint(r + 1)
             continue
         # ---- stepwise replay + gates
         sp = os.path.join(out_dir, f"scripts-r{r}.jsonl")
@@ -330,6 +356,7 @@ def main() -> int:
                                      (lambda p: None) if args.no_ket else ce.ket_put_file)
         trans_sections.append({"round": r, **trans})
         print(f"round {r}: accepted so far {sum(1 for n in names if state[n]['accepted_round'])}/{len(names)}; transitions {trans['n_transitions']}", file=sys.stderr, flush=True)
+        checkpoint(r + 1)
 
     # ---- P_B per level (prefixes of the one run)
     def p_at(level, subset):
