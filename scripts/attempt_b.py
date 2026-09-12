@@ -160,7 +160,10 @@ def main() -> int:
     client, created_at = None, None
     if key_ok:
         import anthropic
-        client = anthropic.Anthropic()
+        # a workspace-allowed (unscoped) key must name the workspace on every request;
+        # the id comes from the environment like the key and is never written out
+        ws = os.environ.get("ANTHROPIC_WORKSPACE_ID")
+        client = anthropic.Anthropic(default_headers={"anthropic-workspace-id": ws} if ws else None)
         try:
             mi = client.models.retrieve(args.model)
             created_at = str(getattr(mi, "created_at", None))
@@ -171,6 +174,7 @@ def main() -> int:
 
     prover = "tier-B"
     prover_config = {"prover": prover, "model": args.model, "model_created_at": created_at, "effort": args.effort,
+                     "workspace_header": bool(os.environ.get("ANTHROPIC_WORKSPACE_ID")),
                      "max_tokens": args.max_tokens, "rounds": args.rounds, "levels": list(LEVELS),
                      "protocol": "one batch per round over open demonstranda; full history of proposals + Lean errors; "
                                  "drop at first gate-accepted proof; stepwise replay via AttemptWalk CORPUS_SCRIPTS",
