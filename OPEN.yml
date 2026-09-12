@@ -232,3 +232,28 @@
     `elaborates` is false; MutantWalk emits no canonical form for them. Apply on
     the next corpus run; the existing corpus is unaffected for every use that
     filters on elaborates.
+- id: Q-25
+  severity: medium
+  status: open
+  title: exit condition 6 (proposals attempted as `A ↔ B`) is vacuous over theorem pairs
+  detail: >
+    lemma's S5 proposals (L-5) pair two Mathlib THEOREMS A, B, both proven at
+    the pin. Any two proven closed propositions are equivalent — `⟨fun _ => B,
+    fun _ => A⟩` discharges `A ↔ B` — and the same holds pointwise under shared
+    binders (`∀ xs, P xs ↔ Q xs`, since both P xs and Q xs hold). The self-proof
+    gate (exit condition 2) cannot catch this: the Iff has its own lock, and A
+    and B are legitimately usable constants. "Discharged" would measure the
+    ladder finding two existing proofs, not an equivalence. Missed in design
+    review (ATTEMPTS.md rev 2 exit condition 6; lemma docs/prover-loop.md).
+    Found 2026-09-11 while preparing the attempt form; nothing was run.
+  fix: >
+    Pending the user's call (doctrine change). Proposals must pair
+    propositions whose truth is NOT already established: the sides of
+    Mathlib Iff theorems (corpus fields iff_lhs / iff_rhs; the pairs S5 was
+    trained on), Prop-valued definitions, or hypotheses. The demonstrandum for
+    sides L_i, L_j drawn from different Iff theorems with α-equivalent binder
+    telescopes is `∀ xs, L_i xs ↔ L_j xs`; a discharge is a new fact even when
+    it chains through the source Iffs (record the used constants as a
+    difficulty feature, do not exclude them). lemma's proposal generator and
+    the L-5 rerank move to that pool; until then exit condition 6 is blocked
+    and no `A ↔ B` run is made.
