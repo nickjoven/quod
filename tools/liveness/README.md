@@ -4,6 +4,21 @@ A read-only, single-page local process dashboard with a sparse, 32-bit-inspired
 palette, square controls, monospace typography, and CPU history charts.
 Python 3.10+ on Linux or WSL; no packages, build step, or external assets.
 
+## Process aquarium
+
+The aquarium has a fixed isometric camera and stays in the viewport as the
+page scrolls. It occupies a separate side column on desktop and docks at the
+bottom on narrow screens, with page padding so the last rows remain reachable.
+Up to 12 processes appear as fish, prioritizing the vacuum processes and then
+CPU usage. Lime identifies the solver; gold identifies the completion monitor.
+Select a fish with the mouse or keyboard to filter the process register.
+
+Swimming speed reflects sampled CPU usage with a small decorative idle drift;
+it does not measure solver convergence. Stopped/zombie processes stay still.
+Fish dim and freeze when the feed is stale or paused. The system reduced-motion
+preference disables swimming. The tank is native SVG with a fixed projection,
+not an external image or a rotatable 3D camera.
+
 ## Run
 
 From the repository root:
