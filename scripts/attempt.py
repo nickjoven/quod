@@ -109,10 +109,17 @@ set_option maxHeartbeats 400000
 """
 
 
-def write_batch_module(batch: str, atts: list[dict], negate: bool) -> str:
-    """Generate calib/Quod/Attempts/<batch>.lean; returns the module name."""
+BATCH_SIZE = 100   # attempts per generated gate module (blast radius of one build failure)
+
+
+def write_batch_module(batch: str, atts: list[dict], negate: bool, heartbeats: int = 0
+                       ) -> tuple[str, dict[int, str]]:
+    """Generate calib/Quod/Attempts/<batch>.lean; returns (module name, line ->
+    attempt_name). Each theorem is ONE source line so a build error maps to its
+    attempt. `heartbeats` > 0 replays under the same elaboration budget the
+    prover searched with (recorded in prover_config) — a budget, not a gate."""
     os.makedirs(ATT_DIR, exist_ok=True)
-    lines = [HEADER]
+    lines, line_of = HEADER.split("\n"), {}
     for a in atts:
         n = int(a.get("n_levels", 0))
         univ = ".{" + ",".join(f"u_{i}" for i in range(n)) + "}" if n else ""
@@ -121,11 +128,74 @@ def write_batch_module(batch: str, atts: list[dict], negate: bool) -> str:
         else:
             body = f"type_of_decl! {a['demonstrandum']}"
         stmt = f"¬ ({body})" if negate else body
-        lines.append(f"theorem {a['attempt_name']}{univ} : {stmt} := by {a['tactic']}")
+        pre = f"set_option maxHeartbeats {heartbeats} in " if heartbeats else ""
+        lines.append(f"{pre}theorem {a['attempt_name']}{univ} : {stmt} := by {a['tactic']}")
+        line_of[len(lines)] = a["attempt_name"]
         lines.append("")
     with open(os.path.join(ATT_DIR, f"{batch}.lean"), "w") as f:
         f.write("\n".join(lines))
-    return f"Quod.Attempts.{batch}"
+    return f"Quod.Attempts.{batch}", line_of
+
+
+def axioms_many(module: str, decls: list[str]) -> tuple[dict[str, dict], str]:
+    """axiom_gate.py over many decls in ONE Lean process (the gate script already
+    takes a decl list; calibrate.axioms is its one-decl case). -> ({decl: result}, raw)."""
+    rc, out = cal.run(["python3", f"{cal.SCRIPTS}/axiom_gate.py", CALIB, module, *decls, "--json"])
+    try:
+        js = json.loads(out[out.index("{"):out.rindex("}") + 1])
+        res = {r["decl"]: r for r in js["results"]}
+    except Exception:
+        res = {}
+    return res, out
+
+
+def gate_shard(batch: str, atts: list[dict], negate: bool, heartbeats: int, put_bytes) -> None:
+    """External gates on one shard of in-process-accepted attempts, exactly as
+    calibrate.py runs them: lake build -> axiom_gate.py -> lean4checker. A
+    theorem that fails to BUILD is rejected individually (error line -> attempt)
+    and the shard is rebuilt once without it; a second failure rejects the shard."""
+    live = list(atts)
+    module = None
+    for round_ in (1, 2):
+        module, line_of = write_batch_module(batch, live, negate, heartbeats)
+        brc, bout = cal.run(["lake", "build", module], cwd=CALIB)
+        if brc == 0:
+            break
+        errs: dict[str, list[str]] = {}
+        starts = sorted(line_of)
+        # lake prints `error: Quod/Attempts/<batch>.lean:LINE:COL: <msg>`
+        for m in re.finditer(rf"error: [^\s:]*{re.escape(batch)}\.lean:(\d+):\d+: [^\n]*", bout):
+            ln = int(m.group(1))
+            owner = max((s for s in starts if s <= ln), default=None)
+            if owner is not None:
+                errs.setdefault(line_of[owner], []).append(m.group(0)[:300])
+        if not errs or round_ == 2:
+            for a in live:
+                a["verdict"] = "rejected: batch build failed"
+                a["build_err"] = bout[-400:]
+            return
+        for a in live:
+            if a["attempt_name"] in errs:
+                a["verdict"] = "rejected: batch build failed"
+                a["build_err"] = "\n".join(errs[a["attempt_name"]])
+        live = [a for a in live if a["attempt_name"] not in errs]
+        if not live:
+            return
+    res, raw_ax = axioms_many(module, [a["attempt_name"] for a in live])
+    acid = put_bytes(raw_ax.encode(), f"ax_{batch}")
+    for a in live:
+        ax = res.get(a["attempt_name"], {"ok": False, "extra": ["<lean error>"], "axioms": []})
+        a["gate_axioms"] = ax.get("axioms")
+        a["verdict"] = cal.axiom_verdict(ax)
+        a["axioms_cid"] = acid
+    if any(a["verdict"] == "accepted" for a in live):
+        krc, kout = cal.run(["lake", "env", cal.CHECKER, module], cwd=CALIB)
+        kcid = put_bytes(kout.encode(), f"checker_{batch}")
+        for a in live:
+            if a["verdict"] == "accepted":
+                a["checker_rc"], a["checker_cid"] = krc, kcid
+                if krc != 0:
+                    a["verdict"] = "rejected: lean4checker"
 
 
 def wiring_test(d1: str, d2: str) -> int:
@@ -265,27 +335,12 @@ def main() -> int:
 
     # external gates on a generated module (gates run exactly as calibrate.py runs them)
     if accepted:
-        batch = "B" + re.sub(r"[^0-9A-Za-z]", "", run_id)
-        module = write_batch_module(batch, accepted, args.negate)
-        brc, bout = cal.run(["lake", "build", module], cwd=CALIB)
-        build_ok = brc == 0
-        for a in accepted:
-            if not build_ok:
-                a["verdict"] = "rejected: batch build failed"
-                a["build_err"] = bout[-400:]
-                continue
-            _, ax, raw_ax = cal.axioms(CALIB, module, a["attempt_name"])
-            a["gate_axioms"] = ax.get("axioms")
-            a["verdict"] = cal.axiom_verdict(ax)
-            a["axioms_cid"] = put_bytes(raw_ax.encode(), f"ax_{a['attempt_name']}")
-        if build_ok and any(a["verdict"] == "accepted" for a in accepted):
-            krc, kout = cal.run(["lake", "env", cal.CHECKER, module], cwd=CALIB)
-            kcid = put_bytes(kout.encode(), "checker")
-            for a in accepted:
-                if a["verdict"] == "accepted":
-                    a["checker_rc"], a["checker_cid"] = krc, kcid
-                    if krc != 0:
-                        a["verdict"] = "rejected: lean4checker"
+        base = "B" + re.sub(r"[^0-9A-Za-z]", "", run_id)
+        shards = [accepted[i:i + BATCH_SIZE] for i in range(0, len(accepted), BATCH_SIZE)]
+        for si, shard in enumerate(shards):
+            batch = base if len(shards) == 1 else f"{base}S{si}"
+            print(f"attempt: gate shard {si + 1}/{len(shards)} ({len(shard)} attempts) -> {batch}", file=sys.stderr, flush=True)
+            gate_shard(batch, shard, args.negate, args.heartbeats, put_bytes)
 
     # prover-negative halt: an accepted, fully gated ¬T means the pin is inconsistent
     if args.negate:
