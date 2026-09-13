@@ -1,0 +1,21 @@
+{
+ "claim": "OpenAI, forced Navier-Stokes finite-time blow-up (Clay C/D statements), announced 2026-09-08; self-assessed via Comparator (lean4export + nanoda)",
+ "repo": "https://github.com/openai/NavierStokesAndEuler",
+ "license": "Apache-2.0",
+ "commit": "f9e8bc5b38b6e212696e8a30e3e91517af887bbd",
+ "committed_at": "2026-09-10T13:40:53Z",
+ "expected": {
+  "lean_toolchain": "leanprover/lean4:v4.34.0-rc2",
+  "mathlib": "85e3a25e006c35636f0e53b0e9296caca2685bc0",
+  "comparator": "19e111e2141cf333c7daff0f64c5f24acc91dd2e",
+  "lean4export": "cacf989b",
+  "statement_file": {"path": "ComparatorChallenges/NavierStokes.lean", "bytes": 13031, "git_blob": "673fb19e26e60818d446363afd953f618719f99b",
+                     "sha256": "0cd193b8d5cbd0266e6e2f72e68dd5abcdcf2430ebd435dd9289737e9aa7da61", "blake3": "56996609b8f8c26e3a381afa2c5b9577ffe4d7623f485a7642f36ac65de0b3aa"},
+  "challenge_spec": {"path": "ComparatorChallenges/NavierStokes.json", "bytes": 375,
+                     "sha256": "7610ecead7b390d80ff7f4229a3ff8f18d630e046f7ad1de4f92c7e8e76845b8", "blake3": "0310c863fda0165379d47ea44f7e65fc9a257931438a0ecd70a7e6d879a8aa2a"}
+ },
+ "demonstranda": ["NavierStokes.Comparator.navier_stokes_breakdown_R3", "NavierStokes.Comparator.navier_stokes_breakdown_periodic"],
+ "solution_module": "NavierStokes/ComparatorSolution.lean",
+ "upstream_statement": {"repo": "https://github.com/google-deepmind/formal-conjectures", "path": "FormalConjectures/Millenium/NavierStokes.lean", "blob": "4af7e512630bfc5488497596a6c86316786a032c", "bytes": 14426, "main_at_pin_time": "2ff75e1a"},
+ "boundary": "no gate modified; nothing typed by hand; the statement-file bytes are hashed and compared to these values before the build starts; cross-pin locks are never compared (decision 3)"
+}
