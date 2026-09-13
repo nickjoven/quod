@@ -91,7 +91,7 @@ def build_user_message(stmt: str, history: list[dict]) -> str:
 
 def run_walker_scripts(scripts_path: str, raw_path: str, err_path: str, heartbeats: int, timeout: int, startup: int):
     """One walker pass in CORPUS_SCRIPTS mode (file polling watchdog as the other runs)."""
-    env = {"CORPUS_SCRIPTS": scripts_path, "ATTEMPT_HEARTBEATS": str(heartbeats)}
+    env = {"CORPUS_SCRIPTS": os.path.abspath(scripts_path), "ATTEMPT_HEARTBEATS": str(heartbeats)}
     ce.WALKER = WALKER
     status, hung = ce.run_segment(env, raw_path, err_path, inactivity=timeout, startup=startup)
     return status, hung
@@ -107,7 +107,9 @@ def main() -> int:
                     help="tier-A run dir on the same set (for the tier-A-failed subset)")
     ap.add_argument("--model", default="claude-opus-5")
     ap.add_argument("--effort", default="high")
-    ap.add_argument("--max-tokens", type=int, default=4000)
+    ap.add_argument("--max-tokens", type=int, default=16000, help="thinking + answer; adaptive thinking at effort high used all of 4000 in the voided pilot-B rounds")
+    ap.add_argument("--prior-spend-cents", type=float, default=0.0, help="spend already made under this cap by voided rounds (recorded, counted against the cap)")
+    ap.add_argument("--prior-note", default="", help="what the prior spend was (batch ids, cause)")
     ap.add_argument("--rounds", type=int, default=16)
     ap.add_argument("--cap-cents", type=int, default=6000)
     ap.add_argument("--price-in", type=float, required=True, help="USD per Mtok input (batch rate) — recorded")
@@ -192,6 +194,7 @@ def main() -> int:
                    "sha256": ce.sha256_file(args.controls), "cid": set_cid},
            "tier_a_failed_subset": sorted(tier_a_failed), "prompt_cid": prompt_cid, "pins": cal.verified_pins(),
            "scripts": {f: ce.sha256_file(os.path.join(SCRIPTS, f)) for f in sorted(os.listdir(SCRIPTS)) if f.endswith((".py", ".lean", ".sh"))},
+           "prior_spend_cents": args.prior_spend_cents, "prior_note": args.prior_note,
            "sealed_before_run": time.strftime("%Y-%m-%dT%H:%M:%S%z")}
     pre_path = os.path.join(out_dir, f"manifest-pre-{args.run_id}.json")
     with open(pre_path, "w") as f:
@@ -202,7 +205,7 @@ def main() -> int:
 
     # ---- state
     state = {n: {"history": [], "accepted_round": None, "verdict": None, "refusals": 0} for n in names}
-    spent_cents = 0.0
+    spent_cents = float(args.prior_spend_cents)
     round_costs: list = []
     usage_total = {"input": 0, "output": 0, "cache_write": 0, "cache_read": 0}
     att_rows: list[dict] = []
@@ -297,6 +300,12 @@ def main() -> int:
                 continue
             text = "".join(getattr(c, "text", "") for c in msg.content)
             script = extract_script(text)
+            if not script.strip():
+                why = "truncated: the answer did not fit in max_tokens (thinking consumed it)" if msg.stop_reason == "max_tokens" else "empty answer"
+                att_rows.append({**rec, "outcome": "no_proposal", "err_class": "truncated" if msg.stop_reason == "max_tokens" else "empty", "err": why})
+                state[n]["history"].append({"round": r, "script": "<no script>", "error_step": 0, "err_class": "no_script",
+                                            "err": "no proof script was received; reply with the tactic block only, keep reasoning brief"})
+                continue
             rec["script"] = script
             proposals.append({"id": f"{r}:{i}", "name": n, "script": script, "rec": rec})
         with open(os.path.join(out_dir, f"batch-results-r{r}.json"), "w") as f:
