@@ -1,0 +1,46 @@
+{
+ "decl": "NavierStokes.Comparator.navier_stokes_breakdown_R3",
+ "module": "ComparatorChallenges.NavierStokes",
+ "kind": "theorem",
+ "lock": "3608c95f250ae65119e583dc9e166a29bc3c5ba3e00d1bff14f90eb935c11952",
+ "hash": "blake3",
+ "canonical_type": "∀ (_ : Real) (__1 : @GT.gt.{0} Real Real.instLT _ (@OfNat.ofNat.{0} Real (nat_lit 0) (@Zero.toOfNat0.{0} Real Real.instZero))), @Exists.{1} ((_ : EuclideanSpace.{0, 0} Real (Fin (@OfNat.ofNat.{0} Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))) → EuclideanSpace.{0, 0} Real (Fin (@OfNat.ofNat.{0} Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))) fun (__2 : (_ : EuclideanSpace.{0, 0} Real (Fin (@OfNat.ofNat.{0} Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))) → EuclideanSpace.{0, 0} Real (Fin (@OfNat.ofNat.{0} Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))) => @Exists.{1} ((_ : EuclideanSpace.{0, 0} Real (Fin (@OfNat.ofNat.{0} Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))) → (_ : Real) → EuclideanSpace.{0, 0} Real (Fin (@OfNat.ofNat.{0} Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))) fun (__3 : (_ : EuclideanSpace.{0, 0} Real (Fin (@OfNat.ofNat.{0} Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))) → (_ : Real) → EuclideanSpace.{0, 0} Real (Fin (@OfNat.ofNat.{0} Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))) => And (@NavierStokes.Comparator.InitialVelocityConditionDecay (@OfNat.ofNat.{0} Nat (nat_lit 3) (instOfNatNat (nat_lit 3))) __2) (And (@NavierStokes.Comparator.ForceConditionDecay (@OfNat.ofNat.{0} Nat (nat_lit 3) (instOfNatNat (nat_lit 3))) __3) (Not (@Exists.{1} ((_ : EuclideanSpace.{0, 0} Real (Fin (@OfNat.ofNat.{0} Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))) → (_ : Real) → EuclideanSpace.{0, 0} Real (Fin (@OfNat.ofNat.{0} Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))) fun (__4 : (_ : EuclideanSpace.{0, 0} Real (Fin (@OfNat.ofNat.{0} Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))) → (_ : Real) → EuclideanSpace.{0, 0} Real (Fin (@OfNat.ofNat.{0} Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))) => @Exists.{1} ((_ : EuclideanSpace.{0, 0} Real (Fin (@OfNat.ofNat.{0} Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))) → (_ : Real) → Real) fun (__5 : (_ : EuclideanSpace.{0, 0} Real (Fin (@OfNat.ofNat.{0} Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))) → (_ : Real) → Real) => @NavierStokes.Comparator.NavierStokesExistenceAndSmoothnessRn (@OfNat.ofNat.{0} Nat (nat_lit 3) (instOfNatNat (nat_lit 3))) _ __2 __3 __4 __5)))",
+ "constants": 16,
+ "custom_constants": [
+  {
+   "name": "NavierStokes.Comparator.InitialVelocityConditionDecay",
+   "module": "ComparatorChallenges.NavierStokes"
+  },
+  {
+   "name": "NavierStokes.Comparator.ForceConditionDecay",
+   "module": "ComparatorChallenges.NavierStokes"
+  },
+  {
+   "name": "NavierStokes.Comparator.NavierStokesExistenceAndSmoothnessRn",
+   "module": "ComparatorChallenges.NavierStokes"
+  }
+ ],
+ "reduces_to_True": false,
+ "binders": [
+  {
+   "name": "nu",
+   "binder": "default",
+   "prop": false,
+   "type": "ℝ"
+  },
+  {
+   "name": "hnu",
+   "binder": "default",
+   "prop": true,
+   "type": "nu > 0"
+  }
+ ],
+ "hypotheses": [
+  {
+   "name": "hnu",
+   "binder": "default",
+   "prop": true,
+   "type": "nu > 0"
+  }
+ ]
+}

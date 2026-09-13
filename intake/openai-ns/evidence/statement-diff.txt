@@ -1,0 +1,112 @@
+3a4,6
+> This file has been modified from its original form in the Formal Conjectures
+> project.
+> 
+17c20
+< import FormalConjecturesUtil
+---
+> import Mathlib
+21a25,33
+> Standalone comparator copied from:
+> https://github.com/google-deepmind/formal-conjectures/blob/8bf45ed70d48b2b2a501de9c00b26bfa38c573ee/FormalConjectures/Millenium/NavierStokes.lean
+> 
+> The upstream definitions, helper proofs, and breakdown alternatives (C) and (D)
+> are retained, including their intentional `sorry` challenge placeholders. The
+> imports, metadata attributes, namespace, and local notation are adapted for this
+> project. All utility dependencies are inlined; only Mathlib is imported.
+> Neither the proof root nor the submission imports this reference.
+> 
+29,30d40
+< - [Clay Mathematics Institute](https://www.claymath.org/wp-content/uploads/2022/06/navierstokes.pdf)
+< - [OpenAI, *Finite Time Blowup for Navier–Stokes*](https://cdn.openai.com/pdf/32d9f210-8b73-45e0-91bc-82a30aef8a9a/navier-stokes.pdf)
+34,37c44
+< The Clay Millennium Problem asks for a proof of one of the following four statements:
+< 
+< - `navier_stokes_existence_and_smoothness_R3`: (A) Global existence on ℝ³
+< - `navier_stokes_existence_and_smoothness_periodic`: (B) Global existence on ℝ³/ℤ³
+---
+> This reference includes the two breakdown alternatives:
+41,43d47
+< In September 2026, an internal OpenAI model proved alternatives (C) and (D) by constructing
+< solutions that develop finite-time singularities under smooth forcing.
+< 
+53,57c57
+< the time derivative is encoded with `derivWithin` relative to `Set.Ici 0`. The Clay
+< PDF also includes errata; in particular, we include spatial 1-periodicity of the
+< pressure in the periodic case. The sign correction to the weak-solution identity in
+< the errata is not represented here, since this file formalizes the four prize
+< alternatives rather than the later weak-solution discussion.
+---
+> the time derivative is encoded with `derivWithin` relative to `Set.Ici 0`.
+60c60
+< open ContDiff Set InnerProductSpace MeasureTheory EuclideanGeometry
+---
+> open ContDiff Set InnerProductSpace MeasureTheory
+63c63,67
+< namespace NavierStokes
+---
+> namespace NavierStokes.Comparator
+> 
+> -- Inlined notation from FormalConjecturesForMathlib.Geometry.Euclidean and Geometry.«3d».
+> local notation "ℝ^" n:65 => EuclideanSpace ℝ (Fin n)
+> local notation "ℝ³" => EuclideanSpace ℝ (Fin 3)
+80c84
+< notation "∇⬝" => divergence
+---
+> local notation "∇⬝" => divergence
+83c87
+< @[simp, category API, AMS 35]
+---
+> @[simp]
+89c93
+< @[simp, category API, AMS 35]
+---
+> @[simp]
+94c98
+< @[simp, category API, AMS 35]
+---
+> @[simp]
+100d103
+< @[category API, AMS 35]
+108d110
+< @[category API, AMS 35]
+269,274d270
+< /-- (A) Existence and smoothness of (unforced) Navier–Stokes solutions on ℝ³. -/
+< @[category research open, AMS 35]
+< theorem navier_stokes_existence_and_smoothness_R3 (nu : ℝ) (hnu : nu > 0)
+<     (u₀ : ℝ³ → ℝ³) (hu₀ : InitialVelocityConditionDecay u₀) :
+<     ∃ v p, NavierStokesExistenceAndSmoothnessRn nu u₀ (f := 0) v p := by
+<   sorry
+276,290c272
+< /-- (B) Existence and smoothness of (unforced) Navier–Stokes solutions in ℝ³/ℤ³. -/
+< @[category research open, AMS 35]
+< theorem navier_stokes_existence_and_smoothness_periodic (nu : ℝ) (hnu : nu > 0)
+<     (u₀ : ℝ³ → ℝ³) (hu₀ : InitialVelocityConditionPeriodic u₀) :
+<     ∃ v p, NavierStokesExistenceAndSmoothnessPeriodic nu u₀ (f := 0) v p := by
+<   sorry
+< 
+< /--
+< (C) Breakdown of (forced) Navier–Stokes solutions on ℝ³.
+< 
+< This was proven by an internal OpenAI model in September 2026.
+< -/
+< @[category research solved, AMS 35,
+<   formal_proof using lean4 at
+<     "https://github.com/openai/NavierStokesAndEuler/commit/8937a8f4cbc7abaab5e9e97d1cc7f5d2319d9538"]
+---
+> /-- (C) Breakdown of Navier–Stokes solutions on ℝ³. -/
+297,304c279
+< /--
+< (D) Breakdown of (forced) Navier–Stokes solutions on ℝ³/ℤ³.
+< 
+< This was proven by an internal OpenAI model in September 2026.
+< -/
+< @[category research solved, AMS 35,
+<   formal_proof using lean4 at
+<     "https://github.com/openai/NavierStokesAndEuler/commit/8937a8f4cbc7abaab5e9e97d1cc7f5d2319d9538"]
+---
+> /-- (D) Breakdown of Navier–Stokes Solutions on ℝ³/ℤ³. -/
+311c286
+< end NavierStokes
+---
+> end NavierStokes.Comparator

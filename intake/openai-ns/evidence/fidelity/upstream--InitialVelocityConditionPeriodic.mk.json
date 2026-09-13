@@ -1,0 +1,64 @@
+{
+ "decl": "NavierStokes.Upstream.InitialVelocityConditionPeriodic.mk",
+ "module": "Intake.UpstreamNavierStokes",
+ "kind": "other",
+ "lock": "e5c51ca41ddf2d9e2bbaa0a04c8d210af161b7784d315b6cf10c5b395cad4323",
+ "hash": "blake3",
+ "canonical_type": "∀ {_ : Nat} {__1 : (__1 : EuclideanSpace.{0, 0} Real (Fin _)) → EuclideanSpace.{0, 0} Real (Fin _)} (__2 : @NavierStokes.Upstream.InitialVelocityCondition _ __1) (__3 : @NavierStokes.Upstream.IsOnePeriodic.{1} _ (EuclideanSpace.{0, 0} Real (Fin _)) __1), @NavierStokes.Upstream.InitialVelocityConditionPeriodic _ __1",
+ "constants": 7,
+ "custom_constants": [
+  {
+   "name": "NavierStokes.Upstream.InitialVelocityCondition",
+   "module": "Intake.UpstreamNavierStokes"
+  },
+  {
+   "name": "NavierStokes.Upstream.IsOnePeriodic",
+   "module": "Intake.UpstreamNavierStokes"
+  },
+  {
+   "name": "NavierStokes.Upstream.InitialVelocityConditionPeriodic",
+   "module": "Intake.UpstreamNavierStokes"
+  }
+ ],
+ "reduces_to_True": false,
+ "binders": [
+  {
+   "name": "n",
+   "binder": "implicit",
+   "prop": false,
+   "type": "ℕ"
+  },
+  {
+   "name": "u₀",
+   "binder": "implicit",
+   "prop": false,
+   "type": "EuclideanSpace ℝ (Fin n) → EuclideanSpace ℝ (Fin n)"
+  },
+  {
+   "name": "toInitialVelocityCondition",
+   "binder": "default",
+   "prop": true,
+   "type": "NavierStokes.Upstream.InitialVelocityCondition u₀"
+  },
+  {
+   "name": "isOnePeriodic",
+   "binder": "default",
+   "prop": true,
+   "type": "NavierStokes.Upstream.IsOnePeriodic u₀"
+  }
+ ],
+ "hypotheses": [
+  {
+   "name": "toInitialVelocityCondition",
+   "binder": "default",
+   "prop": true,
+   "type": "NavierStokes.Upstream.InitialVelocityCondition u₀"
+  },
+  {
+   "name": "isOnePeriodic",
+   "binder": "default",
+   "prop": true,
+   "type": "NavierStokes.Upstream.IsOnePeriodic u₀"
+  }
+ ]
+}

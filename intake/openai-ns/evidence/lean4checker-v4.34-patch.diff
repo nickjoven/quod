@@ -1,0 +1,20 @@
+diff --git a/Lean4Checker/Replay.lean b/Lean4Checker/Replay.lean
+index 683aa50..75ad74b 100644
+--- a/Lean4Checker/Replay.lean
++++ b/Lean4Checker/Replay.lean
+@@ -62,7 +62,7 @@ def throwKernelException (ex : Kernel.Exception) : M Unit := do
+ 
+ /-- Add a declaration, possibly throwing a `Kernel.Exception`. -/
+ def addDecl (d : Declaration) : M Unit := do
+-  match (← get).env.addDeclCore 0 d (cancelTk? := none) with
++  match (← get).env.addDeclCore 0 512 d (cancelTk? := none) with
+   | .ok env => modify fun s => { s with env := env }
+   | .error ex => throwKernelException ex
+ 
+diff --git a/lean-toolchain b/lean-toolchain
+index ccec351..b814d98 100644
+--- a/lean-toolchain
++++ b/lean-toolchain
+@@ -1 +1 @@
+-leanprover/lean4:v4.29.0-rc8
++leanprover/lean4:v4.34.0-rc2

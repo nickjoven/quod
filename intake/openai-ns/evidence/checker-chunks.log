@@ -1,0 +1,3 @@
+start 2026-09-13T05:04:42Z modules=610 chunk=15 checker_sha256=f2fb235ab1583bd6286c1bfeb9c7d85eee30f4c7fdbea39e52243b69b53c9c63
+chunk 1 n=15 exit=137 elapsed=42s first=ComparatorChallenges.NavierStokes
+chunk 2 n=15 exit=137 elapsed=44s first=NavierStokes.ActualCoreSupport

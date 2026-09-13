@@ -1,0 +1,26 @@
+{
+ "decl": "NavierStokes.Comparator.ForceConditionDecay",
+ "module": "ComparatorChallenges.NavierStokes",
+ "kind": "other",
+ "lock": "cdbc48f3daa1a26d910e5b31643b406de2597434ad1bff39aba64482cf1ea9a2",
+ "hash": "blake3",
+ "canonical_type": "{_ : Nat} → (_ : (__1 : EuclideanSpace.{0, 0} Real (Fin _)) → (__2 : Real) → EuclideanSpace.{0, 0} Real (Fin _)) → Prop",
+ "constants": 4,
+ "custom_constants": [],
+ "reduces_to_True": false,
+ "binders": [
+  {
+   "name": "n",
+   "binder": "implicit",
+   "prop": false,
+   "type": "ℕ"
+  },
+  {
+   "name": "f",
+   "binder": "default",
+   "prop": false,
+   "type": "EuclideanSpace ℝ (Fin n) → ℝ → EuclideanSpace ℝ (Fin n)"
+  }
+ ],
+ "hypotheses": []
+}
