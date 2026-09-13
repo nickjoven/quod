@@ -1,0 +1,22 @@
+attempt: segment done (hung=zsmul_neg_coe_of_pos)
+attempt: gate shard 1/17 (100 attempts) -> BtheoremsAt1S0
+attempt: gate shard 2/17 (100 attempts) -> BtheoremsAt1S1
+attempt: gate shard 3/17 (100 attempts) -> BtheoremsAt1S2
+attempt: gate shard 4/17 (100 attempts) -> BtheoremsAt1S3
+attempt: gate shard 5/17 (100 attempts) -> BtheoremsAt1S4
+attempt: gate shard 6/17 (100 attempts) -> BtheoremsAt1S5
+attempt: gate shard 7/17 (100 attempts) -> BtheoremsAt1S6
+attempt: gate shard 8/17 (100 attempts) -> BtheoremsAt1S7
+attempt: gate shard 9/17 (100 attempts) -> BtheoremsAt1S8
+attempt: gate shard 10/17 (100 attempts) -> BtheoremsAt1S9
+attempt: gate shard 11/17 (100 attempts) -> BtheoremsAt1S10
+attempt: gate shard 12/17 (100 attempts) -> BtheoremsAt1S11
+attempt: gate shard 13/17 (100 attempts) -> BtheoremsAt1S12
+attempt: gate shard 14/17 (100 attempts) -> BtheoremsAt1S13
+attempt: gate shard 15/17 (100 attempts) -> BtheoremsAt1S14
+attempt: gate shard 16/17 (100 attempts) -> BtheoremsAt1S15
+attempt: gate shard 17/17 (58 attempts) -> BtheoremsAt1S16
+attempt: transitions 26130 over 5923 goals (censored 94, on accepted path 10518)
+manifest CID: 6fe9d0678ff951f24522c9bbc0c4cc6e1703a8671411a9506c621e4f80b9b260
+attempts: 5410 | {'rejected: self-proof': 3601, 'accepted': 1658, 'no_proof_found': 151} -> attempts/theorems-A-t1
+theorems-A-t1 exit 0

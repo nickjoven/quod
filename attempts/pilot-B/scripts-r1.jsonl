@@ -1,0 +1,50 @@
+{"id": "1:24", "name": "Cardinal.power_le_power_right", "script": ""}
+{"id": "1:5", "name": "Action.Functor.mapActionPreservesColimitsOfShapeOfPreserves", "script": ""}
+{"id": "1:42", "name": "WittVector.ghostComponent.eq_1", "script": "intro p R inst inst1 n\nfirst\n  | rfl\n  | (ext x; rfl)\n  | (ext x; simp [WittVector.ghostComponent, WittVector.ghostMap])"}
+{"id": "1:3", "name": "ArithmeticFunction.isMultiplicative_zeta", "script": "constructor\n· simp [ArithmeticFunction.zeta_apply]\n· intro m n _\n  rcases eq_or_ne m 0 with hm | hm\n  · simp [hm, ArithmeticFunction.zeta_apply]\n  · rcases eq_or_ne n 0 with hn | hn\n    · simp [hn, ArithmeticFunction.zeta_apply]\n    · simp [ArithmeticFunction.zeta_apply, hm, hn, Nat.mul_eq_zero]"}
+{"id": "1:46", "name": "Monotone.comp_le_comp_left", "script": "intro α β γ _ _ f g h hf hgh x\nsimp only [Function.comp_apply]\nexact hf (hgh x)"}
+{"id": "1:37", "name": "maximal_true", "script": "intro α x inst\nconstructor\n· intro h y hy\n  exact h.2 trivial hy\n· intro h\n  exact ⟨trivial, fun _ hy => h hy⟩"}
+{"id": "1:34", "name": "Subsemigroup.op_top", "script": "intro M _\nfirst\n  | rfl\n  | exact SetLike.coe_injective rfl\n  | exact SetLike.ext' (by simp)\n  | (ext x; simp)"}
+{"id": "1:47", "name": "GroupNormClass.toNormedCommGroup_norm_eq", "script": "intro F α inst inst1 inst2 f x\nfirst\n  | rfl\n  | simp [norm]\n  | rfl"}
+{"id": "1:4", "name": "Finset.mulAction.eq_1", "script": "intros\nrfl"}
+{"id": "1:15", "name": "Complex.integerComplement.ne_zero", "script": "intro x hx h\nsubst h\nfirst\n  | exact hx ⟨0, by simp⟩\n  | exact hx 0 (by simp)\n  | exact hx ⟨0, by norm_num⟩\n  | exact hx 0 (by norm_num)\n  | (simp only [Complex.integerComplement, Set.mem_setOf_eq] at hx\n     first\n       | exact hx ⟨0, by simp⟩\n       | exact hx 0 (by simp)\n       | simpa using hx 0)"}
+{"id": "1:18", "name": "CategoryTheory.MonoOver.isIso_iff_isIso_left", "script": ""}
+{"id": "1:11", "name": "SimpleGraph.Walk.concatRec_concat", "script": ""}
+{"id": "1:25", "name": "CategoryTheory.InitiallySmall.mk'", "script": "intro J _ S _ F _\nexact ⟨S, inferInstance, F, inferInstance⟩"}
+{"id": "1:44", "name": "IntermediateField.normal_iff_forall_map_eq", "script": ""}
+{"id": "1:6", "name": "CategoryTheory.Limits.IsLimit.hom_isIso", "script": "intro J _ C _ F s t P Q f\nexact ⟨⟨P.liftConeMorphism t, P.uniq_cone_morphism, Q.uniq_cone_morphism⟩⟩"}
+{"id": "1:28", "name": "Polynomial.X_pow_mul_assoc", "script": "intro R inst p q n\nrw [mul_assoc, Polynomial.X_pow_mul, ← mul_assoc]"}
+{"id": "1:49", "name": "CategoryTheory.Preadditive.neg_comp_neg_assoc", "script": "intros\nsimp"}
+{"id": "1:31", "name": "CategoryTheory.Limits.hasFiniteColimits_of_hasColimits", "script": "intro C _ _\ninfer_instance"}
+{"id": "1:29", "name": "WithCStarModule.norm_equiv_le_norm_prod", "script": ""}
+{"id": "1:23", "name": "CategoryTheory.induct_on_objects", "script": "intro J _ _ p j₀ h0 h1 j\nhave key := CategoryTheory.constant_of_preserves_morphisms\n  (fun k : J => ULift.up.{u₁} (k ∈ p))\n  (fun j₁ j₂ f => congrArg ULift.up (propext (h1 f))) j j₀\nhave i : (j ∈ p) = (j₀ ∈ p) := congrArg ULift.down key\nexact (iff_of_eq i).mpr h0"}
+{"id": "1:13", "name": "WeierstrassCurve.ofJ_ne_0_ne_1728", "script": ""}
+{"id": "1:43", "name": "CategoryTheory.PreGaloisCategory.PointedGaloisObject.comp_val", "script": "intros\nrfl"}
+{"id": "1:21", "name": "WeierstrassCurve.Ψ_one", "script": ""}
+{"id": "1:22", "name": "CategoryTheory.id_of_comp_right_id", "script": "intro C inst X f h\nsimpa using h (CategoryTheory.CategoryStruct.id X)"}
+{"id": "1:8", "name": "FreeAddMonoid.of_injective", "script": "intro α a b h\nhave h' : FreeAddMonoid.toList (FreeAddMonoid.of a)\n    = FreeAddMonoid.toList (FreeAddMonoid.of b) := congrArg _ h\nsimpa using h'"}
+{"id": "1:48", "name": "Matrix.gram_apply", "script": "intro E n 𝕜 inst v i j\nrfl"}
+{"id": "1:26", "name": "Matrix.IsHermitian.mulVec_eigenvectorBasis", "script": ""}
+{"id": "1:16", "name": "CategoryTheory.Limits.PullbackCone.pasteVert.congr_simp", "script": "intro C inst X₁ X₂ X₃ Y₁ f₁ f₂ i₁ t₁ i₂ t₂ t₂_1 h hi₂\nsubst h\nrfl"}
+{"id": "1:7", "name": "Matroid.Indep.subset_finite_isBasis'_of_subset_of_isRkFinite", "script": "intro α M X I hI hIX hX\nobtain ⟨J, hJ, hIJ⟩ := hI.subset_isBasis'_of_subset hIX\nexact ⟨J, hJ, hIJ, hX.finite_of_isBasis' hJ⟩"}
+{"id": "1:27", "name": "Complex.comap_exp_nhds_zero", "script": ""}
+{"id": "1:30", "name": "neg_nsmul", "script": "intro α inst a n\ninduction n with\n| zero => simp\n| succ n ih => rw [succ_nsmul, succ_nsmul', ih, neg_add_rev]"}
+{"id": "1:19", "name": "CategoryTheory.Limits.pushout.inl_desc", "script": "intro C inst W X Y Z f g inst_1 h k w\nsimp"}
+{"id": "1:20", "name": "CategoryTheory.Limits.Cones.extendId_hom_hom", "script": "intros\nfirst\n  | rfl\n  | simp [CategoryTheory.Limits.Cones.extendId]\n  | (simp [CategoryTheory.Limits.Cones.extendId, CategoryTheory.Limits.Cones.ext]; rfl)\n  | aesop"}
+{"id": "1:1", "name": "Composition.sizeUpTo_succ", "script": "intro n c i h\nexact List.sum_take_succ _ _ h"}
+{"id": "1:32", "name": "Real.Angle.toReal_coe_eq_self_add_two_pi_iff", "script": ""}
+{"id": "1:45", "name": "Sym2.mkEmbedding_apply", "script": "intro α a b\nrfl"}
+{"id": "1:17", "name": "Nat.div_dvd_div_left", "script": "intro n m k hmk hnm\nobtain ⟨c, hc⟩ := hmk\nobtain ⟨d, hd⟩ := hnm\nrcases Nat.eq_zero_or_pos m with hm | hm\n· subst hm\n  simp at hc\n  subst hc\n  simp\n· have hn : 0 < n := by\n    rcases Nat.eq_zero_or_pos n with h | h\n    · subst h; simp at hd; omega\n    · exact h\n  subst hc\n  subst hd\n  rw [Nat.mul_div_cancel_left _ hm, mul_assoc, Nat.mul_div_cancel_left _ hn]\n  exact dvd_mul_left c d"}
+{"id": "1:40", "name": "Module.Relations.Solution.π_comp_map_apply", "script": ""}
+{"id": "1:39", "name": "Field.finInsepDegree_def'", "script": "intro F E _ _ _\nrfl"}
+{"id": "1:0", "name": "SSet.degenerate_le_preimage", "script": ""}
+{"id": "1:38", "name": "Quiver.stronglyConnectedComponent_singleton_iff", "script": ""}
+{"id": "1:14", "name": "CategoryTheory.MorphismProperty.RightFraction.exists_leftFraction", "script": "intro C _ W _ X Y φ\nexact CategoryTheory.MorphismProperty.HasLeftCalculusOfFractions.exists_leftFraction φ"}
+{"id": "1:9", "name": "Unitary.map_id", "script": "intro R _ _\nfirst\n  | rfl\n  | (ext x; rfl)\n  | (ext x; exact Subtype.ext rfl)\n  | (ext x; simp [Unitary.map])"}
+{"id": "1:10", "name": "NormedSpace.normalize_smul", "script": ""}
+{"id": "1:33", "name": "Order.krullDim_eq_iSup_coheight", "script": "intro α inst\nrw [← Order.krullDim_orderDual, Order.krullDim_eq_iSup_height]\nrfl"}
+{"id": "1:35", "name": "Subgroup.quotientiInfEmbedding_apply", "script": "intro α inst ι f q i\nrfl"}
+{"id": "1:12", "name": "Ideal.height_le_spanRank_toENat", "script": ""}
+{"id": "1:2", "name": "List.insertIdx_injective", "script": ""}
+{"id": "1:41", "name": "RightPreLieRing.assoc_symm'", "script": ""}
+{"id": "1:36", "name": "Set.Finite.inv", "script": "intro α _ s hs\nhave h : s⁻¹ = (fun x : α => x⁻¹) ⁻¹' s := by\n  ext x; simp\nrw [h]\nfirst\n  | exact hs.preimage inv_injective.injOn\n  | exact hs.preimage (Set.injOn_of_injective inv_injective)\n  | exact Set.Finite.preimage inv_injective.injOn hs\n  | exact Set.Finite.preimage (Set.injOn_of_injective inv_injective _) hs"}

@@ -1,0 +1,7 @@
+attempt: segment done (hung=zsmul_neg_coe_of_pos)
+attempt: gate shard 1/2 (100 attempts) -> BmutantsAt1S0
+attempt: gate shard 2/2 (41 attempts) -> BmutantsAt1S1
+attempt: transitions 42910 over 12529 goals (censored 786, on accepted path 282)
+manifest CID: 847bcbcedc919c4c049ba662f0644640ba1625eb62f2619d52628f9e820159e2
+attempts: 6152 | {'no_proof_found': 6011, 'accepted': 141} -> attempts/mutants-A-t1
+mutants-A-t1 exit 0

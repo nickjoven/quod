@@ -22,3 +22,5 @@ attempts/*/records-*.raw
 attempts/*/walker-*.err
 attempts/*/r*/transitions/
 attempts/*/r1-dedup/transitions/
+attempts/*.log
+attempts/*/driver.log.bak
