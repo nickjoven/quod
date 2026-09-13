@@ -1,0 +1,66 @@
+{
+ "run_id": "pilot-B2",
+ "round": 1,
+ "issue": "the relaunch (paid-batch reuse after the gate-module fix) appended a second walker pass to records-r1.raw; the sealed manifest counts both passes (278)",
+ "fix": "transitions regenerated from the LAST walker pass only; verdicts from the sealed attempts.jsonl",
+ "transitions": {
+  "n_transitions": 139,
+  "n_goals": 99,
+  "censored": 0,
+  "on_accepted_path": 120,
+  "accepted_path_fraction": 0.8633,
+  "by_position": {
+   "0:script": {
+    "open": 44
+   },
+   "1:script": {
+    "open": 23,
+    "closed": 21
+   },
+   "2:script": {
+    "closed": 9,
+    "open": 13
+   },
+   "3:script": {
+    "open": 6,
+    "closed": 7
+   },
+   "4:script": {
+    "open": 4,
+    "closed": 2
+   },
+   "5:script": {
+    "open": 3,
+    "closed": 1
+   },
+   "6:script": {
+    "closed": 1,
+    "open": 2
+   },
+   "7:script": {
+    "open": 1,
+    "closed": 1
+   },
+   "8:script": {
+    "closed": 1
+   }
+  },
+  "shards": [
+   {
+    "file": "transitions/goals-0000.jsonl",
+    "kind": "goals",
+    "records": 99,
+    "sha256": "ea6bbc8e9c03fc04dcb8f15e2af8b5a500809b5d484d6050dc4d2196974b238b",
+    "cid": "4d981dee443599404dc948e11683a1bbed9ebdce19bb95c8a6420c0ff01d827d"
+   },
+   {
+    "file": "transitions/transitions-0000.jsonl",
+    "kind": "transitions",
+    "records": 139,
+    "sha256": "63769991cdd5e65da572fd5a9c210b629fe1d08bd5d0d1023ff858a74d0addb0",
+    "cid": "41893277054c7b54299a4e97ebe8dd1545d6a8ac261390ad128b29a96f7ce399"
+   }
+  ]
+ },
+ "manifest_cid_sealed": "eccfd342f339be169b47b2afdfdce70f9b47690eea26791e3b10c5abba86066b"
+}

@@ -17,3 +17,8 @@ calib/Quod/Attempts/
 attempts/*/records.raw
 attempts/*/walker.err
 attempts/*/transitions/
+.env
+attempts/*/records-*.raw
+attempts/*/walker-*.err
+attempts/*/r*/transitions/
+attempts/*/r1-dedup/transitions/

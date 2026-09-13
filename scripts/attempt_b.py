@@ -337,6 +337,9 @@ def main() -> int:
             for p in proposals:
                 f.write(json.dumps({"id": p["id"], "name": p["name"], "script": p["script"]}, ensure_ascii=False) + "\n")
         raw = os.path.join(out_dir, f"records-r{r}.raw"); err = os.path.join(out_dir, f"walker-r{r}.err")
+        for stale in (raw, err):          # a re-processed round must not accumulate a second walker pass
+            if os.path.exists(stale):
+                os.remove(stale)
         status, hung = run_walker_scripts(sp, raw, err, args.heartbeats, args.timeout, args.start_timeout)
         atts = {j["script_id"]: j for j in at.parse_atts(raw)}
         accepted = []

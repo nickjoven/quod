@@ -1,0 +1,1 @@
+{"id": "6:5", "name": "Module.Relations.Solution.π_comp_map_apply", "script": "```lean\nintro A _ relations M _ _ solution x\nhave h : ∀ r : relations.R, solution.π (relations.relation r) = 0 := by\n  intro r\n  first\n  | exact solution.linearCombination_var_relation r\n  | simpa"}
