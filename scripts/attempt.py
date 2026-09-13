@@ -200,8 +200,19 @@ def write_batch_module(batch: str, atts: list[dict], negate: bool, heartbeats: i
             body = f"type_of_decl! {a['demonstrandum']}"
         stmt = f"¬ ({body})" if negate else body
         pre = f"set_option maxHeartbeats {heartbeats} in " if heartbeats else ""
-        lines.append(f"{pre}theorem {a['attempt_name']}{univ} : {stmt} := by {a['tactic']}")
-        line_of[len(lines)] = a["attempt_name"]
+        tac = a["tactic"]
+        if "\n" not in tac:
+            lines.append(f"{pre}theorem {a['attempt_name']}{univ} : {stmt} := by {tac}")
+            line_of[len(lines)] = a["attempt_name"]
+        else:
+            # a multi-line script (script mode wraps it as "(line1\n line2 ...)"): put the body under
+            # `by` on its own lines, indented, so Lean's column rule holds regardless of the header width
+            body = tac[1:-1] if tac.startswith("(") and tac.endswith(")") else tac
+            blines = body.split("\n")
+            blines = [blines[0]] + [l[1:] if l.startswith(" ") else l for l in blines[1:]]
+            lines.append(f"{pre}theorem {a['attempt_name']}{univ} : {stmt} := by")
+            line_of[len(lines)] = a["attempt_name"]
+            lines.extend("  " + l for l in blines)
         lines.append("")
     with open(os.path.join(ATT_DIR, f"{batch}.lean"), "w") as f:
         f.write("\n".join(lines))

@@ -264,10 +264,23 @@ def main() -> int:
                 print(f"HALT before round {r}: projected {projected:.0f}c > cap {args.cap_cents}c", file=sys.stderr, flush=True)
                 break
         reqs = round_requests(r, open_names)
-        batch = client.messages.batches.create(requests=reqs)
-        with open(os.path.join(out_dir, "batches.log"), "a") as f:
-            f.write(json.dumps({"round": r, "batch_id": batch.id, "requests": len(reqs), "created": time.strftime("%Y-%m-%dT%H:%M:%S%z")}) + "\n")
-        print(f"round {r}: batch {batch.id} over {len(reqs)} open demonstranda", file=sys.stderr, flush=True)
+        # a batch already submitted for this round (batches.log) is REUSED, never paid for twice:
+        # a harness fix or a crash after submission re-processes the same paid responses
+        blog = os.path.join(out_dir, "batches.log")
+        prior = [json.loads(l) for l in open(blog)] if os.path.exists(blog) else []
+        prior_b = next((b for b in prior if b["round"] == r), None)
+        if prior_b:
+            batch = client.messages.batches.retrieve(prior_b["batch_id"])
+            submitted_names = prior_b.get("names", names)      # the open set AT SUBMISSION (round 1 of a fresh run = all)
+            print(f"round {r}: reusing paid batch {batch.id} ({prior_b['requests']} requests; {len(open_names)} still open)", file=sys.stderr, flush=True)
+        else:
+            batch = client.messages.batches.create(requests=reqs)
+            submitted_names = list(open_names)
+            with open(blog, "a") as f:
+                f.write(json.dumps({"round": r, "batch_id": batch.id, "requests": len(reqs), "names": submitted_names,
+                                    "created": time.strftime("%Y-%m-%dT%H:%M:%S%z")}) + "\n")
+            print(f"round {r}: batch {batch.id} over {len(reqs)} open demonstranda", file=sys.stderr, flush=True)
+        open_set = set(open_names)
         while True:
             b = client.messages.batches.retrieve(batch.id)
             if b.processing_status == "ended":
@@ -277,8 +290,10 @@ def main() -> int:
         raw_results = []
         for res in client.messages.batches.results(batch.id):
             raw_results.append(res.model_dump() if hasattr(res, "model_dump") else str(res))
-            i = int(res.custom_id); n = open_names[i]
+            i = int(res.custom_id); n = submitted_names[i]
             n_req += 1
+            if n not in open_set:      # already accepted in an earlier (re-gated) round: paid for, not needed
+                continue
             rec = {"round": r, "demonstrandum": n, "batch_id": batch.id, "result_type": res.result.type}
             if res.result.type != "succeeded":
                 rec["error"] = str(getattr(res.result, "error", ""))[:300]
