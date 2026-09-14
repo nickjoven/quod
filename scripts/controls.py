@@ -22,6 +22,10 @@ def main() -> int:
     ap.add_argument("--seed", type=int, default=1337)
     ap.add_argument("--pilot", type=int, default=50)
     ap.add_argument("--test", type=int, default=200)
+    ap.add_argument("--frame", type=int, default=0,
+                    help="AMENDMENT A1 (Q-26): nominate a test FRAME of this size first, then draw the pilot as a seeded, "
+                         "depth-stratified subsample of it (needs --dag); the test set is the frame minus the pilot")
+    ap.add_argument("--dag", default="", help="dag_depth.jsonl of the corpus (proof-DAG depth per declaration) for stratification")
     args = ap.parse_args()
 
     names = []
@@ -34,12 +38,46 @@ def main() -> int:
     # seeded hash order: deterministic, corpus-wide, no human choice
     key = lambda n: hashlib.blake2b(f"{args.seed}:{n}".encode(), digest_size=8).hexdigest()
     ordered = sorted(names, key=key)
-    pilot, test = ordered[:args.pilot], ordered[args.pilot:args.pilot + args.test]
+    stratified = None
+    if args.frame:
+        # Amendment A1 (Q-26): frame first, pilot = seeded depth-stratified subsample of it, test = the rest
+        import random
+        frame = ordered[:args.frame]; fset = set(frame)
+        depth, alld = {}, []
+        for line in open(args.dag):
+            r = json.loads(line)
+            if r["depth"] is None:
+                continue
+            alld.append(r["depth"])
+            if r["name"] in fset:
+                depth[r["name"]] = r["depth"]
+        alld.sort()
+        bounds = [alld[int(len(alld) * q)] for q in (0.25, 0.5, 0.75)]
+        strat = lambda n: sum(depth.get(n, bounds[1]) > b for b in bounds)
+        by = {}
+        for n in frame:
+            by.setdefault(strat(n), []).append(n)
+        rng = random.Random(args.seed)
+        pilot = []
+        for k in sorted(by):
+            take = round(args.pilot * len(by[k]) / len(frame))
+            pilot += rng.sample(sorted(by[k]), min(take, len(by[k])))
+        pilot = sorted(pilot, key=key)[:args.pilot]; pset = set(pilot)
+        test = [n for n in frame if n not in pset]
+        stratified = {"frame": len(frame), "depth_quartile_bounds": bounds,
+                      "frame_per_quartile": {f"q{k+1}": len(by.get(k, [])) for k in range(4)},
+                      "pilot_per_quartile": {f"q{k+1}": sum(1 for n in pilot if strat(n) == k) for k in range(4)},
+                      "dag_table": os.path.basename(args.dag),
+                      "rule": "frame = first --frame names in seeded hash order; pilot = seeded random subsample of the frame, proportional "
+                              "by proof-DAG depth quartile (corpus-wide bounds); test = frame minus pilot (Q-26, amendment A1)"}
+    else:
+        pilot, test = ordered[:args.pilot], ordered[args.pilot:args.pilot + args.test]
     # the CORPUS manifest (manifest-<run>.json), not a derived table's (manifest-dag-*, manifest-derived-*)
     manifests = sorted(p for p in glob.glob(os.path.join(args.corpus, "manifest-*.json")) if not re.search(r"manifest-(dag|derived)-", p))
-    out = {"rule": f"blake2b('{args.seed}:'+name) ascending over kind==theorem; first {args.pilot} pilot, next {args.test} test",
+    out = {"rule": (f"blake2b('{args.seed}:'+name) ascending over kind==theorem; frame of {args.frame}, stratified pilot of {args.pilot}, test = rest" if args.frame
+                    else f"blake2b('{args.seed}:'+name) ascending over kind==theorem; first {args.pilot} pilot, next {args.test} test"),
            "seed": args.seed, "corpus_manifest": os.path.basename(manifests[0]) if manifests else None,
-           "theorems_in_corpus": len(names), "pilot": pilot, "test": test}
+           "theorems_in_corpus": len(names), "pilot": pilot, "test": test, "stratified": stratified}
     os.makedirs(os.path.join(ROOT, "attempts"), exist_ok=True)
     p = os.path.join(ROOT, "attempts", f"controls-{args.seed}.json")
     with open(p, "w") as f:
