@@ -1,0 +1,100 @@
+{
+ "controls": "attempts/controls-1337.json",
+ "dag_table": "corpus/full-20260908b/dag_depth.jsonl (manifest-dag CID cbd1c771...)",
+ "corpus_depth_quartile_bounds": [
+  5,
+  11,
+  24
+ ],
+ "pilot": {
+  "n": 50,
+  "depth_median": 10.5,
+  "depth_mean": 20.92,
+  "depth_quartile_share": {
+   "q1": 0.28,
+   "q2": 0.26,
+   "q3": 0.18,
+   "q4": 0.28
+  },
+  "tokens_median": 30.0,
+  "chars_median": 142.0,
+  "tierA_accept_by_depth_quartile": {
+   "q1": [
+    "4/14",
+    0.286
+   ],
+   "q2": [
+    "5/13",
+    0.385
+   ],
+   "q3": [
+    "4/9",
+    0.444
+   ],
+   "q4": [
+    "3/14",
+    0.214
+   ]
+  },
+  "tierA_accept_overall": 0.32,
+  "top_level_modules": {
+   "CategoryTheory": 13,
+   "Algebra": 9,
+   "Analysis": 8,
+   "Combinatorics": 4,
+   "Data": 3,
+   "Order": 3,
+   "RingTheory": 2,
+   "AlgebraicGeometry": 2
+  }
+ },
+ "test": {
+  "n": 200,
+  "depth_median": 16.0,
+  "depth_mean": 23.01,
+  "depth_quartile_share": {
+   "q1": 0.18,
+   "q2": 0.225,
+   "q3": 0.245,
+   "q4": 0.35
+  },
+  "tokens_median": 34.0,
+  "chars_median": 173.0,
+  "tierA_accept_by_depth_quartile": {
+   "q1": [
+    "17/36",
+    0.472
+   ],
+   "q2": [
+    "11/45",
+    0.244
+   ],
+   "q3": [
+    "16/49",
+    0.327
+   ],
+   "q4": [
+    "6/70",
+    0.086
+   ]
+  },
+  "tierA_accept_overall": 0.25,
+  "top_level_modules": {
+   "Algebra": 40,
+   "Topology": 29,
+   "Data": 20,
+   "CategoryTheory": 20,
+   "RingTheory": 19,
+   "Analysis": 15,
+   "Order": 13,
+   "MeasureTheory": 8
+  }
+ },
+ "depth_mann_whitney": {
+  "U": 4249.0,
+  "z": -1.642,
+  "direction": "pilot shallower",
+  "note": "normal approximation, ties averaged"
+ },
+ "cid": "3b527442c377eccf740fe88036d39c4a024b6cc51c543124a1a99cf039c8dc1f"
+}
