@@ -538,8 +538,9 @@ run_meta do
         aid := aid + 1
         let base := Json.mkObj [("demonstrandum", Json.str n.toString), ("script_id", Json.str sid),
           ("module", Json.str ((env.getModuleFor? n).getD `_local).toString),
-          ("n_levels", Json.num ci.levelParams.length), ("negated", Json.bool false)]
-        let (r, k') ← tryCatchRuntimeEx (attemptScript w n ci ci.type script hb k aid)
+          ("n_levels", Json.num ci.levelParams.length), ("negated", Json.bool negate)]
+        let ty := if negate then mkApp (mkConst ``Not) ci.type else ci.type
+        let (r, k') ← tryCatchRuntimeEx (attemptScript w n ci ty script hb k aid)
           (fun _ => pure (Json.mkObj [("outcome", Json.str "no_proof_found"), ("budget", Json.bool true), ("aid", Json.num aid),
                                       ("err_class", Json.str "budget"), ("err", Json.str "budget exceeded")], k))
         k := k'

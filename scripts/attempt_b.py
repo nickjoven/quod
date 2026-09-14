@@ -79,8 +79,9 @@ def extract_script(text: str) -> str:
     return "\n".join(l[ind:] for l in lines).strip("\n")
 
 
-def build_user_message(stmt: str, history: list[dict]) -> str:
-    parts = [f"Prove this theorem at the pin. Reply with only the tactic block.\n\n```lean\ntheorem X : {stmt}\n```"]
+def build_user_message(stmt: str, history: list[dict], negate: bool = False) -> str:
+    shown = f"¬ ({stmt})" if negate else stmt
+    parts = [f"Prove this theorem at the pin. Reply with only the tactic block.\n\n```lean\ntheorem X : {shown}\n```"]
     for h in history:
         parts.append(f"\n--- Round {h['round']} proposal ---\n```lean\n{h['script']}\n```\n"
                      f"Lean result: step {h['error_step']} ({h['err_class']}): {h['err']}")
@@ -89,9 +90,11 @@ def build_user_message(stmt: str, history: list[dict]) -> str:
     return "\n".join(parts)
 
 
-def run_walker_scripts(scripts_path: str, raw_path: str, err_path: str, heartbeats: int, timeout: int, startup: int):
+def run_walker_scripts(scripts_path: str, raw_path: str, err_path: str, heartbeats: int, timeout: int, startup: int, negate: bool = False):
     """One walker pass in CORPUS_SCRIPTS mode (file polling watchdog as the other runs)."""
     env = {"CORPUS_SCRIPTS": os.path.abspath(scripts_path), "ATTEMPT_HEARTBEATS": str(heartbeats)}
+    if negate:
+        env["CORPUS_NEGATE"] = "1"
     ce.WALKER = WALKER
     status, hung = ce.run_segment(env, raw_path, err_path, inactivity=timeout, startup=startup)
     return status, hung
@@ -123,6 +126,7 @@ def main() -> int:
     ap.add_argument("--no-ket", action="store_true")
     ap.add_argument("--dry-run", action="store_true", help="build the pre-manifest and round-1 requests; submit nothing")
     ap.add_argument("--resume", action="store_true", help="continue a run from its per-round checkpoint (state.json) under the SAME run id")
+    ap.add_argument("--negate", action="store_true", help="prover-negative control: attempt NOT T; any gate-accepted proof HALTS the run")
     ap.add_argument("--out", default=None)
     args = ap.parse_args()
     pin = args.price_in
@@ -176,7 +180,7 @@ def main() -> int:
             created_at = f"lookup failed: {type(e).__name__}"
 
     prover = "tier-B"
-    prover_config = {"prover": prover, "model": args.model, "model_created_at": created_at, "effort": args.effort,
+    prover_config = {"prover": prover, "model": args.model, "model_created_at": created_at, "effort": args.effort, "negate": args.negate,
                      "workspace_header": bool(os.environ.get("ANTHROPIC_WORKSPACE_ID")),
                      "max_tokens": args.max_tokens, "rounds": args.rounds, "levels": list(LEVELS),
                      "protocol": "one batch per round over open demonstranda; full history of proposals + Lean errors; "
@@ -237,7 +241,7 @@ def main() -> int:
             stmt = stmts[n].get("readable_pp") or stmts[n]["canonical_type"]
             params = {"model": args.model, "max_tokens": args.max_tokens,
                       "system": [{"type": "text", "text": SYSTEM_PREFIX, "cache_control": {"type": "ephemeral"}}],
-                      "messages": [{"role": "user", "content": build_user_message(stmt, state[n]["history"])}]}
+                      "messages": [{"role": "user", "content": build_user_message(stmt, state[n]["history"], args.negate)}]}
             if args.effort:
                 params["output_config"] = {"effort": args.effort}
             reqs.append({"custom_id": f"{i}", "params": params})
@@ -340,7 +344,7 @@ def main() -> int:
         for stale in (raw, err):          # a re-processed round must not accumulate a second walker pass
             if os.path.exists(stale):
                 os.remove(stale)
-        status, hung = run_walker_scripts(sp, raw, err, args.heartbeats, args.timeout, args.start_timeout)
+        status, hung = run_walker_scripts(sp, raw, err, args.heartbeats, args.timeout, args.start_timeout, args.negate)
         atts = {j["script_id"]: j for j in at.parse_atts(raw)}
         accepted = []
         for k, p in enumerate(proposals):
@@ -368,11 +372,14 @@ def main() -> int:
             accepted.append(rec)
         if accepted:
             batch_name = "B" + re.sub(r"[^0-9A-Za-z]", "", f"{args.run_id}r{r}")
-            at.gate_shard(batch_name, accepted, False, args.heartbeats, put_bytes)
+            at.gate_shard(batch_name, accepted, args.negate, args.heartbeats, put_bytes)
         for rec in accepted:
             n = rec["demonstrandum"]
             if rec.get("verdict") == "accepted":
                 state[n]["accepted_round"] = r; state[n]["verdict"] = "accepted"
+                if args.negate:
+                    checkpoint(r + 1)
+                    sys.exit(f"HALT: negated demonstrandum {n} ACCEPTED through all gates in round {r} — pin inconsistent or harness bug")
             else:
                 state[n]["history"].append({"round": r, "script": rec["script"], "error_step": 0, "err_class": "gate", "err": f"external gate: {rec.get('verdict')} {(rec.get('build_err') or '')[:400]}"})
             att_rows.append(rec)
