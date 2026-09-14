@@ -1,0 +1,7 @@
+pre-manifest sealed: attempts/pilot-B-neg/manifest-pre-pilot-B-neg.json CID ecab3a6855eeb2f1ce1807f7e6d81b55df71b2c72d12b485498f811ab76bcac0 | set 50 (50 tier-A-failed) | model claude-opus-5 created_at 2026-07-24 00:00:00+00:00 | cap 1500c
+round 1: batch msgbatch_01BCnwGUdsyVgHVuuKwYsUcE over 50 open demonstranda
+round 1: 10 proposals, 972.0c this round, 972.0c total
+round 1: accepted so far 0/50; transitions 31
+HALT before round 2: projected 2138c > cap 1500c
+manifest CID: 78bf9c3c2a731641286db46f36f0c7812fe3d7565a5954d48fe0cf307220058b
+tier B pilot-B-neg: {'P_B(1)': {'all': 0.0, 'tier_a_failed': 0.0}, 'P_B(4)': {'all': 0.0, 'tier_a_failed': 0.0}, 'P_B(16)': {'all': 0.0, 'tier_a_failed': 0.0}} | spend 972.0c | refusals 0 | self-proof 0

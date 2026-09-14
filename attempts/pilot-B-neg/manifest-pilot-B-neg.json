@@ -1,0 +1,227 @@
+{
+ "run_id": "pilot-B-neg",
+ "prover": "tier-B",
+ "prover_config": {
+  "prover": "tier-B",
+  "model": "claude-opus-5",
+  "model_created_at": "2026-07-24 00:00:00+00:00",
+  "effort": "high",
+  "negate": true,
+  "workspace_header": true,
+  "max_tokens": 16000,
+  "rounds": 4,
+  "levels": [
+   1,
+   4,
+   16
+  ],
+  "protocol": "one batch per round over open demonstranda; full history of proposals + Lean errors; drop at first gate-accepted proof; stepwise replay via AttemptWalk CORPUS_SCRIPTS",
+  "system_prompt_sha256": "4498012a56fafad53ece21ca649b5b13d8c2d6c79563f563695ef7014b18f88d",
+  "heartbeats_per_step": 20000000,
+  "walker_sha256": "190ea65e64fa6ee298184988ca9087efb66a7ab593fd1a9ace3096aae202e784",
+  "forbidden_tactics": [
+   "exact?",
+   "apply?",
+   "rw?",
+   "simp?",
+   "aesop?",
+   "hint",
+   "sorry",
+   "admit",
+   "native_decide"
+  ],
+  "self_proof_gate": "name hidden; any accepted term using the demonstrandum's name or a same-lock constant is rejected: self-proof and counts as a failure for P"
+ },
+ "prover_config_cid": "9ef8aace69697635f874aaeb1769579e79c29c05e060a20054ee9d98743ad5cb",
+ "cap_cents": 1500,
+ "prices_usd_per_mtok": {
+  "input": 2.5,
+  "output": 12.5,
+  "cache_write": 3.125,
+  "cache_read": 0.25
+ },
+ "set": {
+  "controls": "attempts/controls-1337.json",
+  "which": "pilot",
+  "n": 50,
+  "sha256": "0663ba70662a428bb4a3e35eaea9ac594fc0bd2e480ff1d1405e8927d84388c1",
+  "cid": "32cbdc046ad586d68e3a04b97a004ccff143fae8174942c255719cf3d1fe8819"
+ },
+ "tier_a_failed_subset": [
+  "Action.Functor.mapActionPreservesColimitsOfShapeOfPreserves",
+  "ArithmeticFunction.isMultiplicative_zeta",
+  "Cardinal.power_le_power_right",
+  "CategoryTheory.InitiallySmall.mk'",
+  "CategoryTheory.Limits.Cones.extendId_hom_hom",
+  "CategoryTheory.Limits.IsLimit.hom_isIso",
+  "CategoryTheory.Limits.PullbackCone.pasteVert.congr_simp",
+  "CategoryTheory.Limits.hasFiniteColimits_of_hasColimits",
+  "CategoryTheory.Limits.pushout.inl_desc",
+  "CategoryTheory.MonoOver.isIso_iff_isIso_left",
+  "CategoryTheory.MorphismProperty.RightFraction.exists_leftFraction",
+  "CategoryTheory.PreGaloisCategory.PointedGaloisObject.comp_val",
+  "CategoryTheory.Preadditive.neg_comp_neg_assoc",
+  "CategoryTheory.id_of_comp_right_id",
+  "CategoryTheory.induct_on_objects",
+  "Complex.comap_exp_nhds_zero",
+  "Complex.integerComplement.ne_zero",
+  "Composition.sizeUpTo_succ",
+  "Field.finInsepDegree_def'",
+  "Finset.mulAction.eq_1",
+  "FreeAddMonoid.of_injective",
+  "GroupNormClass.toNormedCommGroup_norm_eq",
+  "Ideal.height_le_spanRank_toENat",
+  "IntermediateField.normal_iff_forall_map_eq",
+  "List.insertIdx_injective",
+  "Matrix.IsHermitian.mulVec_eigenvectorBasis",
+  "Matrix.gram_apply",
+  "Matroid.Indep.subset_finite_isBasis'_of_subset_of_isRkFinite",
+  "Module.Relations.Solution.\u03c0_comp_map_apply",
+  "Monotone.comp_le_comp_left",
+  "Nat.div_dvd_div_left",
+  "NormedSpace.normalize_smul",
+  "Order.krullDim_eq_iSup_coheight",
+  "Polynomial.X_pow_mul_assoc",
+  "Quiver.stronglyConnectedComponent_singleton_iff",
+  "Real.Angle.toReal_coe_eq_self_add_two_pi_iff",
+  "RightPreLieRing.assoc_symm'",
+  "SSet.degenerate_le_preimage",
+  "Set.Finite.inv",
+  "SimpleGraph.Walk.concatRec_concat",
+  "Subgroup.quotientiInfEmbedding_apply",
+  "Subsemigroup.op_top",
+  "Sym2.mkEmbedding_apply",
+  "Unitary.map_id",
+  "WeierstrassCurve.ofJ_ne_0_ne_1728",
+  "WeierstrassCurve.\u03a8_one",
+  "WithCStarModule.norm_equiv_le_norm_prod",
+  "WittVector.ghostComponent.eq_1",
+  "maximal_true",
+  "neg_nsmul"
+ ],
+ "prompt_cid": "7847db00aec681ac40d4781a1def35f0b151d44fe0287c4646cf426e0859f84c",
+ "pins": {
+  "lean": "v4.28.0",
+  "mathlib": "8f9d9cff6bd728b17a24e163c9402775d9e6a365",
+  "jin": "f9d5c8d39bece41ceedf6346ef50ad1fb393260e",
+  "lean4checker": "66e11cea12f5ba215d76b15b7f8495141bf52c6c"
+ },
+ "scripts": {
+  "AttemptWalk.lean": "190ea65e64fa6ee298184988ca9087efb66a7ab593fd1a9ace3096aae202e784",
+  "CorpusWalk.lean": "0a5905399209f116d806e9c4eaedca421322ccadd14390c7ffd2e5a402469847",
+  "MutantWalk.lean": "0d9d4e804cef411a0a473ed3a42a51bcbc398f69bee97627e7106c2734452681",
+  "anchor_check.py": "fce5cb95d06ee268bb120adf414e262da39b32a39c8e69b9be9680e53b0cfdf0",
+  "attempt.py": "6adbd81bee9cf2105635499c2b7ae715df28bd4d06cdc504d3061ee823015096",
+  "attempt_b.py": "331e460d1ab59d0794dd55fa1d5844e5b86ffd7ff2eead14a4059e882b38a773",
+  "axiom_gate.py": "aed923bbb7ce405f9a61b9bb58bf2ae4c7df9f7810d21329126cb64dc50992b4",
+  "bootstrap.sh": "b9bc80ef5e99af7831ceaa9c990619bae35d49dababff2aed176afc407ba0c10",
+  "calibrate.py": "4f481f1f6765bee64a02c3c114f92810bb8c96d37698589d839dc4291b495420",
+  "closure.py": "644e45922f305aeaa7d5b6b3b5e4e00613365dda5a499c8cc68e29c15ed2bcf6",
+  "controls.py": "0e7db5332722d42874d0db174a9b643e2535a47819ffa918a73e548c7545a3eb",
+  "corpus_extract.py": "b96566c079939b57b61a5e613bb96b48bb503d58bd45ccb94e10853ffdc48e94",
+  "dag_depth.py": "ffb0fccee5181250c39820ce33662b2178807c1d76ecf1d75327b3cbb60dfda6",
+  "derive_pairs.py": "ffcba431b8f55e1b93b9ac42973a218b17d19444f47700fbd283d59dd6998f08",
+  "hyp_mutant.py": "c6d6a5d2789f37f1af8a7a9059b44f2e81bc23c4dcf1b1299c5cf89185c570dd",
+  "leanenv.py": "3858a5564b21638e48d68695ce80867f979ad28df2c2f429573cbe5c7d8fe690",
+  "lock.py": "44701e8ce72cbf8b0876a0025c10fd3f1c5e8039d033ec2bdf93092fd6f88ebc",
+  "mutant_extract.py": "051b37be5c8903f098d1be581a57a7cdb4e64c304e9385f5c9d2aa7387ffa969",
+  "refute_check.py": "0c3d689275e236318ea54292726072999737c064650519f55a8caf4f9966ccc9",
+  "registry_import.py": "7e55ef8c699ef6d50a8294c1fcc8c5498c67132ab98c3daf8c6db684cf3fcf20"
+ },
+ "prior_spend_cents": 0.0,
+ "prior_note": "",
+ "sealed_before_run": "2026-09-14T16:10:42-0400",
+ "rounds_run": 1,
+ "spend_cents": 972.0,
+ "usage": {
+  "input": 31641,
+  "output": 771270,
+  "cache_write": 0,
+  "cache_read": 0
+ },
+ "round_costs_cents": [
+  972.0
+ ],
+ "refusals": 0,
+ "selfproof_rejections": 0,
+ "P": {
+  "P_B(1)": {
+   "all": 0.0,
+   "tier_a_failed": 0.0
+  },
+  "P_B(4)": {
+   "all": 0.0,
+   "tier_a_failed": 0.0
+  },
+  "P_B(16)": {
+   "all": 0.0,
+   "tier_a_failed": 0.0
+  }
+ },
+ "frozen": true,
+ "accepted": {},
+ "transitions": {
+  "n_transitions": 31,
+  "rounds": [
+   {
+    "round": 1,
+    "n_transitions": 31,
+    "n_goals": 32,
+    "censored": 0,
+    "on_accepted_path": 0,
+    "accepted_path_fraction": 0.0,
+    "by_position": {
+     "0:script": {
+      "open": 10
+     },
+     "1:script": {
+      "open": 5,
+      "error": 4,
+      "closed": 1
+     },
+     "2:script": {
+      "open": 3
+     },
+     "3:script": {
+      "open": 2
+     },
+     "4:script": {
+      "closed": 1,
+      "open": 1
+     },
+     "5:script": {
+      "open": 1
+     },
+     "6:script": {
+      "open": 1
+     },
+     "7:script": {
+      "open": 1
+     },
+     "8:script": {
+      "closed": 1
+     }
+    },
+    "shards": [
+     {
+      "file": "transitions/goals-0000.jsonl",
+      "kind": "goals",
+      "records": 32,
+      "sha256": "40560a837f8fe44440e010c2bfa034a6d278c36a095e5b6c549b76e8b07a766b",
+      "cid": "fe9795d67927ecb5ad8ddf7d921a1d3d563737f09085550daa8a5a9db3305652"
+     },
+     {
+      "file": "transitions/transitions-0000.jsonl",
+      "kind": "transitions",
+      "records": 31,
+      "sha256": "abe27c378114036656bbd8a935497e1e01d2995f7df2335ac4c1b420414e51c9",
+      "cid": "d9eee4dba468ec2e97fc27ec4eda2a18b5bb222e939b2ab1418c1403f20e2653"
+     }
+    ]
+   }
+  ]
+ },
+ "attempts_sha256": "e7dd344243ed5dff5f333f89a007348c9a00d79030e07ef92f991e6b0292e548",
+ "elapsed_s": 1307.8,
+ "attempts_cid": "a6b85b8ebb90ee9f8a6c2c1ac63332a3ab51324c497b730eac12b86c3ef965a1"
+}
