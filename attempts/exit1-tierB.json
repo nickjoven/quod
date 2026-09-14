@@ -4,7 +4,7 @@
  "model": "claude-opus-5",
  "model_created_at": "2026-07-24 00:00:00+00:00",
  "effort": "high",
- "exit_condition": "1 (P frozen from the pilot; the 200-theorem test is not funded)",
+ "exit_condition": "1 (P frozen from the pilot; test set run)",
  "pilot_run": "pilot-B2",
  "set": {
   "controls": "attempts/controls-1337.json",
@@ -68,5 +68,33 @@
   "rounds 9-15 mostly returned no script: the residue exhausts 16k output tokens in thinking",
   "P_B is prover-relative and pilot-only; no test set was run (unfunded)",
   "a proof that cites memorized Mathlib lemmas is valid; only the theorem's own lock is excluded"
- ]
+ ],
+ "test": {
+  "run": "test200-B",
+  "n": 200,
+  "rounds_run": 3,
+  "halted": "before round 4: projected 4145c > cap 3500c",
+  "accepted": 160,
+  "accepted_by_round": {
+   "1": 137,
+   "2": 15,
+   "3": 8
+  },
+  "P_B(1)": {
+   "all": 0.685,
+   "tier_a_failed": 0.5933
+  },
+  "P_B(3)": {
+   "all": 0.8,
+   "tier_a_failed": 0.7333
+  },
+  "note_levels": "the manifest's P_B(4) and P_B(16) equal P_B(3) because only 3 rounds ran",
+  "spend_cents": 3327.0,
+  "refusals": 0,
+  "selfproof_rejections": 6,
+  "manifest_cid": "43d5bcec7fcb17f4379b86c8cb1487c0cc21d88bdb15eefa3560e98adfb9b212",
+  "credit_interruptions": "rounds 3 refused three times by the API (credit balance) before funds were added; nothing charged on refusals; resumed from the round-2 checkpoint"
+ },
+ "pass_level1": false,
+ "verdict": "FAIL at level 1: test P_B(1) 0.685 < frozen 0.74 (decision 2: P not revised); level 4 not reached (cap)"
 }
