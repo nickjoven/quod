@@ -26,3 +26,4 @@ attempts/*.log
 attempts/*/driver.log.bak
 intake/*/repo/
 intake/*/upstream/
+models/weights/
