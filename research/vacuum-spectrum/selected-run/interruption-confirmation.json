@@ -1,0 +1,10 @@
+{
+  "state": "solver_stopped",
+  "confirmed_utc": "2026-09-15T22:07:21.134664+00:00",
+  "solver_pid_absent": true,
+  "completed_cells": 21,
+  "interrupted_cells": 1,
+  "unattempted_cells": 20,
+  "checkpoints": 306,
+  "scope": "No checkpoint or raw cell deleted; incomplete in-memory temporal work is lost."
+}

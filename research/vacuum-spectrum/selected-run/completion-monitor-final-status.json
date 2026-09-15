@@ -1,0 +1,5 @@
+{
+  "phase": "needs_attention",
+  "observed_utc": "2026-09-15T22:07:09.587317+00:00",
+  "reason": "RuntimeError: original process is no longer visible; preserve incomplete run and investigate"
+}

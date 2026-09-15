@@ -142,6 +142,9 @@ def main():
              'vacuum-coercivity-check.json', 'execution-contract.json', 'target-result-envelope.json']
     selected = (D/'selected-summary.json').exists()
     live = not selected and (D/'selected-live-snapshot.json').exists()
+    interrupted = (D/'selected-run/interruption-confirmation.json').exists()
+    if interrupted:
+        names += ['selected-run/interruption.json','selected-run/interruption-confirmation.json']
     if live:names += ['selected-live-snapshot.json']
     if selected:
         names += ['selected-registration.json','selected-summary.json','selected-run/index.json','selected-run/verification.json']
@@ -385,6 +388,12 @@ def main():
         selected_section+='<table><tr><th>Theory</th><th>g</th><th>η</th><th>Snapshot status</th><th>Full gap midpoint</th><th>P threshold midpoint</th><th>P² threshold midpoint</th></tr>'+''.join(visible)+'</table>'
         selected_section+='<p>Exact rational intervals and completed finest certificates are embedded. A running or unrun row has no reported final numerical result; partial scalar and certificate evidence for the active cell remains in the retained checkpoints. For the free corrected-U(1) model, C<sub>PP</sub>(t)=½e<sup>−4g²t</sup> and C<sub>P²P²</sub>(t)=⅛e<sup>−16g²t</sup>, with zero cross-correlation. These analytic diagnostics do not substitute for the registered numerical requests or imply that long runtime is physical gap collapse.</p>'
         selected_section+='<p><b>Operational instruction:</b> the user confirmed continuation of the unchanged registered computation. No further confirmation is needed to keep running. Any revised solver or stopping rule requires a separate protocol; current budgets and schedules are not widened. The original pilot remains permanently unverifiable. Partial finite-rotor evidence supplies no uniform Yang–Mills gap proof.</p>'
+    if interrupted:
+        confirmation=data['selected-run/interruption-confirmation.json']
+        assert confirmation['state']=='solver_stopped' and confirmation['solver_pid_absent'] is True
+        payload['scope']='Operationally interrupted finite-rotor run; retained partial evidence; no complete-run verdict'
+        payload['blockers'].update(next_required_input='new separately registered resumable execution plan before replacement target work',registration='execution_interrupted_by_user')
+        selected_section='<h2>Registered execution stopped</h2><p>The user ended the non-resumable computation because its runtime blocked machine restarts. Solver exit was confirmed at '+escape(confirmation['confirmed_utc'])+'. The completion monitor also exited. There are 21 completed SU(2) cells, one interrupted U(1) cell, and 20 unattempted cells. All 306 checkpoints remain retained. This is an operational interruption, not a numerical failure or completed unresolved assessment. The last solver-written index is preserved unchanged; its running state and the historical live snapshot below are superseded by the embedded interruption records. Uncheckpointed temporal work is lost. Any replacement target run requires a separate registered execution path; the development durable harness is not yet target-authorized.</p><details><summary>Historical partial handoff before interruption (superseded operational status)</summary>'+selected_section+'</details>'
     raw = json.dumps(payload, sort_keys=True, separators=(',', ':')).encode()
     encoded = base64.b64encode(gzip.compress(raw, mtime=0)).decode()
     plt.rcParams.update({'svg.hashsalt': 'vacuum-single-report-v1', 'font.size': 10})
@@ -764,6 +773,8 @@ Report generation executes no target solver and allocates no registration identi
         html=html.replace("The user's target decision is now required.", "That historical target decision was subsequently supplied: all 42 cells.")
         html=html.replace("Registration and an execution path for\nthe chosen subset follow the user's selection.", 'The separate selected registration and exact execution path now supersede this historical stopping boundary.')
         html=html.replace('all 42 unrun target records', 'the historical unrun target records and all 42 selected result summaries')
+    if interrupted:
+        html=html.replace('unattempted; registered execution remains active.', 'unattempted; execution stopped by user.')
     OUTPUT.write_text(html)
     print(f'Wrote {OUTPUT} ({OUTPUT.stat().st_size:,} bytes)')
     return extraction

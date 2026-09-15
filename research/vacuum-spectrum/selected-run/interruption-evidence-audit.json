@@ -1,0 +1,16 @@
+{
+  "verified_utc": "2026-09-15T22:09:15.576161+00:00",
+  "scope": "Retained completed-cell arithmetic and checkpoint hashes only; interrupted run has no full-run verdict",
+  "counts": {
+    "selected": 42,
+    "attempted": 22,
+    "completed": 21,
+    "incomplete": 1,
+    "unattempted": 20
+  },
+  "checkpoint_audit": {
+    "listed_verified": 306,
+    "newer_active_files_not_in_snapshot": []
+  },
+  "index_unchanged_since_stop_request": true
+}

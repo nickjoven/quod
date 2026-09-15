@@ -1,5 +1,24 @@
 # Autonomous development status
 
+## Current disposition: stopped by user
+
+On 2026-09-15 the user abandoned the non-resumable execution because it blocked
+machine restarts. The solver exited after SIGINT; the completion monitor exited
+on detecting the stopped process. No further target work is running.
+
+Preserved: 21 completed SU(2) cells, 306 checkpoints, one interrupted U(1) cell,
+and 20 unattempted cells. Uncheckpointed temporal work was lost.
+`selected-run/interruption.json` and `interruption-confirmation.json` supersede
+the last solver-written index and the historical status below. The interruption
+is operational, not a numerical failure or a completed unresolved assessment.
+
+A replacement run on a dedicated CPU machine needs a separately registered,
+validated durable execution path. The development harness saves completed
+propagations but cannot resume inside unfinished BDF integration. No GPU is
+used by the current implementation.
+
+The remainder of this document is the historical pre-interruption handoff.
+
 ## Selected execution: incomplete live handoff
 
 All 42 cells were selected and authorized. Registration commit

@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "state": "interruption_requested",
+  "requested_utc": "2026-09-15T22:06:56.432254+00:00",
+  "reason": "User elected to abandon the non-resumable run because its runtime blocks machine restarts.",
+  "classification": "operational interruption, not numerical failure or completed unresolved assessment",
+  "pid": 2415468,
+  "signal": "SIGINT",
+  "index_sha256": "1607342a6a495e9942768b1091f468eff058466411762916421d250669a6d019",
+  "raw_index_policy": "Preserve last solver-written index unchanged as historical evidence; interruption record supersedes its liveness state."
+}

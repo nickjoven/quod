@@ -1,0 +1,6 @@
+......s
+----------------------------------------------------------------------
+Ran 7 tests in 2.436s
+
+OK (skipped=1)
+Live snapshot bindings and completed/incomplete/unattempted accounting checked; no complete-run verdict.
