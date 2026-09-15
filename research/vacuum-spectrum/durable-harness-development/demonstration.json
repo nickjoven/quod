@@ -1,0 +1,48 @@
+{
+  "scope": "deliberate in-process exception injection, not a physical power-loss test; small calibration only",
+  "demonstration_source_sha256": "116275827200d6db03d2e8a37ed04514ee662492485f5dfbdfe683fd4dc13fa5",
+  "before_resume": {
+    "scope": "development task evidence only; no full-ladder qualification or uniform gap claim",
+    "spec_sha256": "219b4d0509932bd49fa2aad283d01afef5ff5e5e6d79b721134cd7578ed409cc",
+    "tasks": 8,
+    "terminal": 0,
+    "outcomes": {},
+    "raw_propagations": 1,
+    "interrupted_attempts": 0,
+    "pending_attempts": [
+      [
+        "SU2:32:0",
+        0
+      ]
+    ],
+    "events": 2,
+    "replay_scope": "hash-chain integrity and stored error/window arithmetic; no propagation rerun or execution authentication"
+  },
+  "after_resume": {
+    "scope": "development task evidence only; no full-ladder qualification or uniform gap claim",
+    "spec_sha256": "219b4d0509932bd49fa2aad283d01afef5ff5e5e6d79b721134cd7578ed409cc",
+    "tasks": 8,
+    "terminal": 8,
+    "outcomes": {
+      "SU2:32:0": "completed",
+      "SU2:32:1": "failed",
+      "SU2:64:0": "completed",
+      "SU2:64:1": "completed",
+      "U1:32:0": "completed",
+      "U1:32:1": "completed",
+      "U1:64:0": "completed",
+      "U1:64:1": "completed"
+    },
+    "raw_propagations": 8,
+    "interrupted_attempts": 1,
+    "pending_attempts": [],
+    "events": 26,
+    "replay_scope": "hash-chain integrity and stored error/window arithmetic; no propagation rerun or execution authentication"
+  },
+  "fresh_propagation_calls": 7,
+  "saved_propagations_reused": 1,
+  "execution_seconds": 1.3539938740432262,
+  "replay_seconds": 0.18803605693392456,
+  "replay_invoked_propagation_or_certificate_calculation": false,
+  "timing_limit": "small fixture timings do not predict target runtime or replay scaling"
+}

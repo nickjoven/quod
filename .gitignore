@@ -8,3 +8,4 @@ millennium/lean4checker/
 .ket/
 research/vacuum-spectrum/audit-runtime/
 __pycache__/
+research/vacuum-spectrum/durable-harness-development/**/.lock

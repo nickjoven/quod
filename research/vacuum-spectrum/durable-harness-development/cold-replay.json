@@ -1,0 +1,21 @@
+{
+  "scope": "development task evidence only; no full-ladder qualification or uniform gap claim",
+  "spec_sha256": "219b4d0509932bd49fa2aad283d01afef5ff5e5e6d79b721134cd7578ed409cc",
+  "tasks": 8,
+  "terminal": 8,
+  "outcomes": {
+    "SU2:32:0": "completed",
+    "SU2:32:1": "failed",
+    "SU2:64:0": "completed",
+    "SU2:64:1": "completed",
+    "U1:32:0": "completed",
+    "U1:32:1": "completed",
+    "U1:64:0": "completed",
+    "U1:64:1": "completed"
+  },
+  "raw_propagations": 8,
+  "interrupted_attempts": 1,
+  "pending_attempts": [],
+  "events": 26,
+  "replay_scope": "hash-chain integrity and stored error/window arithmetic; no propagation rerun or execution authentication"
+}
