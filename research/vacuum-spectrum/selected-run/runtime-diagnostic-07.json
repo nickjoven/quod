@@ -1,0 +1,59 @@
+{
+  "method": "py-spy 0.4.1 nonblocking read-only sampling; isolated /tmp installation",
+  "observed_utc": "2026-09-15T00:02:39.067834+00:00",
+  "scope": "Selected mathematical locals only; non-atomic samples may contain inconsistent scalar values. Diagnostic evidence only, not certified results or an ETA.",
+  "registered_environment_changed": false,
+  "frames": [
+    {
+      "function": "_step_impl",
+      "source": "scipy/integrate/_ivp/bdf.py",
+      "line": 365,
+      "sampled_locals": {
+        "t": "0.0000007214879804706698",
+        "h_abs": "0.00002181296478403569",
+        "rtol": "0.0000000001",
+        "order": "2"
+      }
+    },
+    {
+      "function": "step",
+      "source": "scipy/integrate/_ivp/base.py",
+      "line": 197,
+      "sampled_locals": {
+        "t": "0.0000007214879804706698"
+      }
+    },
+    {
+      "function": "solve_ivp",
+      "source": "scipy/integrate/_ivp/ivp.py",
+      "line": 657,
+      "sampled_locals": {
+        "tf": "384.00000000002007",
+        "t_eval_i": "1"
+      }
+    },
+    {
+      "function": "propagate",
+      "source": "vacuum_semigroup.py",
+      "line": 66,
+      "sampled_locals": {
+        "rtol": "0.0000000001",
+        "atol": "0.00000000000000000001"
+      }
+    },
+    {
+      "function": "run",
+      "source": "vacuum_parameterized_temporal.py",
+      "line": 91,
+      "sampled_locals": {
+        "rungs": "[{\"nodes\": 600, \"status\": \"completed\", \"evolutions\": [...], \"ground\": {\"E0\": 0.00000000000041722181265413383, ...}}, ...]",
+        "theory": "\"U1\"",
+        "g": "0.125",
+        "eta": "0",
+        "rung": "{\"nodes\": 4800, \"status\": \"pending\", ...}",
+        "n": "4800",
+        "slot": "{\"rtol\": 0.0000000001, \"atol\": 0.00000000000000000001, \"status\": \"pending\", \"propagation_status\": \"pending\", ...}"
+      }
+    }
+  ]
+}
