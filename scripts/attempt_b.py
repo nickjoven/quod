@@ -109,14 +109,21 @@ def main() -> int:
     ap.add_argument("--tier-a-run", default=os.path.join(ROOT, "attempts", "pilot-A"),
                     help="tier-A run dir on the same set (for the tier-A-failed subset)")
     ap.add_argument("--model", default="claude-opus-5")
+    ap.add_argument("--backend", choices=["anthropic", "openai-compat"], default="anthropic",
+                    help="anthropic = Message Batches (tier B); openai-compat = a local /v1 server (tier L: llama.cpp, vLLM)")
+    ap.add_argument("--base-url", default="http://127.0.0.1:8080/v1", help="openai-compat server")
+    ap.add_argument("--prover-name", default=None, help="prover label in records (default tier-B, or tier-L-<model> for openai-compat)")
+    ap.add_argument("--weights", default="", help="openai-compat: models/<name>.json registry entry (weights CID, license) sealed into prover_config")
+    ap.add_argument("--temperature", type=float, default=0.6, help="openai-compat sampling temperature (Opus 5 has none)")
+    ap.add_argument("--workers", type=int, default=2, help="openai-compat concurrent requests")
     ap.add_argument("--effort", default="high")
     ap.add_argument("--max-tokens", type=int, default=16000, help="thinking + answer; adaptive thinking at effort high used all of 4000 in the voided pilot-B rounds")
     ap.add_argument("--prior-spend-cents", type=float, default=0.0, help="spend already made under this cap by voided rounds (recorded, counted against the cap)")
     ap.add_argument("--prior-note", default="", help="what the prior spend was (batch ids, cause)")
     ap.add_argument("--rounds", type=int, default=16)
     ap.add_argument("--cap-cents", type=int, default=6000)
-    ap.add_argument("--price-in", type=float, required=True, help="USD per Mtok input (batch rate) — recorded")
-    ap.add_argument("--price-out", type=float, required=True, help="USD per Mtok output (batch rate) — recorded")
+    ap.add_argument("--price-in", type=float, default=None, help="USD per Mtok input (batch rate) — recorded; required for anthropic")
+    ap.add_argument("--price-out", type=float, default=None, help="USD per Mtok output (batch rate) — recorded; required for anthropic")
     ap.add_argument("--price-cache-write", type=float, default=None, help="USD per Mtok cache write (default 1.25x input)")
     ap.add_argument("--price-cache-read", type=float, default=None, help="USD per Mtok cache read (default 0.1x input)")
     ap.add_argument("--heartbeats", type=int, default=20_000_000)
@@ -129,6 +136,10 @@ def main() -> int:
     ap.add_argument("--negate", action="store_true", help="prover-negative control: attempt NOT T; any gate-accepted proof HALTS the run")
     ap.add_argument("--out", default=None)
     args = ap.parse_args()
+    if args.backend == "anthropic" and (args.price_in is None or args.price_out is None):
+        ap.error("--price-in and --price-out are required for the anthropic backend")
+    if args.price_in is None: args.price_in = 0.0
+    if args.price_out is None: args.price_out = 0.0
     pin = args.price_in
     p_cw = args.price_cache_write if args.price_cache_write is not None else 1.25 * pin
     p_cr = args.price_cache_read if args.price_cache_read is not None else 0.10 * pin
@@ -160,27 +171,30 @@ def main() -> int:
         tier_a_failed = {a["demonstrandum"] for a in map(json.loads, open(ta)) if a.get("verdict") != "accepted"} & set(names)
     locks = at.corpus_locks(args.corpus)
 
-    # ---- credentials + model identity (never printed)
-    key_ok = bool(os.environ.get("ANTHROPIC_API_KEY"))
-    if not key_ok and not args.dry_run:
-        sys.exit("ANTHROPIC_API_KEY is not set in this environment; stopping (no key search).")
-    client, created_at = None, None
-    if key_ok:
-        import anthropic
-        # a workspace-allowed (unscoped) key must name the workspace on every request;
-        # the id comes from the environment like the key and is never written out
-        ws = os.environ.get("ANTHROPIC_WORKSPACE_ID")
-        client = anthropic.Anthropic(default_headers={"anthropic-workspace-id": ws} if ws else None)
-        try:
-            mi = client.models.retrieve(args.model)
-            created_at = str(getattr(mi, "created_at", None))
-        except Exception as e:  # noqa: BLE001
-            if not args.dry_run:
-                sys.exit(f"Models API lookup failed for {args.model}: {type(e).__name__}")
-            created_at = f"lookup failed: {type(e).__name__}"
-
-    prover = "tier-B"
-    prover_config = {"prover": prover, "model": args.model, "model_created_at": created_at, "effort": args.effort, "negate": args.negate,
+    # ---- the backend (credentials come only from the environment; never printed)
+    from prover_backends import make_backend
+    backend, created_at, registry = None, None, None
+    if args.backend == "anthropic":
+        key_ok = bool(os.environ.get("ANTHROPIC_API_KEY"))
+        if not key_ok and not args.dry_run:
+            sys.exit("ANTHROPIC_API_KEY is not set in this environment; stopping (no key search).")
+        if key_ok:
+            backend = make_backend("anthropic", args.model)
+            try:
+                created_at = backend.model_info()["created_at"]
+            except Exception as e:  # noqa: BLE001
+                if not args.dry_run:
+                    sys.exit(f"Models API lookup failed for {args.model}: {type(e).__name__}")
+                created_at = f"lookup failed: {type(e).__name__}"
+    else:
+        backend = make_backend("openai-compat", args.model, base_url=args.base_url, store=os.path.join(out_dir, "local-batches"),
+                               workers=args.workers, temperature=args.temperature)
+        info = backend.model_info(); created_at = info.get("created_at")
+        if args.weights:
+            registry = json.load(open(args.weights))       # weights CID, source, quantization, license — sealed below
+    prover = args.prover_name or ("tier-B" if args.backend == "anthropic" else f"tier-L-{args.model}")
+    prover_config = {"prover": prover, "backend": args.backend, "model": args.model, "model_created_at": created_at, "effort": args.effort, "negate": args.negate,
+                     "weights": registry, "temperature": args.temperature if args.backend != "anthropic" else None,
                      "workspace_header": bool(os.environ.get("ANTHROPIC_WORKSPACE_ID")),
                      "max_tokens": args.max_tokens, "rounds": args.rounds, "levels": list(LEVELS),
                      "protocol": "one batch per round over open demonstranda; full history of proposals + Lean errors; "
@@ -242,7 +256,7 @@ def main() -> int:
             params = {"model": args.model, "max_tokens": args.max_tokens,
                       "system": [{"type": "text", "text": SYSTEM_PREFIX, "cache_control": {"type": "ephemeral"}}],
                       "messages": [{"role": "user", "content": build_user_message(stmt, state[n]["history"], args.negate)}]}
-            if args.effort:
+            if args.effort and args.backend == "anthropic":
                 params["output_config"] = {"effort": args.effort}
             reqs.append({"custom_id": f"{i}", "params": params})
         return reqs
@@ -274,54 +288,49 @@ def main() -> int:
         prior = [json.loads(l) for l in open(blog)] if os.path.exists(blog) else []
         prior_b = next((b for b in prior if b["round"] == r), None)
         if prior_b:
-            batch = client.messages.batches.retrieve(prior_b["batch_id"])
+            batch_id = prior_b["batch_id"]
             submitted_names = prior_b.get("names", names)      # the open set AT SUBMISSION (round 1 of a fresh run = all)
-            print(f"round {r}: reusing paid batch {batch.id} ({prior_b['requests']} requests; {len(open_names)} still open)", file=sys.stderr, flush=True)
+            print(f"round {r}: reusing batch {batch_id} ({prior_b['requests']} requests; {len(open_names)} still open)", file=sys.stderr, flush=True)
         else:
-            batch = client.messages.batches.create(requests=reqs)
+            t_sub = time.monotonic()
+            batch_id = backend.submit(reqs)
             submitted_names = list(open_names)
             with open(blog, "a") as f:
-                f.write(json.dumps({"round": r, "batch_id": batch.id, "requests": len(reqs), "names": submitted_names,
-                                    "created": time.strftime("%Y-%m-%dT%H:%M:%S%z")}) + "\n")
-            print(f"round {r}: batch {batch.id} over {len(reqs)} open demonstranda", file=sys.stderr, flush=True)
+                f.write(json.dumps({"round": r, "batch_id": batch_id, "requests": len(reqs), "names": submitted_names,
+                                    "created": time.strftime("%Y-%m-%dT%H:%M:%S%z"), "submit_wall_s": round(time.monotonic() - t_sub, 1)}) + "\n")
+            print(f"round {r}: batch {batch_id} over {len(reqs)} open demonstranda", file=sys.stderr, flush=True)
         open_set = set(open_names)
-        while True:
-            b = client.messages.batches.retrieve(batch.id)
-            if b.processing_status == "ended":
-                break
-            time.sleep(args.poll)
+        backend.wait(batch_id, args.poll)
         proposals, round_cost, n_req = [], 0.0, 0
         raw_results = []
-        for res in client.messages.batches.results(batch.id):
-            raw_results.append(res.model_dump() if hasattr(res, "model_dump") else str(res))
-            i = int(res.custom_id); n = submitted_names[i]
+        for res in backend.results(batch_id):
+            raw_results.append(res.get("raw"))
+            i = int(res["custom_id"]); n = submitted_names[i]
             n_req += 1
             if n not in open_set:      # already accepted in an earlier (re-gated) round: paid for, not needed
                 continue
-            rec = {"round": r, "demonstrandum": n, "batch_id": batch.id, "result_type": res.result.type}
-            if res.result.type != "succeeded":
-                rec["error"] = str(getattr(res.result, "error", ""))[:300]
+            rec = {"round": r, "demonstrandum": n, "batch_id": batch_id, "result_type": "succeeded" if res["ok"] else "errored"}
+            if not res["ok"]:
+                rec["error"] = res["error"]
                 att_rows.append({**rec, "outcome": "no_proposal"})
                 continue
-            msg = res.result.message
-            u = msg.usage
-            cw = getattr(u, "cache_creation_input_tokens", 0) or 0
-            cr = getattr(u, "cache_read_input_tokens", 0) or 0
-            usage_total["input"] += u.input_tokens; usage_total["output"] += u.output_tokens
+            u = res["usage"]; cw, cr = u["cache_write"], u["cache_read"]
+            usage_total["input"] += u["input"]; usage_total["output"] += u["output"]
             usage_total["cache_write"] += cw; usage_total["cache_read"] += cr
-            cost = (u.input_tokens * pin + u.output_tokens * args.price_out + cw * p_cw + cr * p_cr) / 1e6 * 100
+            cost = (u["input"] * pin + u["output"] * args.price_out + cw * p_cw + cr * p_cr) / 1e6 * 100
             round_cost += cost
-            rec.update({"stop_reason": msg.stop_reason, "usage": {"input": u.input_tokens, "output": u.output_tokens, "cache_write": cw, "cache_read": cr}, "cost_cents": round(cost, 3)})
-            if msg.stop_reason == "refusal":
+            rec.update({"stop_reason": res["stop_reason"], "usage": u, "cost_cents": round(cost, 3), "wall_s": res.get("wall_s")})
+            if res["stop_reason"] == "refusal":
                 refusals += 1; state[n]["refusals"] += 1
                 att_rows.append({**rec, "outcome": "refusal"})
                 state[n]["history"].append({"round": r, "script": "<refused>", "error_step": 0, "err_class": "refusal", "err": "the model declined to answer"})
                 continue
-            text = "".join(getattr(c, "text", "") for c in msg.content)
+            text = res["text"]
             script = extract_script(text)
             if not script.strip():
-                why = "truncated: the answer did not fit in max_tokens (thinking consumed it)" if msg.stop_reason == "max_tokens" else "empty answer"
-                att_rows.append({**rec, "outcome": "no_proposal", "err_class": "truncated" if msg.stop_reason == "max_tokens" else "empty", "err": why})
+                trunc = res["stop_reason"] in ("max_tokens", "length")
+                why = "truncated: the answer did not fit in max_tokens (thinking consumed it)" if trunc else "empty answer"
+                att_rows.append({**rec, "outcome": "no_proposal", "err_class": "truncated" if trunc else "empty", "err": why})
                 state[n]["history"].append({"round": r, "script": "<no script>", "error_step": 0, "err_class": "no_script",
                                             "err": "no proof script was received; reply with the tactic block only, keep reasoning brief"})
                 continue
