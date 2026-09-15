@@ -1,0 +1,25 @@
+{
+  "scope": "development harness review; no selected target results",
+  "initial_suite": {
+    "tests": 15,
+    "seconds": 7.888,
+    "failures": 4,
+    "findings": [
+      "nonexistent reuse reference accepted",
+      "changed reuse input signature accepted",
+      "changed reuse result accepted",
+      "failed outcome could discard durable raw success"
+    ]
+  },
+  "repairs": [
+    "validate prior reference, input hash and result equality",
+    "reject outcome discarding saved propagation",
+    "replay stored certificates without calculating new ones",
+    "require latest interrupted raw reuse, including across multiple interrupted attempts"
+  ],
+  "followup_tests": [
+    "omitted required reuse reference",
+    "older rather than latest raw reference"
+  ],
+  "target_execution": false
+}
