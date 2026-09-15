@@ -1,0 +1,62 @@
+pre-manifest sealed: attempts/test200-B/manifest-pre-test200-B.json CID 8984999bd784ff3b8b42e41cb03e2c6e855ed1d2365731d2bb1cb6660c2b0f2c | set 200 (150 tier-A-failed) | model claude-opus-5 created_at 2026-07-24 00:00:00+00:00 | cap 3500c
+round 1: batch msgbatch_01EwSaPqjDykZeN4asYfz4Cw over 200 open demonstranda
+round 1: 164 proposals, 1520.3c this round, 1520.3c total
+round 1: accepted so far 137/200; transitions 569
+round 2: batch msgbatch_01JqHhU5uykJJ9fWUQ34aL2h over 63 open demonstranda
+round 2: 29 proposals, 989.0c this round, 2509.3c total
+round 2: accepted so far 152/200; transitions 119
+Traceback (most recent call last):
+  File "/home/njoven/code/quod/scripts/attempt_b.py", line 416, in <module>
+    sys.exit(main())
+  File "/home/njoven/code/quod/scripts/attempt_b.py", line 277, in main
+    batch = client.messages.batches.create(requests=reqs)
+  File "/home/njoven/.local/lib/python3.10/site-packages/anthropic/resources/messages/batches.py", line 98, in create
+    return self._post(
+  File "/home/njoven/.local/lib/python3.10/site-packages/anthropic/_base_client.py", line 1509, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+  File "/home/njoven/.local/lib/python3.10/site-packages/anthropic/_base_client.py", line 1193, in request
+    raise self._make_status_error_from_response(response) from None
+anthropic.BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.'}, 'request_id': 'req_011Cezhk471GKgwwt11zKZU6'}
+pre-manifest sealed: attempts/test200-B/manifest-pre-test200-B.json CID 011b2c7b779e782492be0c3ebcdde3e2fea402a6af9918cc689ef88a031b5901 | set 200 (150 tier-A-failed) | model claude-opus-5 created_at 2026-07-24 00:00:00+00:00 | cap 3500c
+resumed from attempts/test200-B/state.json: next round 3, spent 2509.3c
+Traceback (most recent call last):
+  File "/home/njoven/code/quod/scripts/attempt_b.py", line 416, in <module>
+    sys.exit(main())
+  File "/home/njoven/code/quod/scripts/attempt_b.py", line 277, in main
+    batch = client.messages.batches.create(requests=reqs)
+  File "/home/njoven/.local/lib/python3.10/site-packages/anthropic/resources/messages/batches.py", line 98, in create
+    return self._post(
+  File "/home/njoven/.local/lib/python3.10/site-packages/anthropic/_base_client.py", line 1509, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+  File "/home/njoven/.local/lib/python3.10/site-packages/anthropic/_base_client.py", line 1193, in request
+    raise self._make_status_error_from_response(response) from None
+anthropic.BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.'}, 'request_id': 'req_011Ceznv9QbmoHcFcSKsiMkd'}
+pre-manifest sealed: attempts/test200-B/manifest-pre-test200-B.json CID cb546f689f6fb5c55c4bc02769e1d93233d8af2fe9c8e39203989a2a9c5c65bd | set 200 (150 tier-A-failed) | model claude-opus-5 created_at 2026-07-24 00:00:00+00:00 | cap 3500c
+resumed from attempts/test200-B/state.json: next round 3, spent 2509.3c
+Traceback (most recent call last):
+  File "/home/njoven/code/quod/scripts/attempt_b.py", line 416, in <module>
+    sys.exit(main())
+  File "/home/njoven/code/quod/scripts/attempt_b.py", line 277, in main
+    batch = client.messages.batches.create(requests=reqs)
+  File "/home/njoven/.local/lib/python3.10/site-packages/anthropic/resources/messages/batches.py", line 98, in create
+    return self._post(
+  File "/home/njoven/.local/lib/python3.10/site-packages/anthropic/_base_client.py", line 1509, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+  File "/home/njoven/.local/lib/python3.10/site-packages/anthropic/_base_client.py", line 1193, in request
+    raise self._make_status_error_from_response(response) from None
+anthropic.BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.'}, 'request_id': 'req_011Cf2nk1xrYrH6ncqgeB51Y'}
+pre-manifest sealed: attempts/test200-B/manifest-pre-test200-B.json CID 6f3f7928e1df808d65d8b17657293042b597a5fc8e3c6896befb1be8cc701dca | set 200 (150 tier-A-failed) | model claude-opus-5 created_at 2026-07-24 00:00:00+00:00 | cap 3500c
+resumed from attempts/test200-B/state.json: next round 3, spent 2509.3c
+round 3: batch msgbatch_01NM1gk2DGECCWbGuhbcF7B4 over 48 open demonstranda
+round 3: 17 proposals, 817.7c this round, 3327.0c total
+round 3: accepted so far 160/200; transitions 73
+HALT before round 4: projected 4145c > cap 3500c
+manifest CID: 43d5bcec7fcb17f4379b86c8cb1487c0cc21d88bdb15eefa3560e98adfb9b212
+tier B test200-B: {'P_B(1)': {'all': 0.685, 'tier_a_failed': 0.5933}, 'P_B(4)': {'all': 0.8, 'tier_a_failed': 0.7333}, 'P_B(16)': {'all': 0.8, 'tier_a_failed': 0.7333}} | spend 3327.0c | refusals 0 | self-proof 6
+pre-manifest sealed: attempts/test200-B-r4/manifest-pre-test200-B-r4.json CID 3b4b70da773c3c4cbfb75ee518bf1fa339d15b30b3bc8b100e14d494cbb0276a | set 200 (150 tier-A-failed) | model claude-opus-5 created_at 2026-07-24 00:00:00+00:00 | cap 4500c
+resumed from attempts/test200-B-r4/state.json: next round 4, spent 3327.0c
+round 4: batch msgbatch_01KYBVhq8kLjXNaX2Ej5JQxT over 40 open demonstranda
+round 4: 10 proposals, 734.5c this round, 4061.5c total
+round 4: accepted so far 166/200; transitions 48
+manifest CID: 694381d9d6681b40d42b5b57c42d66aac4ee562b78f6c261a49105e2515b9987
+tier B test200-B-r4: {'P_B(1)': {'all': 0.685, 'tier_a_failed': 0.5933}, 'P_B(4)': {'all': 0.83, 'tier_a_failed': 0.7733}, 'P_B(16)': {'all': 0.83, 'tier_a_failed': 0.7733}} | spend 4061.5c | refusals 0 | self-proof 6

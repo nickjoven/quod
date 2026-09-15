@@ -1,0 +1,713 @@
+{
+ "run_id": "test200-B-r4",
+ "prover": "tier-B",
+ "prover_config": {
+  "prover": "tier-B",
+  "model": "claude-opus-5",
+  "model_created_at": "2026-07-24 00:00:00+00:00",
+  "effort": "high",
+  "negate": false,
+  "workspace_header": true,
+  "max_tokens": 16000,
+  "rounds": 4,
+  "levels": [
+   1,
+   4,
+   16
+  ],
+  "protocol": "one batch per round over open demonstranda; full history of proposals + Lean errors; drop at first gate-accepted proof; stepwise replay via AttemptWalk CORPUS_SCRIPTS",
+  "system_prompt_sha256": "4498012a56fafad53ece21ca649b5b13d8c2d6c79563f563695ef7014b18f88d",
+  "heartbeats_per_step": 20000000,
+  "walker_sha256": "190ea65e64fa6ee298184988ca9087efb66a7ab593fd1a9ace3096aae202e784",
+  "forbidden_tactics": [
+   "exact?",
+   "apply?",
+   "rw?",
+   "simp?",
+   "aesop?",
+   "hint",
+   "sorry",
+   "admit",
+   "native_decide"
+  ],
+  "self_proof_gate": "name hidden; any accepted term using the demonstrandum's name or a same-lock constant is rejected: self-proof and counts as a failure for P"
+ },
+ "prover_config_cid": "c6f9233fe80baa56074adc750bf4c5eceb5f306a6c87e86db3ff7a7ebcb0464d",
+ "cap_cents": 4500,
+ "prices_usd_per_mtok": {
+  "input": 2.5,
+  "output": 12.5,
+  "cache_write": 3.125,
+  "cache_read": 0.25
+ },
+ "set": {
+  "controls": "attempts/controls-1337.json",
+  "which": "test",
+  "n": 200,
+  "sha256": "0663ba70662a428bb4a3e35eaea9ac594fc0bd2e480ff1d1405e8927d84388c1",
+  "cid": "32cbdc046ad586d68e3a04b97a004ccff143fae8174942c255719cf3d1fe8819"
+ },
+ "tier_a_failed_subset": [
+  "AddAction.period_neg",
+  "AddMonoidHom.eq_intCastAddHom",
+  "AddOpposite.continuous_op",
+  "AdicCompletion.mk_surjective",
+  "Algebra.FormallySmooth.of_pi",
+  "Algebra.IsStandardSmoothOfRelativeDimension.exists_subalgebra_fg",
+  "AlgebraicGeometry.instIsLocallyNoetherianXScheme",
+  "AntitoneOn.integral_le_sum_Ico",
+  "Asymptotics.IsLittleOTVS.trans",
+  "Asymptotics.isBigO_self_const_mul",
+  "BoxIntegral.Box.dist_le_distortion_mul",
+  "CFC.rpow_mul_rpow_neg",
+  "CategoryTheory.ChosenPullbacksAlong.condition",
+  "CategoryTheory.EssentiallySmall.equiv_smallCategory",
+  "CategoryTheory.Functor.mapSkeleton_obj_toSkeleton",
+  "CategoryTheory.Functor.relativelyRepresentable.lift_snd_assoc",
+  "CategoryTheory.Limits.HasZeroObject.zero_to_zero_isIso",
+  "CategoryTheory.Limits.IndObjectPresentation.hI",
+  "CategoryTheory.Limits.biprod.lift_snd",
+  "CategoryTheory.Limits.coprodComparison_inr",
+  "CategoryTheory.Limits.preservesColimit_of_reflects_of_preserves",
+  "CategoryTheory.MorphismProperty.RightFraction.map_hom_ofInv_id",
+  "CategoryTheory.SemiadditiveOfBinaryBiproducts.comp_add",
+  "CategoryTheory.ShortComplex.RightHomologyData.exact_iff_mono_g'",
+  "CategoryTheory.ShortComplex.epi_of_epi_of_epi_of_epi",
+  "CategoryTheory.Subobject.pullback_id",
+  "CategoryTheory.exists_simple_subobject",
+  "CategoryTheory.is_coprod_iff_isPushout",
+  "CochainComplex.HomComplex.\u03b4_units_smul",
+  "CommGrpCat.forget_commGrp_preserves_epi",
+  "CompHaus.lift.congr_simp",
+  "ContMDiffAt.div",
+  "ContinuousAddMonoidHom.nsmul_apply",
+  "ContinuousAlternatingMap.isEmbedding_restrictScalars",
+  "ContinuousAlternatingMap.opNorm_le_iff",
+  "ContinuousMap.isUniformEmbedding_comp",
+  "Convex.closure",
+  "DiscreteQuotient.proj_bot_injective",
+  "ENNReal.exists_pos_sum_of_countable",
+  "ENNReal.isOpen_Ico_zero",
+  "ENNReal.tendsto_atTop_zero_iff_lt_of_antitone",
+  "EReal.add_div_of_nonneg_right",
+  "Equiv.Perm.card_le_of_centralizer_le_alternating",
+  "Filter.Tendsto.atBot_add_nonpos",
+  "Filter.Tendsto.prod_atTop",
+  "Filter.Tendsto.prod_map_prod_atBot",
+  "Filter.tendsto_atTop_atBot_iff_of_antitone",
+  "Finset.compl_singleton",
+  "Finset.ruzsa_triangle_inequality_add_sub_sub",
+  "Finset.subset_mul_left",
+  "FractionalIdeal.not_inv_le_one_of_ne_bot",
+  "FunOnFinite.map_piSingle",
+  "Function.Antiperiodic.const_mul",
+  "Function.Periodic.map_vadd_zmultiples",
+  "GenContFract.IntFractPair.succ_nth_stream_b_le_nth_stream_fr_inv",
+  "HasDerivWithinAt.const_rpow",
+  "HomologicalComplex.truncGE'.truncGE'_hasHomology",
+  "IntermediateField.normalClosure_mono",
+  "IntervalIntegrable.intervalIntegrable_slope",
+  "IsAntichain.preimage_embedding",
+  "IsClosed.add_right_of_isCompact",
+  "IsDiscreteValuationRing.addVal_eq_zero_of_unit",
+  "IsLocalization.isDedekindDomain",
+  "IsLocalization.mk'_mul",
+  "IsUniformInducing.compacts_map",
+  "IsometryEquiv.completeSpace_iff",
+  "KaehlerDifferential.End_equiv_aux",
+  "LE.le.ge_or_le",
+  "LieIdeal.lcs_succ",
+  "LieModule.coe_chainTop",
+  "LinearIndependent.linearIndepOn_id'",
+  "List.duplicate_cons_iff_of_ne",
+  "List.intercalate_splitOn",
+  "List.kextract_eq_dlookup_kerase",
+  "Matroid.indep_iff_forall_notMem_closure_diff",
+  "MeasurableSet.exists_isCompact_isClosed_diff_lt",
+  "MeasureTheory.Adapted.isStoppingTime_hittingAfter",
+  "MeasureTheory.L1.integral_zero",
+  "MeasureTheory.Measure.haar.addHaarContent_self",
+  "MeasureTheory.Measure.rnDeriv_restrict",
+  "MeasureTheory.pdf.congr",
+  "MeasureTheory.tendsto_measure_of_le_liminf_measure_of_limsup_measure_le",
+  "MeasureTheory.uniformIntegrable_of",
+  "Metric.Snowflaking.image_toSnowflaking_eq_preimage",
+  "ModularGroup.T_S_rel",
+  "Module.FaithfullyFlat.iff_flat_and_lTensor_faithful",
+  "MonoidWithZeroHom.inl_strictMono",
+  "Monotone.leftLim_le_rightLim",
+  "Multiset.Pi.cons_map",
+  "Nat.maxPowDiv.go.induct_unfolding",
+  "Nat.mem_factoredNumbers'",
+  "NormedSpace.Dual.toWeakDual_continuous",
+  "ONote.split_dvd",
+  "Opposite.small",
+  "Ordinal.log_opow_mul_add",
+  "Ordinal.nfp_eq_self",
+  "Pi.continuous_precomp",
+  "Polynomial.IsRoot.dvd",
+  "Polynomial.cauchyBound_one",
+  "Polynomial.prod_multiset_X_sub_C_of_monic_of_roots_card_eq",
+  "Polynomial.splits_of_exists_multiset",
+  "PowerSeries.IsWeierstrassFactorizationAt.smul",
+  "PowerSeries.map_cos",
+  "ProbabilityTheory.lintegral_betaPDF",
+  "QuadraticMap.polar_neg",
+  "Real.Angle.two_zsmul_eq_zero_iff",
+  "Real.cast_natAbs_eq_nnabs_cast",
+  "RingCon.ext",
+  "SSet.Subcomplex.range_tensorHom",
+  "SchwartzMap.memLp",
+  "Set.range_quotient_lift_on'",
+  "SetRel.inv_eq_self_iff",
+  "SimpleGraph.Iso.connectedComponentEquiv_trans",
+  "Stream'.Seq.destruct_eq_none",
+  "Submodule.instNontrivial",
+  "Submonoid.mem_sSup_of_mem",
+  "TopologicalSpace.isSeparable_univ_iff",
+  "TopologicalSpace.nhds_mkOfNhds_of_hasBasis",
+  "Topology.IsConstructible.isLocallyConstructible",
+  "Tropical.untrop_eq_iff_eq_trop",
+  "Units.smulCommClass_left",
+  "Units.val_inv_eq_inv_val",
+  "ValuationSubring.ofPrime_localization",
+  "WeierstrassCurve.natDegree_\u03a6_pos",
+  "WithBot.coe_biSup",
+  "WithTop.sInf_empty",
+  "ZMod.eq_zero_iff_even",
+  "absorbs_iff_eventually_cobounded_mapsTo",
+  "algebraicIndependent_singleton_iff",
+  "ball_mul",
+  "biInter_basis_nhds",
+  "compactlySupported_eq_top_of_isCompact",
+  "dimH_def",
+  "generalized_tube_lemma_left",
+  "iInf_sigma",
+  "instCountable_of_discrete_submodule",
+  "isGLB_Ioi",
+  "le_oneLePart",
+  "lt_of_mul_lt_mul_of_nonpos_right",
+  "lt_or_ge",
+  "mabs_div_pos",
+  "mdifferentiableWithinAt_iff_source_of_mem_source",
+  "not_finite",
+  "nsmul_lt_nsmul_left",
+  "one_div_mul_sub_mul_one_div_eq_one_div_add_one_div",
+  "one_lt_natDegree_of_irrational_root",
+  "same_add_div",
+  "skewAdjoint.instIsStarNormalValMemAddSubgroup",
+  "t0Space_iff_uniformity'",
+  "tsub_zero"
+ ],
+ "prompt_cid": "7847db00aec681ac40d4781a1def35f0b151d44fe0287c4646cf426e0859f84c",
+ "pins": {
+  "lean": "v4.28.0",
+  "mathlib": "8f9d9cff6bd728b17a24e163c9402775d9e6a365",
+  "jin": "f9d5c8d39bece41ceedf6346ef50ad1fb393260e",
+  "lean4checker": "66e11cea12f5ba215d76b15b7f8495141bf52c6c"
+ },
+ "scripts": {
+  "AttemptWalk.lean": "190ea65e64fa6ee298184988ca9087efb66a7ab593fd1a9ace3096aae202e784",
+  "CorpusWalk.lean": "0a5905399209f116d806e9c4eaedca421322ccadd14390c7ffd2e5a402469847",
+  "MutantWalk.lean": "0d9d4e804cef411a0a473ed3a42a51bcbc398f69bee97627e7106c2734452681",
+  "anchor_check.py": "fce5cb95d06ee268bb120adf414e262da39b32a39c8e69b9be9680e53b0cfdf0",
+  "attempt.py": "6adbd81bee9cf2105635499c2b7ae715df28bd4d06cdc504d3061ee823015096",
+  "attempt_b.py": "331e460d1ab59d0794dd55fa1d5844e5b86ffd7ff2eead14a4059e882b38a773",
+  "axiom_gate.py": "aed923bbb7ce405f9a61b9bb58bf2ae4c7df9f7810d21329126cb64dc50992b4",
+  "bootstrap.sh": "b9bc80ef5e99af7831ceaa9c990619bae35d49dababff2aed176afc407ba0c10",
+  "calibrate.py": "4f481f1f6765bee64a02c3c114f92810bb8c96d37698589d839dc4291b495420",
+  "closure.py": "644e45922f305aeaa7d5b6b3b5e4e00613365dda5a499c8cc68e29c15ed2bcf6",
+  "controls.py": "d352f30b071f230d457e81a757625a2e0124d2fdd27fac9d6e6c5240ff20c51a",
+  "corpus_extract.py": "b96566c079939b57b61a5e613bb96b48bb503d58bd45ccb94e10853ffdc48e94",
+  "dag_depth.py": "ffb0fccee5181250c39820ce33662b2178807c1d76ecf1d75327b3cbb60dfda6",
+  "derive_pairs.py": "ffcba431b8f55e1b93b9ac42973a218b17d19444f47700fbd283d59dd6998f08",
+  "hyp_mutant.py": "c6d6a5d2789f37f1af8a7a9059b44f2e81bc23c4dcf1b1299c5cf89185c570dd",
+  "leanenv.py": "3858a5564b21638e48d68695ce80867f979ad28df2c2f429573cbe5c7d8fe690",
+  "lock.py": "44701e8ce72cbf8b0876a0025c10fd3f1c5e8039d033ec2bdf93092fd6f88ebc",
+  "mutant_extract.py": "051b37be5c8903f098d1be581a57a7cdb4e64c304e9385f5c9d2aa7387ffa969",
+  "refute_check.py": "0c3d689275e236318ea54292726072999737c064650519f55a8caf4f9966ccc9",
+  "registry_import.py": "7e55ef8c699ef6d50a8294c1fcc8c5498c67132ab98c3daf8c6db684cf3fcf20"
+ },
+ "prior_spend_cents": 0.0,
+ "prior_note": "",
+ "sealed_before_run": "2026-09-14T22:43:47-0400",
+ "rounds_run": 4,
+ "spend_cents": 4061.5,
+ "usage": {
+  "input": 277306,
+  "output": 3193725,
+  "cache_write": 0,
+  "cache_read": 0
+ },
+ "round_costs_cents": [
+  1520.3,
+  989.0,
+  817.7,
+  734.5
+ ],
+ "refusals": 0,
+ "selfproof_rejections": 6,
+ "P": {
+  "P_B(1)": {
+   "all": 0.685,
+   "tier_a_failed": 0.5933
+  },
+  "P_B(4)": {
+   "all": 0.83,
+   "tier_a_failed": 0.7733
+  },
+  "P_B(16)": {
+   "all": 0.83,
+   "tier_a_failed": 0.7733
+  }
+ },
+ "frozen": true,
+ "accepted": {
+  "UniformEquiv.finTwoArrow_symm_apply": 1,
+  "Coalgebra.Repr.induced_index": 1,
+  "Finset.nontrivial_coe": 1,
+  "IsDiscreteValuationRing.addVal_eq_zero_of_unit": 1,
+  "Metric.PiNatEmbed.toPiNatEquiv_symm_apply": 1,
+  "CompHaus.lift.congr_simp": 1,
+  "ContinuousLinearMap.add.congr_simp": 1,
+  "Filter.Tendsto.prod_map_prod_atBot": 1,
+  "Real.Angle.two_zsmul_eq_zero_iff": 1,
+  "tsub_zero": 1,
+  "AddOpposite.continuous_op": 1,
+  "ContinuousAddMonoidHom.nsmul_apply": 1,
+  "CategoryTheory.Limits.coprodComparison_inr": 1,
+  "MeasureTheory.pdf.congr": 1,
+  "TopologicalSpace.isSeparable_univ_iff": 1,
+  "IsLocalization.mk'_mul": 1,
+  "List.duplicate_cons_iff_of_ne": 1,
+  "ValuationSubring.ofPrime_localization": 1,
+  "isGLB_Ioi": 1,
+  "ContinuousLinearMap.det_smulRight": 2,
+  "QuadraticMap.polar_neg": 1,
+  "BddDistLat.coe_toBddLat": 1,
+  "MulEquiv.coe_toEquiv": 1,
+  "SheafOfModules.freeFunctor_obj": 1,
+  "Set.range_quotient_lift_on'": 1,
+  "dimH_def": 4,
+  "IsClosed.add_right_of_isCompact": 3,
+  "NumberField.AdeleRing.algebraMap_snd_apply": 1,
+  "LinearEquiv.coe_toAddEquiv": 1,
+  "LieIdeal.lcs_succ": 1,
+  "MeasureTheory.Measure.haar.addHaarContent_self": 1,
+  "LinearMap.IsPairSelfAdjoint.eq_1": 1,
+  "List.kextract_eq_dlookup_kerase": 1,
+  "Units.smulCommClass_left": 1,
+  "NumberField.mixedEmbedding.polarCoord_symm_apply": 1,
+  "PowerSeries.IsWeierstrassFactorizationAt.smul": 1,
+  "CategoryTheory.MorphismProperty.RightFraction.map_hom_ofInv_id": 1,
+  "Tropical.untrop_eq_iff_eq_trop": 1,
+  "Submodule.instNontrivial": 1,
+  "CategoryTheory.unop_sub": 1,
+  "Submonoid.mem_sSup_of_mem": 1,
+  "CategoryTheory.GrothendieckTopology.Cover.Arrow.map_Y": 1,
+  "biInter_basis_nhds": 1,
+  "PowerSeries.map_cos": 2,
+  "MeasureTheory.uniformIntegrable_of": 1,
+  "CFC.rpow_mul_rpow_neg": 2,
+  "LieModule.shiftedGenWeightSpace.coe_lie_shiftedGenWeightSpace_apply": 1,
+  "AffineMap.pi_lineMap_apply": 1,
+  "LieModule.coe_chainTop": 1,
+  "ContinuousMap.isUniformEmbedding_comp": 4,
+  "Units.val_inv_eq_inv_val": 1,
+  "CategoryTheory.EssentiallySmall.equiv_smallCategory": 1,
+  "NonUnitalSubalgebra.mem_map": 1,
+  "Topology.IsConstructible.isLocallyConstructible": 1,
+  "AlgEquiv.arrowCongr_trans": 1,
+  "LE.le.ge_or_le": 1,
+  "Function.Periodic.map_vadd_zmultiples": 1,
+  "AddMonoidHom.eq_intCastAddHom": 1,
+  "compactlySupported_eq_top_of_isCompact": 3,
+  "Concept.swap_lt_swap_iff": 1,
+  "IntervalIntegrable.intervalIntegrable_slope": 1,
+  "AntitoneOn.integral_le_sum_Ico": 1,
+  "Polynomial.IsRoot.dvd": 1,
+  "Algebra.GrothendieckAddGroup.lift.eq_1": 1,
+  "SetRel.inv_eq_self_iff": 4,
+  "ContMDiffAt.div": 1,
+  "HasDerivWithinAt.const_rpow": 1,
+  "RingCon.ext": 1,
+  "Quaternion.star_imK": 1,
+  "Equiv.Perm.card_le_of_centralizer_le_alternating": 1,
+  "CategoryTheory.CosimplicialObject.Augmented.whiskering_map_app_left": 1,
+  "CategoryTheory.CartesianMonoidalCategory.prodComparisonNatIso_inv": 1,
+  "CategoryTheory.Limits.preservesColimit_of_reflects_of_preserves": 1,
+  "dist_zero_left": 1,
+  "same_add_div": 1,
+  "OpenPartialHomeomorph.coe_coe": 1,
+  "FiberBundleCore.mem_localTrivAt_source": 1,
+  "FractionalIdeal.not_inv_le_one_of_ne_bot": 1,
+  "nsmul_lt_nsmul_left": 3,
+  "le_oneLePart": 1,
+  "ZMod.eq_zero_iff_even": 1,
+  "Convex.closure": 2,
+  "BoxIntegral.Box.dist_le_distortion_mul": 1,
+  "MeasureTheory.Measure.rnDeriv_restrict": 1,
+  "Ordinal.nfp_eq_self": 1,
+  "mabs_div_pos": 1,
+  "ONote.split_dvd": 1,
+  "Finset.compl_singleton": 1,
+  "LiouvilleWith.neg": 1,
+  "MeasureTheory.tendsto_measure_of_le_liminf_measure_of_limsup_measure_le": 1,
+  "FP.Float.inf.sizeOf_spec": 1,
+  "CategoryTheory.Subobject.pullback_id": 1,
+  "List.intercalate_splitOn": 2,
+  "CategoryTheory.Functor.CoconeTypes.IsColimitCore.mk.sizeOf_spec": 1,
+  "AddOpposite.unop_ratCast": 1,
+  "CategoryTheory.MonoidalCategory.MonoidalRightAction.oppositeRightAction_actionAssocIso": 1,
+  "FunOnFinite.map_piSingle": 1,
+  "instCountable_of_discrete_submodule": 1,
+  "Real.cast_natAbs_eq_nnabs_cast": 2,
+  "ENNReal.isOpen_Ico_zero": 1,
+  "CategoryTheory.Limits.biprod.lift_snd": 2,
+  "CommGrpCat.forget_commGrp_preserves_epi": 1,
+  "skewAdjoint.instIsStarNormalValMemAddSubgroup": 1,
+  "Finset.lcm_empty": 1,
+  "WithTop.sInf_empty": 2,
+  "Multiset.Pi.cons_map": 1,
+  "Int.div_le_iff_of_dvd_of_pos": 1,
+  "Polynomial.cauchyBound_one": 1,
+  "IsometryEquiv.completeSpace_iff": 1,
+  "CommGrpCat.hom_id": 1,
+  "Filter.Tendsto.atBot_add_nonpos": 3,
+  "Metric.Snowflaking.image_toSnowflaking_eq_preimage": 1,
+  "iInf_sigma": 1,
+  "CategoryTheory.ChosenPullbacksAlong.condition": 1,
+  "CategoryTheory.Limits.IndObjectPresentation.hI": 2,
+  "Nat.maxPowDiv.go.induct_unfolding": 1,
+  "IsAntichain.preimage_embedding": 3,
+  "ENNReal.tendsto_atTop_zero_iff_lt_of_antitone": 1,
+  "Module.FaithfullyFlat.iff_flat_and_lTensor_faithful": 1,
+  "CochainComplex.HomComplex.\u03b4_units_smul": 1,
+  "WeierstrassCurve.natDegree_\u03a6_pos": 1,
+  "Pi.continuous_precomp": 1,
+  "SimpleGraph.Iso.connectedComponentEquiv_trans": 1,
+  "derivedSeries_succ": 1,
+  "ModularGroup.T_S_rel": 3,
+  "integralClosure.coe_smul": 1,
+  "Finset.subset_mul_left": 1,
+  "Matroid.indep_iff_forall_notMem_closure_diff": 1,
+  "Opposite.small": 1,
+  "LinearEquiv.conj.eq_1": 1,
+  "ball_mul": 2,
+  "LinearIndependent.linearIndepOn_id'": 1,
+  "lt_or_ge": 1,
+  "CategoryTheory.Functor.relativelyRepresentable.lift_snd_assoc": 1,
+  "UniqueFactorizationMonoid.normalizedFactors.eq_1": 1,
+  "CategoryTheory.Limits.HasZeroObject.zero_to_zero_isIso": 4,
+  "Monotone.leftLim_le_rightLim": 1,
+  "Filter.tendsto_atTop_atBot_iff_of_antitone": 1,
+  "NonUnitalSubalgebra.star_mem_star_iff": 1,
+  "Filter.Tendsto.prod_atTop": 1,
+  "Function.Antiperiodic.const_mul": 1,
+  "MeasureTheory.Measure.map\u2097.eq_1": 1,
+  "GenContFract.IntFractPair.succ_nth_stream_b_le_nth_stream_fr_inv": 1,
+  "Nat.Partrec.Code.encodeCode.eq_4": 1,
+  "ContinuousAlternatingMap.opNorm_le_iff": 1,
+  "Asymptotics.isBigO_self_const_mul": 2,
+  "NonUnitalSubring.mem_toSubsemigroup": 1,
+  "Stream'.Seq.destruct_eq_none": 2,
+  "one_div_mul_sub_mul_one_div_eq_one_div_add_one_div": 1,
+  "CategoryTheory.exists_simple_subobject": 2,
+  "one_lt_natDegree_of_irrational_root": 1,
+  "algebraicIndependent_singleton_iff": 4,
+  "Subgroup.subgroupOf_eq_bot": 1,
+  "List.map_leftInverse_iff": 1,
+  "SSet.Subcomplex.range_tensorHom": 2,
+  "Polynomial.prod_multiset_X_sub_C_of_monic_of_roots_card_eq": 4,
+  "Submonoid.LocalizationMap.mulEquivOfLocalizations_apply": 1,
+  "Nat.descFactorial_eq_zero_iff_lt": 1,
+  "DiscreteQuotient.proj_bot_injective": 3,
+  "NormedSpace.Dual.toWeakDual_continuous": 1,
+  "CategoryTheory.ShortComplex.RightHomologyData.exact_iff_mono_g'": 1,
+  "DihedralGroup.r_mul_sr": 1,
+  "SimpleGraph.edgeSet_nonempty": 2,
+  "not_finite": 1,
+  "CategoryTheory.Functor.mapSkeleton_obj_toSkeleton": 3,
+  "FirstOrder.Language.Substructure.reduct_withConstants": 1
+ },
+ "transitions": {
+  "n_transitions": 809,
+  "rounds": [
+   {
+    "round": 1,
+    "n_transitions": 569,
+    "n_goals": 409,
+    "censored": 1,
+    "on_accepted_path": 492,
+    "accepted_path_fraction": 0.8647,
+    "by_position": {
+     "0:script": {
+      "open": 161,
+      "closed": 1,
+      "error": 1
+     },
+     "1:script": {
+      "open": 90,
+      "closed": 67,
+      "error": 4
+     },
+     "2:script": {
+      "open": 66,
+      "closed": 17,
+      "error": 6
+     },
+     "3:script": {
+      "open": 40,
+      "closed": 24,
+      "budget": 1,
+      "error": 1
+     },
+     "4:script": {
+      "open": 24,
+      "closed": 16
+     },
+     "5:script": {
+      "closed": 14,
+      "open": 10
+     },
+     "6:script": {
+      "open": 8,
+      "closed": 2
+     },
+     "7:script": {
+      "open": 5,
+      "closed": 3
+     },
+     "8:script": {
+      "closed": 3,
+      "open": 2
+     },
+     "9:script": {
+      "open": 1,
+      "closed": 1
+     },
+     "10:script": {
+      "closed": 1
+     }
+    },
+    "shards": [
+     {
+      "file": "transitions/goals-0000.jsonl",
+      "kind": "goals",
+      "records": 409,
+      "sha256": "b6de9681dcfda14ec1bffa723902f2a6b4e504171099c5e7532e117f01f4ca39",
+      "cid": "ee0ec3c21303c990aee23efd3cde370458f0f0119c6dd77341df147e4660f016"
+     },
+     {
+      "file": "transitions/transitions-0000.jsonl",
+      "kind": "transitions",
+      "records": 569,
+      "sha256": "12d5ec3739a85c8c5db5216fd2a5181811e3aa87ec9cfd58eb32dc56c519ff6e",
+      "cid": "dea8d519d735ee74206a48ee32dc3d3968662a3776b3e4b5dc2280ae6f937d99"
+     }
+    ]
+   },
+   {
+    "round": 2,
+    "n_transitions": 119,
+    "n_goals": 95,
+    "censored": 0,
+    "on_accepted_path": 69,
+    "accepted_path_fraction": 0.5798,
+    "by_position": {
+     "0:script": {
+      "open": 27
+     },
+     "1:script": {
+      "closed": 3,
+      "open": 22,
+      "error": 2
+     },
+     "2:script": {
+      "closed": 4,
+      "open": 18
+     },
+     "3:script": {
+      "open": 11,
+      "closed": 6,
+      "error": 1
+     },
+     "4:script": {
+      "closed": 3,
+      "open": 7,
+      "error": 1
+     },
+     "5:script": {
+      "open": 4,
+      "closed": 3
+     },
+     "6:script": {
+      "closed": 2,
+      "open": 2
+     },
+     "7:script": {
+      "closed": 1,
+      "open": 1
+     },
+     "8:script": {
+      "error": 1
+     }
+    },
+    "shards": [
+     {
+      "file": "transitions/goals-0000.jsonl",
+      "kind": "goals",
+      "records": 95,
+      "sha256": "eef6acad41a497ae1778b943004ab42efce107941c1a483afb6d222d844eddc8",
+      "cid": "d6deeecbd026afd74b01255116fc7e7f5f3989b80207791fc24e693eefdea2f4"
+     },
+     {
+      "file": "transitions/transitions-0000.jsonl",
+      "kind": "transitions",
+      "records": 119,
+      "sha256": "d7841bb9eb14fa4b4b5852bc0a3de6c207ca74220aa3438313d93d6f6f74554c",
+      "cid": "75da9f0d4c756f3b4ac230d0a348bdf3fdd471b65f34b3fe871610be009ef2a7"
+     }
+    ]
+   },
+   {
+    "round": 3,
+    "n_transitions": 73,
+    "n_goals": 59,
+    "censored": 0,
+    "on_accepted_path": 38,
+    "accepted_path_fraction": 0.5205,
+    "by_position": {
+     "0:script": {
+      "open": 16
+     },
+     "1:script": {
+      "open": 14,
+      "error": 1,
+      "closed": 1
+     },
+     "2:script": {
+      "open": 10,
+      "error": 2,
+      "closed": 1
+     },
+     "3:script": {
+      "open": 7,
+      "closed": 3
+     },
+     "4:script": {
+      "open": 5,
+      "closed": 2
+     },
+     "5:script": {
+      "closed": 3,
+      "open": 2
+     },
+     "6:script": {
+      "open": 2
+     },
+     "7:script": {
+      "open": 1,
+      "closed": 1
+     },
+     "8:script": {
+      "open": 1
+     },
+     "9:script": {
+      "closed": 1
+     }
+    },
+    "shards": [
+     {
+      "file": "transitions/goals-0000.jsonl",
+      "kind": "goals",
+      "records": 59,
+      "sha256": "ae9119eaff50325c1f330c5ec908167d21cbe9aa0d737523aba2495b00cec447",
+      "cid": "5b9256593c904334b3936a3a9d19bff25be6255e1ec82f1202076739e783dcae"
+     },
+     {
+      "file": "transitions/transitions-0000.jsonl",
+      "kind": "transitions",
+      "records": 73,
+      "sha256": "f11c203b303a1fed8a0046c95b57916d9e18e70826ae6988da01305c4b236c1b",
+      "cid": "a01a2bd283b8a550d53f4e2db60041676bc04e43e79883df8795be4c1729354e"
+     }
+    ]
+   },
+   {
+    "round": 4,
+    "n_transitions": 48,
+    "n_goals": 37,
+    "censored": 1,
+    "on_accepted_path": 33,
+    "accepted_path_fraction": 0.6875,
+    "by_position": {
+     "0:script": {
+      "open": 10
+     },
+     "1:script": {
+      "open": 9,
+      "budget": 1
+     },
+     "2:script": {
+      "open": 6,
+      "closed": 2,
+      "error": 1
+     },
+     "3:script": {
+      "open": 3,
+      "closed": 2,
+      "error": 1
+     },
+     "4:script": {
+      "open": 3
+     },
+     "5:script": {
+      "closed": 2,
+      "open": 1
+     },
+     "6:script": {
+      "open": 1
+     },
+     "7:script": {
+      "open": 1
+     },
+     "8:script": {
+      "open": 1
+     },
+     "9:script": {
+      "open": 1
+     },
+     "10:script": {
+      "open": 1
+     },
+     "11:script": {
+      "open": 1
+     },
+     "12:script": {
+      "closed": 1
+     }
+    },
+    "shards": [
+     {
+      "file": "transitions/goals-0000.jsonl",
+      "kind": "goals",
+      "records": 37,
+      "sha256": "2cd739a7c28d4e4c226938465c0fb240e0c6a807fd32b662189364c74b4d50ed",
+      "cid": "15c2b6bb5ee4e44d7a08b88d3fae82c9b9e2aabcb9d02091259051fc5ae38327"
+     },
+     {
+      "file": "transitions/transitions-0000.jsonl",
+      "kind": "transitions",
+      "records": 48,
+      "sha256": "fcedf791dea41cd42d4abe5fbcbf5d016a614f8718efbeb1c66704925f808c02",
+      "cid": "a6034025ca61a132e67fffb6363df6506cf9182a86852a059339cadda23e40ac"
+     }
+    ]
+   }
+  ]
+ },
+ "attempts_sha256": "4164fbc44851b14eebb9228135c030fd50f9d704d3b60bc12540204fa869e541",
+ "elapsed_s": 875.7,
+ "attempts_cid": "a992fc73fa2eea6d3915bcbc3a994d35bb74f45fd67d37c0ab3bd50e7629357d"
+}

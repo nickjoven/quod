@@ -96,5 +96,27 @@
   "credit_interruptions": "rounds 3 refused three times by the API (credit balance) before funds were added; nothing charged on refusals; resumed from the round-2 checkpoint"
  },
  "pass_level1": false,
- "verdict": "FAIL at level 1: test P_B(1) 0.685 < frozen 0.74 (decision 2: P not revised); level 4 not reached (cap)"
+ "verdict": "FAIL at level 1 (0.685 < 0.74) and at level 4 (0.83 < 0.86); decision 2: P not revised. Q-26 records the cause (pilot frame); amendment A1 governs future prover configs.",
+ "test_round4": {
+  "run": "test200-B-r4 (continuation of test200-B from its round-3 checkpoint under a new run id; rounds 1-3 reused from their paid batches)",
+  "rounds_run": 4,
+  "accepted": 166,
+  "accepted_by_round": {
+   "1": 137,
+   "2": 15,
+   "3": 8,
+   "4": 6
+  },
+  "P_B(4)": {
+   "all": 0.83,
+   "tier_a_failed": 0.7733
+  },
+  "frozen_P_B(4)": {
+   "all": 0.86,
+   "tier_a_failed": 0.7941
+  },
+  "pass_level4": false,
+  "spend_cents_total": 4061.5,
+  "manifest_cid": "694381d9d6681b40d42b5b57c42d66aac4ee562b78f6c261a49105e2515b9987"
+ }
 }
