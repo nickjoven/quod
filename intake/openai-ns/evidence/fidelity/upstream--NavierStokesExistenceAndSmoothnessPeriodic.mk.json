@@ -1,0 +1,100 @@
+{
+ "decl": "NavierStokes.Upstream.NavierStokesExistenceAndSmoothnessPeriodic.mk",
+ "module": "Intake.UpstreamNavierStokes",
+ "kind": "other",
+ "lock": "c832dba17fc101255eac22134025f18bfb25a07a3767ba06295669beb64ab9db",
+ "hash": "blake3",
+ "canonical_type": "∀ {_ : Nat} {__1 : Real} {__2 : (__2 : EuclideanSpace.{0, 0} Real (Fin _)) → EuclideanSpace.{0, 0} Real (Fin _)} {__3 __4 : (__4 : EuclideanSpace.{0, 0} Real (Fin _)) → (__5 : Real) → EuclideanSpace.{0, 0} Real (Fin _)} {__5 : (_ : EuclideanSpace.{0, 0} Real (Fin _)) → (_ : Real) → Real} (__6 : @NavierStokes.Upstream.NavierStokesExistenceAndSmoothness _ __1 __2 __3 __4 __5) (__7 : ∀ (__7 : Real) (__8 : @GE.ge.{0} Real Real.instLE __7 (@OfNat.ofNat.{0} Real (nat_lit 0) (@Zero.toOfNat0.{0} Real Real.instZero))), @NavierStokes.Upstream.IsOnePeriodic.{1} _ (EuclideanSpace.{0, 0} Real (Fin _)) fun (_ : EuclideanSpace.{0, 0} Real (Fin _)) => __4 _ __7) (__8 : ∀ (__8 : Real) (__9 : @GE.ge.{0} Real Real.instLE __8 (@OfNat.ofNat.{0} Real (nat_lit 0) (@Zero.toOfNat0.{0} Real Real.instZero))), @NavierStokes.Upstream.IsOnePeriodic.{1} _ Real fun (_ : EuclideanSpace.{0, 0} Real (Fin _)) => __5 _ __8), @NavierStokes.Upstream.NavierStokesExistenceAndSmoothnessPeriodic _ __1 __2 __3 __4 __5",
+ "constants": 12,
+ "custom_constants": [
+  {
+   "name": "NavierStokes.Upstream.NavierStokesExistenceAndSmoothness",
+   "module": "Intake.UpstreamNavierStokes"
+  },
+  {
+   "name": "NavierStokes.Upstream.IsOnePeriodic",
+   "module": "Intake.UpstreamNavierStokes"
+  },
+  {
+   "name": "NavierStokes.Upstream.NavierStokesExistenceAndSmoothnessPeriodic",
+   "module": "Intake.UpstreamNavierStokes"
+  }
+ ],
+ "reduces_to_True": false,
+ "binders": [
+  {
+   "name": "n",
+   "binder": "implicit",
+   "prop": false,
+   "type": "ℕ"
+  },
+  {
+   "name": "nu",
+   "binder": "implicit",
+   "prop": false,
+   "type": "ℝ"
+  },
+  {
+   "name": "u₀",
+   "binder": "implicit",
+   "prop": false,
+   "type": "EuclideanSpace ℝ (Fin n) → EuclideanSpace ℝ (Fin n)"
+  },
+  {
+   "name": "f",
+   "binder": "implicit",
+   "prop": false,
+   "type": "EuclideanSpace ℝ (Fin n) → ℝ → EuclideanSpace ℝ (Fin n)"
+  },
+  {
+   "name": "v",
+   "binder": "implicit",
+   "prop": false,
+   "type": "EuclideanSpace ℝ (Fin n) → ℝ → EuclideanSpace ℝ (Fin n)"
+  },
+  {
+   "name": "p",
+   "binder": "implicit",
+   "prop": false,
+   "type": "EuclideanSpace ℝ (Fin n) → ℝ → ℝ"
+  },
+  {
+   "name": "toNavierStokesExistenceAndSmoothness",
+   "binder": "default",
+   "prop": true,
+   "type": "NavierStokes.Upstream.NavierStokesExistenceAndSmoothness nu u₀ f v p"
+  },
+  {
+   "name": "isOnePeriodic_velocity",
+   "binder": "default",
+   "prop": true,
+   "type": "∀ t ≥ 0, NavierStokes.Upstream.IsOnePeriodic fun x => v x t"
+  },
+  {
+   "name": "isOnePeriodic_pressure",
+   "binder": "default",
+   "prop": true,
+   "type": "∀ t ≥ 0, NavierStokes.Upstream.IsOnePeriodic fun x => p x t"
+  }
+ ],
+ "hypotheses": [
+  {
+   "name": "toNavierStokesExistenceAndSmoothness",
+   "binder": "default",
+   "prop": true,
+   "type": "NavierStokes.Upstream.NavierStokesExistenceAndSmoothness nu u₀ f v p"
+  },
+  {
+   "name": "isOnePeriodic_velocity",
+   "binder": "default",
+   "prop": true,
+   "type": "∀ t ≥ 0, NavierStokes.Upstream.IsOnePeriodic fun x => v x t"
+  },
+  {
+   "name": "isOnePeriodic_pressure",
+   "binder": "default",
+   "prop": true,
+   "type": "∀ t ≥ 0, NavierStokes.Upstream.IsOnePeriodic fun x => p x t"
+  }
+ ]
+}

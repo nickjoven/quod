@@ -1,0 +1,80 @@
+{
+ "run_id": "mutants-A-r1",
+ "prover": "ladder-A",
+ "prover_config": {
+  "prover": "ladder-A",
+  "ladder": [
+   "rfl",
+   "decide",
+   "simp",
+   "omega",
+   "exact?",
+   "aesop"
+  ],
+  "heartbeats_per_rung": 20000000,
+  "wall_s_per_demonstrandum": 120,
+  "negate": false,
+  "walker_sha256": "382c162c9e964d62c223662112b72dfee4c62a8a269328a6bb2c8764cd658069",
+  "mutate": true
+ },
+ "prover_config_cid": "6ca1753b64aff00aa4fd859433d3209008650a8e68cb791cbec032cbc8bebc55",
+ "negate": false,
+ "mutate": true,
+ "mutant_corpus": "mutants-20260911",
+ "mutant_lock_audit": {
+  "verified": 6152,
+  "lock_mismatch": 0,
+  "not_in_corpus": 0
+ },
+ "regate_of": {
+  "run_id": "mutants-A",
+  "manifest": "attempts/mutants-A/manifest-mutants-A.json",
+  "manifest_sha256": "3c213fb2097fdeb215b6599d742a6f1edfe5d2d9f9f997b866087e7cf1c7e86f",
+  "records_raw_sha256": "756345acb2f91b3cea06552b7abea7dceb06c917d26a5567e35a7c5eaae17a1d",
+  "prover_config_cid": "6ca1753b64aff00aa4fd859433d3209008650a8e68cb791cbec032cbc8bebc55"
+ },
+ "pins": {
+  "lean": "v4.28.0",
+  "mathlib": "8f9d9cff6bd728b17a24e163c9402775d9e6a365",
+  "jin": "f9d5c8d39bece41ceedf6346ef50ad1fb393260e",
+  "lean4checker": "66e11cea12f5ba215d76b15b7f8495141bf52c6c"
+ },
+ "transitions": {
+  "n_transitions": 0,
+  "n_goals": 0,
+  "censored": 0,
+  "on_accepted_path": 0,
+  "accepted_path_fraction": null,
+  "by_position": {},
+  "shards": []
+ },
+ "elapsed_s": 67.2,
+ "attempts": 6152,
+ "by_outcome": {
+  "no_proof_found": 6010,
+  "accepted": 142
+ },
+ "watchdog_skips": 0,
+ "scripts": {
+  "AttemptWalk.lean": "5cfd3949b4d0b7e2501e1293488ee5620866417de4240a966bb17a39e455c7c5",
+  "CorpusWalk.lean": "0a5905399209f116d806e9c4eaedca421322ccadd14390c7ffd2e5a402469847",
+  "MutantWalk.lean": "0d9d4e804cef411a0a473ed3a42a51bcbc398f69bee97627e7106c2734452681",
+  "anchor_check.py": "fce5cb95d06ee268bb120adf414e262da39b32a39c8e69b9be9680e53b0cfdf0",
+  "attempt.py": "c4a386d4fd2883b2642e258c6c14341342aa2b57035afd27316e01fea64d7610",
+  "axiom_gate.py": "aed923bbb7ce405f9a61b9bb58bf2ae4c7df9f7810d21329126cb64dc50992b4",
+  "bootstrap.sh": "b9bc80ef5e99af7831ceaa9c990619bae35d49dababff2aed176afc407ba0c10",
+  "calibrate.py": "4f481f1f6765bee64a02c3c114f92810bb8c96d37698589d839dc4291b495420",
+  "closure.py": "644e45922f305aeaa7d5b6b3b5e4e00613365dda5a499c8cc68e29c15ed2bcf6",
+  "controls.py": "f8ee36c3782befe0116dccf007511681e08c43347a777da4aca2a843d78aa370",
+  "corpus_extract.py": "b96566c079939b57b61a5e613bb96b48bb503d58bd45ccb94e10853ffdc48e94",
+  "derive_pairs.py": "ffcba431b8f55e1b93b9ac42973a218b17d19444f47700fbd283d59dd6998f08",
+  "hyp_mutant.py": "c6d6a5d2789f37f1af8a7a9059b44f2e81bc23c4dcf1b1299c5cf89185c570dd",
+  "leanenv.py": "3858a5564b21638e48d68695ce80867f979ad28df2c2f429573cbe5c7d8fe690",
+  "lock.py": "44701e8ce72cbf8b0876a0025c10fd3f1c5e8039d033ec2bdf93092fd6f88ebc",
+  "mutant_extract.py": "051b37be5c8903f098d1be581a57a7cdb4e64c304e9385f5c9d2aa7387ffa969",
+  "refute_check.py": "0c3d689275e236318ea54292726072999737c064650519f55a8caf4f9966ccc9",
+  "registry_import.py": "7e55ef8c699ef6d50a8294c1fcc8c5498c67132ab98c3daf8c6db684cf3fcf20"
+ },
+ "attempts_sha256": "10553608296fc4d16d59c1354e13c1c23d2455dc4b37788dcada02144285c89b",
+ "attempts_cid": "7105030bae3c4e713919828b40b3b5155c7a7aa8f1909f7ecb45fe44baf3c11e"
+}

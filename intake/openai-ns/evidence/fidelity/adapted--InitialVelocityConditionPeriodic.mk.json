@@ -1,0 +1,64 @@
+{
+ "decl": "NavierStokes.Comparator.InitialVelocityConditionPeriodic.mk",
+ "module": "ComparatorChallenges.NavierStokes",
+ "kind": "other",
+ "lock": "c8039dece92e453da8d65fde3b82129c0af603449269265ae20200f0ade59c97",
+ "hash": "blake3",
+ "canonical_type": "∀ {_ : Nat} {__1 : (__1 : EuclideanSpace.{0, 0} Real (Fin _)) → EuclideanSpace.{0, 0} Real (Fin _)} (__2 : @NavierStokes.Comparator.InitialVelocityCondition _ __1) (__3 : @NavierStokes.Comparator.IsOnePeriodic.{1} _ (EuclideanSpace.{0, 0} Real (Fin _)) __1), @NavierStokes.Comparator.InitialVelocityConditionPeriodic _ __1",
+ "constants": 7,
+ "custom_constants": [
+  {
+   "name": "NavierStokes.Comparator.InitialVelocityCondition",
+   "module": "ComparatorChallenges.NavierStokes"
+  },
+  {
+   "name": "NavierStokes.Comparator.IsOnePeriodic",
+   "module": "ComparatorChallenges.NavierStokes"
+  },
+  {
+   "name": "NavierStokes.Comparator.InitialVelocityConditionPeriodic",
+   "module": "ComparatorChallenges.NavierStokes"
+  }
+ ],
+ "reduces_to_True": false,
+ "binders": [
+  {
+   "name": "n",
+   "binder": "implicit",
+   "prop": false,
+   "type": "ℕ"
+  },
+  {
+   "name": "u₀",
+   "binder": "implicit",
+   "prop": false,
+   "type": "EuclideanSpace ℝ (Fin n) → EuclideanSpace ℝ (Fin n)"
+  },
+  {
+   "name": "toInitialVelocityCondition",
+   "binder": "default",
+   "prop": true,
+   "type": "NavierStokes.Comparator.InitialVelocityCondition u₀"
+  },
+  {
+   "name": "isOnePeriodic",
+   "binder": "default",
+   "prop": true,
+   "type": "NavierStokes.Comparator.IsOnePeriodic u₀"
+  }
+ ],
+ "hypotheses": [
+  {
+   "name": "toInitialVelocityCondition",
+   "binder": "default",
+   "prop": true,
+   "type": "NavierStokes.Comparator.InitialVelocityCondition u₀"
+  },
+  {
+   "name": "isOnePeriodic",
+   "binder": "default",
+   "prop": true,
+   "type": "NavierStokes.Comparator.IsOnePeriodic u₀"
+  }
+ ]
+}

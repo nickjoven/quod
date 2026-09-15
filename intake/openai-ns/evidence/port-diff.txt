@@ -1,0 +1,22 @@
+-import FormalConjecturesUtil
++import Mathlib
++
++-- quod intake port: local notation that FormalConjecturesUtil provides upstream
++local notation "ℝ^" n:65 => EuclideanSpace ℝ (Fin n)
++local notation "ℝ³" => EuclideanSpace ℝ (Fin 3)
+-namespace NavierStokes
++namespace NavierStokes.Upstream
+-@[simp, category API, AMS 35]
++@[simp]
+-@[simp, category API, AMS 35]
++@[simp]
+-@[simp, category API, AMS 35]
++@[simp]
+-@[category API, AMS 35]
+-@[category API, AMS 35]
+-@[category research open, AMS 35]
+-@[category research open, AMS 35]
+-@[category research open, AMS 35]
+-@[category research open, AMS 35]
+-end NavierStokes
++end NavierStokes.Upstream

@@ -1,0 +1,6 @@
+attempt: segment done (hung=upperClosure_one)
+attempt: gate shard 1/1 (56 attempts) -> BpilotS
+attempt: transitions 5234 over 589 goals (censored 45, on accepted path 459)
+manifest CID: 285ea472037a1e606eda7321aa25459f0571a5c0931ec29235c30a8a41c1622b
+attempts: 200 | {'accepted': 56, 'rejected: self-proof': 140, 'no_proof_found': 4} -> attempts/pilot-S
+pilot-S exit 0

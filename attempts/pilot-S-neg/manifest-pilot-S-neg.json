@@ -1,0 +1,136 @@
+{
+ "run_id": "pilot-S-neg",
+ "prover": "ladder-S",
+ "prover_config": {
+  "prover": "ladder-S",
+  "ladder": [
+   "rfl",
+   "decide",
+   "simp",
+   "omega",
+   "exact?",
+   "aesop"
+  ],
+  "heartbeats_per_rung": 20000000,
+  "wall_s_per_demonstrandum": 300,
+  "negate": true,
+  "walker_sha256": "f215175c853cbf6bd44df40ef6d67a2023a68e061b0eb78c057d7747873d633e",
+  "step": {
+   "ladder": [
+    "rfl",
+    "decide",
+    "omega",
+    "norm_num",
+    "simp",
+    "constructor",
+    "ext",
+    "push_neg",
+    "simp_all",
+    "ring_nf",
+    "aesop",
+    "exact?"
+   ],
+   "depth": 4,
+   "nodes": 30,
+   "search": "depth-first on the first open goal; exact backtracking (Meta.saveState); no-progress and error branches are dead ends"
+  }
+ },
+ "prover_config_cid": "66f9aba7ff4e506cdeb5a05ec5d39dbe5035dc878dba7018aea3edb90016edce",
+ "negate": true,
+ "mutate": false,
+ "mutant_corpus": null,
+ "mutant_lock_audit": null,
+ "regate_of": null,
+ "pins": {
+  "lean": "v4.28.0",
+  "mathlib": "8f9d9cff6bd728b17a24e163c9402775d9e6a365",
+  "jin": "f9d5c8d39bece41ceedf6346ef50ad1fb393260e",
+  "lean4checker": "66e11cea12f5ba215d76b15b7f8495141bf52c6c"
+ },
+ "transitions": {
+  "n_transitions": 28148,
+  "n_goals": 1565,
+  "censored": 698,
+  "on_accepted_path": 0,
+  "accepted_path_fraction": 0.0,
+  "by_position": {
+   "0:intros": {
+    "open": 200
+   },
+   "1:rung": {
+    "error": 1367,
+    "open": 786,
+    "budget": 247
+   },
+   "2:rung": {
+    "error": 7280,
+    "open": 1936,
+    "budget": 204
+   },
+   "3:rung": {
+    "error": 12055,
+    "open": 3826,
+    "budget": 247
+   }
+  },
+  "shards": [
+   {
+    "file": "transitions/goals-0000.jsonl",
+    "kind": "goals",
+    "records": 1565,
+    "sha256": "a7b58517a49d60730d8d52cef35a84d06d5876c3664c21b8c2d7192c9dc1c5f1",
+    "cid": "d731e090b03a4155bf02c756ff0e18152f3444de8c8bed6a412f756b7bc06add"
+   },
+   {
+    "file": "transitions/transitions-0000.jsonl",
+    "kind": "transitions",
+    "records": 10000,
+    "sha256": "355b63ac886c0955f96447fb0aff80cd74f8125fc933ee5906b01109851ba7a8",
+    "cid": "e94916cbe950e4e87098294cc5e3ca7d7b0cb4038e51f2bd8dd29b8663610fbb"
+   },
+   {
+    "file": "transitions/transitions-0001.jsonl",
+    "kind": "transitions",
+    "records": 10000,
+    "sha256": "ebee1cb703479369cf06909db25255205fb7cad79e7a9e6158787165adab14c1",
+    "cid": "9788c6199d446fe4cab41621ff745debb9cdba033705335e7f128c71bfd94287"
+   },
+   {
+    "file": "transitions/transitions-0002.jsonl",
+    "kind": "transitions",
+    "records": 8148,
+    "sha256": "e5e9b32b4c17770c3f0b29fccb33121a74040300122b7cf6ab11c54fbaddefc8",
+    "cid": "50d4edae5c824500306e461c4b47fc6689338019538ac6deda58377b417b98d0"
+   }
+  ]
+ },
+ "elapsed_s": 2900.9,
+ "attempts": 200,
+ "by_outcome": {
+  "no_proof_found": 200
+ },
+ "watchdog_skips": 0,
+ "scripts": {
+  "AttemptWalk.lean": "f215175c853cbf6bd44df40ef6d67a2023a68e061b0eb78c057d7747873d633e",
+  "CorpusWalk.lean": "0a5905399209f116d806e9c4eaedca421322ccadd14390c7ffd2e5a402469847",
+  "MutantWalk.lean": "0d9d4e804cef411a0a473ed3a42a51bcbc398f69bee97627e7106c2734452681",
+  "anchor_check.py": "fce5cb95d06ee268bb120adf414e262da39b32a39c8e69b9be9680e53b0cfdf0",
+  "attempt.py": "d19361d902962f4eadbf0fbff1e7f9eae15d8431795cd5176a77d8b6a6ff2861",
+  "axiom_gate.py": "aed923bbb7ce405f9a61b9bb58bf2ae4c7df9f7810d21329126cb64dc50992b4",
+  "bootstrap.sh": "b9bc80ef5e99af7831ceaa9c990619bae35d49dababff2aed176afc407ba0c10",
+  "calibrate.py": "4f481f1f6765bee64a02c3c114f92810bb8c96d37698589d839dc4291b495420",
+  "closure.py": "644e45922f305aeaa7d5b6b3b5e4e00613365dda5a499c8cc68e29c15ed2bcf6",
+  "controls.py": "0e7db5332722d42874d0db174a9b643e2535a47819ffa918a73e548c7545a3eb",
+  "corpus_extract.py": "b96566c079939b57b61a5e613bb96b48bb503d58bd45ccb94e10853ffdc48e94",
+  "dag_depth.py": "ffb0fccee5181250c39820ce33662b2178807c1d76ecf1d75327b3cbb60dfda6",
+  "derive_pairs.py": "ffcba431b8f55e1b93b9ac42973a218b17d19444f47700fbd283d59dd6998f08",
+  "hyp_mutant.py": "c6d6a5d2789f37f1af8a7a9059b44f2e81bc23c4dcf1b1299c5cf89185c570dd",
+  "leanenv.py": "3858a5564b21638e48d68695ce80867f979ad28df2c2f429573cbe5c7d8fe690",
+  "lock.py": "44701e8ce72cbf8b0876a0025c10fd3f1c5e8039d033ec2bdf93092fd6f88ebc",
+  "mutant_extract.py": "051b37be5c8903f098d1be581a57a7cdb4e64c304e9385f5c9d2aa7387ffa969",
+  "refute_check.py": "0c3d689275e236318ea54292726072999737c064650519f55a8caf4f9966ccc9",
+  "registry_import.py": "7e55ef8c699ef6d50a8294c1fcc8c5498c67132ab98c3daf8c6db684cf3fcf20"
+ },
+ "attempts_sha256": "349db7645ad34b89f6512f74d10091427253ae51b7d39b068b354393dc5c381b",
+ "attempts_cid": "40ca1f82ee689af75fb73d69a3c5a5c5b36ad222b03471f785c1430919062408"
+}

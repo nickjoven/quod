@@ -1,0 +1,5 @@
+attempt: segment done (hung=zsmul_neg_coe_of_pos)
+attempt: gate shard 1/2 (100 attempts) -> BmutantsAS0
+attempt: gate shard 2/2 (37 attempts) -> BmutantsAS1
+manifest CID: 7e9d6da8ff06e35ca0af8bb0fc0447777f4437c1e2bb98474fa369842e880f22
+attempts: 6152 | {'no_proof_found': 6010, 'accepted': 137, 'rejected: self-proof': 5} -> attempts/mutants-A

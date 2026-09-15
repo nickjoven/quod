@@ -1,0 +1,22 @@
+{
+ "rounds": [
+  {
+   "round": 1,
+   "batch_id": "msgbatch_011SA8UJ6nY3zD4WVUNa1fx5",
+   "requests": 50,
+   "cost_cents": 154.49,
+   "max_tokens_stops": 18,
+   "with_text": 32
+  },
+  {
+   "round": 2,
+   "batch_id": "msgbatch_01ATdL5yXMvL3bzNHN1nDZtj",
+   "requests": 50,
+   "cost_cents": 196.88,
+   "max_tokens_stops": 25,
+   "with_text": 25
+  }
+ ],
+ "total_cents": 351.38,
+ "cause": "Round 1: 18/50 responses stopped at max_tokens=4000 with thinking only; the other 32 carried scripts, but the walker was handed a RELATIVE scripts path from cwd calib/ and replayed nothing, so round 2 was sent false 'checker timed out' feedback (25/50 truncated). Both rounds voided: no proposal was tested. Spend carried into pilot-B2 against the same 6000c cap."
+}

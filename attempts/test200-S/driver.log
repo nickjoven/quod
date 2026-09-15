@@ -1,0 +1,6 @@
+attempt: segment done (hung=upperHemicontinuousOn_iff_preimage_Iic)
+attempt: gate shard 1/1 (89 attempts) -> Btest200S
+attempt: transitions 5005 over 555 goals (censored 42, on accepted path 461)
+manifest CID: 91c9461231c87ec3ba95eb01e51997459625f5bfd0234171d5a8985a26a0269f
+attempts: 200 | {'rejected: self-proof': 108, 'accepted': 89, 'no_proof_found': 3} -> attempts/test200-S
+test200-S exit 0

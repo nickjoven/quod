@@ -215,3 +215,81 @@
     stale variable before any status was written. Nothing was misrecorded,
     but a `--smoke` mode (one cheap control, no ket) should run before any
     full run, and the run log should record the sha256 of the runner it ran.
+- id: Q-24
+  severity: low
+  status: open
+  title: ill-formed hypothesis-deletion mutants carry non-reproducible locks
+  detail: >
+    In corpus mutants-20260911, a hyp_del_k mutant whose deleted binder was
+    depended on by a later binder leaves a dangling free variable; pp.all prints
+    it with a process-specific `_uniq.N` name, so its recorded `lock` differs
+    between runs (found 2026-09-11: 37/37 such records mismatched a
+    byte-identical re-derivation via Quod.Mutate, while 17/17 elaborates=true
+    mutants and every swap matched). A lock is only defined for an elaborated
+    type; these records are `elaborates: false` and are already excluded from
+    attempts (ATTEMPTS.md §5) and from S4 as ill-formed.
+  fix: mutant_extract.py records `lock: null` (and `lock_changed: null`) when
+    `elaborates` is false; MutantWalk emits no canonical form for them. Apply on
+    the next corpus run; the existing corpus is unaffected for every use that
+    filters on elaborates.
+- id: Q-25
+  severity: medium
+  status: open
+  title: exit condition 6 (proposals attempted as `A ↔ B`) is vacuous over theorem pairs
+  detail: >
+    lemma's S5 proposals (L-5) pair two Mathlib THEOREMS A, B, both proven at
+    the pin. Any two proven closed propositions are equivalent — `⟨fun _ => B,
+    fun _ => A⟩` discharges `A ↔ B` — and the same holds pointwise under shared
+    binders (`∀ xs, P xs ↔ Q xs`, since both P xs and Q xs hold). The self-proof
+    gate (exit condition 2) cannot catch this: the Iff has its own lock, and A
+    and B are legitimately usable constants. "Discharged" would measure the
+    ladder finding two existing proofs, not an equivalence. Missed in design
+    review (ATTEMPTS.md rev 2 exit condition 6; lemma docs/prover-loop.md).
+    Found 2026-09-11 while preparing the attempt form; nothing was run.
+  fix: >
+    Pending the user's call (doctrine change). Proposals must pair
+    propositions whose truth is NOT already established: the sides of
+    Mathlib Iff theorems (corpus fields iff_lhs / iff_rhs; the pairs S5 was
+    trained on), Prop-valued definitions, or hypotheses. The demonstrandum for
+    sides L_i, L_j drawn from different Iff theorems with α-equivalent binder
+    telescopes is `∀ xs, L_i xs ↔ L_j xs`; a discharge is a new fact even when
+    it chains through the source Iffs (record the used constants as a
+    difficulty feature, do not exclude them). lemma's proposal generator and
+    the L-5 rerank move to that pool; until then exit condition 6 is blocked
+    and no `A ↔ B` run is made.
+- id: Q-26
+  severity: high
+  status: open
+  title: the P-setting protocol (decision 2) froze P from a pilot drawn from an easier frame than the test
+  detail: >
+    Exit condition 1 failed twice, for different provers, in the same
+    direction: tier A test 0.25 vs frozen 0.32, tier B test 0.685 vs frozen
+    0.74. Diagnostic sealed as attempts/pilot-frame-diagnostic.json (CID
+    3b527442...), from the DAG table (cbd1c771...) and the corpus: the
+    50-theorem pilot is shallower than the 200-theorem test (median proof-DAG
+    depth 10.5 vs 16; 28% of the pilot in the corpus's shallowest depth
+    quartile vs 18% of the test, 28% vs 35% in the deepest), its statements
+    are shorter (median 30 vs 34 tokens), and tier-A acceptance falls with
+    depth (test: 47% in the shallowest quartile, 8.6% in the deepest).
+    Mann-Whitney on depth z = -1.64 (suggestive at n = 50, which is the
+    point). Both control sets were nominated by seeded hash order over all
+    theorems (controls.py), so the pilot was not drawn from the test frame,
+    and P was frozen at a point estimate of a 50-draw. The prover was not
+    the cause; the protocol was.
+  fix: >
+    Decision 2 AMENDED for every future prover config (ATTEMPTS.md, amendment
+    A1, carried on attempts-impl): (1) define the test frame first (200 or
+    more, sealed by CID), then draw the pilot as a seeded random subsample of
+    that frame, stratified by proof-DAG depth quartile so the difficulty mix
+    matches; (2) freeze P at the LOWER bound of an 80% binomial (Wilson)
+    confidence interval on the pilot estimate and record both numbers (for
+    the record, that bound would have been 0.2423 for tier A's 16/50 and 0.6538
+    for tier B's 37/50, against test rates 0.25 and 0.685); (3) frozen P and
+    the pilot draw go into the manifest before the test runs, as now; (4) the
+    existing frozen values 0.32 (tier A) and 0.74 (tier B) stay on record with
+    their failures, never re-frozen; any funded rerun is a NEW prover config
+    (same code, new manifest) under the amended protocol. controls.py gains
+    --frame/--stratify for the draw. Also recorded here: pilot-B-neg (0/50
+    accepted, 40/50 responses without a script, manifest 78bf9c3c...) is the
+    first sealed evidence that the tier B prover declines false statements;
+    the adversarial sweep (item 8) cites it.

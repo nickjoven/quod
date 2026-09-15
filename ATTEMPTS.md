@@ -150,3 +150,23 @@ Pure addition (new scripts, new ledger directory). Revert = delete them.
 - **Prover leakage** — an LLM reproving a memorized theorem yields a *valid*
   gate-verified proof; only the *difficulty* signal is contaminated. Recorded
   prover identity lets consumers condition on or hold out tier-B attempts.
+
+
+## Amendment A1 (2026-09-14): the pilot frame and the frozen P
+
+Decision 2 froze P at the point estimate of a 50-theorem pilot nominated
+by seeded hash order over all theorems, while the test set was nominated the
+same way separately. Both tiers then failed exit condition 1 in the same
+direction (Q-26; diagnostic CID 3b527442…): the pilot was shallower and
+shorter than the test. For every prover config after this date:
+
+1. The test frame comes first: 200 or more theorems, sealed by CID.
+2. The pilot is a seeded random subsample of that frame, stratified by
+   proof-DAG depth quartile (`dag_depth.py` table), seed sealed.
+3. P is frozen at the lower bound of an 80% Wilson interval on the pilot
+   rate; the point estimate is recorded beside it.
+4. Frozen values already on record (tier A 0.32, tier B 0.74) stay with their
+   failures. A funded rerun is a new prover config under this amendment.
+
+Nothing else in decision 2 changes: P is still frozen before the test and
+never revised after it.

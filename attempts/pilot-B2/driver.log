@@ -1,0 +1,50 @@
+pre-manifest sealed: attempts/pilot-B2/manifest-pre-pilot-B2.json CID 3cfcf4194191a3270245766913b2f08fd47996fb7b429f173fad0ea2971d93eb | set 50 (34 tier-A-failed) | model claude-opus-5 created_at 2026-07-24 00:00:00+00:00 | cap 6000c
+round 1: batch msgbatch_01B5SdaUTMVd2k99L4hVRDiQ over 50 open demonstranda
+round 1: 45 proposals, 345.0c this round, 696.4c total
+round 1: accepted so far 0/50; transitions 139
+round 2: batch msgbatch_01TrXBvLmNdGsQg5Mjf7id94 over 50 open demonstranda
+pre-manifest sealed: attempts/pilot-B2/manifest-pre-pilot-B2.json CID 0eff8f4401357ed8a53beafe1d2611e15ce75f999a80f197d5b2a355b0e4740d | set 50 (34 tier-A-failed) | model claude-opus-5 created_at 2026-07-24 00:00:00+00:00 | cap 6000c
+round 1: reusing paid batch msgbatch_01B5SdaUTMVd2k99L4hVRDiQ (50 requests; 50 still open)
+round 1: 45 proposals, 345.0c this round, 696.4c total
+round 1: accepted so far 37/50; transitions 278
+round 2: reusing paid batch msgbatch_01TrXBvLmNdGsQg5Mjf7id94 (50 requests; 13 still open)
+round 2: 5 proposals, 197.4c this round, 893.8c total
+round 2: accepted so far 41/50; transitions 14
+round 3: batch msgbatch_01A5zbrDjBTxffQczeyK251d over 9 open demonstranda
+round 3: 6 proposals, 152.5c this round, 1046.3c total
+round 3: accepted so far 43/50; transitions 19
+round 4: batch msgbatch_01Snoz52hKiXBmfLsjTtVfC2 over 7 open demonstranda
+round 4: 3 proposals, 125.1c this round, 1171.4c total
+round 4: accepted so far 43/50; transitions 6
+round 5: batch msgbatch_01V1NxYRsyeVSKRGz1NUjn1K over 7 open demonstranda
+round 5: 2 proposals, 141.8c this round, 1313.2c total
+round 5: accepted so far 43/50; transitions 5
+round 6: batch msgbatch_014BrCPurnjrFeW5jcG2pLbp over 7 open demonstranda
+round 6: 1 proposals, 143.0c this round, 1456.2c total
+round 6: accepted so far 43/50; transitions 0
+round 7: batch msgbatch_01XfDdfhZyf594sWW3kM8Vdt over 7 open demonstranda
+round 7: 2 proposals, 141.2c this round, 1597.4c total
+round 7: accepted so far 44/50; transitions 2
+round 8: batch msgbatch_015aiYUJxEPupozDbH5MEsnn over 6 open demonstranda
+round 8: 1 proposals, 117.8c this round, 1715.2c total
+round 8: accepted so far 45/50; transitions 7
+round 9: batch msgbatch_01Y4psJF4nsLKko7UrADtBg7 over 5 open demonstranda
+round 9: 0 proposals, 102.4c this round, 1817.7c total
+round 10: batch msgbatch_01LLTwYqctvqP8LcvthekYT8 over 5 open demonstranda
+round 10: 0 proposals, 102.5c this round, 1920.2c total
+round 11: batch msgbatch_013F2jGcNtXFaawRcQwXNHze over 5 open demonstranda
+round 11: 0 proposals, 102.6c this round, 2022.8c total
+round 12: batch msgbatch_01YUqWupEQzqn3xkAM5q4H3C over 5 open demonstranda
+round 12: 0 proposals, 102.7c this round, 2125.5c total
+round 13: batch msgbatch_01LEtiZTc6gXSbTWwbYf7xmk over 5 open demonstranda
+round 13: 1 proposals, 102.8c this round, 2228.2c total
+round 13: accepted so far 45/50; transitions 0
+round 14: batch msgbatch_015cH41wDWwfdSvGhrhjC68G over 5 open demonstranda
+round 14: 0 proposals, 102.9c this round, 2331.1c total
+round 15: batch msgbatch_016ETRAvf8LnVhRupBrTedHA over 5 open demonstranda
+round 15: 0 proposals, 103.0c this round, 2434.1c total
+round 16: batch msgbatch_019WkzciMuYQDJhYJZBUNqaw over 5 open demonstranda
+round 16: 1 proposals, 95.6c this round, 2529.7c total
+round 16: accepted so far 46/50; transitions 7
+manifest CID: eccfd342f339be169b47b2afdfdce70f9b47690eea26791e3b10c5abba86066b
+tier B pilot-B2: {'P_B(1)': {'all': 0.74, 'tier_a_failed': 0.6471}, 'P_B(4)': {'all': 0.86, 'tier_a_failed': 0.7941}, 'P_B(16)': {'all': 0.92, 'tier_a_failed': 0.8824}} | spend 2529.7c | refusals 0 | self-proof 2

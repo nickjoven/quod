@@ -1,0 +1,39 @@
+29a30
+> - [OpenAI, *Finite Time Blowup for Navier–Stokes*](https://cdn.openai.com/pdf/32d9f210-8b73-45e0-91bc-82a30aef8a9a/navier-stokes.pdf)
+39a41,43
+> In September 2026, an internal OpenAI model proved alternatives (C) and (D) by constructing
+> solutions that develop finite-time singularities under smooth forcing.
+> 
+265,266c269
+< 
+< /-- (A) Existence and smoothness of Navier–Stokes solutions on ℝ³. -/
+---
+> /-- (A) Existence and smoothness of (unforced) Navier–Stokes solutions on ℝ³. -/
+273c276
+< /-- (B) Existence and smoothness of Navier–Stokes solutions in ℝ³/ℤ³. -/
+---
+> /-- (B) Existence and smoothness of (unforced) Navier–Stokes solutions in ℝ³/ℤ³. -/
+280,281c283,290
+< /-- (C) Breakdown of Navier–Stokes solutions on ℝ³. -/
+< @[category research open, AMS 35]
+---
+> /--
+> (C) Breakdown of (forced) Navier–Stokes solutions on ℝ³.
+> 
+> This was proven by an internal OpenAI model in September 2026.
+> -/
+> @[category research solved, AMS 35,
+>   formal_proof using lean4 at
+>     "https://github.com/openai/NavierStokesAndEuler/commit/8937a8f4cbc7abaab5e9e97d1cc7f5d2319d9538"]
+288,289c297,304
+< /-- (D) Breakdown of Navier–Stokes Solutions on ℝ³/ℤ³. -/
+< @[category research open, AMS 35]
+---
+> /--
+> (D) Breakdown of (forced) Navier–Stokes solutions on ℝ³/ℤ³.
+> 
+> This was proven by an internal OpenAI model in September 2026.
+> -/
+> @[category research solved, AMS 35,
+>   formal_proof using lean4 at
+>     "https://github.com/openai/NavierStokesAndEuler/commit/8937a8f4cbc7abaab5e9e97d1cc7f5d2319d9538"]

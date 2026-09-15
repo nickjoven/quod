@@ -1,0 +1,24 @@
+{
+ "tier": "S",
+ "prover": "ladder-S",
+ "exit_condition": "1 (P frozen from the pilot, decision 2)",
+ "pilot_run": "pilot-S",
+ "controls": "attempts/controls-4242.json",
+ "n": 200,
+ "accepted": 56,
+ "P_S": 0.28,
+ "by_outcome": {
+  "accepted": 56,
+  "rejected: self-proof": 140,
+  "no_proof_found": 4
+ },
+ "prover_config_cid": "873f85cacef01b52c695ea2a55f86572633fd2b994d6187d5e18b196e3e99114",
+ "manifest_cid": "285ea472037a1e606eda7321aa25459f0571a5c0931ec29235c30a8a41c1622b",
+ "transitions": {
+  "n_transitions": 5234,
+  "n_goals": 589,
+  "censored": 45,
+  "on_accepted_path": 459
+ },
+ "note": "P_S = fraction of the 200-theorem pilot accepted through kernel + self-proof gate + axiom gate + lean4checker; frozen before test200-S. 140 self-proof rejections: exact? sits in the step ladder and locates the theorem itself; they count as failures for P."
+}

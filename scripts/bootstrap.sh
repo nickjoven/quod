@@ -14,13 +14,13 @@ WHAT="${1:-all}"
 
 # ---- pins (one per subproject; decision 3) --------------------------------
 JIN_REPO=https://github.com/jinshanmu/CrouzeixConjecture
-JIN_REV=f9d5c8d                       # lean v4.28.0, mathlib 8f9d9cff
+JIN_REV=f9d5c8d39bece41ceedf6346ef50ad1fb393260e   # lean v4.28.0, mathlib 8f9d9cff6bd728b17a24e163c9402775d9e6a365
 CROUZEIX_TOOLCHAIN=leanprover/lean4:v4.28.0
 CHECKER_REPO=https://github.com/leanprover/lean4checker
-CHECKER_CROUZEIX_REV=v4.28.0          # tag
+CHECKER_CROUZEIX_REV=66e11cea12f5ba215d76b15b7f8495141bf52c6c   # tag v4.28.0
 REG_REPO=https://github.com/lean-dojo/LeanMillenniumPrizeProblems
-REG_REV=fd52071                       # lean v4.31.0, mathlib fabf563a7c, PhysLean 3dddd61e
-CHECKER_MILL_REV=91a7f0e              # upstream master; no v4.31.0 release (OPEN.yml Q-20)
+REG_REV=fd5207106c8c13c40cd4eeb0acb169c2c4e58aeb   # lean v4.31.0, mathlib fabf563a7c, PhysLean 3dddd61e
+CHECKER_MILL_REV=91a7f0e8e9dffe927089f5a6edcfeeb8a0e07709   # upstream master; no v4.31.0 release (OPEN.yml Q-20)
 MILL_TOOLCHAIN=leanprover/lean4:v4.31.0
 
 log() { printf '\n== %s\n' "$*"; }
@@ -38,7 +38,15 @@ clone_at() { # url dir rev
   if [ ! -d "$dir/.git" ]; then git clone -q "$url" "$dir"; fi
   git -C "$dir" fetch -q --all --tags
   git -C "$dir" checkout -q "$rev"
-  printf '   %s @ %s\n' "$dir" "$(git -C "$dir" rev-parse --short HEAD)"
+  # a pin is a full 40-char commit: resolve what was checked out and refuse a
+  # short prefix or a tag that resolves elsewhere (a colliding prefix is cheap)
+  local head; head=$(git -C "$dir" rev-parse HEAD)
+  case "$rev" in
+    *[!0-9a-f]*|?????????????????????????????????????????*) ;;   # tag / not a 40-hex pin: recorded below
+    ????????????????????????????????????????) [ "$head" = "$rev" ] || { echo "pin mismatch in $dir: HEAD $head != $rev" >&2; exit 1; } ;;
+    *) echo "refusing short revision '$rev' for $dir: pins must be full 40-char commits" >&2; exit 1 ;;
+  esac
+  printf '   %s @ %s\n' "$dir" "$head"
 }
 
 crouzeix() {

@@ -1,0 +1,5 @@
+attempt: gate shard 1/2 (100 attempts) -> BmutantsAr1S0
+attempt: gate shard 2/2 (42 attempts) -> BmutantsAr1S1
+attempt: transitions 0 over 0 goals (censored 0, on accepted path 0)
+manifest CID: 6f94741297b56ff12cecaadb24a3ab5bbdb8bcdbb9f2322332ee62d414b96eb8
+attempts: 6152 | {'no_proof_found': 6010, 'accepted': 142} -> attempts/mutants-A-r1

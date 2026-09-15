@@ -1,0 +1,106 @@
+{
+ "method": "canonical pp.all strings (lock.py) of each statement and of every custom structure's type former and constructor, upstream port (namespace NavierStokes.Upstream) vs OpenAI's adapted copy (NavierStokes.Comparator); compared after replacing the namespace prefix; raw lock equality also reported",
+ "upstream_source": "google-deepmind/formal-conjectures FormalConjectures/Millenium/NavierStokes.lean at 8bf45ed7 (the commit OpenAI cites; blob 6fd45b55...), definitions identical to the 2ff75e1a revision (diff = comments/attributes only)",
+ "port_diff": 22,
+ "all_equal_after_namespace_normalization": true,
+ "rows": [
+  {
+   "decl": "navier_stokes_breakdown_R3",
+   "raw_equal": false,
+   "namespace_normalized_equal": true,
+   "lock_upstream": "e2dea7e5c2b75047cafdc61082b9883169067dc607a4f798c7c06918110ce098",
+   "lock_adapted": "3608c95f250ae65119e583dc9e166a29bc3c5ba3e00d1bff14f90eb935c11952"
+  },
+  {
+   "decl": "navier_stokes_breakdown_periodic",
+   "raw_equal": false,
+   "namespace_normalized_equal": true,
+   "lock_upstream": "41097109d5020b63aaf55deee0a37bd0ef66066ac56edc5f2bc760009bc6e795",
+   "lock_adapted": "486545e22b09f274b47a8ee14e24a7ba3422be7c0888199430b2f931b84a03d0"
+  },
+  {
+   "decl": "InitialVelocityConditionDecay.mk",
+   "raw_equal": false,
+   "namespace_normalized_equal": true,
+   "lock_upstream": "bf8c021bb2ca971b1517367dacff2ce25566fecd488020aa86a10bf51bbb4cf1",
+   "lock_adapted": "508ffe756ebd784efb2e61842c930d0c8fd91dacd445d30507064b33ca86ae50"
+  },
+  {
+   "decl": "ForceConditionDecay.mk",
+   "raw_equal": false,
+   "namespace_normalized_equal": true,
+   "lock_upstream": "37416f88cfe709936f8233465c983409453429321ee0db52a1edf3afc57c58f0",
+   "lock_adapted": "ae2ac01371f752bb832c01a696b40d57046e8baa42b7d327cf10fa82e4746fad"
+  },
+  {
+   "decl": "NavierStokesExistenceAndSmoothnessRn.mk",
+   "raw_equal": false,
+   "namespace_normalized_equal": true,
+   "lock_upstream": "5653d893858c2cac7c27b3d4928dbc44ebb4a4b000fee44c5360d08b4bafd903",
+   "lock_adapted": "7a7a4a58191d2b6af8ad4b6eea16b9afa489f3f42f9d217dca5f97062442a089"
+  },
+  {
+   "decl": "InitialVelocityConditionPeriodic.mk",
+   "raw_equal": false,
+   "namespace_normalized_equal": true,
+   "lock_upstream": "e5c51ca41ddf2d9e2bbaa0a04c8d210af161b7784d315b6cf10c5b395cad4323",
+   "lock_adapted": "c8039dece92e453da8d65fde3b82129c0af603449269265ae20200f0ade59c97"
+  },
+  {
+   "decl": "ForceConditionPeriodic.mk",
+   "raw_equal": false,
+   "namespace_normalized_equal": true,
+   "lock_upstream": "a22b9042b1154d3c7c70b9e66c52948e45be96bfc5bb9cade3b353a483d64934",
+   "lock_adapted": "6c6a4acb248287cada699390296737ab12361c7adb68b0f1d536469ceee95410"
+  },
+  {
+   "decl": "NavierStokesExistenceAndSmoothnessPeriodic.mk",
+   "raw_equal": false,
+   "namespace_normalized_equal": true,
+   "lock_upstream": "c832dba17fc101255eac22134025f18bfb25a07a3767ba06295669beb64ab9db",
+   "lock_adapted": "9c5b72ecb4f700c8a13cf62d968f46975eefc6b0c97563d54ada379fd0273b1f"
+  },
+  {
+   "decl": "InitialVelocityConditionDecay",
+   "raw_equal": true,
+   "namespace_normalized_equal": true,
+   "lock_upstream": "7d611347ead71a36adafbc65134f9c5bbf980c0356c518cb998c37279c4debf6",
+   "lock_adapted": "7d611347ead71a36adafbc65134f9c5bbf980c0356c518cb998c37279c4debf6"
+  },
+  {
+   "decl": "ForceConditionDecay",
+   "raw_equal": true,
+   "namespace_normalized_equal": true,
+   "lock_upstream": "cdbc48f3daa1a26d910e5b31643b406de2597434ad1bff39aba64482cf1ea9a2",
+   "lock_adapted": "cdbc48f3daa1a26d910e5b31643b406de2597434ad1bff39aba64482cf1ea9a2"
+  },
+  {
+   "decl": "NavierStokesExistenceAndSmoothnessRn",
+   "raw_equal": true,
+   "namespace_normalized_equal": true,
+   "lock_upstream": "a52ca083507ec4a1a1aa7626483bc63205b770605712b7acf2d7a372cb039d7f",
+   "lock_adapted": "a52ca083507ec4a1a1aa7626483bc63205b770605712b7acf2d7a372cb039d7f"
+  },
+  {
+   "decl": "InitialVelocityConditionPeriodic",
+   "raw_equal": true,
+   "namespace_normalized_equal": true,
+   "lock_upstream": "7d611347ead71a36adafbc65134f9c5bbf980c0356c518cb998c37279c4debf6",
+   "lock_adapted": "7d611347ead71a36adafbc65134f9c5bbf980c0356c518cb998c37279c4debf6"
+  },
+  {
+   "decl": "ForceConditionPeriodic",
+   "raw_equal": true,
+   "namespace_normalized_equal": true,
+   "lock_upstream": "cdbc48f3daa1a26d910e5b31643b406de2597434ad1bff39aba64482cf1ea9a2",
+   "lock_adapted": "cdbc48f3daa1a26d910e5b31643b406de2597434ad1bff39aba64482cf1ea9a2"
+  },
+  {
+   "decl": "NavierStokesExistenceAndSmoothnessPeriodic",
+   "raw_equal": true,
+   "namespace_normalized_equal": true,
+   "lock_upstream": "a52ca083507ec4a1a1aa7626483bc63205b770605712b7acf2d7a372cb039d7f",
+   "lock_adapted": "a52ca083507ec4a1a1aa7626483bc63205b770605712b7acf2d7a372cb039d7f"
+  }
+ ]
+}

@@ -1,0 +1,5 @@
+attempt: segment done (hung=upperClosure_one)
+attempt: transitions 28148 over 1565 goals (censored 698, on accepted path 0)
+manifest CID: 501ae3fe580ff9259f467cebbc3aede07a0bf9fbdc9c73d5ab49c3c3598bc23b
+attempts: 200 | {'no_proof_found': 200} -> attempts/pilot-S-neg
+pilot-S-neg exit 0

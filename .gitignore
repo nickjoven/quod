@@ -13,3 +13,16 @@ corpus/**/*.jsonl
 corpus/**/*.raw
 corpus/**/*.err
 corpus/extract-*.log
+calib/Quod/Attempts/
+attempts/*/records.raw
+attempts/*/walker.err
+attempts/*/transitions/
+.env
+attempts/*/records-*.raw
+attempts/*/walker-*.err
+attempts/*/r*/transitions/
+attempts/*/r1-dedup/transitions/
+attempts/*.log
+attempts/*/driver.log.bak
+intake/*/repo/
+intake/*/upstream/

@@ -1,0 +1,156 @@
+{
+ "run_id": "mutants-A-t1",
+ "prover": "ladder-A",
+ "prover_config": {
+  "prover": "ladder-A",
+  "ladder": [
+   "rfl",
+   "decide",
+   "simp",
+   "omega",
+   "exact?",
+   "aesop"
+  ],
+  "heartbeats_per_rung": 20000000,
+  "wall_s_per_demonstrandum": 120,
+  "negate": false,
+  "walker_sha256": "5cfd3949b4d0b7e2501e1293488ee5620866417de4240a966bb17a39e455c7c5",
+  "mutate": true
+ },
+ "prover_config_cid": "7a37076c095993005c8dd924a9f88e58528dfffbff968bc9f26f9fa19056ae28",
+ "negate": false,
+ "mutate": true,
+ "mutant_corpus": "mutants-20260911",
+ "mutant_lock_audit": {
+  "verified": 6152,
+  "lock_mismatch": 0,
+  "not_in_corpus": 0
+ },
+ "regate_of": null,
+ "pins": {
+  "lean": "v4.28.0",
+  "mathlib": "8f9d9cff6bd728b17a24e163c9402775d9e6a365",
+  "jin": "f9d5c8d39bece41ceedf6346ef50ad1fb393260e",
+  "lean4checker": "66e11cea12f5ba215d76b15b7f8495141bf52c6c"
+ },
+ "transitions": {
+  "n_transitions": 42910,
+  "n_goals": 12529,
+  "censored": 786,
+  "on_accepted_path": 282,
+  "accepted_path_fraction": 0.0066,
+  "by_position": {
+   "0:intros": {
+    "open": 6152
+   },
+   "0:rung": {
+    "error": 6149,
+    "closed": 3
+   },
+   "1:rung": {
+    "error": 6149
+   },
+   "2:rung": {
+    "open": 3444,
+    "error": 2667,
+    "closed": 34,
+    "budget": 4
+   },
+   "3:rung": {
+    "error": 6115
+   },
+   "4:rung": {
+    "error": 5610,
+    "budget": 466,
+    "closed": 41
+   },
+   "5:rung": {
+    "open": 3930,
+    "error": 1765,
+    "budget": 316,
+    "closed": 65
+   }
+  },
+  "shards": [
+   {
+    "file": "transitions/goals-0000.jsonl",
+    "kind": "goals",
+    "records": 10000,
+    "sha256": "648e9f89d2ac6e6166219f4c97438f0cb92594602e674454c7c5648a4ba94c88",
+    "cid": "59925cd740937bcace2821d6c75f4a1fcc4785e854712d9b4fb14621c2113806"
+   },
+   {
+    "file": "transitions/goals-0001.jsonl",
+    "kind": "goals",
+    "records": 2529,
+    "sha256": "5ddde434c7e462e94d3affef2aa2c19a5540bb0e4adb113406d9ff687a231603",
+    "cid": "11ba396bbc049ea5bb1fc07687218ea33866bf56b2471ee4d2726dc16f29895d"
+   },
+   {
+    "file": "transitions/transitions-0000.jsonl",
+    "kind": "transitions",
+    "records": 10000,
+    "sha256": "11be90a120f0d1d9cdd8d7d308a746131e8f62bcdc2d79a7d2d7d3970c216d64",
+    "cid": "01e22ee4e63c2c2d6b294ed5df26fedac19f33b36ccb32f179d5c79f4695d146"
+   },
+   {
+    "file": "transitions/transitions-0001.jsonl",
+    "kind": "transitions",
+    "records": 10000,
+    "sha256": "03289e20e215a1e002692c5e69b207495634e885c35089dfa9dbc59ecdf86b88",
+    "cid": "ac12f8bc326264d1fac6db0be2973d66eddeba7b9587166e34b0264e37375ba3"
+   },
+   {
+    "file": "transitions/transitions-0002.jsonl",
+    "kind": "transitions",
+    "records": 10000,
+    "sha256": "0664d93f2f71c8a71977c48317b74b463e595241233314ca6dfa5cf3051505f0",
+    "cid": "152e20e7ba4c0a0199f820807b8c371cc6172dc57c3ba3b815b285ee71cdc053"
+   },
+   {
+    "file": "transitions/transitions-0003.jsonl",
+    "kind": "transitions",
+    "records": 10000,
+    "sha256": "b3da5e9eafa4371fcc6d16cd52706eab0eb8f5c882ef462bd00fbe95cd7202c3",
+    "cid": "c91e901cc87d5777aa74feb86c267b41dbf2209a486be52a7da0f0bd62d71d85"
+   },
+   {
+    "file": "transitions/transitions-0004.jsonl",
+    "kind": "transitions",
+    "records": 2910,
+    "sha256": "500af0a4a2169c76cc9fddbfda5cea037f5b4aba12ce9b489bd946015921b6b3",
+    "cid": "92593627d6b14f60dcd1bc26337f6de289236c8a517407154cab367564cb5009"
+   }
+  ]
+ },
+ "elapsed_s": 6924.9,
+ "attempts": 6152,
+ "by_outcome": {
+  "no_proof_found": 6011,
+  "accepted": 141
+ },
+ "watchdog_skips": 0,
+ "scripts": {
+  "AttemptWalk.lean": "5cfd3949b4d0b7e2501e1293488ee5620866417de4240a966bb17a39e455c7c5",
+  "CorpusWalk.lean": "0a5905399209f116d806e9c4eaedca421322ccadd14390c7ffd2e5a402469847",
+  "MutantWalk.lean": "0d9d4e804cef411a0a473ed3a42a51bcbc398f69bee97627e7106c2734452681",
+  "anchor_check.py": "fce5cb95d06ee268bb120adf414e262da39b32a39c8e69b9be9680e53b0cfdf0",
+  "attempt.py": "c4a386d4fd2883b2642e258c6c14341342aa2b57035afd27316e01fea64d7610",
+  "axiom_gate.py": "aed923bbb7ce405f9a61b9bb58bf2ae4c7df9f7810d21329126cb64dc50992b4",
+  "bootstrap.sh": "b9bc80ef5e99af7831ceaa9c990619bae35d49dababff2aed176afc407ba0c10",
+  "calibrate.py": "4f481f1f6765bee64a02c3c114f92810bb8c96d37698589d839dc4291b495420",
+  "closure.py": "644e45922f305aeaa7d5b6b3b5e4e00613365dda5a499c8cc68e29c15ed2bcf6",
+  "controls.py": "f8ee36c3782befe0116dccf007511681e08c43347a777da4aca2a843d78aa370",
+  "corpus_extract.py": "b96566c079939b57b61a5e613bb96b48bb503d58bd45ccb94e10853ffdc48e94",
+  "dag_depth.py": "ffb0fccee5181250c39820ce33662b2178807c1d76ecf1d75327b3cbb60dfda6",
+  "derive_pairs.py": "ffcba431b8f55e1b93b9ac42973a218b17d19444f47700fbd283d59dd6998f08",
+  "hyp_mutant.py": "c6d6a5d2789f37f1af8a7a9059b44f2e81bc23c4dcf1b1299c5cf89185c570dd",
+  "leanenv.py": "3858a5564b21638e48d68695ce80867f979ad28df2c2f429573cbe5c7d8fe690",
+  "lock.py": "44701e8ce72cbf8b0876a0025c10fd3f1c5e8039d033ec2bdf93092fd6f88ebc",
+  "mutant_extract.py": "051b37be5c8903f098d1be581a57a7cdb4e64c304e9385f5c9d2aa7387ffa969",
+  "refute_check.py": "0c3d689275e236318ea54292726072999737c064650519f55a8caf4f9966ccc9",
+  "registry_import.py": "7e55ef8c699ef6d50a8294c1fcc8c5498c67132ab98c3daf8c6db684cf3fcf20"
+ },
+ "attempts_sha256": "ccec8de31632734bb3a7c20d891d2685018d9ca190d311c27871b3fc4c9eb7ac",
+ "attempts_cid": "74ebcc2b27ef29b0d6b818ac9a55617c3188445d8aff72997518d8713deb6135"
+}
