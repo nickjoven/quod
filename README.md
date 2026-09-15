@@ -2,6 +2,8 @@
 
 [N. Joven](https://github.com/nickjoven) — 2026 — [ORCID 0009-0008-0679-0812](https://orcid.org/0009-0008-0679-0812) — CC0 1.0
 
+[![records](https://github.com/nickjoven/quod/actions/workflows/records.yml/badge.svg)](https://github.com/nickjoven/quod/actions/workflows/records.yml)
+
 A ledger for Lean 4 theorem claims in which status is **computed by gates, never
 typed by hand**. A claim is a Lean type identified by a lock (a hash of its
 canonical elaborated form); a proof discharges it only if the locks match
@@ -19,6 +21,23 @@ sampled Mathlib theorems.
 The name is *quod erat demonstrandum*: the only thing that enters is what was
 actually demonstrated.
 
+## Results, in one table
+
+Every number is read from a sealed record named in its row; the record's CID
+is the citation. Rates are prover-relative (the named prover, its recorded
+budget) and never a statement about truth.
+
+| what | result | record |
+|---|---|---|
+| Calibration, both polarities | 12/12 controls at their required status, with reasons | [`calib/RESULTS.json`](calib/RESULTS.json) |
+| External claim: OpenAI's Navier–Stokes blow-up (Clay C and D) at its own pin | both **proven**: lock equality, classical axiom triple, independent lean4checker replay of 610 modules; statement equal to the DeepMind original in all 14 canonical forms (descriptor) | [`intake/openai-ns/`](intake/openai-ns/README.md), CID `c570f56e…` |
+| Tier A automation ladder on sampled Mathlib theorems | pilot 0.32 frozen, test 0.25 (fails its own gate; see Q-26) | [`attempts/exit1-tierA.json`](attempts/exit1-tierA.json) |
+| Tier B, a frontier model with the theorem's name hidden and search tactics forbidden, every proof replayed and gated | pilot 0.74 / 0.86 / 0.92 at 1 / 4 / 16 rounds; test 0.685 / 0.80 at 1 / 3 rounds; 0 of 50 negated statements accepted; $68 all-in | [`attempts/exit1-tierB.json`](attempts/exit1-tierB.json), [`exit3-tierB.json`](attempts/exit3-tierB.json) |
+| Statement mutants with a prover-relative verdict | 6,152 elaborated mutants, 142 proven, every attempt lock-verified against the mutant corpus | [`attempts/exit5-tierA.json`](attempts/exit5-tierA.json) |
+| Proof-state transitions (the world-model corpus) | 107,626 tactic steps over goal states identified by lock, three provers, censored budget steps marked | run manifests under [`attempts/`](attempts/), consumed by [lemma](https://github.com/nickjoven/lemma) |
+| Pilot-frame defect found by the controls themselves | the seeded pilot is shallower than the seeded test; protocol amended (A1) | [`OPEN.yml`](OPEN.yml) Q-26, diagnostic CID `3b527442…` |
+
+
 ## What is here
 
 | piece | path | what it does |
@@ -33,6 +52,8 @@ actually demonstrated.
 | Calibration runner | [`scripts/calibrate.py`](scripts/calibrate.py) | Runs the 12 controls under [`SEMANTICS.md`](SEMANTICS.md), computes status and descriptors, writes `claims/*.yml` and `calib/RESULTS.json`, stores every raw gate output by content hash. |
 | Corpus walker | [`scripts/CorpusWalk.lean`](scripts/CorpusWalk.lean) + [`scripts/corpus_extract.py`](scripts/corpus_extract.py) | One Lean process imports Mathlib once and walks the environment: per-declaration heartbeat budgets, a fold-to-`Name`s selection (the earlier `toList` spiked to 14.9 GB RSS and was OOM-killed), an explicitly flushed output handle, and a driver watchdog that kills a stalled walker and resumes past exactly the hung declaration. `--selftest` holds the walker field-exact against `lock.py` before any full run. |
 | Mutant walker | [`scripts/MutantWalk.lean`](scripts/MutantWalk.lean) + [`scripts/mutant_extract.py`](scripts/mutant_extract.py) | `Expr`-level statement mutants (binder-level hypothesis deletion, `And`/`Or`, `Eq`/`Ne`, `0`/`1` swaps) plus proof-side `sorry`/axiom injection with verdicts fixed by construction. |
+| Attempts harness | [`scripts/AttemptWalk.lean`](scripts/AttemptWalk.lean) + [`scripts/attempt.py`](scripts/attempt.py), [`scripts/attempt_b.py`](scripts/attempt_b.py) | Provers in the loop (a tactic ladder, a stepping search, a frontier model through the Batches API), each proof kernel-checked, screened for self-proof (no constant with the demonstrandum's lock), replayed through the gates, and every tactic step recorded as a transition. Controls per prover: frozen P, a test set, and ¬T with halt-on-accept. [`ATTEMPTS.md`](ATTEMPTS.md). |
+| Claim intake | [`intake/openai-ns/`](intake/openai-ns/README.md) | An external Lean claim pinned by commit and file hash, built at its own toolchain, and run through the same gates with an independent checker; statement fidelity to an upstream formalization as a descriptor. |
 | Consumer | [lemma](https://github.com/nickjoven/lemma) | The declarations corpus and the mutant corpus, verified by these manifest CIDs, are the training data for lemma: self-supervised statement encoders whose every metric is content-addressed against these labels. |
 | From-scratch proof | [`calib/Quod/P2.lean`](calib/Quod/P2.lean) | Sharpness of the Crouzeix constant 2 at the 2×2 nilpotent Jordan block, and the refutation of the constant-1 variant from the same witness. |
 | Registry import | [`scripts/registry_import.py`](scripts/registry_import.py), [`millennium/PIN.yml`](millennium/PIN.yml) | One application: the seven lean-dojo `clay_prize_*` statements imported as demonstranda at their own pin. All seven are `stated`; Riemann is anchored to Mathlib's `RiemannHypothesis` through the registry's own `Iff` theorems; the other six are unanchored because Mathlib has no named statement for them. |
