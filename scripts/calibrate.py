@@ -17,7 +17,9 @@ Status of a demonstrandum D (never typed by hand):
 
 Verdict on an offered proof / refutation:
   accepted | incomplete: sorry | rejected: lock mismatch | rejected: shape
-  | rejected: extra axioms [...] | rejected: lean4checker
+  | rejected: extra axioms [...] | rejected: lean4checker | rejected: no replay
+(`accepted` always means the independent replay ran and passed; a claim with no
+module to replay cannot be accepted, github #7.)
 
 Descriptors (computed, never affect status): hypotheses, custom_constants,
 grounded, anchored (per constant, with the gate's reason), reduces_to_True,
@@ -229,6 +231,35 @@ def axiom_verdict(ax):
     return f"rejected: extra axioms {ax['extra']}"
 
 
+def replay_module(c, fallback):
+    """The module lean4checker replays for an accepted verdict. An explicit
+    checker_module wins. When the key is ABSENT the safe derivation is the
+    module that declares the offered proof or refutation: the checker replays a
+    whole module and the offered declaration lives in it. An explicit None
+    means replay was switched off, and under SEMANTICS.md that is a rejection,
+    never a pass (github #7: the old code skipped replay silently)."""
+    if "checker_module" in c and c["checker_module"] is None:
+        return None
+    return c.get("checker_module") or fallback
+
+
+def replay(c, rec, checker, module, verdict_key):
+    """Independent replay is REQUIRED for an accepted verdict: no module, or a
+    nonzero checker, rejects it. Records the module replayed, the checker's
+    exit code and its output CID. Returns True iff the replay succeeded."""
+    if module is None:
+        rec[verdict_key] = "rejected: no replay"
+        rec["checker_rc"] = None
+        rec["reasons"].append("independent replay not configured; an accepted verdict requires lean4checker")
+        return False
+    krc, kout = run(["lake", "env", checker, module], cwd=c["proj"])
+    rec["evidence"]["checker_cid"] = ket_put(kout); rec["checker_rc"] = krc; rec["checker_module"] = module
+    if krc != 0:
+        rec[verdict_key] = "rejected: lean4checker"
+        return False
+    return True
+
+
 def evaluate(c, checker=CHECKER):
     """Compute the record for one control/claim under SEMANTICS.md.
     c: id, proj, module, decl (the offered declaration; also D unless `demonstrandum`
@@ -294,12 +325,9 @@ def evaluate(c, checker=CHECKER):
             _, ax, raw = axioms(c["proj"], c["module"], c["decl"])
             rec["evidence"]["axioms_cid"] = ket_put(raw); rec["axioms"] = ax["axioms"]
             rec["proof_verdict"] = axiom_verdict(ax)
-        if rec["proof_verdict"] == "accepted" and c.get("checker_module"):
-            krc, kout = run(["lake", "env", checker, c["checker_module"]], cwd=c["proj"])
-            rec["evidence"]["checker_cid"] = ket_put(kout); rec["checker_rc"] = krc
-            if krc != 0:
-                rec["proof_verdict"] = "rejected: lean4checker"
-        proof_ok = rec["proof_verdict"] == "accepted"
+        # accepted by the axiom gate is not proven: the independent replay must also pass
+        proof_ok = (rec["proof_verdict"] == "accepted"
+                    and replay(c, rec, checker, replay_module(c, c["module"]), "proof_verdict"))
         for m in c["mutants"]:
             mrc, mout = run(["python3", f"{SCRIPTS}/hyp_mutant.py", c["proj"], m["file"],
                              "--delete", m["delete"]])
@@ -324,12 +352,8 @@ def evaluate(c, checker=CHECKER):
             _, rax, rraw = axioms(c["proj"], rb["module"], rb["decl"])
             rec["evidence"]["refutation_cid"] = ket_put(rraw)
             rec["refutation_verdict"] = axiom_verdict(rax)
-            if rec["refutation_verdict"] == "accepted" and c.get("checker_module"):
-                krc, kout = run(["lake", "env", checker, c["checker_module"]], cwd=c["proj"])
-                rec["evidence"]["checker_cid"] = ket_put(kout); rec["checker_rc"] = krc
-                if krc != 0:
-                    rec["refutation_verdict"] = "rejected: lean4checker"
-        ref_ok = rec["refutation_verdict"] == "accepted"
+        ref_ok = (rec["refutation_verdict"] == "accepted"
+                  and replay(c, rec, checker, replay_module(c, rb["module"]), "refutation_verdict"))
         rec["refutation"] = f"{rb['module']}:{rb['decl']}"
     # ---- status
     if proof_ok and ref_ok:
