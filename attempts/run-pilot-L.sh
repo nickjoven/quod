@@ -12,7 +12,8 @@ SLOTS=${SLOTS:-4}
 PORT=$(homeserv-port claim llama-primary) || { echo "llama-primary port busy"; exit 1; }
 "$SERVER" -m "$GGUF" --host 127.0.0.1 --port "$PORT" -ngl 99 -np "$SLOTS" -c $((8192 * SLOTS)) --log-disable > "attempts/${RUN_ID:-pilot-L}-server.log" 2>&1 &
 SPID=$!
-trap 'kill $SPID 2>/dev/null; homeserv-port release "$PORT" >/dev/null' EXIT
+stop_server() { kill "$SPID" 2>/dev/null; for i in 1 2 3 4 5; do ps -p "$SPID" >/dev/null 2>&1 || return 0; sleep 2; done; kill -9 "$SPID" 2>/dev/null; }  # llama-server hangs on a first SIGTERM with busy slots
+trap 'stop_server; homeserv-port release "$PORT" >/dev/null' EXIT
 for i in $(seq 1 90); do curl -s "http://127.0.0.1:$PORT/health" | grep -q '"ok"' && break; sleep 2; done
 curl -s "http://127.0.0.1:$PORT/health" | grep -q '"ok"' || { echo "server did not come up (see attempts/${RUN_ID:-pilot-L}-server.log)"; exit 1; }
 python3 -u scripts/attempt_b.py --controls attempts/controls-2026.json --corpus corpus/full-20260908b \
@@ -20,4 +21,4 @@ python3 -u scripts/attempt_b.py --controls attempts/controls-2026.json --corpus 
   --backend openai-compat --base-url "http://127.0.0.1:$PORT/v1" --model goedel-prover-v2-8b-q4km --weights "$MODEL" \
   --prover-name tier-L-goedel-v2-8b --prompt-style goedel --temperature 0.6 --repeat-penalty 1.1 --workers "$SLOTS" \
   --max-tokens 3000 --cap-cents 1 --timeout 300 --start-timeout 900 --tier-a-run /nonexistent "$@"
-rc=$?; kill $SPID 2>/dev/null; exit $rc
+rc=$?; stop_server; exit $rc

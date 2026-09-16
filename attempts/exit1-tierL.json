@@ -1,0 +1,138 @@
+{
+ "tier": "L",
+ "prover": "tier-L-goedel-v2-8b",
+ "model": "goedel-prover-v2-8b-q4km",
+ "weights_cid": "da2f0d245bd10923a99cc37a04658194b351fa51842a6092313dffb1f9487c63",
+ "weights_sha256": "483262458b40a4a6c84ec2be74103859c877578b16c3b15eca392a5a0449d116",
+ "prompt_style": "goedel-nocot",
+ "max_tokens": 3000,
+ "exit_condition": "1 (pilot under amendment A1: frame first, stratified pilot, P frozen at the Wilson 80% lower bound)",
+ "pilot_run": "pilot-L",
+ "set": {
+  "controls": "attempts/controls-2026.json",
+  "which": "pilot",
+  "n": 50,
+  "sha256": "16eb56281a15ee146bf1f80ef6233c8cf781fdfeca2f685f89e74c7d12bbe99d",
+  "cid": "f6c3df8407c9eb9a680089984a85bd135c26e2eba6ef2f64299ec44d496a2346"
+ },
+ "n": 50,
+ "rounds_run": 8,
+ "P_frozen": {
+  "P_L(1)": 0.0167,
+  "P_L(4)": 0.0294,
+  "P_L(8)": 0.0294
+ },
+ "P_point": {
+  "P_L(1)": 0.04,
+  "P_L(4)": 0.06,
+  "P_L(8)": 0.06
+ },
+ "levels": {
+  "P_L(1)": {
+   "point": 0.04,
+   "accepted": 2,
+   "n": 50,
+   "wilson80_lower": 0.0167
+  },
+  "P_L(4)": {
+   "point": 0.06,
+   "accepted": 3,
+   "n": 50,
+   "wilson80_lower": 0.0294
+  },
+  "P_L(8)": {
+   "point": 0.06,
+   "accepted": 3,
+   "n": 50,
+   "wilson80_lower": 0.0294
+  }
+ },
+ "accepted_by_round": {
+  "1": 2,
+  "3": 1
+ },
+ "outcomes": {
+  "no_proposal": 69,
+  "no_proof_found": 289,
+  "accepted": 23
+ },
+ "err_classes": {
+  "truncated": 69,
+  "open_goals": 3,
+  "error": 229,
+  "failed": 21,
+  "parse": 36
+ },
+ "proposals": 312,
+ "proposals_with_signature_binders_in_intro": 60,
+ "step0_invalid_brace_notation": 45,
+ "proposals_with_sorry": 18,
+ "spend_cents_total": 0.0,
+ "gpu": "RTX 4070 (Y40), llama.cpp CUDA 12.8, -ngl 99 -np 4 -c 32768",
+ "wall_s_generation_total": 11045.7,
+ "refusals": 0,
+ "selfproof_rejections": 12,
+ "selfproof_note": "the model naming the hidden theorem's own Mathlib constant (statement recognized, label recalled); caught by the gate",
+ "batch_build_rejections": 8,
+ "batch_build_note": "walker-accepted, build-rejected (Q-28: simp argument recovery); 24 transition rows from these scripts carry on_accepted_path=true",
+ "manifest_cid": "afb2bb21d8b0c888042bcf61708671898bad658d85caa878acf6514ea06bd6a6",
+ "pre_manifest_cid": "22afdb1287e31f7587fe89e49182de8f27eebf67576957262392856b4cfd21b4",
+ "prover_config_cid": "5081fdc88987e06be14128d9ce66845087448111f31ae757ba42b41c2d1d2cfd",
+ "attempts_cid": "8cd25fe8a8356573ac8f25bb63299fa5687314200ff824510e96693be1a15f16",
+ "transitions_total": 753,
+ "caveats": [
+  "Q-28: 8 walker-accepted scripts failed the batch build (unknown simp lemma names logged, not thrown); the build verdict stands and they are not counted",
+  "Q-27: the Goedel completion template re-introduces signature binders (`intro {\u03b1} [inst : C \u03b1] ...`); such proposals die at step 0, so P_L is a lower bound on the model's capability under this presentation",
+  "goedel-nocot at max_tokens 3000 after the plan-first template truncated 44/50 at 2000 (first pilot-L attempt, stopped after round 1, not on record)",
+  "P_L is prover-relative and pilot-only until test200-L runs on the frame minus the pilot (controls-2026 test)"
+ ],
+ "unproven": [
+  "AddGroupTopology.instCompleteSemilatticeInf.eq_1",
+  "CategoryTheory.Discrete.natIso_hom_app",
+  "CategoryTheory.Limits.prod.diag_map",
+  "CategoryTheory.StrictlyUnitaryPseudofunctor.map_id",
+  "CategoryTheory.extensive_regular_generate_coherent",
+  "Derivation.mapCoeffs_monomial",
+  "Equiv.Perm.sign_eq_prod_prod_Ioi",
+  "Fin.preimage_apply_01_prod'",
+  "Finmap.keys_replace",
+  "Finset.Iic_toDual",
+  "Finsupp.linearCombination.eq_1",
+  "InnerProductGeometry.norm_add_eq_add_norm_of_angle_eq_zero",
+  "LieAlgebra.bracket_ofTwoCocycle",
+  "LieSubalgebra.coe_bracket",
+  "List.iterate.eq_def",
+  "List.minimum_ne_top_of_length_pos",
+  "Matroid.IsStrictMinor.ne",
+  "MeasurableSpace.measurableSet_bot_iff",
+  "MeasureTheory.measure_union_neg_vadd",
+  "Metric.infEDist_eq_top_iff",
+  "Module.isTorsionBySet_quotient_set_smul",
+  "MvPolynomial.homogeneousSubmodule_one_eq_span_X",
+  "Nat.descFactorial_of_lt",
+  "NonarchimedeanGroup.cauchySeq_prod_of_tendsto_cofinite_one",
+  "NumberField.abs_discr_gt_two",
+  "Polynomial.cyclotomic.eval_apply_ofReal",
+  "Polynomial.sum_add_index",
+  "Quiver.Path.reverse_comp",
+  "Representation.isSemisimpleRepresentation_iff_isSemisimpleModule_asModule",
+  "RingCat.Colimits.descFunLift.eq_6",
+  "SchwartzMap.continuous",
+  "SemiNormedGrp\u2081.of.inj",
+  "Set.powersetCard.isPretransitive_alternatingGroup",
+  "SimpleGraph.EdgeDisjointTriangles.farFromTriangleFree",
+  "SimpleGraph.TripartiteFromTriangles.cliqueSet_eq_image",
+  "StarMonoidHom.coe_toMonoidHom",
+  "Subfield.closure_le",
+  "Submonoid.LocalizationMap.mulEquivOfMulEquiv_mk'",
+  "Trivialization.linearEquivAt_symm_apply",
+  "UniqueAdd.of_card_le_one",
+  "ZFSet.isOrdinal_toZFSet",
+  "isArtinian_sup",
+  "isOfFinAddOrder_of_finite",
+  "isSelfAdjoint_map",
+  "le_iInf_mul",
+  "map_prime_of_equiv",
+  "quasispectrum.coe_zero"
+ ]
+}

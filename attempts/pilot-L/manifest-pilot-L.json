@@ -1,0 +1,603 @@
+{
+ "run_id": "pilot-L",
+ "prover": "tier-L-goedel-v2-8b",
+ "prover_config": {
+  "prover": "tier-L-goedel-v2-8b",
+  "backend": "openai-compat",
+  "model": "goedel-prover-v2-8b-q4km",
+  "model_created_at": null,
+  "effort": "high",
+  "negate": false,
+  "weights": {
+   "name": "goedel-prover-v2-8b-q4km",
+   "file": "models/weights/Goedel-Prover-V2-8B-Q4_K_M.gguf",
+   "bytes": 5027783936,
+   "sha256": "483262458b40a4a6c84ec2be74103859c877578b16c3b15eca392a5a0449d116",
+   "cid": "da2f0d245bd10923a99cc37a04658194b351fa51842a6092313dffb1f9487c63",
+   "source": "Goedel-LM/Goedel-Prover-V2-8B@dfd02e6271a58375dfbf3ece0175277cf6b6a89a (official safetensors; converted with llama.cpp 930e2fa59 convert_hf_to_gguf bf16, quantized Q4_K_M by llama-quantize)",
+   "url": null,
+   "quantization": "Q4_K_M",
+   "context_length": 32768,
+   "license": "apache-2.0 (model card)",
+   "registered": "2026-09-15T23:47:34-0400",
+   "format": "gguf"
+  },
+  "temperature": 0.6,
+  "prompt_style": "goedel-nocot",
+  "repeat_penalty": 1.1,
+  "workspace_header": false,
+  "max_tokens": 3000,
+  "rounds": 8,
+  "levels": [
+   1,
+   4,
+   16
+  ],
+  "protocol": "one batch per round over open demonstranda; full history of proposals + Lean errors; drop at first gate-accepted proof; stepwise replay via AttemptWalk CORPUS_SCRIPTS",
+  "system_prompt_sha256": "4498012a56fafad53ece21ca649b5b13d8c2d6c79563f563695ef7014b18f88d",
+  "heartbeats_per_step": 20000000,
+  "walker_sha256": "190ea65e64fa6ee298184988ca9087efb66a7ab593fd1a9ace3096aae202e784",
+  "forbidden_tactics": [
+   "exact?",
+   "apply?",
+   "rw?",
+   "simp?",
+   "aesop?",
+   "hint",
+   "sorry",
+   "admit",
+   "native_decide"
+  ],
+  "self_proof_gate": "name hidden; any accepted term using the demonstrandum's name or a same-lock constant is rejected: self-proof and counts as a failure for P"
+ },
+ "prover_config_cid": "5081fdc88987e06be14128d9ce66845087448111f31ae757ba42b41c2d1d2cfd",
+ "cap_cents": 1,
+ "prices_usd_per_mtok": {
+  "input": 0.0,
+  "output": 0.0,
+  "cache_write": 0.0,
+  "cache_read": 0.0
+ },
+ "set": {
+  "controls": "attempts/controls-2026.json",
+  "which": "pilot",
+  "n": 50,
+  "sha256": "16eb56281a15ee146bf1f80ef6233c8cf781fdfeca2f685f89e74c7d12bbe99d",
+  "cid": "f6c3df8407c9eb9a680089984a85bd135c26e2eba6ef2f64299ec44d496a2346"
+ },
+ "tier_a_failed_subset": [],
+ "prompt_cid": "7847db00aec681ac40d4781a1def35f0b151d44fe0287c4646cf426e0859f84c",
+ "pins": {
+  "lean": "v4.28.0",
+  "mathlib": "8f9d9cff6bd728b17a24e163c9402775d9e6a365",
+  "jin": "f9d5c8d39bece41ceedf6346ef50ad1fb393260e",
+  "lean4checker": "66e11cea12f5ba215d76b15b7f8495141bf52c6c"
+ },
+ "scripts": {
+  "AttemptWalk.lean": "190ea65e64fa6ee298184988ca9087efb66a7ab593fd1a9ace3096aae202e784",
+  "CorpusWalk.lean": "0a5905399209f116d806e9c4eaedca421322ccadd14390c7ffd2e5a402469847",
+  "MutantWalk.lean": "0d9d4e804cef411a0a473ed3a42a51bcbc398f69bee97627e7106c2734452681",
+  "anchor_check.py": "fce5cb95d06ee268bb120adf414e262da39b32a39c8e69b9be9680e53b0cfdf0",
+  "attempt.py": "6adbd81bee9cf2105635499c2b7ae715df28bd4d06cdc504d3061ee823015096",
+  "attempt_b.py": "7c35e75ecf7b06cf6b7a54ff626a487b045ecba898fc2cc767fc8f64d1058ccb",
+  "axiom_gate.py": "aed923bbb7ce405f9a61b9bb58bf2ae4c7df9f7810d21329126cb64dc50992b4",
+  "bootstrap.sh": "b9bc80ef5e99af7831ceaa9c990619bae35d49dababff2aed176afc407ba0c10",
+  "calibrate.py": "4f481f1f6765bee64a02c3c114f92810bb8c96d37698589d839dc4291b495420",
+  "closure.py": "644e45922f305aeaa7d5b6b3b5e4e00613365dda5a499c8cc68e29c15ed2bcf6",
+  "controls.py": "d352f30b071f230d457e81a757625a2e0124d2fdd27fac9d6e6c5240ff20c51a",
+  "corpus_extract.py": "b96566c079939b57b61a5e613bb96b48bb503d58bd45ccb94e10853ffdc48e94",
+  "dag_depth.py": "ffb0fccee5181250c39820ce33662b2178807c1d76ecf1d75327b3cbb60dfda6",
+  "derive_pairs.py": "ffcba431b8f55e1b93b9ac42973a218b17d19444f47700fbd283d59dd6998f08",
+  "hyp_mutant.py": "c6d6a5d2789f37f1af8a7a9059b44f2e81bc23c4dcf1b1299c5cf89185c570dd",
+  "leanenv.py": "3858a5564b21638e48d68695ce80867f979ad28df2c2f429573cbe5c7d8fe690",
+  "lock.py": "44701e8ce72cbf8b0876a0025c10fd3f1c5e8039d033ec2bdf93092fd6f88ebc",
+  "models_register.py": "4514fbe10697859114ad7710b710f32baf05d91e43abb2c7895465976b95d123",
+  "mutant_extract.py": "051b37be5c8903f098d1be581a57a7cdb4e64c304e9385f5c9d2aa7387ffa969",
+  "prover_backends.py": "c9387720dc81bcbfb23bdf6ab058bb7595ad4e6033adba089ec5cea8c97ac928",
+  "refute_check.py": "0c3d689275e236318ea54292726072999737c064650519f55a8caf4f9966ccc9",
+  "registry_import.py": "7e55ef8c699ef6d50a8294c1fcc8c5498c67132ab98c3daf8c6db684cf3fcf20",
+  "verify_records.py": "70370f21bde1c7bd861f17cf2d90f4448cff74b4aab12d16baadd042eb12ca7a"
+ },
+ "prior_spend_cents": 0.0,
+ "prior_note": "",
+ "sealed_before_run": "2026-09-16T00:17:18-0400",
+ "rounds_run": 8,
+ "spend_cents": 0.0,
+ "usage": {
+  "input": 329366,
+  "output": 561483,
+  "cache_write": 0,
+  "cache_read": 0
+ },
+ "round_costs_cents": [
+  0.0,
+  0.0,
+  0.0,
+  0.0,
+  0.0,
+  0.0,
+  0.0,
+  0.0
+ ],
+ "refusals": 0,
+ "selfproof_rejections": 12,
+ "P": {
+  "P_B(1)": {
+   "all": 0.04,
+   "tier_a_failed": null
+  },
+  "P_B(4)": {
+   "all": 0.06,
+   "tier_a_failed": null
+  },
+  "P_B(16)": {
+   "all": 0.06,
+   "tier_a_failed": null
+  }
+ },
+ "frozen": true,
+ "accepted": {
+  "PartOrdEmb.hom_ext_iff": 1,
+  "CategoryTheory.eHomWhiskerLeft_id": 3,
+  "Action.ofMulAction_apply": 1
+ },
+ "transitions": {
+  "n_transitions": 753,
+  "rounds": [
+   {
+    "round": 1,
+    "n_transitions": 51,
+    "n_goals": 37,
+    "censored": 0,
+    "on_accepted_path": 8,
+    "accepted_path_fraction": 0.1569,
+    "by_position": {
+     "0:script": {
+      "open": 14,
+      "error": 5
+     },
+     "1:script": {
+      "open": 12,
+      "closed": 1,
+      "error": 1
+     },
+     "2:script": {
+      "closed": 6,
+      "open": 4,
+      "error": 1
+     },
+     "3:script": {
+      "closed": 2,
+      "open": 2
+     },
+     "4:script": {
+      "open": 1,
+      "closed": 1
+     },
+     "5:script": {
+      "error": 1
+     }
+    },
+    "shards": [
+     {
+      "file": "transitions/goals-0000.jsonl",
+      "kind": "goals",
+      "records": 37,
+      "sha256": "4f729d23d934242127a6d247c2ad4f234a9ab59b90c02921a3c783af84d6dfd4",
+      "cid": "35eb11aa660279f1e59ca4a41edd0084e038aaab6f13ee7aa40896d323e8ee18"
+     },
+     {
+      "file": "transitions/transitions-0000.jsonl",
+      "kind": "transitions",
+      "records": 51,
+      "sha256": "17041ef64e56b69124d8c0895749298a456e58251aaf3f6cad0c6d9fde07e29a",
+      "cid": "71b73c1a34554e3d5e03f0f09234fbe79a7a6926f774723ef13684e030a46865"
+     }
+    ]
+   },
+   {
+    "round": 2,
+    "n_transitions": 85,
+    "n_goals": 63,
+    "censored": 0,
+    "on_accepted_path": 9,
+    "accepted_path_fraction": 0.1059,
+    "by_position": {
+     "0:script": {
+      "error": 8,
+      "open": 23
+     },
+     "1:script": {
+      "open": 18,
+      "error": 5
+     },
+     "2:script": {
+      "closed": 9,
+      "error": 3,
+      "open": 6
+     },
+     "3:script": {
+      "closed": 3,
+      "open": 3
+     },
+     "4:script": {
+      "open": 1,
+      "closed": 2
+     },
+     "5:script": {
+      "open": 1
+     },
+     "6:script": {
+      "open": 1
+     },
+     "7:script": {
+      "open": 1
+     },
+     "8:script": {
+      "open": 1
+     }
+    },
+    "shards": [
+     {
+      "file": "transitions/goals-0000.jsonl",
+      "kind": "goals",
+      "records": 63,
+      "sha256": "96c44f082b2e7e91783fc9cded29e884549b8d318d81a84b86f244a0bc5ce4a0",
+      "cid": "8297dce0c9fdfff2874c9e9221c358e26883770e437dbdaaac5e0117a9450529"
+     },
+     {
+      "file": "transitions/transitions-0000.jsonl",
+      "kind": "transitions",
+      "records": 85,
+      "sha256": "034bc9acccbed1190e84f4a1de757bdb66809d37e752a0db7b241d4dfc270d51",
+      "cid": "641f84e7e9d84e3dd8fd02d616d397dfb5c3f527b6bd5547d2a5725034d45e3e"
+     }
+    ]
+   },
+   {
+    "round": 3,
+    "n_transitions": 94,
+    "n_goals": 67,
+    "censored": 0,
+    "on_accepted_path": 5,
+    "accepted_path_fraction": 0.0532,
+    "by_position": {
+     "0:script": {
+      "open": 27,
+      "error": 8
+     },
+     "1:script": {
+      "error": 7,
+      "open": 19,
+      "closed": 1
+     },
+     "2:script": {
+      "closed": 10,
+      "error": 3,
+      "open": 6
+     },
+     "3:script": {
+      "closed": 2,
+      "open": 4
+     },
+     "4:script": {
+      "open": 1,
+      "closed": 3
+     },
+     "5:script": {
+      "open": 1
+     },
+     "6:script": {
+      "open": 1
+     },
+     "7:script": {
+      "error": 1
+     }
+    },
+    "shards": [
+     {
+      "file": "transitions/goals-0000.jsonl",
+      "kind": "goals",
+      "records": 67,
+      "sha256": "8f657343e659773f99b637aa203a7db6b4ac94878fc6f576b047c6a59edcdc0e",
+      "cid": "fe66177dddecbf94805ba736ca603f985a3c6b029b80f1694d25748d2b146ec7"
+     },
+     {
+      "file": "transitions/transitions-0000.jsonl",
+      "kind": "transitions",
+      "records": 94,
+      "sha256": "b9bdbcc33a9b6e1e18be9388c0c9bb00743ddd0a16d103e5164f1d953e15474e",
+      "cid": "ca028ad33315045455e3bef25102c158c088f41fd7b3d84433348653440b69e3"
+     }
+    ]
+   },
+   {
+    "round": 4,
+    "n_transitions": 97,
+    "n_goals": 69,
+    "censored": 0,
+    "on_accepted_path": 8,
+    "accepted_path_fraction": 0.0825,
+    "by_position": {
+     "0:script": {
+      "open": 27,
+      "error": 8
+     },
+     "1:script": {
+      "error": 5,
+      "open": 21,
+      "closed": 1
+     },
+     "2:script": {
+      "closed": 11,
+      "error": 4,
+      "open": 6
+     },
+     "3:script": {
+      "open": 5,
+      "closed": 1
+     },
+     "4:script": {
+      "closed": 4,
+      "open": 1
+     },
+     "5:script": {
+      "open": 1
+     },
+     "6:script": {
+      "open": 1
+     },
+     "7:script": {
+      "error": 1
+     }
+    },
+    "shards": [
+     {
+      "file": "transitions/goals-0000.jsonl",
+      "kind": "goals",
+      "records": 69,
+      "sha256": "52b32b1c4a6967b8ba4ed4181f48a479ce2631e4a294d26747b189d954cc1e83",
+      "cid": "c15319a94b21273f90df83099ec03c0e335d217fe2d5d687f20612f1b41a61b5"
+     },
+     {
+      "file": "transitions/transitions-0000.jsonl",
+      "kind": "transitions",
+      "records": 97,
+      "sha256": "7b7e53a2fbeea9d7677356d67851661158002e341f387415abb0ab71062395f3",
+      "cid": "ad01b5425a324376dbb0df1cb7efacc43b4d5660cc62c231357d009f4c881a61"
+     }
+    ]
+   },
+   {
+    "round": 5,
+    "n_transitions": 108,
+    "n_goals": 78,
+    "censored": 0,
+    "on_accepted_path": 8,
+    "accepted_path_fraction": 0.0741,
+    "by_position": {
+     "0:script": {
+      "open": 31,
+      "error": 8
+     },
+     "1:script": {
+      "open": 22,
+      "error": 8,
+      "closed": 1
+     },
+     "2:script": {
+      "open": 7,
+      "closed": 12,
+      "error": 3
+     },
+     "3:script": {
+      "open": 6,
+      "error": 1
+     },
+     "4:script": {
+      "open": 2,
+      "closed": 4
+     },
+     "5:script": {
+      "open": 1
+     },
+     "6:script": {
+      "open": 1
+     },
+     "7:script": {
+      "error": 1
+     }
+    },
+    "shards": [
+     {
+      "file": "transitions/goals-0000.jsonl",
+      "kind": "goals",
+      "records": 78,
+      "sha256": "6613c536770af9d082a24551f59f6a43b4a4ab8bb276be8d5a801a2c237a875a",
+      "cid": "44dc51ff0f5638b095617c0db792658d5a6cd6e00861eb298a3eb547810e779d"
+     },
+     {
+      "file": "transitions/transitions-0000.jsonl",
+      "kind": "transitions",
+      "records": 108,
+      "sha256": "93ccbfca63adf59a13930a7ce68ba5495ca7846df5be30bc377cb1f57576a78e",
+      "cid": "7e37e250a92140e7eda8c21834adac15e5098988eb13a777661370c985edded2"
+     }
+    ]
+   },
+   {
+    "round": 6,
+    "n_transitions": 107,
+    "n_goals": 74,
+    "censored": 0,
+    "on_accepted_path": 8,
+    "accepted_path_fraction": 0.0748,
+    "by_position": {
+     "0:script": {
+      "open": 32,
+      "error": 7
+     },
+     "1:script": {
+      "error": 9,
+      "open": 22,
+      "closed": 1
+     },
+     "2:script": {
+      "closed": 13,
+      "error": 3,
+      "open": 6
+     },
+     "3:script": {
+      "error": 1,
+      "open": 5
+     },
+     "4:script": {
+      "closed": 4,
+      "open": 1
+     },
+     "5:script": {
+      "open": 1
+     },
+     "6:script": {
+      "open": 1
+     },
+     "7:script": {
+      "error": 1
+     }
+    },
+    "shards": [
+     {
+      "file": "transitions/goals-0000.jsonl",
+      "kind": "goals",
+      "records": 74,
+      "sha256": "12cffff2ae530e6209c9212b7d35c8f10be689b81e0db69a476aa85fa3bc36cf",
+      "cid": "1da7a395d11130d15d22839120eabbb2ab1086794f8575e66087ec5d9cde77fe"
+     },
+     {
+      "file": "transitions/transitions-0000.jsonl",
+      "kind": "transitions",
+      "records": 107,
+      "sha256": "c6f815490be2c2f7df04f4ed41ede20065aacf29eac0f4905fce39fdf3b3f6cd",
+      "cid": "c699328d6e6010121ce8b64100e4255d8d28e96b62f9da8a3e337d50809d8e25"
+     }
+    ]
+   },
+   {
+    "round": 7,
+    "n_transitions": 103,
+    "n_goals": 72,
+    "censored": 0,
+    "on_accepted_path": 8,
+    "accepted_path_fraction": 0.0777,
+    "by_position": {
+     "0:script": {
+      "open": 30,
+      "error": 8
+     },
+     "1:script": {
+      "error": 7,
+      "open": 22,
+      "closed": 1
+     },
+     "2:script": {
+      "closed": 13,
+      "error": 4,
+      "open": 5
+     },
+     "3:script": {
+      "open": 5
+     },
+     "4:script": {
+      "closed": 4,
+      "open": 1
+     },
+     "5:script": {
+      "open": 1
+     },
+     "6:script": {
+      "open": 1
+     },
+     "7:script": {
+      "error": 1
+     }
+    },
+    "shards": [
+     {
+      "file": "transitions/goals-0000.jsonl",
+      "kind": "goals",
+      "records": 72,
+      "sha256": "4a4080011ee89a01c45c8ca9f6c19ebb747b6465e16b2599cff3571ac94a1735",
+      "cid": "8d2ecd36f0a5bc45654f4d54851ad77b334dfab02b94b99ab69abe19bd22fc96"
+     },
+     {
+      "file": "transitions/transitions-0000.jsonl",
+      "kind": "transitions",
+      "records": 103,
+      "sha256": "5ff07383c00b582c5417e0a014d104b2111ec6ac6792d76c15bae881e90342df",
+      "cid": "6152d3eb48d891108e6d27a1312457086d9ce96014dad565c623d5c99d983acf"
+     }
+    ]
+   },
+   {
+    "round": 8,
+    "n_transitions": 108,
+    "n_goals": 76,
+    "censored": 0,
+    "on_accepted_path": 8,
+    "accepted_path_fraction": 0.0741,
+    "by_position": {
+     "0:script": {
+      "open": 32,
+      "error": 8
+     },
+     "1:script": {
+      "error": 9,
+      "open": 21,
+      "closed": 2
+     },
+     "2:script": {
+      "closed": 13,
+      "error": 2,
+      "open": 6
+     },
+     "3:script": {
+      "open": 6
+     },
+     "4:script": {
+      "error": 1,
+      "closed": 4,
+      "open": 1
+     },
+     "5:script": {
+      "open": 1
+     },
+     "6:script": {
+      "open": 1
+     },
+     "7:script": {
+      "error": 1
+     }
+    },
+    "shards": [
+     {
+      "file": "transitions/goals-0000.jsonl",
+      "kind": "goals",
+      "records": 76,
+      "sha256": "1f0bf60cad0dd98f28c07bd7618e4d733385070352ff2c7e6fb0f6e7c6e70d59",
+      "cid": "897b2c67c4bca988eec4522ae45be25bbbcbf976b44901b3d7024fbc0cf26dea"
+     },
+     {
+      "file": "transitions/transitions-0000.jsonl",
+      "kind": "transitions",
+      "records": 108,
+      "sha256": "65ccb790c0ca861420fedbc7fa1527484dd324723afba8e806a1bab1c895a7c3",
+      "cid": "aeec40b85e8c0d9f47810f9ba8233dc9080316a270c1fa17dd92b127847bbfe6"
+     }
+    ]
+   }
+  ]
+ },
+ "attempts_sha256": "16854e9e5733c8011673c1780ad51ad21d32a65b0ea67d5e5c59e491a8dbd68f",
+ "elapsed_s": 4467.3,
+ "attempts_cid": "8cd25fe8a8356573ac8f25bb63299fa5687314200ff824510e96693be1a15f16"
+}

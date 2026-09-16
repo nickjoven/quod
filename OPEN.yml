@@ -325,3 +325,42 @@
     mechanical first-line repair (strip braces, brackets and ascriptions from
     the intro line) is the cheaper alternative and must be recorded per
     attempt as a repair, not silently applied.
+
+- id: Q-28
+  severity: medium
+  status: open
+  title: the walker accepts a script whose simp arguments failed to elaborate; only the batch build catches it
+  detail: >
+    AttemptWalk runs tactics under Term.withoutErrToSorry and rejects a proof
+    term with metavariables or sorry, but a tactic's OWN error recovery is
+    governed by the Tactic context's `recover` flag, which the walker leaves
+    at its default (true). simp's argument elaborator (Lean 4.28
+    Lean/Elab/Tactic/Simp.lean, elabSimpArgs: "if (← read).recover then go
+    else Term.withoutErrToSorry go") therefore LOGS an unknown lemma name and
+    continues with the remaining arguments; if the rest of the script closes
+    the goal, the term is sorry-free and the walker records `accepted`. The
+    per-round batch build then fails the module ("Unknown constant
+    `OrderDual.le_def`", "Unknown constant `MonoidHom.toMonoidHom`", "Unknown
+    constant `RingCat.mul_coe`") and the driver records the verdict
+    `rejected: batch build failed`. The status is therefore right (the build
+    is the authority; ATTEMPTS.md gates a proof on the module building), and
+    the disagreement was found because the ledger records both stages. Seen
+    in pilot-L: 8 attempts over 3 demonstranda (StarMonoidHom.coe_toMonoidHom,
+    RingCat.Colimits.descFunLift.eq_6, Finset.Iic_toDual), and 1 in pilot-B2;
+    none in the ladder runs, which do not use simp with lemma lists. The
+    transitions corpus is the casualty: those 8 scripts contributed 24
+    transition rows carrying on_accepted_path=true and
+    attempt_outcome=accepted, and attempt_verdict is null there because the
+    build verdict is never propagated back into the shards.
+  fix: >
+    (1) Walker: run every step with `Tactic.withoutRecover` (recover := false)
+    so a logged elaboration error becomes a step failure, and additionally
+    check Core.getMessageLog for errors after each step (belt and braces:
+    other tactics recover on their own terms). (2) Driver: after the batch
+    build, rewrite the round's transition rows for a build-rejected attempt
+    with attempt_verdict="rejected: batch build failed" and
+    on_accepted_path=false, and re-hash the shard. (3) lemma: until (2)
+    lands, wire_quod_run.py treats a row whose attempt_verdict is null and
+    whose attempt is not in the manifest's `accepted` map as NOT on an
+    accepted path. Both (1) and (2) are runner edits: next prover config, not
+    the runs in flight.
