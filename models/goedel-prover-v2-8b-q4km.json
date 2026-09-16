@@ -1,0 +1,14 @@
+{
+ "name": "goedel-prover-v2-8b-q4km",
+ "file": "models/weights/Goedel-Prover-V2-8B-Q4_K_M.gguf",
+ "bytes": 5027783936,
+ "sha256": "483262458b40a4a6c84ec2be74103859c877578b16c3b15eca392a5a0449d116",
+ "cid": "da2f0d245bd10923a99cc37a04658194b351fa51842a6092313dffb1f9487c63",
+ "source": "Goedel-LM/Goedel-Prover-V2-8B@dfd02e6271a58375dfbf3ece0175277cf6b6a89a (official safetensors; converted with llama.cpp 930e2fa59 convert_hf_to_gguf bf16, quantized Q4_K_M by llama-quantize)",
+ "url": null,
+ "quantization": "Q4_K_M",
+ "context_length": 32768,
+ "license": "apache-2.0 (model card)",
+ "registered": "2026-09-15T23:47:34-0400",
+ "format": "gguf"
+}
