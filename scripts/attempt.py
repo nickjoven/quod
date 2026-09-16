@@ -91,9 +91,9 @@ def write_transitions(out_dir: str, raw: str, atts: list[dict], locks: dict[str,
         after_locks = after if isinstance(after, str) else [goals[g] for g in after if g in goals]
         outcome = ("budget" if j["err_class"] == "budget" else after if isinstance(after, str) else "open")
         if "path_sids" in a:      # stepping prover: the accepted path is a list of step ids
-            on_path = a["outcome"] == "accepted" and j.get("sid") in set(a["path_sids"])
+            on_path = a["outcome"] == "accepted" and a.get("verdict") in (None, "accepted") and j.get("sid") in set(a["path_sids"])
         else:
-            on_path = a["outcome"] == "accepted" and (j["kind"] == "intros" or j["pos"] == a.get("accepted_pos"))
+            on_path = a["outcome"] == "accepted" and a.get("verdict") in (None, "accepted") and (j["kind"] == "intros" or j["pos"] == a.get("accepted_pos"))
         key = f"{j['pos']}:{j['kind']}"
         by_pos.setdefault(key, {})[outcome] = by_pos.setdefault(key, {}).get(outcome, 0) + 1
         trows.append({"attempt_id": f"{run_id}:{j['aid']}", "demonstrandum": a["demonstrandum"],

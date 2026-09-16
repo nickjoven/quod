@@ -118,7 +118,7 @@ def runTacOn (g : MVarId) (stx : Syntax) : MetaM (Except String (List MVarId)) :
   try
     let gs ← Term.TermElabM.run' (ctx := {}) (s := {}) do
       Term.withoutErrToSorry do
-        let gs ← Tactic.run g (Tactic.evalTactic stx)
+        let gs ← Tactic.run g (Tactic.withoutRecover (Tactic.evalTactic stx))   -- Q-28: simp's argument elaborator LOGS an unknown lemma under recover=true
         Term.synthesizeSyntheticMVarsNoPostponing
         pure gs
     return .ok gs
@@ -408,7 +408,7 @@ def runTacOnGoals (goals : List MVarId) (stx : Syntax) : MetaM (Except String (L
     try
       let gs ← Term.TermElabM.run' (ctx := {}) (s := {}) do
         Term.withoutErrToSorry do
-          let gs ← Tactic.run g (do Tactic.setGoals goals; Tactic.evalTactic stx)
+          let gs ← Tactic.run g (do Tactic.setGoals goals; Tactic.withoutRecover (Tactic.evalTactic stx))
           Term.synthesizeSyntheticMVarsNoPostponing
           pure gs
       return .ok gs

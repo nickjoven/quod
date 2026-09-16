@@ -82,12 +82,57 @@ def extract_script(text: str) -> str:
 GOEDEL_HEADER = "import Mathlib\nimport Aesop\nset_option maxHeartbeats 400000\nopen BigOperators Real Nat Topology Rat\n"
 
 
-def build_goedel_message(stmt: str, history: list[dict], negate: bool = False, cot: bool = True) -> str:
+OPEN = {"{": "}", "[": "]", "(": ")", "⦃": "⦄"}
+CLOSE = {v: k for k, v in OPEN.items()}
+
+def split_telescope(stmt: str):
+    """`∀ {α : Type u} [inst : C α] (a : α), body` -> (binder groups string, intro names, body); None if the
+    statement does not open with a binder telescope. Bracket-balanced, so nested ∀ inside a binder type is safe."""
+    s = stmt.strip()
+    if not s.startswith("∀"):
+        return None
+    i = 1; groups = []; names = []; anon = 0
+    while True:
+        while i < len(s) and s[i].isspace(): i += 1
+        if i >= len(s): return None
+        if s[i] == ",":
+            body = s[i + 1:].strip()
+            return (" ".join(groups), names, body) if groups else None
+        if s[i] not in OPEN:
+            return None                      # `∀ x y, …` without brackets: pp never emits this for theorems, but be safe
+        depth = 0; j = i
+        while j < len(s):
+            c = s[j]
+            if c in OPEN: depth += 1
+            elif c in CLOSE:
+                depth -= 1
+                if depth == 0: break
+            j += 1
+        if j >= len(s): return None
+        g = s[i:j + 1]; groups.append(g)
+        inner = g[1:-1].strip()
+        # top-level colon splits names from the type; a bracketed group without one is an anonymous instance
+        d = 0; colon = -1
+        for k, c in enumerate(inner):
+            if c in OPEN: d += 1
+            elif c in CLOSE: d -= 1
+            elif c == ":" and d == 0 and inner[k:k+2] != ":=":
+                colon = k; break
+        if colon < 0:
+            anon += 1; names.append(f"inst_anon_{anon}")
+        else:
+            names.extend(inner[:colon].split())
+        i = j + 1
+
+
+def build_goedel_message(stmt: str, history: list[dict], negate: bool = False, cot: bool = True, signature: tuple | None = None) -> str:
     """The completion template Goedel-Prover-V2 (and DeepSeek-Prover) were trained on; the theorem
     name is a placeholder here too, and earlier failures are appended as Lean feedback. cot=False
     omits the plan request (the models' non-CoT mode: code only, far shorter outputs)."""
     shown = f"¬ ({stmt})" if negate else stmt
-    parts = ["Complete the following Lean 4 code:\n\n```lean4\n" + GOEDEL_HEADER + f"\ntheorem X : {shown} := by\n```"]
+    # Q-27: the model was trained on binders in the signature; a closed ∀ makes it re-introduce them as `intro {α} [inst : C α]`.
+    head = f"theorem X {signature[0]} : {signature[2]} := by" if signature else f"theorem X : {shown} := by"
+    parts = ["Complete the following Lean 4 code:\n\n```lean4\n" + GOEDEL_HEADER + f"\n{head}\n```"]
     if cot:
         parts.append("\n\nBefore producing the Lean 4 code to formally prove the given theorem, provide a detailed proof plan outlining the main proof steps and strategies.\n"
                      "The plan should highlight key ideas, intermediate lemmas, and proof structures that will guide the construction of the final formal proof.")
@@ -150,6 +195,8 @@ def main() -> int:
     ap.add_argument("--weights", default="", help="openai-compat: models/<name>.json registry entry (weights CID, license) sealed into prover_config")
     ap.add_argument("--temperature", type=float, default=0.6, help="openai-compat sampling temperature (Opus 5 has none)")
     ap.add_argument("--workers", type=int, default=2, help="openai-compat concurrent requests")
+    ap.add_argument("--presentation", choices=["closed", "signature"], default="closed",
+                    help="signature: a goedel prompt shows the leading ∀ telescope as theorem binders and the extracted script is prefixed with `intro <names>` (Q-27); never under --negate")
     ap.add_argument("--prompt-style", choices=["instruct", "goedel", "goedel-nocot"], default="instruct",
                     help="instruct = the tier B system prompt + tactic block reply; goedel = the Goedel-Prover / DeepSeek-Prover completion template WITH a proof plan first (long outputs); goedel-nocot = the same template without the plan request (code only)")
     ap.add_argument("--repeat-penalty", type=float, default=1.1, help="openai-compat: llama.cpp repeat_penalty (loops on the header otherwise)")
@@ -232,7 +279,7 @@ def main() -> int:
     prover = args.prover_name or ("tier-B" if args.backend == "anthropic" else f"tier-L-{args.model}")
     prover_config = {"prover": prover, "backend": args.backend, "model": args.model, "model_created_at": created_at, "effort": args.effort, "negate": args.negate,
                      "weights": registry, "temperature": args.temperature if args.backend != "anthropic" else None,
-                     "prompt_style": args.prompt_style, "repeat_penalty": args.repeat_penalty if args.backend != "anthropic" else None,
+                     "prompt_style": args.prompt_style, "presentation": args.presentation, "repeat_penalty": args.repeat_penalty if args.backend != "anthropic" else None,
                      "workspace_header": bool(os.environ.get("ANTHROPIC_WORKSPACE_ID")),
                      "max_tokens": args.max_tokens, "rounds": args.rounds, "levels": list(LEVELS),
                      "protocol": "one batch per round over open demonstranda; full history of proposals + Lean errors; "
@@ -292,8 +339,9 @@ def main() -> int:
         for i, n in enumerate(open_names):
             stmt = stmts[n].get("readable_pp") or stmts[n]["canonical_type"]
             if args.prompt_style.startswith("goedel"):
+                sig = split_telescope(stmt) if (args.presentation == "signature" and not args.negate) else None
                 params = {"model": args.model, "max_tokens": args.max_tokens, "system": [],
-                          "messages": [{"role": "user", "content": build_goedel_message(stmt, state[n]["history"], args.negate, cot=(args.prompt_style == "goedel"))}]}
+                          "messages": [{"role": "user", "content": build_goedel_message(stmt, state[n]["history"], args.negate, cot=(args.prompt_style == "goedel"), signature=sig)}]}
             else:
                 params = {"model": args.model, "max_tokens": args.max_tokens,
                           "system": [{"type": "text", "text": SYSTEM_PREFIX, "cache_control": {"type": "ephemeral"}}],
@@ -369,6 +417,11 @@ def main() -> int:
                 continue
             text = res["text"]
             script = extract_goedel_script(text) if args.prompt_style.startswith("goedel") else extract_script(text)
+            if script and args.prompt_style.startswith("goedel") and args.presentation == "signature" and not args.negate:
+                sig = split_telescope(stmts[n].get("readable_pp") or stmts[n]["canonical_type"])
+                if sig:                   # the closed demonstrandum is what the walker attempts: introduce the signature first
+                    rec["presentation"] = "signature"; rec["intro_prefix"] = sig[1]
+                    script = "intro " + " ".join(sig[1]) + "\n" + script
             if not script.strip():
                 trunc = res["stop_reason"] in ("max_tokens", "length")
                 why = "truncated: the answer did not fit in max_tokens (thinking consumed it)" if trunc else "empty answer"
@@ -435,8 +488,10 @@ def main() -> int:
                 state[n]["history"].append({"round": r, "script": rec["script"], "error_step": 0, "err_class": "gate", "err": f"external gate: {rec.get('verdict')} {(rec.get('build_err') or '')[:400]}"})
             att_rows.append(rec)
         # transitions of this round (aid restarts per walker pass, so per-round sections)
-        for a in atts.values():
-            a["demonstrandum"] = a["demonstrandum"]
+        for p in proposals:               # Q-28: the gate verdict travels with the walker record into the transition rows
+            a = atts.get(p["id"])
+            if a is not None and p["rec"].get("verdict") is not None:
+                a["verdict"] = p["rec"]["verdict"]
         trans = at.write_transitions(os.path.join(out_dir, f"r{r}"), raw, list(atts.values()), locks, f"{args.run_id}-r{r}", prover, prover_config_cid,
                                      (lambda p: None) if args.no_ket else ce.ket_put_file)
         trans_sections.append({"round": r, **trans})
