@@ -293,3 +293,35 @@
     accepted, 40/50 responses without a script, manifest 78bf9c3c...) is the
     first sealed evidence that the tier B prover declines false statements;
     the adversarial sweep (item 8) cites it.
+
+- id: Q-27
+  severity: medium
+  status: open
+  title: the Goedel completion template and quod's closed-∀ demonstrandum disagree about binders
+  detail: >
+    Goedel-Prover-V2 was trained on `theorem name (binders) : body := by`, with
+    the binders in the signature. attempt_b.py --prompt-style goedel presents
+    the demonstrandum as `theorem X : ∀ {α} [inst : C α] (a : α), body := by`,
+    so the model re-introduces the signature it expects to see, verbatim:
+    `intro {α} {β} inst a b s`, `intro {B : Type u₁} [inst : Bicategory B] ...`.
+    Lean parses `{α}` there as structure-instance notation and the script dies
+    at step 0 ("invalid {...} notation, expected type is not of the form (C
+    ...)"). Observed in pilot-L (goedel-nocot) rounds 1-2: 13 of 56 proposals
+    open with a brace or bracket binder group in the first intro line, 10 of
+    them failing at step 0 for exactly this reason; a further 8 carry `sorry`
+    in a `have` (an honest no-proof) and 2 cite `u₁` universe names copied from
+    the statement's pp. The tier L pilot rate is therefore a lower bound on the
+    model's capability under this presentation; the run continues unchanged
+    (a runner is never edited in flight) and its record cites this item.
+  fix: >
+    Next tier L prover config (new manifest, same weights): present the
+    demonstrandum in signature form when it opens with a ∀ telescope, i.e.
+    `theorem X {α : Type u} [inst : C α] (a : α) : body := by`, and have the
+    gate replay the extracted script after an `intro` of those same names
+    (the walker already treats `intros` as an identity transition), so the
+    model sees the form it was trained on and the record still attempts the
+    closed demonstrandum. Universe names: print with pp.universes off for the
+    prompt (the lock is unaffected; it is computed from pp.all separately). A
+    mechanical first-line repair (strip braces, brackets and ascriptions from
+    the intro line) is the cheaper alternative and must be recorded per
+    attempt as a repair, not silently applied.
