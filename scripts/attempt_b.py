@@ -79,6 +79,38 @@ def extract_script(text: str) -> str:
     return "\n".join(l[ind:] for l in lines).strip("\n")
 
 
+GOEDEL_HEADER = "import Mathlib\nimport Aesop\nset_option maxHeartbeats 400000\nopen BigOperators Real Nat Topology Rat\n"
+
+
+def build_goedel_message(stmt: str, history: list[dict], negate: bool = False) -> str:
+    """The completion template Goedel-Prover-V2 (and DeepSeek-Prover) were trained on; the theorem
+    name is a placeholder here too, and earlier failures are appended as Lean feedback."""
+    shown = f"¬ ({stmt})" if negate else stmt
+    parts = ["Complete the following Lean 4 code:\n\n```lean4\n" + GOEDEL_HEADER + f"\ntheorem X : {shown} := by\n```\n\n"
+             "Before producing the Lean 4 code to formally prove the given theorem, provide a detailed proof plan outlining the main proof steps and strategies.\n"
+             "The plan should highlight key ideas, intermediate lemmas, and proof structures that will guide the construction of the final formal proof."]
+    for h in history:
+        parts.append(f"\n\nA previous attempt failed. Its proof:\n```lean4\n{h['script']}\n```\nLean reported at step {h['error_step']} ({h['err_class']}): {h['err']}\nFix it in the new complete proof.")
+    return "".join(parts)
+
+
+def extract_goedel_script(text: str) -> str:
+    """The LAST ```lean4/lean block, minus the header up to and including `:= by`; <think> blocks dropped."""
+    text = re.sub(r"<think>.*?</think>", "", text, flags=re.S)
+    blocks = re.findall(r"```(?:lean4|lean)?\s*\n(.*?)```", text, re.S)
+    if not blocks:
+        return ""
+    body = blocks[-1]
+    m = re.search(r":=\s*by\s*\n", body)
+    if m:
+        body = body[m.end():]
+    else:
+        return ""                       # no proof body: the block only restates the statement
+    lines = [l.rstrip() for l in body.strip("\n").splitlines()]
+    ind = min((len(l) - len(l.lstrip()) for l in lines if l.strip()), default=0)
+    return "\n".join(l[ind:] for l in lines).strip("\n")
+
+
 def build_user_message(stmt: str, history: list[dict], negate: bool = False) -> str:
     shown = f"¬ ({stmt})" if negate else stmt
     parts = [f"Prove this theorem at the pin. Reply with only the tactic block.\n\n```lean\ntheorem X : {shown}\n```"]
@@ -116,6 +148,9 @@ def main() -> int:
     ap.add_argument("--weights", default="", help="openai-compat: models/<name>.json registry entry (weights CID, license) sealed into prover_config")
     ap.add_argument("--temperature", type=float, default=0.6, help="openai-compat sampling temperature (Opus 5 has none)")
     ap.add_argument("--workers", type=int, default=2, help="openai-compat concurrent requests")
+    ap.add_argument("--prompt-style", choices=["instruct", "goedel"], default="instruct",
+                    help="instruct = the tier B system prompt + tactic block reply; goedel = the completion template Goedel-Prover / DeepSeek-Prover were trained on (plan, then a full theorem in a ```lean4 block)")
+    ap.add_argument("--repeat-penalty", type=float, default=1.1, help="openai-compat: llama.cpp repeat_penalty (loops on the header otherwise)")
     ap.add_argument("--effort", default="high")
     ap.add_argument("--max-tokens", type=int, default=16000, help="thinking + answer; adaptive thinking at effort high used all of 4000 in the voided pilot-B rounds")
     ap.add_argument("--prior-spend-cents", type=float, default=0.0, help="spend already made under this cap by voided rounds (recorded, counted against the cap)")
@@ -188,13 +223,14 @@ def main() -> int:
                 created_at = f"lookup failed: {type(e).__name__}"
     else:
         backend = make_backend("openai-compat", args.model, base_url=args.base_url, store=os.path.join(out_dir, "local-batches"),
-                               workers=args.workers, temperature=args.temperature)
+                               workers=args.workers, temperature=args.temperature, repeat_penalty=args.repeat_penalty)
         info = backend.model_info(); created_at = info.get("created_at")
         if args.weights:
             registry = json.load(open(args.weights))       # weights CID, source, quantization, license — sealed below
     prover = args.prover_name or ("tier-B" if args.backend == "anthropic" else f"tier-L-{args.model}")
     prover_config = {"prover": prover, "backend": args.backend, "model": args.model, "model_created_at": created_at, "effort": args.effort, "negate": args.negate,
                      "weights": registry, "temperature": args.temperature if args.backend != "anthropic" else None,
+                     "prompt_style": args.prompt_style, "repeat_penalty": args.repeat_penalty if args.backend != "anthropic" else None,
                      "workspace_header": bool(os.environ.get("ANTHROPIC_WORKSPACE_ID")),
                      "max_tokens": args.max_tokens, "rounds": args.rounds, "levels": list(LEVELS),
                      "protocol": "one batch per round over open demonstranda; full history of proposals + Lean errors; "
@@ -253,9 +289,13 @@ def main() -> int:
         reqs = []
         for i, n in enumerate(open_names):
             stmt = stmts[n].get("readable_pp") or stmts[n]["canonical_type"]
-            params = {"model": args.model, "max_tokens": args.max_tokens,
-                      "system": [{"type": "text", "text": SYSTEM_PREFIX, "cache_control": {"type": "ephemeral"}}],
-                      "messages": [{"role": "user", "content": build_user_message(stmt, state[n]["history"], args.negate)}]}
+            if args.prompt_style == "goedel":
+                params = {"model": args.model, "max_tokens": args.max_tokens, "system": [],
+                          "messages": [{"role": "user", "content": build_goedel_message(stmt, state[n]["history"], args.negate)}]}
+            else:
+                params = {"model": args.model, "max_tokens": args.max_tokens,
+                          "system": [{"type": "text", "text": SYSTEM_PREFIX, "cache_control": {"type": "ephemeral"}}],
+                          "messages": [{"role": "user", "content": build_user_message(stmt, state[n]["history"], args.negate)}]}
             if args.effort and args.backend == "anthropic":
                 params["output_config"] = {"effort": args.effort}
             reqs.append({"custom_id": f"{i}", "params": params})
@@ -326,7 +366,7 @@ def main() -> int:
                 state[n]["history"].append({"round": r, "script": "<refused>", "error_step": 0, "err_class": "refusal", "err": "the model declined to answer"})
                 continue
             text = res["text"]
-            script = extract_script(text)
+            script = extract_goedel_script(text) if args.prompt_style == "goedel" else extract_script(text)
             if not script.strip():
                 trunc = res["stop_reason"] in ("max_tokens", "length")
                 why = "truncated: the answer did not fit in max_tokens (thinking consumed it)" if trunc else "empty answer"

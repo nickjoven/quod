@@ -63,9 +63,9 @@ class OpenAICompatBackend:
     name = "openai-compat"
 
     def __init__(self, model: str, base_url: str, store: str, workers: int = 2, temperature: float = 0.6,
-                 timeout_s: int = 900, api_key: str | None = None):
+                 timeout_s: int = 900, api_key: str | None = None, repeat_penalty: float = 1.1):
         self.model, self.base_url, self.store = model, base_url.rstrip("/"), store
-        self.workers, self.temperature, self.timeout_s = workers, temperature, timeout_s
+        self.workers, self.temperature, self.timeout_s, self.repeat_penalty = workers, temperature, timeout_s, repeat_penalty
         self.api_key = api_key or os.environ.get("OPENAI_API_KEY", "none")
         os.makedirs(store, exist_ok=True)
 
@@ -88,6 +88,7 @@ class OpenAICompatBackend:
         p = req["params"]
         system = "".join(b.get("text", "") for b in p.get("system", []) if isinstance(b, dict))
         body = {"model": self.model, "max_tokens": p.get("max_tokens", 4000), "temperature": self.temperature,
+                "repeat_penalty": self.repeat_penalty,      # llama.cpp extension; other servers ignore unknown fields
                 "messages": ([{"role": "system", "content": system}] if system else []) + p["messages"]}
         t0 = time.monotonic()
         try:
