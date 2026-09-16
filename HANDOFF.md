@@ -177,12 +177,9 @@ flag; the test on the v1 presentation was deliberately not run.
 
 1. DONE 2026-09-16: `test200-L2` sealed (exit1-tierL2.json `test` block,
    34/200, PASS at every level) and wired into lemma.
-2. DONE 2026-09-16: pilot-L2-neg 0/50 over 4 rounds (exit3-tierL2.json, manifest
-   48ccca5e); Q-27 and Q-28 closed in OPEN.yml. The command was:
-   `RUN_ID=pilot-L2-neg attempts/run-pilot-L.sh --which pilot --rounds 4
-   --prompt-style goedel-nocot --presentation signature --negate
-   --prover-name tier-L-goedel-v2-8b-sig` — the ¬T control for the v2
-   config (the v1 control is fc6618db); seal as `exit3-tierL2.json`, wire.
+2. DONE 2026-09-16: pilot-L2-neg, the ¬T control for the v2 config, 0/50
+   over 4 rounds (exit3-tierL2.json, manifest 48ccca5e; the v1 control is
+   fc6618db), wired into lemma.
    Q-27 and Q-28 close in `OPEN.yml` after the first clean run under the
    fixes (pilot-L2 had 0 binder re-introductions and 0 walker/build
    disagreements); lemma-side: nothing consumes `on_accepted_path` yet, so
