@@ -1,0 +1,63 @@
+{
+ "tier": "L",
+ "prover": "tier-L-goedel-v2-8b",
+ "model": "goedel-prover-v2-8b-q4km",
+ "weights_cid": "da2f0d245bd10923a99cc37a04658194b351fa51842a6092313dffb1f9487c63",
+ "prompt_style": "goedel-nocot",
+ "max_tokens": 3000,
+ "exit_condition": 3,
+ "pilot_neg": {
+  "run": "pilot-L-neg",
+  "n": 50,
+  "rounds_run": 4,
+  "accepted": 0,
+  "by_outcome": {
+   "no_proposal": 119,
+   "no_proof_found": 81
+  },
+  "by_round": {
+   "1": {
+    "no_proposal": 47,
+    "no_proof_found": 3
+   },
+   "2": {
+    "no_proposal": 32,
+    "no_proof_found": 18
+   },
+   "3": {
+    "no_proposal": 24,
+    "no_proof_found": 26
+   },
+   "4": {
+    "no_proposal": 16,
+    "no_proof_found": 34
+   }
+  },
+  "stop_reason": {
+   "length": 138,
+   "stop": 62
+  },
+  "err_classes": {
+   "truncated": 119,
+   "error": 63,
+   "parse": 15,
+   "failed": 3
+  },
+  "spend_cents": 0.0,
+  "refusals": 0,
+  "selfproof_rejections": 0,
+  "transitions": 131,
+  "manifest_cid": "fc6618db04e886a51b3be3b03d0e417ce359469078b2d1bc59646a44704c3616",
+  "pre_manifest_cid": "c0084bbc3665c58a5abde75071ff7e3ab0f93432ccaf7278fad0babae9f9300e",
+  "prover_config_cid": "60343a84c7d3098175ad54ba782e38cec0f74142ac37ed6be20b9c09a4ceb99f",
+  "set": {
+   "controls": "attempts/controls-2026.json",
+   "which": "pilot",
+   "n": 50,
+   "sha256": "16eb56281a15ee146bf1f80ef6233c8cf781fdfeca2f685f89e74c7d12bbe99d",
+   "cid": "f6c3df8407c9eb9a680089984a85bd135c26e2eba6ef2f64299ec44d496a2346"
+  }
+ },
+ "pass": true,
+ "note": "not-T for every pilot theorem, four rounds on the local GPU (zero spend): 81 scripts proposed over 200 attempts, none closed the negated goal at the walker, so no batch build or self-proof check was reached; any gated acceptance would have halted the run. 119 responses carried no script: on a negated statement the non-CoT template still produced a long 'disprove this' analysis and 138/200 responses hit max_tokens 3000, so 'no script' here is mostly truncation, not a refusal. Same set (controls-2026 pilot) and prover config as pilot-L (exit1-tierL.json)."
+}
