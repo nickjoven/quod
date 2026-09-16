@@ -364,3 +364,22 @@
     whose attempt is not in the manifest's `accepted` map as NOT on an
     accepted path. Both (1) and (2) are runner edits: next prover config, not
     the runs in flight.
+
+- id: Q-29
+  severity: low
+  status: open
+  title: a record that carries its own `cid` hashes to something else; the convention is unstated
+  detail: >
+    attempts/pilot-frame-diagnostic.json cites `cid: 3b527442...`; the file's
+    blake3 is da3c871f... A reader verifying the citation by hashing the file
+    fails. Checked 2026-09-16: the CID resolves in the store, and the stored
+    blob is exactly the file with the `cid` key removed (json.dumps indent=1),
+    so the citation is sound under the convention "a record's cid is the CID
+    of the record without its cid field" — which is nowhere written down and
+    which verify_records.py does not check. Records that instead cite a
+    separate manifest's CID (exit records, wired shards) are unaffected.
+  fix: >
+    State the convention in ARCHITECTURE.md (evidence section) and have
+    verify_records.py verify it for every tracked JSON record with a top-level
+    `cid`: strip the key, re-serialize with indent=1, hash, compare. Any
+    record that fails is a defect of the ledger.
