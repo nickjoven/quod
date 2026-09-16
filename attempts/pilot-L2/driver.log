@@ -1,0 +1,27 @@
+pre-manifest sealed: attempts/pilot-L2/manifest-pre-pilot-L2.json CID c46213228049eee2a111b44a059e26f8a85bdd01efd99f36607caaeaef7e8563 | set 50 (0 tier-A-failed) | model goedel-prover-v2-8b-q4km created_at None | cap 1c
+round 1: batch local_20260916-022646_50_63699_38879 over 50 open demonstranda
+round 1: 24 proposals, 0.0c this round, 0.0c total
+round 1: accepted so far 2/50; transitions 60
+round 2: batch local_20260916-023951_48_63699_8197 over 48 open demonstranda
+round 2: 35 proposals, 0.0c this round, 0.0c total
+round 2: accepted so far 4/50; transitions 85
+round 3: batch local_20260916-025001_46_63699_7190 over 46 open demonstranda
+round 3: 39 proposals, 0.0c this round, 0.0c total
+round 3: accepted so far 7/50; transitions 98
+round 4: batch local_20260916-025949_43_63699_84643 over 43 open demonstranda
+round 4: 38 proposals, 0.0c this round, 0.0c total
+round 4: accepted so far 9/50; transitions 88
+round 5: batch local_20260916-030808_41_63699_76610 over 41 open demonstranda
+round 5: 36 proposals, 0.0c this round, 0.0c total
+round 5: accepted so far 9/50; transitions 84
+round 6: batch local_20260916-031730_41_63699_29707 over 41 open demonstranda
+round 6: 37 proposals, 0.0c this round, 0.0c total
+round 6: accepted so far 10/50; transitions 85
+round 7: batch local_20260916-032511_40_63699_83421 over 40 open demonstranda
+round 7: 38 proposals, 0.0c this round, 0.0c total
+round 7: accepted so far 10/50; transitions 89
+round 8: batch local_20260916-033238_40_63699_27414 over 40 open demonstranda
+round 8: 37 proposals, 0.0c this round, 0.0c total
+round 8: accepted so far 10/50; transitions 91
+manifest CID: 9d2352ec55eade3e0ff654f94ef208be2039c9765d620f28f9b98639967b8435
+tier B pilot-L2: {'P_B(1)': {'all': 0.04, 'tier_a_failed': None}, 'P_B(4)': {'all': 0.18, 'tier_a_failed': None}, 'P_B(16)': {'all': 0.2, 'tier_a_failed': None}} | spend 0.0c | refusals 0 | self-proof 24

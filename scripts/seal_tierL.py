@@ -51,11 +51,15 @@ rec = {
  "manifest_cid": (re.findall(r"manifest CID: ([0-9a-f]{64})", open(os.path.join(run, "driver.log")).read()) or [None])[-1], "pre_manifest_cid": (re.findall(r"pre-manifest sealed: \S+ CID ([0-9a-f]{64})", open(os.path.join(run, "driver.log")).read()) or [None])[0],
  "prover_config_cid": pre["prover_config_cid"], "attempts_cid": man.get("attempts_cid"),
  "transitions_total": (man.get("transitions") or {}).get("n_transitions"),
- "caveats": [
+ "caveats": ([
   "Q-28: 8 walker-accepted scripts failed the batch build (unknown simp lemma names logged, not thrown); the build verdict stands and they are not counted",
   "Q-27: the Goedel completion template re-introduces signature binders (`intro {α} [inst : C α] ...`); such proposals die at step 0, so P_L is a lower bound on the model's capability under this presentation",
   "goedel-nocot at max_tokens 3000 after the plan-first template truncated 44/50 at 2000 (first pilot-L attempt, stopped after round 1, not on record)",
-  "P_L is prover-relative and pilot-only until test200-L runs on the frame minus the pilot (controls-2026 test)",
+ ] if pre["prover_config"].get("presentation", "closed") == "closed" else [
+  "presentation=signature (Q-27 fix): the prompt shows the leading ∀ telescope as theorem binders and the script is prefixed with `intro <names>`; the walker attempts the closed demonstrandum as before",
+  "walker runs tactics under Tactic.withoutRecover (Q-28 fix): a logged elaboration error is a step failure; gate verdicts are propagated into the transition rows",
+ ]) + [
+  "P_L is prover-relative and pilot-only until the test runs on the frame minus the pilot (controls-2026 test)",
  ],
  "unproven": [x for x in names if x not in acc],
 }

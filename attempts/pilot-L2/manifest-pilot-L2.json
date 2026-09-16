@@ -1,0 +1,515 @@
+{
+ "run_id": "pilot-L2",
+ "prover": "tier-L-goedel-v2-8b-sig",
+ "prover_config": {
+  "prover": "tier-L-goedel-v2-8b-sig",
+  "backend": "openai-compat",
+  "model": "goedel-prover-v2-8b-q4km",
+  "model_created_at": null,
+  "effort": "high",
+  "negate": false,
+  "weights": {
+   "name": "goedel-prover-v2-8b-q4km",
+   "file": "models/weights/Goedel-Prover-V2-8B-Q4_K_M.gguf",
+   "bytes": 5027783936,
+   "sha256": "483262458b40a4a6c84ec2be74103859c877578b16c3b15eca392a5a0449d116",
+   "cid": "da2f0d245bd10923a99cc37a04658194b351fa51842a6092313dffb1f9487c63",
+   "source": "Goedel-LM/Goedel-Prover-V2-8B@dfd02e6271a58375dfbf3ece0175277cf6b6a89a (official safetensors; converted with llama.cpp 930e2fa59 convert_hf_to_gguf bf16, quantized Q4_K_M by llama-quantize)",
+   "url": null,
+   "quantization": "Q4_K_M",
+   "context_length": 32768,
+   "license": "apache-2.0 (model card)",
+   "registered": "2026-09-15T23:47:34-0400",
+   "format": "gguf"
+  },
+  "temperature": 0.6,
+  "prompt_style": "goedel-nocot",
+  "presentation": "signature",
+  "repeat_penalty": 1.1,
+  "workspace_header": false,
+  "max_tokens": 3000,
+  "rounds": 8,
+  "levels": [
+   1,
+   4,
+   16
+  ],
+  "protocol": "one batch per round over open demonstranda; full history of proposals + Lean errors; drop at first gate-accepted proof; stepwise replay via AttemptWalk CORPUS_SCRIPTS",
+  "system_prompt_sha256": "4498012a56fafad53ece21ca649b5b13d8c2d6c79563f563695ef7014b18f88d",
+  "heartbeats_per_step": 20000000,
+  "walker_sha256": "1e575c286ee27e263e7712711ac8c898111887a41b2b4bd2a7bbb45eaa68d103",
+  "forbidden_tactics": [
+   "exact?",
+   "apply?",
+   "rw?",
+   "simp?",
+   "aesop?",
+   "hint",
+   "sorry",
+   "admit",
+   "native_decide"
+  ],
+  "self_proof_gate": "name hidden; any accepted term using the demonstrandum's name or a same-lock constant is rejected: self-proof and counts as a failure for P"
+ },
+ "prover_config_cid": "06f70884aec4fc9effb5de7739f6e8827cb912983d9b01e59e4fe50e9b959637",
+ "cap_cents": 1,
+ "prices_usd_per_mtok": {
+  "input": 0.0,
+  "output": 0.0,
+  "cache_write": 0.0,
+  "cache_read": 0.0
+ },
+ "set": {
+  "controls": "attempts/controls-2026.json",
+  "which": "pilot",
+  "n": 50,
+  "sha256": "16eb56281a15ee146bf1f80ef6233c8cf781fdfeca2f685f89e74c7d12bbe99d",
+  "cid": "f6c3df8407c9eb9a680089984a85bd135c26e2eba6ef2f64299ec44d496a2346"
+ },
+ "tier_a_failed_subset": [],
+ "prompt_cid": "7847db00aec681ac40d4781a1def35f0b151d44fe0287c4646cf426e0859f84c",
+ "pins": {
+  "lean": "v4.28.0",
+  "mathlib": "8f9d9cff6bd728b17a24e163c9402775d9e6a365",
+  "jin": "f9d5c8d39bece41ceedf6346ef50ad1fb393260e",
+  "lean4checker": "66e11cea12f5ba215d76b15b7f8495141bf52c6c"
+ },
+ "scripts": {
+  "AttemptWalk.lean": "1e575c286ee27e263e7712711ac8c898111887a41b2b4bd2a7bbb45eaa68d103",
+  "CorpusWalk.lean": "0a5905399209f116d806e9c4eaedca421322ccadd14390c7ffd2e5a402469847",
+  "MutantWalk.lean": "0d9d4e804cef411a0a473ed3a42a51bcbc398f69bee97627e7106c2734452681",
+  "anchor_check.py": "fce5cb95d06ee268bb120adf414e262da39b32a39c8e69b9be9680e53b0cfdf0",
+  "attempt.py": "38bf894c3b6819326bd5315764cae6d0a7623fc915ff092d6029ff3367e9c714",
+  "attempt_b.py": "101a1b863fe6777bf7b784e74203aff426ae41959fbec0690aa3afeb1c9d35be",
+  "axiom_gate.py": "aed923bbb7ce405f9a61b9bb58bf2ae4c7df9f7810d21329126cb64dc50992b4",
+  "bootstrap.sh": "b9bc80ef5e99af7831ceaa9c990619bae35d49dababff2aed176afc407ba0c10",
+  "calibrate.py": "4f481f1f6765bee64a02c3c114f92810bb8c96d37698589d839dc4291b495420",
+  "closure.py": "644e45922f305aeaa7d5b6b3b5e4e00613365dda5a499c8cc68e29c15ed2bcf6",
+  "controls.py": "d352f30b071f230d457e81a757625a2e0124d2fdd27fac9d6e6c5240ff20c51a",
+  "corpus_extract.py": "b96566c079939b57b61a5e613bb96b48bb503d58bd45ccb94e10853ffdc48e94",
+  "dag_depth.py": "ffb0fccee5181250c39820ce33662b2178807c1d76ecf1d75327b3cbb60dfda6",
+  "derive_pairs.py": "ffcba431b8f55e1b93b9ac42973a218b17d19444f47700fbd283d59dd6998f08",
+  "hyp_mutant.py": "c6d6a5d2789f37f1af8a7a9059b44f2e81bc23c4dcf1b1299c5cf89185c570dd",
+  "leanenv.py": "3858a5564b21638e48d68695ce80867f979ad28df2c2f429573cbe5c7d8fe690",
+  "lock.py": "44701e8ce72cbf8b0876a0025c10fd3f1c5e8039d033ec2bdf93092fd6f88ebc",
+  "models_register.py": "4514fbe10697859114ad7710b710f32baf05d91e43abb2c7895465976b95d123",
+  "mutant_extract.py": "051b37be5c8903f098d1be581a57a7cdb4e64c304e9385f5c9d2aa7387ffa969",
+  "prover_backends.py": "c9387720dc81bcbfb23bdf6ab058bb7595ad4e6033adba089ec5cea8c97ac928",
+  "refute_check.py": "0c3d689275e236318ea54292726072999737c064650519f55a8caf4f9966ccc9",
+  "registry_import.py": "7e55ef8c699ef6d50a8294c1fcc8c5498c67132ab98c3daf8c6db684cf3fcf20",
+  "seal_tierL.py": "dd6afdf4799708c7fc422b2dfb4510e48ec312ed1c0d696bca320b092c78670e",
+  "verify_records.py": "70370f21bde1c7bd861f17cf2d90f4448cff74b4aab12d16baadd042eb12ca7a"
+ },
+ "prior_spend_cents": 0.0,
+ "prior_note": "",
+ "sealed_before_run": "2026-09-16T02:26:46-0400",
+ "rounds_run": 8,
+ "spend_cents": 0.0,
+ "usage": {
+  "input": 336466,
+  "output": 555174,
+  "cache_write": 0,
+  "cache_read": 0
+ },
+ "round_costs_cents": [
+  0.0,
+  0.0,
+  0.0,
+  0.0,
+  0.0,
+  0.0,
+  0.0,
+  0.0
+ ],
+ "refusals": 0,
+ "selfproof_rejections": 24,
+ "P": {
+  "P_B(1)": {
+   "all": 0.04,
+   "tier_a_failed": null
+  },
+  "P_B(4)": {
+   "all": 0.18,
+   "tier_a_failed": null
+  },
+  "P_B(16)": {
+   "all": 0.2,
+   "tier_a_failed": null
+  }
+ },
+ "frozen": true,
+ "accepted": {
+  "List.iterate.eq_def": 2,
+  "Finset.Iic_toDual": 3,
+  "quasispectrum.coe_zero": 4,
+  "Trivialization.linearEquivAt_symm_apply": 1,
+  "Finsupp.linearCombination.eq_1": 4,
+  "RingCat.Colimits.descFunLift.eq_6": 2,
+  "PartOrdEmb.hom_ext_iff": 1,
+  "StarMonoidHom.coe_toMonoidHom": 3,
+  "AddGroupTopology.instCompleteSemilatticeInf.eq_1": 6,
+  "Action.ofMulAction_apply": 3
+ },
+ "transitions": {
+  "n_transitions": 680,
+  "rounds": [
+   {
+    "round": 1,
+    "n_transitions": 60,
+    "n_goals": 33,
+    "censored": 0,
+    "on_accepted_path": 8,
+    "accepted_path_fraction": 0.1333,
+    "by_position": {
+     "0:script": {
+      "open": 22
+     },
+     "1:script": {
+      "open": 10,
+      "error": 12
+     },
+     "2:script": {
+      "closed": 2,
+      "open": 5,
+      "error": 3
+     },
+     "3:script": {
+      "closed": 4,
+      "open": 1
+     },
+     "4:script": {
+      "closed": 1
+     }
+    },
+    "shards": [
+     {
+      "file": "transitions/goals-0000.jsonl",
+      "kind": "goals",
+      "records": 33,
+      "sha256": "ce8dcddf003da590e50e2163354740f9e0aa19a48eb66f90905288c74b1459c2",
+      "cid": "7a5de3010b7d8d43b56e04252faa973d02c0226775889de2fc00e1466bb9743f"
+     },
+     {
+      "file": "transitions/transitions-0000.jsonl",
+      "kind": "transitions",
+      "records": 60,
+      "sha256": "d8747736ed4615d414bb961d8615eea104987658d6b040c12271126d76a4e26a",
+      "cid": "df35de66a07633e069a99af2c6f4f5a7c4d138a030601adc55c7dc5cc30d154b"
+     }
+    ]
+   },
+   {
+    "round": 2,
+    "n_transitions": 85,
+    "n_goals": 46,
+    "censored": 0,
+    "on_accepted_path": 6,
+    "accepted_path_fraction": 0.0706,
+    "by_position": {
+     "0:script": {
+      "open": 33
+     },
+     "1:script": {
+      "error": 18,
+      "open": 15
+     },
+     "2:script": {
+      "closed": 4,
+      "error": 7,
+      "open": 4
+     },
+     "3:script": {
+      "error": 1,
+      "closed": 3
+     }
+    },
+    "shards": [
+     {
+      "file": "transitions/goals-0000.jsonl",
+      "kind": "goals",
+      "records": 46,
+      "sha256": "ee937c6c46d65bf6aeec9a3f87c90f9d4166a9bd02c18d09b7e6eca06a6addb2",
+      "cid": "0dca955323d9a62785535250d27d6eaf9d63c3a27e6eb4120fbb9a55c5ae8ab8"
+     },
+     {
+      "file": "transitions/transitions-0000.jsonl",
+      "kind": "transitions",
+      "records": 85,
+      "sha256": "71e6b397be8e6a1b9ded02327e034db72cb62b2e81af4f3d6674eb1ab4f94abd",
+      "cid": "3337d850626d8cab4312a6521ab6752e5b3ef9d3dbd37d97e3c6cdf3cfd2b154"
+     }
+    ]
+   },
+   {
+    "round": 3,
+    "n_transitions": 98,
+    "n_goals": 52,
+    "censored": 1,
+    "on_accepted_path": 10,
+    "accepted_path_fraction": 0.102,
+    "by_position": {
+     "0:script": {
+      "open": 37
+     },
+     "1:script": {
+      "error": 19,
+      "open": 17,
+      "budget": 1
+     },
+     "2:script": {
+      "closed": 4,
+      "open": 6,
+      "error": 7
+     },
+     "3:script": {
+      "closed": 3,
+      "error": 2,
+      "open": 1
+     },
+     "4:script": {
+      "closed": 1
+     }
+    },
+    "shards": [
+     {
+      "file": "transitions/goals-0000.jsonl",
+      "kind": "goals",
+      "records": 52,
+      "sha256": "15702c51321f63722296f806bbae50e0cbcfdb80147b99201b7105fe56b5fe17",
+      "cid": "01d8e327db3aaecc9a1454c43c73e4216842647352ce225bf46bab329c6c92d1"
+     },
+     {
+      "file": "transitions/transitions-0000.jsonl",
+      "kind": "transitions",
+      "records": 98,
+      "sha256": "9f84c9b91356903b061aeec4631fc736d22213deac79ce318d7805114eb924f7",
+      "cid": "4ee138b4f07be7f816d03148dc0d6dc6fd2d49075b221f5c90c8bfa09a5bd700"
+     }
+    ]
+   },
+   {
+    "round": 4,
+    "n_transitions": 88,
+    "n_goals": 46,
+    "censored": 2,
+    "on_accepted_path": 6,
+    "accepted_path_fraction": 0.0682,
+    "by_position": {
+     "0:script": {
+      "open": 34,
+      "error": 1
+     },
+     "1:script": {
+      "error": 16,
+      "open": 15,
+      "closed": 1,
+      "budget": 2
+     },
+     "2:script": {
+      "closed": 3,
+      "open": 4,
+      "error": 8
+     },
+     "3:script": {
+      "closed": 3,
+      "error": 1
+     }
+    },
+    "shards": [
+     {
+      "file": "transitions/goals-0000.jsonl",
+      "kind": "goals",
+      "records": 46,
+      "sha256": "4a16e167df31523faaa79adc28571cd3d0906933ee20200d8dfbfb8c16222332",
+      "cid": "881674cfc1ad00b918f00d6b8a0f9a11e82d7d157fd87777c62c74660a440094"
+     },
+     {
+      "file": "transitions/transitions-0000.jsonl",
+      "kind": "transitions",
+      "records": 88,
+      "sha256": "b14220009542dc79f0b7f08a1c17095ed96d49d75f44ef5117a69a8d6feff2cf",
+      "cid": "c442672de4b08bda4d2070764a3151e82e0422c024d8b6c25241b08a9d2614a9"
+     }
+    ]
+   },
+   {
+    "round": 5,
+    "n_transitions": 84,
+    "n_goals": 41,
+    "censored": 2,
+    "on_accepted_path": 0,
+    "accepted_path_fraction": 0.0,
+    "by_position": {
+     "0:script": {
+      "open": 33
+     },
+     "1:script": {
+      "error": 15,
+      "open": 15,
+      "budget": 2,
+      "closed": 1
+     },
+     "2:script": {
+      "closed": 2,
+      "open": 3,
+      "error": 10
+     },
+     "3:script": {
+      "closed": 3
+     }
+    },
+    "shards": [
+     {
+      "file": "transitions/goals-0000.jsonl",
+      "kind": "goals",
+      "records": 41,
+      "sha256": "65d090fc0c216bfbe28af4e1e282b37f3ab9333f95ecdc39cb797997e8df9c39",
+      "cid": "ef603e093370d1c29ea497f8e0a4c6819af0e92fb5c9235b594e42d9a44fefe6"
+     },
+     {
+      "file": "transitions/transitions-0000.jsonl",
+      "kind": "transitions",
+      "records": 84,
+      "sha256": "145199ddb64818a574bca48d5c457d3b05f47bcce3dbccc9e795f0de1fc0e094",
+      "cid": "09506f60017fb86f7afbbf3daa1833943e23ac21a957f163a00c5e133b47989e"
+     }
+    ]
+   },
+   {
+    "round": 6,
+    "n_transitions": 85,
+    "n_goals": 40,
+    "censored": 1,
+    "on_accepted_path": 2,
+    "accepted_path_fraction": 0.0235,
+    "by_position": {
+     "0:script": {
+      "open": 34
+     },
+     "1:script": {
+      "error": 17,
+      "open": 14,
+      "budget": 1,
+      "closed": 2
+     },
+     "2:script": {
+      "closed": 2,
+      "open": 3,
+      "error": 9
+     },
+     "3:script": {
+      "closed": 2,
+      "error": 1
+     }
+    },
+    "shards": [
+     {
+      "file": "transitions/goals-0000.jsonl",
+      "kind": "goals",
+      "records": 40,
+      "sha256": "b5dc2aeb0a8fa56fdd3ac3fe03fdaa15497a5437381938b94ca8610cb4f231e5",
+      "cid": "95e6465cd9f8c31a365ffdeddcd1f3ef8123dba0fcc18f0983515963b6b02a21"
+     },
+     {
+      "file": "transitions/transitions-0000.jsonl",
+      "kind": "transitions",
+      "records": 85,
+      "sha256": "429277d815a58e1e3863715f9c239935f21953cdc387bebd78d96c3b45ba1de9",
+      "cid": "f3e91197dc39a223c5c1a057561ca3257839af04fabb92835a0a0085935b0f00"
+     }
+    ]
+   },
+   {
+    "round": 7,
+    "n_transitions": 89,
+    "n_goals": 45,
+    "censored": 2,
+    "on_accepted_path": 0,
+    "accepted_path_fraction": 0.0,
+    "by_position": {
+     "0:script": {
+      "open": 35
+     },
+     "1:script": {
+      "error": 15,
+      "open": 16,
+      "closed": 2,
+      "budget": 2
+     },
+     "2:script": {
+      "closed": 2,
+      "open": 3,
+      "error": 11
+     },
+     "3:script": {
+      "closed": 2,
+      "error": 1
+     }
+    },
+    "shards": [
+     {
+      "file": "transitions/goals-0000.jsonl",
+      "kind": "goals",
+      "records": 45,
+      "sha256": "15660c723a7a5be14b3e23c9e93f4798efbd09eb16f638377b50b72bb24e7987",
+      "cid": "ab7ef2ab22ba00fb47ab865908d01d1d86ce626aad1b7ab40fb0d07f41717808"
+     },
+     {
+      "file": "transitions/transitions-0000.jsonl",
+      "kind": "transitions",
+      "records": 89,
+      "sha256": "99278cef23471202068f188c755a5c029cd45892a6dedea70538cd66262921f2",
+      "cid": "328456434db36b6728ee54e73a9ce6a4581ba0ac1fe6416c79d055d595206ad3"
+     }
+    ]
+   },
+   {
+    "round": 8,
+    "n_transitions": 91,
+    "n_goals": 46,
+    "censored": 2,
+    "on_accepted_path": 0,
+    "accepted_path_fraction": 0.0,
+    "by_position": {
+     "0:script": {
+      "open": 35
+     },
+     "1:script": {
+      "error": 16,
+      "open": 16,
+      "budget": 2,
+      "closed": 1
+     },
+     "2:script": {
+      "closed": 3,
+      "open": 5,
+      "error": 8
+     },
+     "3:script": {
+      "closed": 3,
+      "error": 2
+     }
+    },
+    "shards": [
+     {
+      "file": "transitions/goals-0000.jsonl",
+      "kind": "goals",
+      "records": 46,
+      "sha256": "c29052153d056656bf392e83e343222fa8461e7a95c4bfe63f1220ea984ee790",
+      "cid": "24dcc8a8554609eead9e4bbc2ee0f7fca49000a03e1d06b088ccf916b9c4b332"
+     },
+     {
+      "file": "transitions/transitions-0000.jsonl",
+      "kind": "transitions",
+      "records": 91,
+      "sha256": "5898a5eb834e44e64a26928fe0c8132ea9b48094950b41c270d79d57508a1d75",
+      "cid": "8d4f44ca8cfd7e578c14fd0aac8f27901c54f9f19855da1419f26b4e8af0c82d"
+     }
+    ]
+   }
+  ]
+ },
+ "attempts_sha256": "449d67dc780b73cb989c84026cea2733cee5c08ed67227c6a685884c28b639b2",
+ "elapsed_s": 4438.7,
+ "attempts_cid": "b5dbb95490abd3ec13f686077060f0997d610ddec7cc20e51ce3e6c6d7e9dd99"
+}
