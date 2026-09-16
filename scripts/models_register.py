@@ -49,7 +49,7 @@ def main() -> int:
     ap = argparse.ArgumentParser()
     sub = ap.add_subparsers(dest="cmd", required=True)
     a = sub.add_parser("add")
-    a.add_argument("--name", required=True); a.add_argument("--url", required=True); a.add_argument("--source", required=True)
+    a.add_argument("--name", required=True); a.add_argument("--url", default=""); a.add_argument("--file", default="", help="register a locally produced file instead of downloading"); a.add_argument("--source", required=True)
     a.add_argument("--license", required=True, help="the model's license as published (SPDX id or short text); admission is a decision")
     a.add_argument("--quant", default=""); a.add_argument("--ctx", type=int, default=0); a.add_argument("--sha256", default="")
     a.add_argument("--no-ket", action="store_true")
@@ -59,14 +59,17 @@ def main() -> int:
     os.makedirs(WEIGHTS, exist_ok=True)
 
     if args.cmd == "add":
-        dst = os.path.join(WEIGHTS, os.path.basename(args.url.split("?")[0]))
+        if not args.url and not args.file:
+            sys.exit("give --url or --file")
+        dst = os.path.abspath(args.file) if args.file else os.path.join(WEIGHTS, os.path.basename(args.url.split("?")[0]))
         if not os.path.exists(dst):
+            if not args.url: sys.exit(f"no such file: {dst}")
             print(f"downloading {args.url} -> {dst}", file=sys.stderr, flush=True); download(args.url, dst)
         sha = sha256_file(dst)
         if args.sha256 and sha != args.sha256:
             os.remove(dst); sys.exit(f"sha256 mismatch: got {sha}, expected {args.sha256}; file removed")
         rec = {"name": args.name, "file": os.path.relpath(dst, ROOT), "bytes": os.path.getsize(dst), "sha256": sha,
-               "cid": None if args.no_ket else ket_put(dst), "source": args.source, "url": args.url,
+               "cid": None if args.no_ket else ket_put(dst), "source": args.source, "url": args.url or None,
                "quantization": args.quant, "context_length": args.ctx, "license": args.license,
                "registered": time.strftime("%Y-%m-%dT%H:%M:%S%z"), "format": os.path.splitext(dst)[1].lstrip(".")}
         with open(os.path.join(MODELS, f"{args.name}.json"), "w") as f:
