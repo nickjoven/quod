@@ -59,13 +59,42 @@ Per-declaration tools, all `<project_dir> <Module> <Decl>`-shaped:
    `scripts/*.py`, append-only ledgers ported from proslambenomenos).
 2. Q-13: one Lean process per module for all checks; the run is 15 min
    for 12 controls and will not scale.
-3. Anchor descriptors for the six un-anchored Clay wrappers where the
-   registry offers Iff theorems among its own formulations (they end in
-   registry definitions, not Mathlib names; that is the recorded state).
+3. Anchor descriptors for the six un-anchored Clay wrappers, **Poincare
+   first** (owner decision, 2026-09-16). The registry's Iff theorems end in
+   registry definitions, not Mathlib names; that is the recorded state, and
+   it was re-read for Poincare at the pin (`fd52071`,
+   `Problems/Poincare/Millennium.lean`):
+   - The constant to anchor is `MillenniumPoincare.ClayPoincareConjecture`
+     (a `def : Prop`). At the pin it is, by definition,
+     `Formulations.SimplyConnectedClosed3Manifold`. The registry offers
+     `ClayPoincareConjecture.iff_closed_curves` and
+     `ClayPoincareConjecture.iff_fundamental_group`, whose right-hand sides
+     are the registry's own `Formulations.ClosedCurves` / `TrivialPi1`.
+     Neither ends in Mathlib names, so neither closes the chain on its own.
+   - The chain can end in Mathlib. Every custom constant under the wrapper
+     is a thin definition over a Mathlib notion: `EuclideanThreeSpace` /
+     `EuclideanFourSpace` are `EuclideanCoordinateSpace R n` (itself a
+     registry def in `Problems.Common.Euclidean`, over `EuclideanSpace`),
+     `ThreeSphere` is `Metric.sphere 0 1` in the four-space,
+     `ClosedCurvesContract M` and `TrivialFundamentalGroup M` are
+     `SimplyConnectedSpace M`. Each needs its own `=` or `<->` lemma of the
+     shape `anchor_check.py` admits (`c x1 .. xk = rhs`, `rhs` free of `c`),
+     written in an intake module at the Millennium pin and nominated under
+     `anchors:` in `millennium/PIN.yml`. Rows prove nothing: the gate
+     verifies each nomination at import and `registry_import.py` recomputes
+     the claim; the claim file is never edited by hand.
+   - Post-pin fact, not an instruction: registry `main` (commit `1fdee4b`,
+     after the pin) adds `Formulations.MathlibShape`, stated in Mathlib names
+     only, with an equivalence to the wrapper. Re-pinning is an owner
+     decision (decision 3: one pin per subproject; never cross-pin). If the
+     owner re-pins, `MathlibShape` is the natural single anchor; until then
+     the chain above is the work.
+   Then the remaining five wrappers in the same way.
 4. Q-5: generate the gloss from the lock; sieve dimension for fidelity.
 
 ## Owner decisions on record
 
 quod stays the name; lean4checker required for `proven`; one pin per
 subproject; other provers via sieve from the start; proof requires a
-demonstrandum (2026-09-06).
+demonstrandum (2026-09-06). Anchor work pivots to Poincare: it is the next
+of the six un-anchored Clay wrappers, ahead of the other five (2026-09-16).
