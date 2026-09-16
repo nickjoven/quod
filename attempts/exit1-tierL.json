@@ -134,5 +134,7 @@
   "le_iInf_mul",
   "map_prime_of_equiv",
   "quasispectrum.coe_zero"
- ]
+ ],
+ "pass": false,
+ "verdict": "exit 1 NOT satisfied for this config: the test was deliberately not run on the v1 (closed-forall) presentation because Q-27 bounds it; the config is superseded by tier-L-goedel-v2-8b-sig (exit1-tierL2.json), which passes. P_frozen stays on record, never re-frozen."
 }
