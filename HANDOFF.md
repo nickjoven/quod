@@ -1,8 +1,8 @@
 # Handoff: taking over quod on another machine
 
 State as of 2026-09-16 (see `git log` for the commit you are on; the last
-handoff was 2026-09-06 at addeb4e). A run is in flight on the 4070 box at
-the time of writing: `attempts/test200-L2`, see "Next work".
+handoff was 2026-09-06 at addeb4e). At the time of writing the ¬T control for
+the tier L v2 config (`attempts/pilot-L2-neg`) is the run in flight, see "Next work".
 
 ## What this is
 
@@ -127,7 +127,7 @@ axiom gate and lean4checker):
 | Exit 1, tier L v1 (Goedel, closed-∀ prompt) | 3/50; P_L frozen 0.0167/0.0294 (Wilson), points 0.04/0.06 | `exit1-tierL.json`, afb2bb21 |
 | Exit 3, tier L v1 ¬T | 0/50 over 4 rounds | `exit3-tierL.json`, fc6618db |
 | Exit 1, tier L v2 (signature presentation, Q-27/Q-28 fixes) | 10/50; P_L frozen 0.0167/0.1209/0.1376 at 1/4/8, points 0.04/0.18/0.20 | `exit1-tierL2.json`, 9d2352ec |
-| test200-L2 | IN FLIGHT: 30/200 after round 5 of 8, already above the frozen level-4 bound | `attempts/test200-L2/driver.log` |
+| test200-L2 | 34/200 over 8 rounds: 0.095 / 0.135 / 0.17 at 1 / 4 / 8 vs frozen 0.0167 / 0.1209 / 0.1376, PASS at every level; 67 self-proof rejections; manifest 1235765f | `attempts/exit1-tierL2.json` (test block) |
 | OpenAI Navier–Stokes intake | both claims **proven**: lock equality, classical axiom triple, lean4checker exit 0 over 610 modules, closure grounded, fidelity to the DeepMind statement equal in 14 canonical forms | `intake/openai-ns/RESULTS.json` c570f56e; claims cd8f7864, 855e9285 |
 
 Tier L v1's rate is a lower bound: the Goedel completion template
@@ -175,11 +175,9 @@ flag; the test on the v1 presentation was deliberately not run.
 
 ## Next work, in order
 
-1. Seal `test200-L2` when the driver prints its manifest CID: add a `test`
-   block to `attempts/exit1-tierL2.json` (P_L(4), P_L(8) against the frozen
-   0.1209/0.1376; the pass is against the Wilson bound), commit the tracked
-   run files, wire into lemma.
-2. `RUN_ID=pilot-L2-neg attempts/run-pilot-L.sh --which pilot --rounds 4
+1. DONE 2026-09-16: `test200-L2` sealed (exit1-tierL2.json `test` block,
+   34/200, PASS at every level) and wired into lemma.
+2. IN FLIGHT: `RUN_ID=pilot-L2-neg attempts/run-pilot-L.sh --which pilot --rounds 4
    --prompt-style goedel-nocot --presentation signature --negate
    --prover-name tier-L-goedel-v2-8b-sig` — the ¬T control for the v2
    config (the v1 control is fc6618db); seal as `exit3-tierL2.json`, wire.

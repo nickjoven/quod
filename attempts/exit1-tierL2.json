@@ -131,5 +131,70 @@
   "isSelfAdjoint_map",
   "le_iInf_mul",
   "map_prime_of_equiv"
- ]
+ ],
+ "test": {
+  "run": "test200-L2",
+  "n": 200,
+  "rounds_run": 8,
+  "accepted": 34,
+  "accepted_by_round": {
+   "1": 19,
+   "2": 5,
+   "3": 2,
+   "4": 1,
+   "5": 3,
+   "6": 3,
+   "7": 1
+  },
+  "P_point": {
+   "P_L(1)": 0.095,
+   "P_L(4)": 0.135,
+   "P_L(8)": 0.17
+  },
+  "frozen": {
+   "P_L(1)": 0.0167,
+   "P_L(4)": 0.1209,
+   "P_L(8)": 0.1376
+  },
+  "pass_by_level": {
+   "P_L(1)": true,
+   "P_L(4)": true,
+   "P_L(8)": true
+  },
+  "outcomes": {
+   "no_proposal": 234,
+   "no_proof_found": 1072,
+   "accepted": 101
+  },
+  "err_classes": {
+   "truncated": 233,
+   "failed": 192,
+   "error": 789,
+   "open_goals": 4,
+   "no_progress": 36,
+   "budget": 14,
+   "parse": 37,
+   "empty": 1
+  },
+  "proposals": 1173,
+  "proposals_with_sorry": 59,
+  "selfproof_rejections": 67,
+  "batch_build_rejections": 0,
+  "transitions_total": 3057,
+  "spend_cents": 0.0,
+  "manifest_cid": "1235765f8d19b4f47de2fcbe4d4e1a3384da1056e042633476086a154270d6e9",
+  "pre_manifest_cid": "10dc1744220d5f3ce93aee4d4d371846d362ad6bc290760a16521747267560b6",
+  "set": {
+   "controls": "attempts/controls-2026.json",
+   "which": "test",
+   "n": 200,
+   "sha256": "16eb56281a15ee146bf1f80ef6233c8cf781fdfeca2f685f89e74c7d12bbe99d",
+   "cid": "f6c3df8407c9eb9a680089984a85bd135c26e2eba6ef2f64299ec44d496a2346"
+  },
+  "unproven_count": 166
+ },
+ "pass_level1": true,
+ "pass_level4": true,
+ "pass_level8": true,
+ "verdict": "PASS at levels 1, 4 and 8 under amendment A1: test P_L(1) 0.095 >= frozen 0.0167, P_L(4) 0.135 >= 0.1209, P_L(8) 0.17 >= 0.1376. First exit-1 pass for an LLM prover; the frame-first, stratified, Wilson-bounded protocol held where the point-estimate protocol failed twice (Q-26). The test rate is also above the pilot point estimates at levels 1 (0.095 vs 0.04), but below at 4 (0.135 vs 0.18) and 8 (0.17 vs 0.20)."
 }

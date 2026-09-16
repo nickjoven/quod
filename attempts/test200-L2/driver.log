@@ -1,0 +1,27 @@
+pre-manifest sealed: attempts/test200-L2/manifest-pre-test200-L2.json CID 10dc1744220d5f3ce93aee4d4d371846d362ad6bc290760a16521747267560b6 | set 200 (0 tier-A-failed) | model goedel-prover-v2-8b-q4km created_at None | cap 1c
+round 1: batch local_20260916-034202_200_69971_91471 over 200 open demonstranda
+round 1: 105 proposals, 0.0c this round, 0.0c total
+round 1: accepted so far 19/200; transitions 287
+round 2: batch local_20260916-042207_181_69971_95726 over 181 open demonstranda
+round 2: 144 proposals, 0.0c this round, 0.0c total
+round 2: accepted so far 24/200; transitions 368
+round 3: batch local_20260916-044915_176_69971_99003 over 176 open demonstranda
+round 3: 152 proposals, 0.0c this round, 0.0c total
+round 3: accepted so far 26/200; transitions 385
+round 4: batch local_20260916-051524_174_69971_40459 over 174 open demonstranda
+round 4: 155 proposals, 0.0c this round, 0.0c total
+round 4: accepted so far 27/200; transitions 411
+round 5: batch local_20260916-054235_173_69971_39100 over 173 open demonstranda
+round 5: 160 proposals, 0.0c this round, 0.0c total
+round 5: accepted so far 30/200; transitions 421
+round 6: batch local_20260916-060653_170_69971_70585 over 170 open demonstranda
+round 6: 154 proposals, 0.0c this round, 0.0c total
+round 6: accepted so far 33/200; transitions 396
+round 7: batch local_20260916-063120_167_69971_7667 over 167 open demonstranda
+round 7: 152 proposals, 0.0c this round, 0.0c total
+round 7: accepted so far 34/200; transitions 394
+round 8: batch local_20260916-065352_166_69971_32433 over 166 open demonstranda
+round 8: 151 proposals, 0.0c this round, 0.0c total
+round 8: accepted so far 34/200; transitions 395
+manifest CID: 1235765f8d19b4f47de2fcbe4d4e1a3384da1056e042633476086a154270d6e9
+tier B test200-L2: {'P_B(1)': {'all': 0.095, 'tier_a_failed': None}, 'P_B(4)': {'all': 0.135, 'tier_a_failed': None}, 'P_B(16)': {'all': 0.17, 'tier_a_failed': None}} | spend 0.0c | refusals 0 | self-proof 67
