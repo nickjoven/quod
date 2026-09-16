@@ -15,8 +15,9 @@ SPID=$!
 trap 'kill $SPID 2>/dev/null; homeserv-port release "$PORT" >/dev/null' EXIT
 for i in $(seq 1 90); do curl -s "http://127.0.0.1:$PORT/health" | grep -q '"ok"' && break; sleep 2; done
 curl -s "http://127.0.0.1:$PORT/health" | grep -q '"ok"' || { echo "server did not come up (see attempts/${RUN_ID:-pilot-L}-server.log)"; exit 1; }
-exec python3 -u scripts/attempt_b.py --controls attempts/controls-2026.json --corpus corpus/full-20260908b \
+python3 -u scripts/attempt_b.py --controls attempts/controls-2026.json --corpus corpus/full-20260908b \
   --run-id "${RUN_ID:-pilot-L}" --out "attempts/${RUN_ID:-pilot-L}" \
   --backend openai-compat --base-url "http://127.0.0.1:$PORT/v1" --model goedel-prover-v2-8b-q4km --weights "$MODEL" \
   --prover-name tier-L-goedel-v2-8b --prompt-style goedel --temperature 0.6 --repeat-penalty 1.1 --workers "$SLOTS" \
-  --max-tokens 2000 --cap-cents 1 --timeout 300 --start-timeout 900 --tier-a-run /nonexistent "$@"
+  --max-tokens 3000 --cap-cents 1 --timeout 300 --start-timeout 900 --tier-a-run /nonexistent "$@"
+rc=$?; kill $SPID 2>/dev/null; exit $rc

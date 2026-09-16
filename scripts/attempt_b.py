@@ -82,13 +82,15 @@ def extract_script(text: str) -> str:
 GOEDEL_HEADER = "import Mathlib\nimport Aesop\nset_option maxHeartbeats 400000\nopen BigOperators Real Nat Topology Rat\n"
 
 
-def build_goedel_message(stmt: str, history: list[dict], negate: bool = False) -> str:
+def build_goedel_message(stmt: str, history: list[dict], negate: bool = False, cot: bool = True) -> str:
     """The completion template Goedel-Prover-V2 (and DeepSeek-Prover) were trained on; the theorem
-    name is a placeholder here too, and earlier failures are appended as Lean feedback."""
+    name is a placeholder here too, and earlier failures are appended as Lean feedback. cot=False
+    omits the plan request (the models' non-CoT mode: code only, far shorter outputs)."""
     shown = f"¬ ({stmt})" if negate else stmt
-    parts = ["Complete the following Lean 4 code:\n\n```lean4\n" + GOEDEL_HEADER + f"\ntheorem X : {shown} := by\n```\n\n"
-             "Before producing the Lean 4 code to formally prove the given theorem, provide a detailed proof plan outlining the main proof steps and strategies.\n"
-             "The plan should highlight key ideas, intermediate lemmas, and proof structures that will guide the construction of the final formal proof."]
+    parts = ["Complete the following Lean 4 code:\n\n```lean4\n" + GOEDEL_HEADER + f"\ntheorem X : {shown} := by\n```"]
+    if cot:
+        parts.append("\n\nBefore producing the Lean 4 code to formally prove the given theorem, provide a detailed proof plan outlining the main proof steps and strategies.\n"
+                     "The plan should highlight key ideas, intermediate lemmas, and proof structures that will guide the construction of the final formal proof.")
     for h in history:
         parts.append(f"\n\nA previous attempt failed. Its proof:\n```lean4\n{h['script']}\n```\nLean reported at step {h['error_step']} ({h['err_class']}): {h['err']}\nFix it in the new complete proof.")
     return "".join(parts)
@@ -148,8 +150,8 @@ def main() -> int:
     ap.add_argument("--weights", default="", help="openai-compat: models/<name>.json registry entry (weights CID, license) sealed into prover_config")
     ap.add_argument("--temperature", type=float, default=0.6, help="openai-compat sampling temperature (Opus 5 has none)")
     ap.add_argument("--workers", type=int, default=2, help="openai-compat concurrent requests")
-    ap.add_argument("--prompt-style", choices=["instruct", "goedel"], default="instruct",
-                    help="instruct = the tier B system prompt + tactic block reply; goedel = the completion template Goedel-Prover / DeepSeek-Prover were trained on (plan, then a full theorem in a ```lean4 block)")
+    ap.add_argument("--prompt-style", choices=["instruct", "goedel", "goedel-nocot"], default="instruct",
+                    help="instruct = the tier B system prompt + tactic block reply; goedel = the Goedel-Prover / DeepSeek-Prover completion template WITH a proof plan first (long outputs); goedel-nocot = the same template without the plan request (code only)")
     ap.add_argument("--repeat-penalty", type=float, default=1.1, help="openai-compat: llama.cpp repeat_penalty (loops on the header otherwise)")
     ap.add_argument("--effort", default="high")
     ap.add_argument("--max-tokens", type=int, default=16000, help="thinking + answer; adaptive thinking at effort high used all of 4000 in the voided pilot-B rounds")
@@ -289,9 +291,9 @@ def main() -> int:
         reqs = []
         for i, n in enumerate(open_names):
             stmt = stmts[n].get("readable_pp") or stmts[n]["canonical_type"]
-            if args.prompt_style == "goedel":
+            if args.prompt_style.startswith("goedel"):
                 params = {"model": args.model, "max_tokens": args.max_tokens, "system": [],
-                          "messages": [{"role": "user", "content": build_goedel_message(stmt, state[n]["history"], args.negate)}]}
+                          "messages": [{"role": "user", "content": build_goedel_message(stmt, state[n]["history"], args.negate, cot=(args.prompt_style == "goedel"))}]}
             else:
                 params = {"model": args.model, "max_tokens": args.max_tokens,
                           "system": [{"type": "text", "text": SYSTEM_PREFIX, "cache_control": {"type": "ephemeral"}}],
@@ -366,7 +368,7 @@ def main() -> int:
                 state[n]["history"].append({"round": r, "script": "<refused>", "error_step": 0, "err_class": "refusal", "err": "the model declined to answer"})
                 continue
             text = res["text"]
-            script = extract_goedel_script(text) if args.prompt_style == "goedel" else extract_script(text)
+            script = extract_goedel_script(text) if args.prompt_style.startswith("goedel") else extract_script(text)
             if not script.strip():
                 trunc = res["stop_reason"] in ("max_tokens", "length")
                 why = "truncated: the answer did not fit in max_tokens (thinking consumed it)" if trunc else "empty answer"
