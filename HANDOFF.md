@@ -1,8 +1,7 @@
 # Handoff: taking over quod on another machine
 
 State as of 2026-09-16 (see `git log` for the commit you are on; the last
-handoff was 2026-09-06 at addeb4e). At the time of writing the ¬T control for
-the tier L v2 config (`attempts/pilot-L2-neg`) is the run in flight, see "Next work".
+handoff was 2026-09-06 at addeb4e). No run is in flight at the time of writing; the GPU is free.
 
 ## What this is
 
@@ -19,10 +18,11 @@ order:
    amendment A1 (frame first, stratified pilot, Wilson lower bound).
 4. `LOCAL.md` — the local ecosystem (L1 model registry … L7) that tier L
    implements; what is measured and in which order.
-5. `OPEN.yml` — every known problem, Q-1 to Q-28, with severity and
-   status. Closed: Q-1, Q-8, Q-18, Q-22. Fix-pending: Q-27, Q-28 (runner
-   edits landed 2026-09-16; close them after the first clean run). A known
-   gap that is not in this file is a defect of the ledger.
+5. `OPEN.yml` — every known problem, Q-1 to Q-29, with severity and
+   status. Closed: Q-1, Q-8, Q-18, Q-22, Q-27, Q-28 (the last two on
+   2026-09-16 after the v2 tier L runs). Q-29 (low) states the self-citing
+   record convention. A known gap that is not in this file is a defect of
+   the ledger.
 6. `models/ADMISSIONS.md` — which local models are admitted and why;
    `models/<name>.json` is the evidence (weights by sha256 and CID).
 7. `intake/openai-ns/README.md` — the first external claim run through the
@@ -177,7 +177,9 @@ flag; the test on the v1 presentation was deliberately not run.
 
 1. DONE 2026-09-16: `test200-L2` sealed (exit1-tierL2.json `test` block,
    34/200, PASS at every level) and wired into lemma.
-2. IN FLIGHT: `RUN_ID=pilot-L2-neg attempts/run-pilot-L.sh --which pilot --rounds 4
+2. DONE 2026-09-16: pilot-L2-neg 0/50 over 4 rounds (exit3-tierL2.json, manifest
+   48ccca5e); Q-27 and Q-28 closed in OPEN.yml. The command was:
+   `RUN_ID=pilot-L2-neg attempts/run-pilot-L.sh --which pilot --rounds 4
    --prompt-style goedel-nocot --presentation signature --negate
    --prover-name tier-L-goedel-v2-8b-sig` — the ¬T control for the v2
    config (the v1 control is fc6618db); seal as `exit3-tierL2.json`, wire.

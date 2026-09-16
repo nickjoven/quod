@@ -296,7 +296,7 @@
 
 - id: Q-27
   severity: medium
-  status: fix-pending (runner edits on main 2026-09-16; first run under them is pilot-L2)
+  status: closed 2026-09-16 by attempt_b.py --presentation signature (quod 38c115c): pilot-L2 0/284 proposals re-introduce binders, 10/50 vs 3/50; test200-L2 34/200 passes exit 1
   title: the Goedel completion template and quod's closed-∀ demonstrandum disagree about binders
   detail: >
     Goedel-Prover-V2 was trained on `theorem name (binders) : body := by`, with
@@ -328,7 +328,7 @@
 
 - id: Q-28
   severity: medium
-  status: fix-pending (runner edits on main 2026-09-16; first run under them is pilot-L2)
+  status: closed 2026-09-16 by Tactic.withoutRecover in AttemptWalk.lean and verdict propagation into transition rows (quod 38c115c): 0 walker/build disagreements over pilot-L2, test200-L2, pilot-L2-neg (1,045 walker passes); the 24 mislabeled pilot-L rows stay on record with this note
   title: the walker accepts a script whose simp arguments failed to elaborate; only the batch build catches it
   detail: >
     AttemptWalk runs tactics under Term.withoutErrToSorry and rejects a proof

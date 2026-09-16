@@ -1,0 +1,15 @@
+pre-manifest sealed: attempts/pilot-L2-neg/manifest-pre-pilot-L2-neg.json CID b8fabcbffcb188725d47d64dc40aff78ae6fdf483b1c9d56ee318212a3a2e508 | set 50 (0 tier-A-failed) | model goedel-prover-v2-8b-q4km created_at None | cap 1c
+round 1: batch local_20260916-071736_50_85629_19015 over 50 open demonstranda
+round 1: 4 proposals, 0.0c this round, 0.0c total
+round 1: accepted so far 0/50; transitions 3
+round 2: batch local_20260916-073146_50_85629_44241 over 50 open demonstranda
+round 2: 23 proposals, 0.0c this round, 0.0c total
+round 2: accepted so far 0/50; transitions 40
+round 3: batch local_20260916-074349_50_85629_46211 over 50 open demonstranda
+round 3: 29 proposals, 0.0c this round, 0.0c total
+round 3: accepted so far 0/50; transitions 52
+round 4: batch local_20260916-075525_50_85629_22671 over 50 open demonstranda
+round 4: 32 proposals, 0.0c this round, 0.0c total
+round 4: accepted so far 0/50; transitions 55
+manifest CID: 48ccca5e2a2b39d5d98903d3c2a9cce2e034d66f90007461a14ce57678f2048d
+tier B pilot-L2-neg: {'P_B(1)': {'all': 0.0, 'tier_a_failed': None}, 'P_B(4)': {'all': 0.0, 'tier_a_failed': None}, 'P_B(16)': {'all': 0.0, 'tier_a_failed': None}} | spend 0.0c | refusals 0 | self-proof 0
