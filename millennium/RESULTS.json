@@ -24,6 +24,38 @@
    "Millennium.ClayRiemannHypothesis.Formulations.RealPart": [
     "Problems.RiemannHypothesis.Millennium",
     "Millennium.ClayRiemannHypothesis.Formulations.RealPart.iff_mathlib"
+   ],
+   "MillenniumPoincare.ClayPoincareConjecture": [
+    "Quod.Anchors.Poincare",
+    "QuodAnchors.Poincare.anchor_ClayPoincareConjecture"
+   ],
+   "MillenniumPoincare.ClayPoincareConjecture.Formulations.SimplyConnectedClosed3Manifold": [
+    "Quod.Anchors.Poincare",
+    "QuodAnchors.Poincare.anchor_SimplyConnectedClosed3Manifold"
+   ],
+   "MillenniumPoincare.EuclideanThreeSpace": [
+    "Quod.Anchors.Poincare",
+    "QuodAnchors.Poincare.anchor_EuclideanThreeSpace"
+   ],
+   "MillenniumPoincare.EuclideanFourSpace": [
+    "Quod.Anchors.Poincare",
+    "QuodAnchors.Poincare.anchor_EuclideanFourSpace"
+   ],
+   "MillenniumPoincare.ThreeSphere": [
+    "Quod.Anchors.Poincare",
+    "QuodAnchors.Poincare.anchor_ThreeSphere"
+   ],
+   "EuclideanCoordinateSpace": [
+    "Quod.Anchors.Poincare",
+    "QuodAnchors.Poincare.anchor_EuclideanCoordinateSpace"
+   ],
+   "MillenniumPoincare.ClosedCurvesContract": [
+    "Quod.Anchors.Poincare",
+    "QuodAnchors.Poincare.anchor_ClosedCurvesContract"
+   ],
+   "MillenniumPoincare.TrivialFundamentalGroup": [
+    "Quod.Anchors.Poincare",
+    "QuodAnchors.Poincare.anchor_TrivialFundamentalGroup"
    ]
   }
  },
@@ -303,11 +335,21 @@
    "evidence": {
     "lock_cid": "13862cee7afdfe78f4ba7ce4bc7e465c8cff448689a849282526f3ed3cc45521",
     "closure_cid": "81bb40d790727cb48110c9f00fd3934df7005f5b69dea62a4f0b7f384b1ff4c1",
+    "anchor_shape_MillenniumPoincare.ClayPoincareConjecture": "60761a77ca44d10b7743fe68164476d3ff00e0e52e0fbd3c4036d7624fae51b5",
+    "anchor_axioms_MillenniumPoincare.ClayPoincareConjecture": "cca1d15e6c7792a30c44cc9eb25d20105d65327ddeb74697fb1f842d740cc447",
+    "anchor_shape_MillenniumPoincare.ClayPoincareConjecture.Formulations.SimplyConnectedClosed3Manifold": "44e373869b684277db02d8483b8eb57041872343b57e9a0e41c1a47930bd784c",
+    "anchor_axioms_MillenniumPoincare.ClayPoincareConjecture.Formulations.SimplyConnectedClosed3Manifold": "680941db9f631d1fe09d811474dbe9fa6fda14c4fd07a449dd61c79d2516b746",
+    "anchor_shape_MillenniumPoincare.EuclideanThreeSpace": "5737161e82e69d916fef3261879aed8e06b150c928c69599cce8ccaaa397c9dc",
+    "anchor_axioms_MillenniumPoincare.EuclideanThreeSpace": "9a796f237b0ee262919d568433e55420de53081f805a20973220fdf29a8c972d",
+    "anchor_shape_EuclideanCoordinateSpace": "42d55a232ec8b447501946e51b0b2d8a45b5d8494202756cf7c702bc1cf70da0",
+    "anchor_axioms_EuclideanCoordinateSpace": "57269720f5f7641770a6d6230cebce3ecc52f4f1e9d36c0dd34ad4c1776482cb",
+    "anchor_shape_MillenniumPoincare.ThreeSphere": "3e353c9beaeebcf5bcb804e78fc8fc589a213bfcfa6be96a2a1a9d97ef3e7fdd",
+    "anchor_axioms_MillenniumPoincare.ThreeSphere": "8e65d08e34736f3c808df6d4204e2a810c468c784273187e58986f5bdcec6692",
+    "anchor_shape_MillenniumPoincare.EuclideanFourSpace": "a4e5dd6e7699de9a6cc10b475ea49d8b3f80b65273f23300c2636b955e5a9606",
+    "anchor_axioms_MillenniumPoincare.EuclideanFourSpace": "fb372879c6f851b05aaffbc9afc2a3c9003cbe590ea90bb62f7e99e0ca3ab3a3",
     "axioms_cid": "aa24c96235bb813b6340514f949f55cc4e0d2e3f26e5d69ba75eb7f75ca34414"
    },
-   "reasons": [
-    "unanchored ['MillenniumPoincare.ClayPoincareConjecture']"
-   ],
+   "reasons": [],
    "proof_verdict": "incomplete: sorry",
    "refutation_verdict": null,
    "lock": "1cca2aafe06cea2c9558aff64d45039a32eac6d8597c6ca454756111423f1e4d",
@@ -327,9 +369,9 @@
     }
    },
    "anchored": {
-    "MillenniumPoincare.ClayPoincareConjecture": "MillenniumPoincare.ClayPoincareConjecture"
+    "MillenniumPoincare.ClayPoincareConjecture": "anchored"
    },
-   "anchored_all": false,
+   "anchored_all": true,
    "axioms": [
     "Classical.choice",
     "Quot.sound",
