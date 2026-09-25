@@ -271,7 +271,7 @@ Three computed fields on every claim, none typed by hand:
   named problem it is.
 - anchored: a checked Iff/Eq chain to a Mathlib-named declaration
   (`scripts/anchor_check.py`, recursive). Strong fidelity. At the
-  Millennium pin only Riemann has one.
+  Millennium pin Riemann has one, and Poincaré since 2026-09-24 (section 8).
 - `registry_match`: the claim's lock equals a registry lock (or, later, is
   joined to one by a checked Iff). This, not a status, is what "counts
   against a Millennium problem" means.
@@ -309,6 +309,18 @@ Riemann wrapper is anchored through the registry's own theorems
 both links passing anchor_check and the axiom gate (nominated in
 millennium/PIN.yml, verified at import, 4m23s). The other six are
 unanchored; anchoring them is the next work item.
+
+POINCARÉ ANCHORS 2026-09-24 (`millennium/anchors/Poincare.lean`, compiled at
+the pin as `Quod.Anchors.Poincare` by `millennium/anchors/install.sh`;
+nominated in millennium/PIN.yml): the registry's own Iff theorems for the
+wrapper end in registry definitions, but each of the wrapper's six closure
+constants is a thin definition over a Mathlib notion, so quod's own rfl /
+Iff.rfl bridges close the chain: ClayPoincareConjecture ↔
+SimplyConnectedClosed3Manifold → EuclideanThreeSpace / ThreeSphere /
+EuclideanFourSpace → EuclideanCoordinateSpace = EuclideanSpace 𝕜 (Fin n).
+Every link passes anchor_check and the axiom gate at import (1m47s for the
+seven declarations). Anchoring is a descriptor: the claim stays `stated`.
+Five wrappers remain unanchored.
 
 
 - Import lean-dojo's seven `clay_prize_*` locks at `fabf563a` as the

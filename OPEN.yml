@@ -156,7 +156,7 @@
     at this pin rests on an unreleased checker build until upstream tags one.
 - id: Q-21
   severity: medium
-  status: open (reframed by SEMANTICS.md: the registry locks ARE the demonstranda; anchoring is a descriptor of their worth, not a gate; six wrappers remain un-anchored to Mathlib names because Mathlib has none)
+  status: open (reframed by SEMANTICS.md: the registry locks ARE the demonstranda; anchoring is a descriptor of their worth, not a gate; five wrappers remain un-anchored to Mathlib names; Poincaré anchored 2026-09-24 through quod's own rfl/Iff.rfl bridges at the pin, millennium/anchors/Poincare.lean, so a wrapper whose constants are thin definitions over Mathlib does not need a Mathlib-named statement)
   title: registry locks are locks on a name; the content lives in one custom constant
   detail: >
     Import found each clay_prize_* type is a single custom Prop
@@ -383,3 +383,23 @@
     verify_records.py verify it for every tracked JSON record with a top-level
     `cid`: strip the key, re-serialize with indent=1, hash, compare. Any
     record that fails is a defect of the ledger.
+
+- id: Q-30
+  severity: low
+  status: open
+  title: bootstrap.sh's final registry import runs before quod's anchor modules are installed and without ket
+  detail: >
+    scripts/bootstrap.sh millennium ends with registry_import.py --no-ket.
+    On a fresh box that import runs before millennium/anchors/install.sh has
+    compiled Quod.Anchors.Poincare into the clone, so anchor_check exits 3
+    (unknown module) and the Poincare claim is rewritten with its anchor
+    recorded as "anchor_check failed to run", and every evidence CID in the
+    seven claim files becomes null. The committed files are restored only by
+    the documented re-import (install.sh, then registry_import.py with
+    KET_HOME set). Found 2026-09-24 while anchoring Poincare; nothing was
+    misrecorded on the branch because the re-import was run before commit,
+    but a reader who stops after bootstrap sees claim files that differ from
+    the ones on record and verify_records.py does not notice (Q-10).
+  fix: >
+    bootstrap.sh runs millennium/anchors/install.sh before its import and
+    uses ket when KET_HOME resolves; until then HANDOFF.md states the order.

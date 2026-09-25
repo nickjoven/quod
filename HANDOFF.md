@@ -1,6 +1,6 @@
 # Handoff: taking over quod on another machine
 
-State as of 2026-09-16 (see `git log` for the commit you are on; the last
+State as of 2026-09-24 (see `git log` for the commit you are on; the last
 handoff was 2026-09-06 at addeb4e). No run is in flight at the time of writing; the GPU is free.
 
 ## What this is
@@ -36,6 +36,8 @@ order:
     pip install pyyaml blake3
     scripts/bootstrap.sh crouzeix        # calibration pin: lean v4.28.0, ~30–60 min (both pins: ~20 GB)
     scripts/bootstrap.sh millennium      # registry pin (v4.31.0), only when registry labels are wanted
+    millennium/anchors/install.sh        # quod's anchor modules compiled at that pin (Poincaré), then:
+    KET_HOME=~/code/quod/.ket python3 scripts/registry_import.py   # re-import with evidence CIDs (Q-30)
 
 - `blake3` is a hard prerequisite for anything that will be compared to a
   record: `lock.py` falls back to blake2b and says so in `hash_algo`, and a
@@ -128,6 +130,7 @@ axiom gate and lean4checker):
 | Exit 3, tier L v1 ¬T | 0/50 over 4 rounds | `exit3-tierL.json`, fc6618db |
 | Exit 1, tier L v2 (signature presentation, Q-27/Q-28 fixes) | 10/50; P_L frozen 0.0167/0.1209/0.1376 at 1/4/8, points 0.04/0.18/0.20 | `exit1-tierL2.json`, 9d2352ec |
 | test200-L2 | 34/200 over 8 rounds: 0.095 / 0.135 / 0.17 at 1 / 4 / 8 vs frozen 0.0167 / 0.1209 / 0.1376, PASS at every level; 67 self-proof rejections; manifest 1235765f | `attempts/exit1-tierL2.json` (test block) |
+| Poincaré anchors | wrapper anchored: 6/6 closure constants, 8/8 nominations ANCHOR-OK, axioms clean; claim stays `stated` | `claims/millennium/poincare_conjecture.yml`, `millennium/anchors/Poincare.lean` |
 | OpenAI Navier–Stokes intake | both claims **proven**: lock equality, classical axiom triple, lean4checker exit 0 over 610 modules, closure grounded, fidelity to the DeepMind statement equal in 14 canonical forms | `intake/openai-ns/RESULTS.json` c570f56e; claims cd8f7864, 855e9285 |
 
 Tier L v1's rate is a lower bound: the Goedel completion template
@@ -184,37 +187,54 @@ flag; the test on the v1 presentation was deliberately not run.
    fixes (pilot-L2 had 0 binder re-introductions and 0 walker/build
    disagreements); lemma-side: nothing consumes `on_accepted_path` yet, so
    the 24 mislabeled v1 rows only matter if it starts to.
-3. Anchor descriptors for the six un-anchored Clay wrappers, **Poincaré
-   first** (owner decision, 2026-09-16, PR #6). The registry's Iff theorems
-   end in registry definitions, not Mathlib names; that is the recorded
-   state, and it was re-read for Poincaré at the pin (`fd52071`,
-   `Problems/Poincare/Millennium.lean`):
-   - The constant to anchor is `MillenniumPoincare.ClayPoincareConjecture`
-     (a `def : Prop`). At the pin it is, by definition,
-     `Formulations.SimplyConnectedClosed3Manifold`. The registry offers
-     `ClayPoincareConjecture.iff_closed_curves` and
-     `ClayPoincareConjecture.iff_fundamental_group`, whose right-hand sides
-     are the registry's own `Formulations.ClosedCurves` / `TrivialPi1`.
-     Neither ends in Mathlib names, so neither closes the chain on its own.
-   - The chain can end in Mathlib. Every custom constant under the wrapper
-     is a thin definition over a Mathlib notion: `EuclideanThreeSpace` /
-     `EuclideanFourSpace` are `EuclideanCoordinateSpace R n` (itself a
-     registry def in `Problems.Common.Euclidean`, over `EuclideanSpace`),
-     `ThreeSphere` is `Metric.sphere 0 1` in the four-space,
-     `ClosedCurvesContract M` and `TrivialFundamentalGroup M` are
-     `SimplyConnectedSpace M`. Each needs its own `=` or `<->` lemma of the
-     shape `anchor_check.py` admits (`c x1 .. xk = rhs`, `rhs` free of `c`),
-     written in an intake module at the Millennium pin and nominated under
-     `anchors:` in `millennium/PIN.yml`. Rows prove nothing: the gate
-     verifies each nomination at import and `registry_import.py` recomputes
-     the claim; the claim file is never edited by hand.
-   - Post-pin fact, not an instruction: registry `main` (commit `1fdee4b`,
-     after the pin) adds `Formulations.MathlibShape`, stated in Mathlib names
-     only, with an equivalence to the wrapper. Re-pinning is an owner
-     decision (decision 3: one pin per subproject; never cross-pin). If the
-     owner re-pins, `MathlibShape` is the natural single anchor; until then
-     the chain above is the work.
-   Then the remaining five wrappers in the same way.
+3. Anchor descriptors for the Clay wrappers. **Poincaré DONE 2026-09-24**
+   (branch `anchors-poincare`; owner decision 2026-09-16, PR #6, put it
+   first). Computed at the pin (`fd52071`, Lean v4.31.0):
+   - `millennium/anchors/Poincare.lean`, compiled at the pin as
+     `Quod.Anchors.Poincare` by `millennium/anchors/install.sh`. The
+     registry's lakefile has one `lean_lib` (`Problems`) and is never
+     edited, so the module is copied into the gitignored clone and compiled
+     under `lake env`, as `intake/openai-ns` did for its port. Eight
+     lemmas, all `rfl`/`Iff.rfl`, no sorry, axioms the classical triple:
+     one per constant in the wrapper's closure (six) and two for
+     `ClosedCurvesContract` / `TrivialFundamentalGroup`.
+   - Nominated under `anchors:` in `millennium/PIN.yml`; all eight pass
+     `anchor_check.py` (ANCHOR-OK) and `axiom_gate.py`. The chain as the
+     gate reported it: `ClayPoincareConjecture.{u}` ↔
+     `Formulations.SimplyConnectedClosed3Manifold.{u}` ↔ its binders written
+     out (rhs custom: `EuclideanThreeSpace`, `ThreeSphere`,
+     `EuclideanFourSpace`); `EuclideanThreeSpace` / `EuclideanFourSpace` =
+     `EuclideanCoordinateSpace ℝ 3` / `ℝ 4`; `ThreeSphere` =
+     `↥(Metric.sphere (0 : EuclideanFourSpace) 1)`; `EuclideanCoordinateSpace
+     𝕜 n` = `EuclideanSpace 𝕜 (Fin n)` (rhs custom 0). Ends in Mathlib names.
+   - `registry_import.py` (with ket, 1m47s) recomputed the claim:
+     `claims/millennium/poincare_conjecture.yml` `descriptors.anchored` went
+     from the constant's own name to `anchored`, `reasons` from
+     `unanchored [...]` to `[]`, twelve `anchor_shape_*` / `anchor_axioms_*`
+     evidence CIDs added. Lock, status (`stated`, `incomplete: sorry`) and
+     the lock/closure/axioms CIDs are unchanged; the other six claim files
+     are byte-identical. `verify_records.py` OK. Anchoring is a descriptor;
+     nothing about the status moved, and nothing should have.
+   - Not reached at import: the `ClosedCurvesContract` and
+     `TrivialFundamentalGroup` rows. Source disagreement with the previous
+     handoff, which listed them "under the wrapper": at the pin they occur
+     only in `Formulations.ClosedCurves` / `TrivialPi1`, which no registered
+     declaration reaches (the closure survey has six constants, not eight).
+     Run by hand 2026-09-24 they are ANCHOR-OK, Iff, args 2, rhs custom 0,
+     axioms clean; they become live when a demonstrandum over those
+     formulations is registered.
+   - Reproduction order on a fresh box: `scripts/bootstrap.sh millennium`,
+     then `millennium/anchors/install.sh`, then `registry_import.py` with
+     `KET_HOME` set. The bootstrap's own final import runs before
+     `install.sh` and without ket, so until the re-import it leaves the
+     Poincaré claim with the anchor recorded as `anchor_check failed to run`
+     and null CIDs (Q-30).
+   - Post-pin fact, not an instruction: registry `main` (`1fdee4b`) adds
+     `Formulations.MathlibShape`, stated in Mathlib names only. Re-pinning is
+     an owner decision (decision 3); if the owner re-pins, `MathlibShape` is
+     the natural single anchor and this module is superseded.
+   Then the remaining five wrappers in the same way, each its own module
+   under `millennium/anchors/` and its own rows in `PIN.yml`.
 4. Pair the second GPU box: on it, `homeserv/bootstrap.sh --role worker`
    under WSL2 with `CONTROLLER_PUBKEY` from this box's `~/.ssh/homeserv_worker.pub`;
    the NUC with the AMD GPU the same way with `GPU_VENDOR=amd` (Vulkan).
