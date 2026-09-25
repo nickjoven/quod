@@ -21,3 +21,24 @@ anchors:
     [Problems.RiemannHypothesis.Millennium, Millennium.ClayRiemannHypothesis.iff_real_part]
   Millennium.ClayRiemannHypothesis.Formulations.RealPart:
     [Problems.RiemannHypothesis.Millennium, Millennium.ClayRiemannHypothesis.Formulations.RealPart.iff_mathlib]
+  # Poincaré (2026-09-24): lemmas in millennium/anchors/Poincare.lean, compiled at the pin as
+  # Quod.Anchors.Poincare by millennium/anchors/install.sh. The first six are the wrapper's
+  # closure and are reached at import; the last two (ClosedCurvesContract, TrivialFundamentalGroup)
+  # occur only in the registry's Formulations.ClosedCurves / TrivialPi1, which no declaration
+  # above registers, so import does not reach them (gate results for them are in HANDOFF.md).
+  MillenniumPoincare.ClayPoincareConjecture:
+    [Quod.Anchors.Poincare, QuodAnchors.Poincare.anchor_ClayPoincareConjecture]
+  MillenniumPoincare.ClayPoincareConjecture.Formulations.SimplyConnectedClosed3Manifold:
+    [Quod.Anchors.Poincare, QuodAnchors.Poincare.anchor_SimplyConnectedClosed3Manifold]
+  MillenniumPoincare.EuclideanThreeSpace:
+    [Quod.Anchors.Poincare, QuodAnchors.Poincare.anchor_EuclideanThreeSpace]
+  MillenniumPoincare.EuclideanFourSpace:
+    [Quod.Anchors.Poincare, QuodAnchors.Poincare.anchor_EuclideanFourSpace]
+  MillenniumPoincare.ThreeSphere:
+    [Quod.Anchors.Poincare, QuodAnchors.Poincare.anchor_ThreeSphere]
+  EuclideanCoordinateSpace:
+    [Quod.Anchors.Poincare, QuodAnchors.Poincare.anchor_EuclideanCoordinateSpace]
+  MillenniumPoincare.ClosedCurvesContract:
+    [Quod.Anchors.Poincare, QuodAnchors.Poincare.anchor_ClosedCurvesContract]
+  MillenniumPoincare.TrivialFundamentalGroup:
+    [Quod.Anchors.Poincare, QuodAnchors.Poincare.anchor_TrivialFundamentalGroup]
