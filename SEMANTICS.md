@@ -30,7 +30,13 @@ P discharges D iff all of:
    `type(P) ↔ T` is itself a discharged demonstrandum (an edge, later);
 2. the axioms of P are a subset of `{propext, Classical.choice, Quot.sound}`;
    `sorryAx` means P is incomplete, anything else means P is rejected;
-3. `lean4checker` accepts the module declaring P (decision 2).
+3. `lean4checker` accepts the module declaring P (decision 2). "The module
+   declaring P" is read from the environment (`env.getModuleFor?`), never
+   from a table: a nominated module that is not the declaring one is
+   `rejected: replay module mismatch`, and no replay at all is
+   `rejected: no replay` (github #7, Q-31). The checker without `--fresh`
+   replays only the constants new in the named module, so an umbrella
+   module of imports would replay nothing (Q-7).
 
 A refutation discharges `¬D` by the same three tests, with the shape
 gate `refute_check.py` supplying test 1.
