@@ -18,8 +18,11 @@ Status of a demonstrandum D (never typed by hand):
 Verdict on an offered proof / refutation:
   accepted | incomplete: sorry | rejected: lock mismatch | rejected: shape
   | rejected: extra axioms [...] | rejected: lean4checker | rejected: no replay
-(`accepted` always means the independent replay ran and passed; a claim with no
-module to replay cannot be accepted, github #7.)
+  | rejected: replay module mismatch
+(`accepted` always means the independent replay ran and passed on the module
+that DECLARES the offered declaration as the environment reports it; a claim
+with no module to replay, or a nominated module that is not the declaring one,
+cannot be accepted: github #7, Q-31.)
 
 Descriptors (computed, never affect status): hypotheses, custom_constants,
 grounded, anchored (per constant, with the gate's reason), reduces_to_True,
@@ -80,7 +83,7 @@ CONTROLS = [
     dict(id="N4", polarity="negative", proj=CALIB, module="Quod.Controls.N4",
          decl="crouzeix_constant_one",
          gloss="Crouzeix's inequality with constant 1 (false; refuted by P2's witness).",
-         checker_module="Quod.Controls.N4",
+         checker_module="Quod.P2",  # the module declaring the OFFERED refutation (Q-31)
          refutation=dict(module="Quod.P2", decl="QuodP2.N4_refuted"),
          require=dict(status="refuted")),
     dict(id="N5", polarity="negative", proj=JIN, module="CrouzeixConjecture",
@@ -101,7 +104,7 @@ CONTROLS = [
     dict(id="N8", polarity="negative", proj=CALIB, module="Quod.Controls.N4",
          decl="crouzeix_constant_one",
          gloss="N4 with a forged refutation row: an unrelated clean theorem (QuodP2.sharp_two) nominated as the negation.",
-         checker_module="Quod.Controls.N4",
+         checker_module="Quod.P2",
          refutation=dict(module="Quod.P2", decl="QuodP2.sharp_two"),
          require=dict(status="stated", refutation_verdict="rejected: shape")),
     dict(id="N9", polarity="negative", proj=CALIB, module="Quod.P2",
@@ -231,29 +234,46 @@ def axiom_verdict(ax):
     return f"rejected: extra axioms {ax['extra']}"
 
 
-def replay_module(c, fallback):
-    """The module lean4checker replays for an accepted verdict. An explicit
-    checker_module wins. When the key is ABSENT the safe derivation is the
-    module that declares the offered proof or refutation: the checker replays a
-    whole module and the offered declaration lives in it. An explicit None
-    means replay was switched off, and under SEMANTICS.md that is a rejection,
-    never a pass (github #7: the old code skipped replay silently)."""
+def replay_module(c, declaring):
+    """The module lean4checker replays for an accepted verdict, or the reason
+    there is none. The replay must cover the OFFERED declaration, and
+    lean4checker without --fresh replays only the constants NEW in the named
+    module (Q-7), so an umbrella module of `import` lines would replay nothing
+    and exit 0. `declaring` is therefore read from the environment (lock.py
+    DECLMOD, env.getModuleFor?), never from the control table (Q-31):
+      key absent        -> the declaring module
+      explicit module   -> accepted only if it IS the declaring module; any other
+                           value (another module, "") is a nomination the gate
+                           refuses: `rejected: replay module mismatch`
+      explicit None     -> replay switched off: `rejected: no replay` (github #7)
+    Returns (module, None) or (None, reason)."""
     if "checker_module" in c and c["checker_module"] is None:
-        return None
-    return c.get("checker_module") or fallback
+        return None, "rejected: no replay"
+    if not declaring or declaring == "_local":
+        return None, "rejected: no replay"
+    if "checker_module" not in c or c["checker_module"] == declaring:
+        return declaring, None
+    return None, "rejected: replay module mismatch"
 
 
-def replay(c, rec, checker, module, verdict_key):
-    """Independent replay is REQUIRED for an accepted verdict: no module, or a
-    nonzero checker, rejects it. Records the module replayed, the checker's
-    exit code and its output CID. Returns True iff the replay succeeded."""
+def replay(c, rec, checker, declaring, verdict_key):
+    """Independent replay is REQUIRED for an accepted verdict: no module, a
+    mismatched nomination, or a nonzero checker rejects it. The module replayed,
+    the exit code and the output CID are recorded under the verdict they belong
+    to (proof: checker_*, refutation: refutation_checker_*), so a claim carrying
+    both a proof and a refutation keeps both replays. Returns True iff the
+    replay ran and passed."""
+    tag = "" if verdict_key == "proof_verdict" else "refutation_"
+    module, reason = replay_module(c, declaring)
+    rec[f"{tag}checker_module"] = module
     if module is None:
-        rec[verdict_key] = "rejected: no replay"
-        rec["checker_rc"] = None
-        rec["reasons"].append("independent replay not configured; an accepted verdict requires lean4checker")
+        rec[verdict_key] = reason
+        rec[f"{tag}checker_rc"] = None
+        rec["reasons"].append(f"{reason}: the offered declaration is declared in {declaring!r}, "
+                              f"checker_module {c.get('checker_module', '<absent>')!r}")
         return False
     krc, kout = run(["lake", "env", checker, module], cwd=c["proj"])
-    rec["evidence"]["checker_cid"] = ket_put(kout); rec["checker_rc"] = krc; rec["checker_module"] = module
+    rec["evidence"][f"{tag}checker_cid"] = ket_put(kout); rec[f"{tag}checker_rc"] = krc
     if krc != 0:
         rec[verdict_key] = "rejected: lean4checker"
         return False
@@ -316,9 +336,11 @@ def evaluate(c, checker=CHECKER):
     # ---- offered proof (default: D's own declaration)
     proof_ok = False
     if not c.get("refutation") or c.get("demonstrandum"):
+        declaring = lkD.get("declaring_module")  # the offered proof IS D unless `demonstrandum` names another
         if c.get("demonstrandum"):
             lkP, rawP = lock(c["proj"], c["module"], c["decl"])
             rec["evidence"]["proof_lock_cid"] = ket_put(rawP)
+            declaring = (lkP or {}).get("declaring_module")
             if lkP is None or lkP["lock"] != lkD["lock"]:
                 rec["proof_verdict"] = "rejected: lock mismatch"
         if rec["proof_verdict"] is None:
@@ -327,7 +349,7 @@ def evaluate(c, checker=CHECKER):
             rec["proof_verdict"] = axiom_verdict(ax)
         # accepted by the axiom gate is not proven: the independent replay must also pass
         proof_ok = (rec["proof_verdict"] == "accepted"
-                    and replay(c, rec, checker, replay_module(c, c["module"]), "proof_verdict"))
+                    and replay(c, rec, checker, declaring, "proof_verdict"))
         for m in c["mutants"]:
             mrc, mout = run(["python3", f"{SCRIPTS}/hyp_mutant.py", c["proj"], m["file"],
                              "--delete", m["delete"]])
@@ -352,8 +374,11 @@ def evaluate(c, checker=CHECKER):
             _, rax, rraw = axioms(c["proj"], rb["module"], rb["decl"])
             rec["evidence"]["refutation_cid"] = ket_put(rraw)
             rec["refutation_verdict"] = axiom_verdict(rax)
-        ref_ok = (rec["refutation_verdict"] == "accepted"
-                  and replay(c, rec, checker, replay_module(c, rb["module"]), "refutation_verdict"))
+        if rec["refutation_verdict"] == "accepted":
+            # the module declaring the OFFERED refutation, from the environment (Q-31)
+            lkR, rawR = lock(c["proj"], rb["module"], rb["decl"])
+            rec["evidence"]["refutation_lock_cid"] = ket_put(rawR)
+            ref_ok = replay(c, rec, checker, (lkR or {}).get("declaring_module"), "refutation_verdict")
         rec["refutation"] = f"{rb['module']}:{rb['decl']}"
     # ---- status
     if proof_ok and ref_ok:
@@ -425,6 +450,8 @@ def main() -> int:
                  "offered": rec["offered"], "proof_verdict": rec.get("proof_verdict"),
                  "refutation": rec.get("refutation"), "refutation_verdict": rec.get("refutation_verdict"),
                  "status": rec["status"],
+                 "replay": {k: rec.get(k) for k in ("checker_module", "checker_rc",
+                                                     "refutation_checker_module", "refutation_checker_rc") if k in rec},
                  "descriptors": {k: rec.get(k) for k in ("hypotheses", "custom_constants", "grounded",
                                                           "anchored", "reduces_to_True", "registry_match",
                                                           "dedup", "mutants") if k in rec},

@@ -4,8 +4,9 @@
 Checks, over the tracked records only:
   claims/**/*.yml      parse; required keys; status in the SEMANTICS lattice; lock and offered_lock are
                        64-hex; every evidence CID is 64-hex or null; a `proven` claim has proof_verdict
-                       `accepted` and a `refuted` one refutation_verdict `accepted`; either carries the
-                       independent replay's output CID (evidence.checker_cid) (reasons are descriptors)
+                       `accepted` and a `refuted` one refutation_verdict `accepted`; a proof carries its
+                       replay CID (evidence.checker_cid), a refutation its own (evidence.refutation_checker_cid),
+                       and replay.*checker_rc is 0 when recorded (reasons are descriptors)
   attempts/*/manifest-*.json  parse; attempts_sha256 matches the committed attempts.jsonl when present;
                        by_outcome counts sum to `attempts`; pins (when present) are full 40-hex commits
   attempts/exit*.json  parse; `pass` is a bool; cited manifest CIDs are 64-hex
@@ -55,8 +56,13 @@ def check_claims():
         if c.get("status") == "proven" and c.get("proof_verdict") != "accepted": bad(f, "proven but proof_verdict != accepted")
         if c.get("status") == "refuted" and c.get("refutation_verdict") != "accepted": bad(f, "refuted but refutation_verdict != accepted")
         # an accepted verdict means the independent replay ran (github #7): its output CID is required
-        if c.get("status") in ("proven", "refuted") and not HEX64.match(str((c.get("evidence") or {}).get("checker_cid") or "")):
-            bad(f, f"{c.get('status')} without replay evidence (evidence.checker_cid)")
+        tag = {"proven": "", "refuted": "refutation_"}.get(c.get("status"))
+        if tag is not None:
+            if not HEX64.match(str((c.get("evidence") or {}).get(f"{tag}checker_cid") or "")):
+                bad(f, f"{c['status']} without replay evidence (evidence.{tag}checker_cid)")
+            rp = c.get("replay") or {}
+            if f"{tag}checker_rc" in rp and rp[f"{tag}checker_rc"] != 0:
+                bad(f, f"{c['status']} with replay.{tag}checker_rc {rp[f'{tag}checker_rc']!r}")
     return n
 
 
@@ -120,9 +126,10 @@ def check_calib():
     for k, v in (r.get("pins", {}).get("crouzeix") or {}).items():
         if k != "lean" and not HEX40.match(str(v)): bad(f, f"pins.crouzeix.{k} is not a full 40-hex commit")
     for rec in r.get("controls", []):
-        if rec.get("status") in ("proven", "refuted"):
-            if rec.get("checker_rc") != 0: bad(f, f"{rec.get('id')}: {rec['status']} with checker_rc {rec.get('checker_rc')!r}")
-            if not HEX64.match(str((rec.get("evidence") or {}).get("checker_cid") or "")): bad(f, f"{rec.get('id')}: {rec['status']} without evidence.checker_cid")
+        tag = {"proven": "", "refuted": "refutation_"}.get(rec.get("status"))
+        if tag is not None:
+            if rec.get(f"{tag}checker_rc") != 0: bad(f, f"{rec.get('id')}: {rec['status']} with {tag}checker_rc {rec.get(f'{tag}checker_rc')!r}")
+            if not HEX64.match(str((rec.get("evidence") or {}).get(f"{tag}checker_cid") or "")): bad(f, f"{rec.get('id')}: {rec['status']} without evidence.{tag}checker_cid")
     return 1
 
 

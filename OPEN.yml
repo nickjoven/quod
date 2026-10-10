@@ -383,7 +383,6 @@
     verify_records.py verify it for every tracked JSON record with a top-level
     `cid`: strip the key, re-serialize with indent=1, hash, compare. Any
     record that fails is a defect of the ledger.
-
 - id: Q-30
   severity: low
   status: open
@@ -403,3 +402,32 @@
   fix: >
     bootstrap.sh runs millennium/anchors/install.sh before its import and
     uses ket when KET_HOME resolves; until then HANDOFF.md states the order.
+
+- id: Q-31
+  severity: high
+  status: closed 2026-10-10 on github #9 (calibration re-run with ket PASS 12/12 under the new replay rule; P1 replays CrouzeixConjecture.FinalTheorems, N4's refutation replays Quod.P2; claims and calib/RESULTS.json rewritten by that run)
+  title: an accepted verdict could skip the independent replay, or replay a module that does not declare the offered declaration
+  detail: >
+    Three paths let proven/refuted stand on a replay that did not cover the
+    offered declaration. (1) evaluate() ran lean4checker only when
+    checker_module was truthy and computed proof_ok from the axiom verdict
+    alone (github #7). (2) When the key was absent the fallback was the
+    control's module, which for lock.py/axiom_gate.py is any module that
+    imports the declaration, routinely an umbrella of import lines (P1 is
+    CrouzeixConjecture, declared in CrouzeixConjecture.FinalTheorems);
+    lean4checker without --fresh replays only the constants new in the named
+    module (Q-7), so an umbrella replays nothing and exits 0. (3) An explicit
+    checker_module was a nomination nothing verified (SEMANTICS.md Process)
+    and N4/N8 named Quod.Controls.N4 while the offered refutation lives in
+    Quod.P2, so N4's recorded checker_cid a6b3643b replayed the module
+    holding the sorry demonstrandum, not the refutation; a claim with both a
+    proof and a refutation also overwrote one replay with the other. Found
+    in the review of github #9 on 2026-09-24.
+  fix: >
+    lock.py emits DECLMOD (env.getModuleFor? of the declaration itself);
+    calibrate.py replays exactly that module, refuses any other nomination
+    (rejected replay module mismatch), records proof and refutation replays
+    under separate keys (checker_* and refutation_checker_*), and the claim
+    writer emits them under replay; verify_records.py checks the
+    verdict-specific CID and rc; N4/N8 re-pointed at Quod.P2. Q-7 (replay
+    --fresh over the closure) remains the stronger fix.

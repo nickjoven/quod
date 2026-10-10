@@ -132,7 +132,8 @@ named D and discharges it iff the locks are byte-equal, the axiom set is
 the standard triple, and lean4checker accepts the module. Status of D:
 `stated` | `proven` | `refuted` | `drift-fail` (`inconsistent` halts the
 pin). Verdicts on offered proofs (`accepted`, `incomplete: sorry`,
-`rejected: lock mismatch | shape | extra axioms | lean4checker`) are
+`rejected: lock mismatch | shape | extra axioms | lean4checker | no replay |
+replay module mismatch`) are
 recorded on the proof and leave D `stated`. There is no `conditional`:
 hypotheses are part of the lock and are listed as a descriptor.
 

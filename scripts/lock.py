@@ -62,6 +62,9 @@ run_meta do
         | .instImplicit => "inst" | .strictImplicit => "strict"
       let tyFmt ← ppExpr d.type
       IO.println s!"HYP {{bi}} {{isP}} {{d.userName}} :: {{(toString tyFmt).replace "\n" " "}}"
+  -- the module that declares n ITSELF (never the module imported to see it): the
+  -- replay target for an accepted verdict (Q-31)
+  IO.println s!"DECLMOD {{(env.getModuleFor? n).getD `_local}}"
   let consts := t.getUsedConstants
   for c in consts do
     let m := (env.getModuleFor? c).getD `_local
@@ -108,8 +111,10 @@ def main() -> int:
             bi, isp, name = head.split(" ", 2)
             binders.append({"name": name, "binder": bi, "prop": isp == "true", "type": ty})
     kind = [l.split()[1] for l in out.splitlines() if l.startswith("KIND ")][0]
+    declmod = [l.split()[1] for l in out.splitlines() if l.startswith("DECLMOD ")]
     custom = [{"name": c, "module": m} for c, m, k in consts if k == "custom"]
-    res = {"decl": decl, "module": module, "kind": kind, "lock": h, "hash": algo,
+    res = {"decl": decl, "module": module, "kind": kind,
+           "declaring_module": declmod[0] if declmod else None, "lock": h, "hash": algo,
            "canonical_type": canon, "constants": len(consts), "custom_constants": custom,
            "reduces_to_True": "WHNF-IS-TRUE true" in out,
            "binders": binders,
@@ -119,7 +124,8 @@ def main() -> int:
     else:
         print(f"lock {h} ({algo}) {decl} [{kind}] constants {len(consts)} custom {len(custom)}"
               + ("  TYPE UNFOLDS TO True" if res["reduces_to_True"] else "")
-              + f"  binders {len(binders)} hypotheses {len(res['hypotheses'])}")
+              + f"  binders {len(binders)} hypotheses {len(res['hypotheses'])}"
+              + f"  declared in {res['declaring_module']}")
         for h in res["hypotheses"]: print(f"  hyp {h['name']} : {h['type']}")
         for c in custom: print(f"  custom {c['name']}  ({c['module']})")
     return 0
