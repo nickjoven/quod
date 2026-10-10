@@ -10,10 +10,10 @@
  },
  "runner": {
   "anchor_check.py": "fce5cb95d06ee268bb120adf414e262da39b32a39c8e69b9be9680e53b0cfdf0",
-  "attempt.py": "6adbd81bee9cf2105635499c2b7ae715df28bd4d06cdc504d3061ee823015096",
-  "attempt_b.py": "331e460d1ab59d0794dd55fa1d5844e5b86ffd7ff2eead14a4059e882b38a773",
+  "attempt.py": "38bf894c3b6819326bd5315764cae6d0a7623fc915ff092d6029ff3367e9c714",
+  "attempt_b.py": "101a1b863fe6777bf7b784e74203aff426ae41959fbec0690aa3afeb1c9d35be",
   "axiom_gate.py": "aed923bbb7ce405f9a61b9bb58bf2ae4c7df9f7810d21329126cb64dc50992b4",
-  "calibrate.py": "4f481f1f6765bee64a02c3c114f92810bb8c96d37698589d839dc4291b495420",
+  "calibrate.py": "2d81ab494dfad0e2c2da1e9b8b9f08698765b27cac63256650b5454e5f16d1e2",
   "closure.py": "644e45922f305aeaa7d5b6b3b5e4e00613365dda5a499c8cc68e29c15ed2bcf6",
   "controls.py": "d352f30b071f230d457e81a757625a2e0124d2fdd27fac9d6e6c5240ff20c51a",
   "corpus_extract.py": "b96566c079939b57b61a5e613bb96b48bb503d58bd45ccb94e10853ffdc48e94",
@@ -21,11 +21,14 @@
   "derive_pairs.py": "ffcba431b8f55e1b93b9ac42973a218b17d19444f47700fbd283d59dd6998f08",
   "hyp_mutant.py": "c6d6a5d2789f37f1af8a7a9059b44f2e81bc23c4dcf1b1299c5cf89185c570dd",
   "leanenv.py": "3858a5564b21638e48d68695ce80867f979ad28df2c2f429573cbe5c7d8fe690",
-  "lock.py": "44701e8ce72cbf8b0876a0025c10fd3f1c5e8039d033ec2bdf93092fd6f88ebc",
+  "lock.py": "d7eb4af79ad31d211a58702335ca6f04e3942470ddf121448137c3b74e464d0c",
+  "models_register.py": "4514fbe10697859114ad7710b710f32baf05d91e43abb2c7895465976b95d123",
   "mutant_extract.py": "051b37be5c8903f098d1be581a57a7cdb4e64c304e9385f5c9d2aa7387ffa969",
+  "prover_backends.py": "c9387720dc81bcbfb23bdf6ab058bb7595ad4e6033adba089ec5cea8c97ac928",
   "refute_check.py": "0c3d689275e236318ea54292726072999737c064650519f55a8caf4f9966ccc9",
   "registry_import.py": "7e55ef8c699ef6d50a8294c1fcc8c5498c67132ab98c3daf8c6db684cf3fcf20",
-  "verify_records.py": "70370f21bde1c7bd861f17cf2d90f4448cff74b4aab12d16baadd042eb12ca7a"
+  "seal_tierL.py": "30b7334d306c6e27f04b64128cf6416020fc028a7abb31f9070fbc0565a0c156",
+  "verify_records.py": "5116573a9cc960e70f451f6a9a01f86a53496a04aa9c9dda09f72d9dc249e3e3"
  },
  "controls": [
   {
@@ -40,7 +43,7 @@
    "demonstrandum": "CrouzeixConjecture:CrouzeixConjecture.crouzeixConjecture",
    "offered": "CrouzeixConjecture:CrouzeixConjecture.crouzeixConjecture",
    "evidence": {
-    "lock_cid": "dfec83d0ace03c72f6986dcd224827f671f3881bce16e438fd81fc274b07be93",
+    "lock_cid": "85d02821eedd13ae52b846d92fffa851a252447983800f1259fc468ae9123937",
     "closure_cid": "88c472082e9fac234887ebb10d4b77f5e7d35e2838e4d4c5aab86b514aac9d2c",
     "anchor_shape_CrouzeixConjecture.SquareMatrix": "720fc4652f71e725ce3d8926b43ee2c660465442359b42e2555aa87f87843ab3",
     "anchor_axioms_CrouzeixConjecture.SquareMatrix": "7a1f26033025494f5c76724c4b5d6a1c669a5ccbec7ee98684c300be99a7b8b6",
@@ -98,6 +101,7 @@
     "Quot.sound",
     "propext"
    ],
+   "checker_module": "CrouzeixConjecture.FinalTheorems",
    "checker_rc": 0,
    "mutants": [
     {
@@ -117,7 +121,7 @@
    "demonstrandum": "Quod.P2:QuodP2.sharp_two",
    "offered": "Quod.P2:QuodP2.sharp_two",
    "evidence": {
-    "lock_cid": "4907cc86fe8e2ac5a6d0162d241753407aa311a5d7dd82b12b0af0fca03133bb",
+    "lock_cid": "1558fb2a8ea3f835c3760427ac3aedc5dfc629864fbf79a6725d0b8102cc91e8",
     "closure_cid": "f4e5956078deaf8ef864867b4042488077f352eb2c72b2df5c71e5cb5f269e8d",
     "anchor_shape_CrouzeixConjecture.maxPolynomialModulusOnNumericalRange": "cda750f77b6c7d66e6594c922d23d467a667b7e22378b028e9db3a58f3dd7d3a",
     "anchor_axioms_CrouzeixConjecture.maxPolynomialModulusOnNumericalRange": "c4374502aef2c6adcc6dd4e0daeec9f136418e68a53948db25bb44e700588e5d",
@@ -184,6 +188,7 @@
     "Quot.sound",
     "propext"
    ],
+   "checker_module": "Quod.P2",
    "checker_rc": 0,
    "status": "proven",
    "ok": true
@@ -198,7 +203,7 @@
    "demonstrandum": "Quod.P3:QuodP3.infinitely_many_primes_again",
    "offered": "Quod.P3:QuodP3.infinitely_many_primes_again",
    "evidence": {
-    "lock_cid": "ce9874f9e2e654ad8e345edf6cba1bb7a2bde8ce0a0ddc679b0450bca037379c",
+    "lock_cid": "c7b9f60df813bffc50b734de0173d2a20e60d1dec527baebfeb56498bce8586a",
     "axioms_cid": "dd1f1fab86b86a2bd3a1de49b6ad8517dd5ddc87614b8d50d5db51a308df15f4",
     "checker_cid": "1a904a4446604929fa8893e24acf6be65a3fd9038f0ada7f71aa350301dfa1ab"
    },
@@ -221,6 +226,7 @@
     "Quot.sound",
     "propext"
    ],
+   "checker_module": "Quod.P3",
    "checker_rc": 0,
    "status": "proven",
    "ok": true
@@ -239,7 +245,7 @@
    "demonstrandum": "Quod.Controls.N1:navier_stokes",
    "offered": "Quod.Controls.N1:navier_stokes",
    "evidence": {
-    "lock_cid": "2831d89307ec790f1863557bb0372ade229a7f5df164a11ba385054c563c85cd",
+    "lock_cid": "5b3015469c19f8b5b84b307199773f29a46fcaebd5e9e3ad071af661c0f190e4",
     "closure_cid": "7bdbe6864be653fe8457f887749a309533e2691131d1921178ddbd0042c00e8d",
     "axioms_cid": "ed9f07f14b2e995c508210a11b547a573aa18e62093c61e33465b40b34253218",
     "checker_cid": "662a5a0ad01b4299a80174ec5564741a0f40114694ebfc2e918b4998f0254def"
@@ -275,6 +281,7 @@
    },
    "anchored_all": false,
    "axioms": [],
+   "checker_module": "Quod.Controls.N1",
    "checker_rc": 0,
    "status": "proven",
    "ok": true
@@ -290,7 +297,7 @@
    "demonstrandum": "Quod.Controls.N2:p_vs_np",
    "offered": "Quod.Controls.N2:p_vs_np",
    "evidence": {
-    "lock_cid": "3fded70cdb625f4e77f21214dc5f102be15b1a489787d0965b7cf3e7057688c8",
+    "lock_cid": "421bb4782e5cc7c85ac026e1281275c2f2b1131b46a3c63ed4b66e5e8dbab466",
     "closure_cid": "3bb0515c8f897ff324f14e492e9f3335ab98a2120208942caa503a2b5d6d68d0",
     "axioms_cid": "0a83df1a301f55ec29539a42323909f008dc1c7e02d9aa72edfbdc969e0af106",
     "checker_cid": "58e870f91da86a10478db04953e10e23fba3c998cd0b13018ce79842b366c533"
@@ -322,6 +329,7 @@
    },
    "anchored_all": false,
    "axioms": [],
+   "checker_module": "Quod.Controls.N2",
    "checker_rc": 0,
    "status": "proven",
    "ok": true
@@ -336,7 +344,7 @@
    "demonstrandum": "Quod.Controls.N3:all_primes_small",
    "offered": "Quod.Controls.N3:all_primes_small",
    "evidence": {
-    "lock_cid": "733c2032c166038c3e95b0d248bf99b806b1efb6fba78113b921d06853717ffe",
+    "lock_cid": "acd4289a4990cf56b291cfca91970e54c6bc85c1c6d9eae9c83d28a39558cb5c",
     "axioms_cid": "f188b54a984cd56f03b3bfff55ccb21a62f7d72c1aaa5631da08351ae8ad745e"
    },
    "reasons": [],
@@ -371,7 +379,7 @@
    "demonstrandum": "Quod.Controls.N4:crouzeix_constant_one",
    "offered": "Quod.Controls.N4:crouzeix_constant_one",
    "evidence": {
-    "lock_cid": "6747006184a0482128fbe63ea34e14b552b659d20c4fd13f946b1d4b8b207b92",
+    "lock_cid": "9ac1acc5948d21ce4827c36450b9b04947a296c3720d65ac01952909a0a7b024",
     "closure_cid": "88c472082e9fac234887ebb10d4b77f5e7d35e2838e4d4c5aab86b514aac9d2c",
     "anchor_shape_CrouzeixConjecture.SquareMatrix": "720fc4652f71e725ce3d8926b43ee2c660465442359b42e2555aa87f87843ab3",
     "anchor_axioms_CrouzeixConjecture.SquareMatrix": "7a1f26033025494f5c76724c4b5d6a1c669a5ccbec7ee98684c300be99a7b8b6",
@@ -384,7 +392,8 @@
     "axioms_cid": "d62d0ff11f87e94619afbd734f9d1b5cd6600216824d695bbac51c876a47d380",
     "refutation_shape_cid": "b7df4d8f316243ca8a274f72aeb7bef66a3fa174df9547c73077377c8f2f0900",
     "refutation_cid": "6e891b2b18bb5fd3ed8010ef9c4c616242072e0da07e93a0dcd94eb03f82f2bd",
-    "checker_cid": "a6b3643bdc36273abaafb60d726c63a0905f636e4779257d3a890bee8ba1af55"
+    "refutation_lock_cid": "fc592afc1fdeb2de0e9cdb21b86b571e512720e4f1be15172f270fe3adf29f73",
+    "refutation_checker_cid": "3187b9e41b79c5207aed4c37d3fec3d0885810bf97c5b095a7364dcef3097c67"
    },
    "reasons": [],
    "proof_verdict": "incomplete: sorry",
@@ -431,7 +440,8 @@
     "propext",
     "sorryAx"
    ],
-   "checker_rc": 0,
+   "refutation_checker_module": "Quod.P2",
+   "refutation_checker_rc": 0,
    "refutation": "Quod.P2:QuodP2.N4_refuted",
    "status": "refuted",
    "ok": true
@@ -445,7 +455,7 @@
    "demonstrandum": "CrouzeixConjecture:CrouzeixConjecture.crouzeixConjecture",
    "offered": "CrouzeixConjecture:CrouzeixConjecture.crouzeixConjecture",
    "evidence": {
-    "lock_cid": "dfec83d0ace03c72f6986dcd224827f671f3881bce16e438fd81fc274b07be93",
+    "lock_cid": "85d02821eedd13ae52b846d92fffa851a252447983800f1259fc468ae9123937",
     "closure_cid": "88c472082e9fac234887ebb10d4b77f5e7d35e2838e4d4c5aab86b514aac9d2c",
     "anchor_shape_CrouzeixConjecture.SquareMatrix": "720fc4652f71e725ce3d8926b43ee2c660465442359b42e2555aa87f87843ab3",
     "anchor_axioms_CrouzeixConjecture.SquareMatrix": "7a1f26033025494f5c76724c4b5d6a1c669a5ccbec7ee98684c300be99a7b8b6",
@@ -512,7 +522,7 @@
    "demonstrandum": "Quod.Controls.N1:navier_stokes",
    "offered": "Quod.Controls.N1:navier_stokes",
    "evidence": {
-    "lock_cid": "2831d89307ec790f1863557bb0372ade229a7f5df164a11ba385054c563c85cd",
+    "lock_cid": "5b3015469c19f8b5b84b307199773f29a46fcaebd5e9e3ad071af661c0f190e4",
     "closure_cid": "7bdbe6864be653fe8457f887749a309533e2691131d1921178ddbd0042c00e8d",
     "anchor_shape_Tower.declInv": "617641e14a30e7cbe432be88e267e2981c03dac93193e7472913c5d0c497bb36",
     "axioms_cid": "ed9f07f14b2e995c508210a11b547a573aa18e62093c61e33465b40b34253218",
@@ -549,6 +559,7 @@
    },
    "anchored_all": false,
    "axioms": [],
+   "checker_module": "Quod.Controls.N1",
    "checker_rc": 0,
    "status": "proven",
    "ok": true
@@ -564,7 +575,7 @@
    "demonstrandum": "Quod.Controls.N7:navier_stokes_laundered",
    "offered": "Quod.Controls.N7:navier_stokes_laundered",
    "evidence": {
-    "lock_cid": "0e67379240b441bcb61c3ec7dcf7517549771f0a3b125f3cf9cc0283f137c08d",
+    "lock_cid": "aec2bccf09f26a044e4b22dd0a052e80e1d2605f99d30a6ff60f72bdf6c25ab6",
     "closure_cid": "6214a2f6e68035b6ee03e5995abf8c8fd1173c964097f32bb257635f74270bad",
     "anchor_shape_Tower7.declInv": "1f959ca793aa56f315452896bde709b14662d611d61cf44184ff3134988a7c53",
     "anchor_axioms_Tower7.declInv": "be49ebea5b75ea7d1641990925643c73d7bcfb9d27dcadd978962f27de18cabc",
@@ -602,6 +613,7 @@
    },
    "anchored_all": false,
    "axioms": [],
+   "checker_module": "Quod.Controls.N7",
    "checker_rc": 0,
    "status": "proven",
    "ok": true
@@ -616,7 +628,7 @@
    "demonstrandum": "Quod.Controls.N4:crouzeix_constant_one",
    "offered": "Quod.Controls.N4:crouzeix_constant_one",
    "evidence": {
-    "lock_cid": "6747006184a0482128fbe63ea34e14b552b659d20c4fd13f946b1d4b8b207b92",
+    "lock_cid": "9ac1acc5948d21ce4827c36450b9b04947a296c3720d65ac01952909a0a7b024",
     "closure_cid": "88c472082e9fac234887ebb10d4b77f5e7d35e2838e4d4c5aab86b514aac9d2c",
     "anchor_shape_CrouzeixConjecture.SquareMatrix": "720fc4652f71e725ce3d8926b43ee2c660465442359b42e2555aa87f87843ab3",
     "anchor_axioms_CrouzeixConjecture.SquareMatrix": "7a1f26033025494f5c76724c4b5d6a1c669a5ccbec7ee98684c300be99a7b8b6",
@@ -688,7 +700,7 @@
    "demonstrandum": "CrouzeixConjecture:CrouzeixConjecture.crouzeixConjecture",
    "offered": "Quod.P2:QuodP2.sharp_two",
    "evidence": {
-    "lock_cid": "dfec83d0ace03c72f6986dcd224827f671f3881bce16e438fd81fc274b07be93",
+    "lock_cid": "85d02821eedd13ae52b846d92fffa851a252447983800f1259fc468ae9123937",
     "closure_cid": "88c472082e9fac234887ebb10d4b77f5e7d35e2838e4d4c5aab86b514aac9d2c",
     "anchor_shape_CrouzeixConjecture.SquareMatrix": "720fc4652f71e725ce3d8926b43ee2c660465442359b42e2555aa87f87843ab3",
     "anchor_axioms_CrouzeixConjecture.SquareMatrix": "7a1f26033025494f5c76724c4b5d6a1c669a5ccbec7ee98684c300be99a7b8b6",
@@ -698,7 +710,7 @@
     "anchor_axioms_CrouzeixConjecture.maxPolynomialModulusOnNumericalRange": "c4374502aef2c6adcc6dd4e0daeec9f136418e68a53948db25bb44e700588e5d",
     "anchor_shape_CrouzeixConjecture.numericalRange": "2c341efde8e552c8d0fe8bf841f0515884fd7b9c2344a0df61f835df1c2fabc0",
     "anchor_axioms_CrouzeixConjecture.numericalRange": "bc7c0a50bd2833deadf781f274eab84c4d6d3b47670ad1de16270e467f2e6b8c",
-    "proof_lock_cid": "4907cc86fe8e2ac5a6d0162d241753407aa311a5d7dd82b12b0af0fca03133bb"
+    "proof_lock_cid": "1558fb2a8ea3f835c3760427ac3aedc5dfc629864fbf79a6725d0b8102cc91e8"
    },
    "reasons": [],
    "proof_verdict": "rejected: lock mismatch",

@@ -8,6 +8,9 @@ proof_verdict: accepted
 refutation: null
 refutation_verdict: null
 status: proven
+replay:
+  checker_module: Quod.Controls.N7
+  checker_rc: 0
 descriptors:
   hypotheses:
   - name: step
@@ -24,7 +27,7 @@ controls:
 reasons:
 - unanchored ['Tower7.declInv']
 evidence:
-  lock_cid: 0e67379240b441bcb61c3ec7dcf7517549771f0a3b125f3cf9cc0283f137c08d
+  lock_cid: aec2bccf09f26a044e4b22dd0a052e80e1d2605f99d30a6ff60f72bdf6c25ab6
   closure_cid: 6214a2f6e68035b6ee03e5995abf8c8fd1173c964097f32bb257635f74270bad
   anchor_shape_Tower7.declInv: 1f959ca793aa56f315452896bde709b14662d611d61cf44184ff3134988a7c53
   anchor_axioms_Tower7.declInv: be49ebea5b75ea7d1641990925643c73d7bcfb9d27dcadd978962f27de18cabc

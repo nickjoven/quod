@@ -8,6 +8,9 @@ proof_verdict: accepted
 refutation: null
 refutation_verdict: null
 status: proven
+replay:
+  checker_module: Quod.Controls.N2
+  checker_rc: 0
 descriptors:
   hypotheses: []
   custom_constants:
@@ -23,7 +26,7 @@ reasons:
 - type unfolds to True
 - unanchored ['PvsNPClaim']
 evidence:
-  lock_cid: 3fded70cdb625f4e77f21214dc5f102be15b1a489787d0965b7cf3e7057688c8
+  lock_cid: 421bb4782e5cc7c85ac026e1281275c2f2b1131b46a3c63ed4b66e5e8dbab466
   closure_cid: 3bb0515c8f897ff324f14e492e9f3335ab98a2120208942caa503a2b5d6d68d0
   axioms_cid: 0a83df1a301f55ec29539a42323909f008dc1c7e02d9aa72edfbdc969e0af106
   checker_cid: 58e870f91da86a10478db04953e10e23fba3c998cd0b13018ce79842b366c533
