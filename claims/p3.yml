@@ -7,6 +7,9 @@ proof_verdict: accepted
 refutation: null
 refutation_verdict: null
 status: proven
+replay:
+  checker_module: Quod.P3
+  checker_rc: 0
 descriptors:
   hypotheses: []
   custom_constants: []
@@ -20,6 +23,6 @@ controls:
 reasons:
 - 'dedup with Nat.exists_infinite_primes: same lock'
 evidence:
-  lock_cid: ce9874f9e2e654ad8e345edf6cba1bb7a2bde8ce0a0ddc679b0450bca037379c
+  lock_cid: c7b9f60df813bffc50b734de0173d2a20e60d1dec527baebfeb56498bce8586a
   axioms_cid: dd1f1fab86b86a2bd3a1de49b6ad8517dd5ddc87614b8d50d5db51a308df15f4
   checker_cid: 1a904a4446604929fa8893e24acf6be65a3fd9038f0ada7f71aa350301dfa1ab

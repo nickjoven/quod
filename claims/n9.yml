@@ -8,6 +8,7 @@ proof_verdict: 'rejected: lock mismatch'
 refutation: null
 refutation_verdict: null
 status: stated
+replay: {}
 descriptors:
   hypotheses: []
   custom_constants:
@@ -25,7 +26,7 @@ controls:
 - negative
 reasons: []
 evidence:
-  lock_cid: dfec83d0ace03c72f6986dcd224827f671f3881bce16e438fd81fc274b07be93
+  lock_cid: 85d02821eedd13ae52b846d92fffa851a252447983800f1259fc468ae9123937
   closure_cid: 88c472082e9fac234887ebb10d4b77f5e7d35e2838e4d4c5aab86b514aac9d2c
   anchor_shape_CrouzeixConjecture.SquareMatrix: 720fc4652f71e725ce3d8926b43ee2c660465442359b42e2555aa87f87843ab3
   anchor_axioms_CrouzeixConjecture.SquareMatrix: 7a1f26033025494f5c76724c4b5d6a1c669a5ccbec7ee98684c300be99a7b8b6
@@ -35,4 +36,4 @@ evidence:
   anchor_axioms_CrouzeixConjecture.maxPolynomialModulusOnNumericalRange: c4374502aef2c6adcc6dd4e0daeec9f136418e68a53948db25bb44e700588e5d
   anchor_shape_CrouzeixConjecture.numericalRange: 2c341efde8e552c8d0fe8bf841f0515884fd7b9c2344a0df61f835df1c2fabc0
   anchor_axioms_CrouzeixConjecture.numericalRange: bc7c0a50bd2833deadf781f274eab84c4d6d3b47670ad1de16270e467f2e6b8c
-  proof_lock_cid: 4907cc86fe8e2ac5a6d0162d241753407aa311a5d7dd82b12b0af0fca03133bb
+  proof_lock_cid: 1558fb2a8ea3f835c3760427ac3aedc5dfc629864fbf79a6725d0b8102cc91e8

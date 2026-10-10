@@ -7,6 +7,7 @@ proof_verdict: 'rejected: extra axioms [''oracle'']'
 refutation: null
 refutation_verdict: null
 status: stated
+replay: {}
 descriptors:
   hypotheses:
   - name: a._@._internal._hyg.0
@@ -20,5 +21,5 @@ controls:
 - negative
 reasons: []
 evidence:
-  lock_cid: 733c2032c166038c3e95b0d248bf99b806b1efb6fba78113b921d06853717ffe
+  lock_cid: acd4289a4990cf56b291cfca91970e54c6bc85c1c6d9eae9c83d28a39558cb5c
   axioms_cid: f188b54a984cd56f03b3bfff55ccb21a62f7d72c1aaa5631da08351ae8ad745e

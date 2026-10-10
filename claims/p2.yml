@@ -8,6 +8,9 @@ proof_verdict: accepted
 refutation: null
 refutation_verdict: null
 status: proven
+replay:
+  checker_module: Quod.P2
+  checker_rc: 0
 descriptors:
   hypotheses: []
   custom_constants:
@@ -27,7 +30,7 @@ controls:
 - positive
 reasons: []
 evidence:
-  lock_cid: 4907cc86fe8e2ac5a6d0162d241753407aa311a5d7dd82b12b0af0fca03133bb
+  lock_cid: 1558fb2a8ea3f835c3760427ac3aedc5dfc629864fbf79a6725d0b8102cc91e8
   closure_cid: f4e5956078deaf8ef864867b4042488077f352eb2c72b2df5c71e5cb5f269e8d
   anchor_shape_CrouzeixConjecture.maxPolynomialModulusOnNumericalRange: cda750f77b6c7d66e6594c922d23d467a667b7e22378b028e9db3a58f3dd7d3a
   anchor_axioms_CrouzeixConjecture.maxPolynomialModulusOnNumericalRange: c4374502aef2c6adcc6dd4e0daeec9f136418e68a53948db25bb44e700588e5d
