@@ -116,6 +116,28 @@ def check_intake():
             if any(v.get("status") in ("proven", "refuted") for v in res.get("results", {}).values()):
                 ck = res.get("checker") or {}
                 if not (ck.get("ran") and ck.get("exit") == 0): bad(r, "proven/refuted results without a passing checker replay")
+        # fresh-checkout runs (intake/<name>/runs/<id>/): the same rules, plus the run record must agree with them
+        for rd in sorted(glob.glob(os.path.join(os.path.dirname(f), "runs", "*"))):
+            rr, rres = os.path.join(rd, "RUN.json"), os.path.join(rd, "RESULTS.json")
+            if not os.path.exists(rr): continue
+            n += 1
+            run = json.load(open(rr))
+            if run.get("status") not in ("ok", "rejected", "failed", "interrupted"): bad(rr, f"status {run.get('status')!r}")
+            if run.get("status") == "ok" and not os.path.exists(rres): bad(rr, "status ok without RESULTS.json")
+            if not os.path.exists(rres): continue
+            res = json.load(open(rres))
+            ck = res.get("checker") or {}
+            for cid, v in res.get("results", {}).items():
+                if v.get("status") not in STATUS: bad(rres, f"{cid} status {v.get('status')!r} not in lattice")
+                if v.get("status") == "proven" and not (ck.get("ran") and ck.get("exit") == 0 and ck.get("covers_closure") is True):
+                    bad(rres, f"{cid} proven without a passing replay over the whole closure")
+            if run.get("status") == "ok" and any(v.get("proof_verdict") != "accepted" for v in res.get("results", {}).values()):
+                bad(rr, "status ok but a verdict is not accepted")
+            if not HEX64.match(str((run.get("cids") or {}).get("RESULTS.json", ""))): bad(rr, "cids.RESULTS.json malformed")
+            for k, v in (res.get("evidence_cids") or {}).items():
+                if not HEX64.match(str(v.get("cid", ""))): bad(rres, f"evidence_cids[{k}] malformed")
+            if (run.get("pin") or {}).get("commit") != (res.get("pin") or {}).get("commit"): bad(rr, "RUN.json and RESULTS.json pin differ")
+            if not (run.get("pin_check") or {}).get("ok"): bad(rr, "pin check not ok")
     return n
 
 

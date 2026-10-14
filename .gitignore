@@ -27,3 +27,7 @@ attempts/*/driver.log.bak
 intake/*/repo/
 intake/*/upstream/
 models/weights/
+intake/*/runs/*/repo/
+intake/*/runs/*/lean4checker/
+intake/*/runs/*/*.tmp
+intake/*/runs/*/reproduce.out
