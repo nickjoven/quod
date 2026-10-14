@@ -627,7 +627,9 @@ class Run:
             raise StepFailed(f"lean4checker checkout {head[:12]} toolchain {tc} is not the recorded patched state", None, EXIT_STALE)
         diff = subprocess.run(["git", "diff"], cwd=self.checker_dir, capture_output=True, text=True).stdout
         open(os.path.join(self.E, "lean4checker-applied.diff"), "w").write(diff)
-        self.step("lean4checker_build", ["lake", "build"], self.checker_dir, "lean4checker-build.log", timeout=3600)
+        # the executable only: the package's own test library (Lean4CheckerTests) targets the v4.29 kernel API
+        # and does not compile on this toolchain; it is not part of the checker
+        self.step("lean4checker_build", ["lake", "build", "lean4checker"], self.checker_dir, "lean4checker-build.log", timeout=3600)
         if not os.path.exists(binp):
             raise StepFailed("lean4checker binary absent after build", None, EXIT_MISSING)
         info = {"repo": LEAN4CHECKER_REPO, "commit": head, "lean_toolchain": tc, "patch": "evidence/lean4checker-applied.diff",
