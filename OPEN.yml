@@ -431,3 +431,50 @@
     writer emits them under replay; verify_records.py checks the
     verdict-specific CID and rc; N4/N8 re-pointed at Quod.P2. Q-7 (replay
     --fresh over the closure) remains the stronger fix.
+
+- id: Q-32
+  severity: high
+  status: open (fix on branch claude/issue-8-reproduce; closes when a fresh-checkout run records the digests equal)
+  title: the openai-ns statuses rested on lock equality between two copies of the same definitions, and closure.py never looked inside the structures
+  detail: >
+    The challenge theorems (ComparatorChallenges.NavierStokes) and the offered
+    proofs (NavierStokes.ComparatorSolution) use custom constants of the same
+    full names declared in two different modules: the challenge module and
+    NavierStokes.ComparatorDefinitions, which the solution imports instead of
+    the challenge. lock.py hashes the pp.all canonical type, in which those
+    constants appear by name, so lock equality (3608c95f, 486545e2) establishes
+    that the two statements read the same and cannot establish that the names
+    mean the same. The historical intake (2026-09-13) made no definition-level
+    comparison; a textual diff shows the definitions module is the challenge
+    file minus the two sorry theorems, but no record says so. Separately,
+    closure.py walks ci.value? to reach a definition's constants, and an
+    inductive type has no value: the structures' fields were never visited, so
+    "custom 4, grounded" for each statement covered the root and three type
+    formers and nothing beneath them (divergence, IsOnePeriodic, the parent
+    structures). Found 2026-10-14 while writing the trust-boundary map (#8).
+  fix: >
+    scripts/defs_digest.py walks types, definition values and constructor types
+    from the statement, prints each non-standard constant's canonical type and
+    value, and digests the sorted rows (module names excluded); reproduce.py
+    runs it on both modules and write_claims.py rejects when the digests differ
+    (definitions_identical). closure.py should walk constructor types the same
+    way; until it does, its grounded verdict is read as "no axiom/opaque/sorry
+    among the constants it reached". The historical records are preserved and
+    labeled: their status rests on lock equality alone.
+
+- id: Q-33
+  severity: low
+  status: open
+  title: Comparator (lean4export + nanoda) has not been run by quod on the openai-ns pin
+  detail: >
+    OpenAI ships its own checker path (ComparatorChallenges/README.md): export
+    the environment with lean4export and re-check it with nanoda, a kernel
+    re-implementation in Rust, under landrun. That is a stronger independence
+    claim than lean4checker or the toolchain's leanchecker, both of which run
+    the Lean kernel itself. The intake records only the Lean-kernel replays.
+  fix: >
+    A reproduce.py step that installs the pinned lean4export (cacf989b) and a
+    pinned nanoda_bin, runs `lake exe comparator ComparatorChallenges/NavierStokes.json`
+    at the pin, and records the exit, logs and binary identities as a second
+    independent replay; descriptor until its semantics are documented in
+    SEMANTICS.md.
