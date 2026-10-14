@@ -1,0 +1,4 @@
+replaying NavierStokes.ActualSignedControl
+replaying NavierStokes.ActualSignedCommonDynamics
+replaying NavierStokes.ActualSignedCoherence
+replaying NavierStokes.ActualSeedPeriodicity

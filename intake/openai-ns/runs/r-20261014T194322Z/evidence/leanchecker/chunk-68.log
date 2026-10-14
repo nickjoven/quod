@@ -1,0 +1,4 @@
+replaying NavierStokes.LocalizedWaveBounds
+replaying NavierStokes.LocalizedMomentRepair
+replaying NavierStokes.LocalizedMeanInteraction
+replaying NavierStokes.LocalizedGaussianBounds

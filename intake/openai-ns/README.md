@@ -117,3 +117,27 @@ of disk per run (Mathlib cache 6.6 GB, closure build, two checker builds).
 Historical scripts (`build.sh`, `checker.sh`, `checker-chunked.sh`,
 `fidelity.sh`, `supervise.sh`) are kept as the record of how the 2026-09-13
 evidence was produced; they are not the reproduction path.
+
+## Fresh runs
+
+| run | quod commit | outcome | lean4checker | leanchecker (toolchain) | definitions | agreement with 2026-09-13 |
+|---|---|---|---|---|---|---|
+| [`runs/r-20261014T194322Z`](runs/r-20261014T194322Z/RUN.json) (2026-10-14) | `9fe6a00` | **proven**, **proven** | 610 modules, 2 workers, exit 0, 37.7 min; binary sha256 `f2fb235a…` | 610 modules in 153 chunks of 4, exit 0, 51.2 min; binary sha256 `ccef1bfe…` | 15 + 16 constants, digests equal | locks equal; same 610-module set; checker binary byte-identical; port diff identical; all 14 fidelity forms equal |
+
+Measured on this host for that run (24 cores, 23.5 GB, Mathlib cache
+already on disk): clone and pin check under a second, Mathlib cache 77 s,
+full build 16.2 min on six CPUs (`taskset -c 0-5`; Lake has no jobs flag
+in this version), each gate 4–6 s, lean4checker replay 37.7 min, leanchecker
+51.2 min, port and 28 fidelity locks 2.5 min; 10.5 GB on disk for the run
+directory. The run took three attempts, each recorded under
+`prior_attempts` in `RUN.json`: the first stopped when the two targets
+could not be imported together (Q-32, now walked per target), the second
+when lean4checker's test library failed to compile on this toolchain (the
+executable alone is built now). The historical replay took 79 min on the same
+box with less free memory.
+
+Every sealed record of that run: `RESULTS.json` CID `73c51b4b…`, claims
+`96b4632c…` (C) and `0b8feb4e…` (D), 218 evidence files indexed in
+`evidence/CIDS.json` (`0bae9fab…`); `reproduce.py integrity --run runs/r-20261014T194322Z`
+re-hashes all of them, and `fixtures.py --run runs/r-20261014T194322Z` runs the failure
+fixtures against that evidence.

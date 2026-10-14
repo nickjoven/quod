@@ -1,0 +1,58 @@
+{
+ "commit": {
+  "expected": "f9e8bc5b38b6e212696e8a30e3e91517af887bbd",
+  "got": "f9e8bc5b38b6e212696e8a30e3e91517af887bbd",
+  "ok": true
+ },
+ "lean_toolchain": {
+  "expected": "leanprover/lean4:v4.34.0-rc2",
+  "got": "leanprover/lean4:v4.34.0-rc2",
+  "ok": true
+ },
+ "dependencies": {
+  "mathlib": {
+   "expected": "85e3a25e006c35636f0e53b0e9296caca2685bc0",
+   "got": "85e3a25e006c35636f0e53b0e9296caca2685bc0",
+   "ok": true
+  },
+  "Comparator": {
+   "expected": "19e111e2141cf333c7daff0f64c5f24acc91dd2e",
+   "got": "19e111e2141cf333c7daff0f64c5f24acc91dd2e",
+   "ok": true
+  },
+  "lean4export": {
+   "expected": "cacf989b",
+   "got": "cacf989bd75f608700820f6afc595f32e7a99a4d",
+   "ok": true
+  }
+ },
+ "files": {
+  "statement_file": {
+   "path": "ComparatorChallenges/NavierStokes.lean",
+   "got": {
+    "bytes": 13031,
+    "sha256": "0cd193b8d5cbd0266e6e2f72e68dd5abcdcf2430ebd435dd9289737e9aa7da61",
+    "blake3": "56996609b8f8c26e3a381afa2c5b9577ffe4d7623f485a7642f36ac65de0b3aa",
+    "git_blob": "673fb19e26e60818d446363afd953f618719f99b"
+   },
+   "mismatch": [],
+   "ok": true
+  },
+  "challenge_spec": {
+   "path": "ComparatorChallenges/NavierStokes.json",
+   "got": {
+    "bytes": 375,
+    "sha256": "7610ecead7b390d80ff7f4229a3ff8f18d630e046f7ad1de4f92c7e8e76845b8",
+    "blake3": "0310c863fda0165379d47ea44f7e65fc9a257931438a0ecd70a7e6d879a8aa2a",
+    "git_blob": "b5fd32b1211faf7d282dac09d70be5527da9f486"
+   },
+   "mismatch": [],
+   "ok": true
+  }
+ },
+ "ok": true,
+ "failures": [],
+ "verified_at": "2026-10-14T20:05:50Z",
+ "git_status_clean": true,
+ "lake_manifest_name": "fluidEquations"
+}

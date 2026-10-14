@@ -1,0 +1,28 @@
+ok   NavierStokes.Comparator.navier_stokes_breakdown_R3: ['Classical.choice', 'Quot.sound', 'propext']
+ok   NavierStokes.Comparator.navier_stokes_breakdown_periodic: ['Classical.choice', 'Quot.sound', 'propext']
+{
+ "results": [
+  {
+   "decl": "NavierStokes.Comparator.navier_stokes_breakdown_R3",
+   "axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ],
+   "extra": [],
+   "ok": true
+  },
+  {
+   "decl": "NavierStokes.Comparator.navier_stokes_breakdown_periodic",
+   "axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ],
+   "extra": [],
+   "ok": true
+  }
+ ],
+ "raw": "'NavierStokes.Comparator.navier_stokes_breakdown_R3' depends on axioms: [propext, Classical.choice, Quot.sound]\n'NavierStokes.Comparator.navier_stokes_breakdown_periodic' depends on axioms: [propext, Classical.choice, Quot.sound]\n"
+}
+axiom gate: clean (2 declaration(s))

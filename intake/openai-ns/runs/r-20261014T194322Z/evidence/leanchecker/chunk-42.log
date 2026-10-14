@@ -1,0 +1,4 @@
+replaying NavierStokes.CurlClassBounds
+replaying NavierStokes.CrossBasedMeanComposition
+replaying NavierStokes.Covariance
+replaying NavierStokes.CorrectionStep

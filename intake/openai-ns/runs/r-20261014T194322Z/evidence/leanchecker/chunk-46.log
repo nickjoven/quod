@@ -1,0 +1,4 @@
+replaying NavierStokes.DiagonalResidual
+replaying NavierStokes.DiagonalJetBounds
+replaying NavierStokes.DependentSignedPhysicalFamily
+replaying NavierStokes.DefectIncrementBounds

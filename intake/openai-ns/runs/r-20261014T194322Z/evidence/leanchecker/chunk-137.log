@@ -1,0 +1,4 @@
+replaying NavierStokes.SlowStressSupport
+replaying NavierStokes.SlowResidualMatching
+replaying NavierStokes.SlowRecursion
+replaying NavierStokes.SlowFirstOrderEdge

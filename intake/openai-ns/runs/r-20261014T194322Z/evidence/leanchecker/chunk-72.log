@@ -1,0 +1,4 @@
+replaying NavierStokes.MixedCandidateWitness
+replaying NavierStokes.MixedCandidateAssembly
+replaying NavierStokes.MixedAxisPreservation
+replaying NavierStokes.MeanStateRegularity

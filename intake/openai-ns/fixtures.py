@@ -60,7 +60,8 @@ def make_copy(src_run: str | None, dst: str) -> dict:
         closure = os.path.join(dst, "closure-for-fixtures.txt")
         open(closure, "w").write(open(checker).read())
     cids_path = os.path.join(dst, "evidence", "CIDS.json")
-    return {"dir": dst, "E": os.path.join(dst, "evidence"), "cids": json.load(open(cids_path)), "closure": closure, "checker": checker}
+    cids = json.load(open(cids_path))
+    return {"dir": dst, "E": os.path.join(dst, "evidence"), "cids": cids, "cids_original": dict(cids), "closure": closure, "checker": checker}
 
 
 def write(c: dict) -> dict:
@@ -131,9 +132,10 @@ FIXTURES = [
      "the replay exited 1: the kernel rejected something in the closure"),
     ("partial-replay", mut_partial_replay, {"OPENAI-NS-R3": "rejected: replay did not cover the closure", "OPENAI-NS-PERIODIC": "rejected: replay did not cover the closure"}, R.EXIT_STEP,
      "one closure module left out of the replay: a passing replay over the wrong set is not a replay (Q-31 for intakes)"),
-    ("definitions-differ", mut_definitions_differ, {"OPENAI-NS-R3": "rejected: definitions differ", "OPENAI-NS-PERIODIC": "rejected: definitions differ"}, 0,
-     "equal locks but the names mean different things on the two sides (Q-32); the bytes are what they claim to be, so integrity "
-     "passes: a verdict and an integrity check answer different questions"),
+    ("definitions-differ", mut_definitions_differ, {"OPENAI-NS-R3": "rejected: definitions differ", "OPENAI-NS-PERIODIC": "rejected: definitions differ"},
+     lambda c: R.EXIT_STEP if "evidence/definitions.json" in c["cids_original"] else 0,
+     "equal locks but the names mean different things on the two sides (Q-32); on the historical records no definitions file is cited, "
+     "so integrity passes (a verdict and an integrity check answer different questions); on a fresh run the cited file changed, so it fails"),
 ]
 
 
@@ -148,6 +150,7 @@ def main() -> int:
     for name, mut, want, want_rc, why in FIXTURES:
         c = make_copy(a.run, os.path.join(base, name))
         mut(c)
+        want_rc = want_rc(c) if callable(want_rc) else want_rc
         got, rc = write(c), integrity(c)
         good = got == want and rc == want_rc
         ok &= good

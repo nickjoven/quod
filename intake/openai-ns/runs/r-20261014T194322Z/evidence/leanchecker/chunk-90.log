@@ -1,0 +1,4 @@
+replaying NavierStokes.PeriodizedWaveBounds
+replaying NavierStokes.PeriodizePDE
+replaying NavierStokes.PeriodizeLatticeCover
+replaying NavierStokes.PeriodicViscosityUniqueness

@@ -1,0 +1,4 @@
+replaying NavierStokes.R3ActualCandidate
+replaying NavierStokes.R3.WholeSpaceUniqueness
+replaying NavierStokes.R3.WholeSpaceEnergyLimit
+replaying NavierStokes.R3.WholeSpaceComparisonClosure

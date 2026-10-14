@@ -1,0 +1,4 @@
+replaying NavierStokes.R3.CompactComparisonBounds
+replaying NavierStokes.R3.CandidateBreakdown
+replaying NavierStokes.R3.ActualPressureFlux
+replaying NavierStokes.R3.ActualCandidate

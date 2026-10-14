@@ -1,0 +1,4 @@
+replaying NavierStokes.StateMomentBalances
+replaying NavierStokes.SquaredPartition
+replaying NavierStokes.SpatialLocalization
+replaying NavierStokes.SpatialCurl

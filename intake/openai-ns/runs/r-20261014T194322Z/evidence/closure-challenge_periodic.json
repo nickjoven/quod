@@ -1,0 +1,37 @@
+[
+ {
+  "root": "NavierStokes.Comparator.navier_stokes_breakdown_periodic",
+  "custom": [
+   {
+    "name": "NavierStokes.Comparator.navier_stokes_breakdown_periodic",
+    "kind": "theorem",
+    "module": "ComparatorChallenges.NavierStokes"
+   },
+   {
+    "name": "NavierStokes.Comparator.InitialVelocityConditionPeriodic",
+    "kind": "inductive",
+    "module": "ComparatorChallenges.NavierStokes"
+   },
+   {
+    "name": "NavierStokes.Comparator.ForceConditionPeriodic",
+    "kind": "inductive",
+    "module": "ComparatorChallenges.NavierStokes"
+   },
+   {
+    "name": "NavierStokes.Comparator.NavierStokesExistenceAndSmoothnessPeriodic",
+    "kind": "inductive",
+    "module": "ComparatorChallenges.NavierStokes"
+   }
+  ],
+  "axioms": [],
+  "opaque": [],
+  "missing": [],
+  "sorry": false,
+  "root_kind": "theorem",
+  "root_module": "ComparatorChallenges.NavierStokes",
+  "grounded": true,
+  "top_level_modules": [
+   "ComparatorChallenges"
+  ]
+ }
+]

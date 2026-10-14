@@ -1,0 +1,4 @@
+replaying NavierStokes.CauchyRestriction
+replaying NavierStokes.CartesianCopySource
+replaying NavierStokes.CandidateFromLimits
+replaying NavierStokes.CandidateConsequences

@@ -1,0 +1,4 @@
+replaying NavierStokes.RadialFluxResidual
+replaying NavierStokes.RadialAlias
+replaying NavierStokes.R3FiniteEnergyComparison
+replaying NavierStokes.R3CompactCandidate

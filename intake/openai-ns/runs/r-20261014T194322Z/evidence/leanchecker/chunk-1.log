@@ -1,0 +1,4 @@
+replaying NavierStokes.ActivationContinuation
+replaying NavierStokes.ActivationCone
+replaying NavierStokes.ActivationBounds
+replaying ComparatorChallenges.NavierStokes

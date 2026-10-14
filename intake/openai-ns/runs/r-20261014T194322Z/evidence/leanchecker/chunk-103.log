@@ -1,0 +1,4 @@
+replaying NavierStokes.PulseLag
+replaying NavierStokes.PulseGrowth
+replaying NavierStokes.PulseEnergyHistory
+replaying NavierStokes.PulseCovariance

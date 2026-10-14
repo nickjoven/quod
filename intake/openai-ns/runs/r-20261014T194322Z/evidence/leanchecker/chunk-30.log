@@ -1,0 +1,4 @@
+replaying NavierStokes.AxisWeightEstimates
+replaying NavierStokes.AxisTailRegularity
+replaying NavierStokes.AxisSourceRegularity
+replaying NavierStokes.AxisSeries

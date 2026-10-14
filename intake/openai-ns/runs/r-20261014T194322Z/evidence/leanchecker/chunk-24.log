@@ -1,0 +1,4 @@
+replaying NavierStokes.ActualWaveRegularity
+replaying NavierStokes.ActualWaveCoefficientPeriodicity
+replaying NavierStokes.ActualValidBandWaves
+replaying NavierStokes.ActualStageEstimates

@@ -1,0 +1,4 @@
+replaying NavierStokes.PeriodicViscosity
+replaying NavierStokes.PeriodicUniqueness
+replaying NavierStokes.PeriodicSobolev
+replaying NavierStokes.PeriodicResidualLimits

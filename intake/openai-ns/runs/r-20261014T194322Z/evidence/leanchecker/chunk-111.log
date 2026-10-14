@@ -1,0 +1,4 @@
+replaying NavierStokes.R3.HeatKernelPairedBound
+replaying NavierStokes.R3.HeatKernelFubini
+replaying NavierStokes.R3.HeatKernelFourier
+replaying NavierStokes.R3.HeatKernelCommutator

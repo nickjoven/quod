@@ -1,0 +1,4 @@
+replaying NavierStokes.CutStageEstimates
+replaying NavierStokes.CurrentSignedCurl
+replaying NavierStokes.CurrentPhysicalModeGerms
+replaying NavierStokes.CurrentPhysicalChartJets

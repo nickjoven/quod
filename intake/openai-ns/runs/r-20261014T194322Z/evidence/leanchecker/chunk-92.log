@@ -1,0 +1,4 @@
+replaying NavierStokes.PhysicalGraphBounds
+replaying NavierStokes.PhysicalCurlCovariance
+replaying NavierStokes.PhysicalCopyBounds
+replaying NavierStokes.PhysicalCoordinateBounds

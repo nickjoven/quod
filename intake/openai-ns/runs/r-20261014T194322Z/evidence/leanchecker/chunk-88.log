@@ -1,0 +1,4 @@
+replaying NavierStokes.PeriodicPhaseAssembly
+replaying NavierStokes.PeriodicPaperTheorem
+replaying NavierStokes.PeriodicPaperSupport
+replaying NavierStokes.PeriodicPaperScalingSupport

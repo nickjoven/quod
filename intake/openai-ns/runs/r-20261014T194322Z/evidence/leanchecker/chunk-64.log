@@ -1,0 +1,4 @@
+replaying NavierStokes.LeadingStress
+replaying NavierStokes.LabelSupportPreservation
+replaying NavierStokes.LabelSumBounds
+replaying NavierStokes.JointResidualLimits

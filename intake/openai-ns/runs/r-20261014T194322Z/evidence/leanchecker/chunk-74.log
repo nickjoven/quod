@@ -1,0 +1,4 @@
+replaying NavierStokes.ModulatedExterior
+replaying NavierStokes.ModulatedCone
+replaying NavierStokes.ModeSolenoidalReindex
+replaying NavierStokes.MixedPeriodicAssembly

@@ -1,0 +1,4 @@
+replaying NavierStokes.R3.RieszTestOperators
+replaying NavierStokes.R3.RieszSymbolRegularity
+replaying NavierStokes.R3.RieszPairing
+replaying NavierStokes.R3.RieszLinearityDecay

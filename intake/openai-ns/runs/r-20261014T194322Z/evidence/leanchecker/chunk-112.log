@@ -1,0 +1,4 @@
+replaying NavierStokes.R3.LocalizedDifferenceEnergy
+replaying NavierStokes.R3.IntegratedDissipation
+replaying NavierStokes.R3.HilbertFunctionalExtension
+replaying NavierStokes.R3.HeatKernelTimeBound

@@ -1,0 +1,42 @@
+{
+ "method": "scripts/defs_digest.py: every non-standard constant reachable from the statement through types, definition values and constructor types, canonical pp.all type and value, BLAKE3 over the sorted rows (modules excluded); computed in the challenge module's environment and in the solution module's environment",
+ "all_equal": true,
+ "per_demonstrandum": {
+  "R3": {
+   "demonstrandum": "NavierStokes.Comparator.navier_stokes_breakdown_R3",
+   "equal": true,
+   "differ": [],
+   "only_challenge": [],
+   "only_solution": [],
+   "digest_challenge": "20305d8e8b9d41885530efd1acf839c018025087af8dc19126156d5106b652ad",
+   "digest_solution": "20305d8e8b9d41885530efd1acf839c018025087af8dc19126156d5106b652ad",
+   "constants": 15,
+   "modules_challenge": [
+    "ComparatorChallenges.NavierStokes"
+   ],
+   "modules_solution": [
+    "NavierStokes.ComparatorDefinitions",
+    "NavierStokes.ComparatorSolution"
+   ],
+   "missing": []
+  },
+  "periodic": {
+   "demonstrandum": "NavierStokes.Comparator.navier_stokes_breakdown_periodic",
+   "equal": true,
+   "differ": [],
+   "only_challenge": [],
+   "only_solution": [],
+   "digest_challenge": "73bab86960dd1449080ef7c764502f44a024ec654b6af39a201fb9d30cf35ee1",
+   "digest_solution": "73bab86960dd1449080ef7c764502f44a024ec654b6af39a201fb9d30cf35ee1",
+   "constants": 16,
+   "modules_challenge": [
+    "ComparatorChallenges.NavierStokes"
+   ],
+   "modules_solution": [
+    "NavierStokes.ComparatorDefinitions",
+    "NavierStokes.ComparatorSolution"
+   ],
+   "missing": []
+  }
+ }
+}

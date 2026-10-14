@@ -1,0 +1,4 @@
+replaying NavierStokes.LinearWaveResidual
+replaying NavierStokes.LinearWaveBounds
+replaying NavierStokes.LiftedMeanResidual
+replaying NavierStokes.LeadingStressWeights

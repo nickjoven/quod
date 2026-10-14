@@ -1,0 +1,4 @@
+replaying NavierStokes.ScaledActualParticularControl
+replaying NavierStokes.ScalarParticularSupport
+replaying NavierStokes.ResidualStability
+replaying NavierStokes.ResidualRegularity

@@ -1,0 +1,4 @@
+replaying NavierStokes.TerminalPressure
+replaying NavierStokes.TerminalHistoryBridge
+replaying NavierStokes.TerminalEdgeFactor
+replaying NavierStokes.TerminalCone
