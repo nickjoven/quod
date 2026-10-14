@@ -1,0 +1,4 @@
+replaying NavierStokes.R3.CompactTimeIntegral
+replaying NavierStokes.R3.CompactSchwartz
+replaying NavierStokes.R3.CompactForceBound
+replaying NavierStokes.R3.CompactEnergy

@@ -306,7 +306,8 @@ def integrity(run_dir: str | None = None) -> int:
     # the untracked historical port compiled inside repo/ is byte-identical to the tracked port file
     substitutes = {"repo/Intake/UpstreamNavierStokes.lean": "port/UpstreamNavierStokes.lean"}
     for rel, rec in cids.items():
-        p = os.path.join(base, rel)
+        # a record may name where the file lives relative to the repository (a run citing the intake's PIN.json)
+        p = os.path.join(ROOT, rec["path"]) if rec.get("path") else os.path.join(base, rel)
         if not os.path.exists(p):
             if rel in substitutes and os.path.exists(os.path.join(base, substitutes[rel])):
                 p = os.path.join(base, substitutes[rel]); rel = f"{rel} (via tracked {substitutes[rel]})"
@@ -505,8 +506,13 @@ class Run:
         tc = PIN["expected"]["lean_toolchain"]
         self.step("elan_install", ["elan", "toolchain", "install", tc], self.repo, "toolchain.log")
         self.rec["host"]["elan"] = tool_version(["elan", "--version"])
-        self.rec["host"]["lean"] = tool_version(["lake", "env", "lean", "--version"]) or tool_version(["lean", "--version"])
-        self.rec["host"]["lake"] = tool_version(["lake", "--version"])
+        # inside the checkout, so elan resolves the pinned toolchain's lean/lake (anywhere else answers for another toolchain)
+        cwd = os.getcwd(); os.chdir(self.repo)
+        try:
+            self.rec["host"]["lean"] = tool_version(["lean", "--version"])
+            self.rec["host"]["lake"] = tool_version(["lake", "--version"])
+        finally:
+            os.chdir(cwd)
         if self.rec["host"]["lean"] and tc.split(":")[-1] not in self.rec["host"]["lean"]:
             raise StepFailed(f"lean --version {self.rec['host']['lean']!r} is not the pinned {tc}", None, EXIT_STALE)
         self.save()

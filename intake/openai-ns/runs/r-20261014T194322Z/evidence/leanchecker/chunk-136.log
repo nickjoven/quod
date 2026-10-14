@@ -1,0 +1,4 @@
+replaying NavierStokes.SlowExpansionResidual
+replaying NavierStokes.SlowDivergence
+replaying NavierStokes.SlowBorelBase
+replaying NavierStokes.SlowBaseEndpoint

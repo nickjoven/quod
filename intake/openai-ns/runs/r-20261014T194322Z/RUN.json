@@ -1,0 +1,1691 @@
+{
+ "intake": "openai-ns",
+ "run_id": "r-20261014T194322Z",
+ "started": "2026-10-14T20:05:50Z",
+ "finished": "2026-10-14T21:38:37Z",
+ "status": "ok",
+ "failed_step": null,
+ "pin": {
+  "repo": "https://github.com/openai/NavierStokesAndEuler",
+  "commit": "f9e8bc5b38b6e212696e8a30e3e91517af887bbd",
+  "lean_toolchain": "leanprover/lean4:v4.34.0-rc2",
+  "mathlib": "85e3a25e006c35636f0e53b0e9296caca2685bc0",
+  "comparator": "19e111e2141cf333c7daff0f64c5f24acc91dd2e",
+  "lean4export": "cacf989b",
+  "statement_file": {
+   "path": "ComparatorChallenges/NavierStokes.lean",
+   "bytes": 13031,
+   "git_blob": "673fb19e26e60818d446363afd953f618719f99b",
+   "sha256": "0cd193b8d5cbd0266e6e2f72e68dd5abcdcf2430ebd435dd9289737e9aa7da61",
+   "blake3": "56996609b8f8c26e3a381afa2c5b9577ffe4d7623f485a7642f36ac65de0b3aa"
+  },
+  "challenge_spec": {
+   "path": "ComparatorChallenges/NavierStokes.json",
+   "bytes": 375,
+   "sha256": "7610ecead7b390d80ff7f4229a3ff8f18d630e046f7ad1de4f92c7e8e76845b8",
+   "blake3": "0310c863fda0165379d47ea44f7e65fc9a257931438a0ecd70a7e6d879a8aa2a"
+  }
+ },
+ "resumed": true,
+ "reused_steps": [
+  "fetch",
+  "lean4checker_clone"
+ ],
+ "resources": {
+  "checker_workers": 2,
+  "build_cpus": "0-5",
+  "lake_jobs_flag": null,
+  "toolchain_checker_chunk": 4,
+  "nproc": 24,
+  "mem_total_gb": 23.5,
+  "disk_free_gb_before": 735.0,
+  "disk_free_gb_after": 734.4,
+  "workdir_gb": 10.5,
+  "mathlib_cache_prewarmed": true,
+  "lean_lock": "/tmp/lock.lean"
+ },
+ "host": {
+  "kernel": "6.6.114.1-microsoft-standard-WSL2+",
+  "machine": "x86_64",
+  "python": "3.10.12",
+  "elan": "elan 4.2.4 (227caca13 2026-08-25)",
+  "lean": null,
+  "lake": null,
+  "git": "git version 2.34.1",
+  "ket": "ket 0.3.0",
+  "ket_home": "/home/njoven/code/quod/.ket",
+  "git_config_global": "/dev/null"
+ },
+ "steps": [
+  {
+   "name": "elan_install",
+   "cmd": [
+    "elan",
+    "toolchain",
+    "install",
+    "leanprover/lean4:v4.34.0-rc2"
+   ],
+   "cwd": "repo",
+   "start": "2026-10-14T20:05:50Z",
+   "end": "2026-10-14T20:05:50Z",
+   "seconds": 0.0,
+   "rc": 0,
+   "log": "evidence/toolchain.log",
+   "log_sha256": "6bca7dddfeb8ccade6a8c2524ffb9abb16bb26c56a6d985dd8fb8a5cc6ea904a",
+   "log_cid": "bbafed4b82b6388b8df8f5203104c79e29a4fda3a0691311c3c95f274302af27"
+  },
+  {
+   "name": "cache_get",
+   "cmd": [
+    "lake",
+    "exe",
+    "cache",
+    "get"
+   ],
+   "cwd": "repo",
+   "start": "2026-10-14T20:05:50Z",
+   "end": "2026-10-14T20:05:54Z",
+   "seconds": 3.7,
+   "rc": 0,
+   "log": "evidence/cache.log",
+   "log_sha256": "5a931ddaec4616aae75ec4452c74595fc145e4d01aa208742932fad33514707f",
+   "log_cid": "6d2c99fc86fd6cc32210a5700b172d333401af82261e57c867d4395a73423b5f"
+  },
+  {
+   "name": "build",
+   "cmd": [
+    "taskset",
+    "-c",
+    "0-5",
+    "lake",
+    "build",
+    "NavierStokes.ComparatorSolution",
+    "ComparatorChallenges.NavierStokes"
+   ],
+   "cwd": "repo",
+   "start": "2026-10-14T20:05:54Z",
+   "end": "2026-10-14T20:05:59Z",
+   "seconds": 4.7,
+   "rc": 0,
+   "log": "evidence/build.log",
+   "log_sha256": "3cb734de36c67f70303b2c87aada7b8f80bb85faa5480b0a2b29a44b475f47f0",
+   "log_cid": "b35820573c07876db66d0619baa83a032defca5fe7d7514762c8d26cd32d3eb4"
+  },
+  {
+   "name": "header_walk NavierStokes.ComparatorSolution ComparatorChallenges.NavierStokes",
+   "cmd": [
+    "lake",
+    "env",
+    "lean",
+    "<import NavierStokes.ComparatorSolution ComparatorChallenges.NavierStokes; header walk>"
+   ],
+   "cwd": "repo",
+   "start": null,
+   "end": "2026-10-14T20:06:03Z",
+   "seconds": 4.1,
+   "rc": 1,
+   "log": "evidence/closure-modules-coimport.log",
+   "log_sha256": "1ab153740645575fc417722811d74d5303f36e5409097e3ef74d0d669bb78f22",
+   "log_cid": "7c5f6e0923cccc9b8c58aa695cb0436723c935ea7cbe05d15f9e3374e460c100"
+  },
+  {
+   "name": "header_walk NavierStokes.ComparatorSolution",
+   "cmd": [
+    "lake",
+    "env",
+    "lean",
+    "<import NavierStokes.ComparatorSolution; header walk>"
+   ],
+   "cwd": "repo",
+   "start": null,
+   "end": "2026-10-14T20:06:09Z",
+   "seconds": 6.5,
+   "rc": 0,
+   "log": "evidence/closure-modules-solution.log",
+   "log_sha256": "272ac3196184d26adf1a4ea18234d6232495ad921a15fe47e3f72f3625de36b8",
+   "log_cid": "f23b1a272530c5f399e8e3ae15d86d969dcb3197342136a7cb1cd81e5d49cf7b"
+  },
+  {
+   "name": "header_walk ComparatorChallenges.NavierStokes",
+   "cmd": [
+    "lake",
+    "env",
+    "lean",
+    "<import ComparatorChallenges.NavierStokes; header walk>"
+   ],
+   "cwd": "repo",
+   "start": null,
+   "end": "2026-10-14T20:06:15Z",
+   "seconds": 6.2,
+   "rc": 0,
+   "log": "evidence/closure-modules-challenge.log",
+   "log_sha256": "cafd6a579b37166123914353bd1de2d923d6d6519cecbe67d4491fb0a45de4ea",
+   "log_cid": "abb8276ff4ac9280ce1bbf1db24fe74db176ed877d99663566041856742c26dd"
+  },
+  {
+   "name": "lock-challenge_R3",
+   "cmd": [
+    "python3",
+    "/home/njoven/code/quod/scripts/lock.py",
+    "/home/njoven/code/quod/intake/openai-ns/runs/r-20261014T194322Z/repo",
+    "ComparatorChallenges.NavierStokes",
+    "NavierStokes.Comparator.navier_stokes_breakdown_R3",
+    "--json"
+   ],
+   "cwd": "repo",
+   "start": "2026-10-14T20:06:15Z",
+   "end": "2026-10-14T20:06:21Z",
+   "seconds": 5.7,
+   "rc": 0,
+   "log": "evidence/lock-challenge_R3.json",
+   "log_sha256": "3e4b5d35b6b13744d8e921b06088e6fd407b1041aaf4c4673adbaff892d26174",
+   "log_cid": "ff9d823bedccce30f71df3c503740c8a7e71fd3b96ab4ecdd18ce24fed59805b"
+  },
+  {
+   "name": "lock-solution_R3",
+   "cmd": [
+    "python3",
+    "/home/njoven/code/quod/scripts/lock.py",
+    "/home/njoven/code/quod/intake/openai-ns/runs/r-20261014T194322Z/repo",
+    "NavierStokes.ComparatorSolution",
+    "NavierStokes.Comparator.navier_stokes_breakdown_R3",
+    "--json"
+   ],
+   "cwd": "repo",
+   "start": "2026-10-14T20:06:21Z",
+   "end": "2026-10-14T20:06:27Z",
+   "seconds": 6.1,
+   "rc": 0,
+   "log": "evidence/lock-solution_R3.json",
+   "log_sha256": "d0585174a4f9907f0077189f41aa3ddd682de751ccdf92f95745713328011393",
+   "log_cid": "cedcfa64d9446694fa96c506392ed07076acd3be165dda390283f3d382da7912"
+  },
+  {
+   "name": "lock-challenge_periodic",
+   "cmd": [
+    "python3",
+    "/home/njoven/code/quod/scripts/lock.py",
+    "/home/njoven/code/quod/intake/openai-ns/runs/r-20261014T194322Z/repo",
+    "ComparatorChallenges.NavierStokes",
+    "NavierStokes.Comparator.navier_stokes_breakdown_periodic",
+    "--json"
+   ],
+   "cwd": "repo",
+   "start": "2026-10-14T20:06:27Z",
+   "end": "2026-10-14T20:06:33Z",
+   "seconds": 5.4,
+   "rc": 0,
+   "log": "evidence/lock-challenge_periodic.json",
+   "log_sha256": "b464b88413ff791dd6513a1a51fcb5785a0189ca6c875e10cd06521ac0495580",
+   "log_cid": "573cf740228709320f1daddbdfb162b8c31d19792c39afab71305a6dece2c94e"
+  },
+  {
+   "name": "lock-solution_periodic",
+   "cmd": [
+    "python3",
+    "/home/njoven/code/quod/scripts/lock.py",
+    "/home/njoven/code/quod/intake/openai-ns/runs/r-20261014T194322Z/repo",
+    "NavierStokes.ComparatorSolution",
+    "NavierStokes.Comparator.navier_stokes_breakdown_periodic",
+    "--json"
+   ],
+   "cwd": "repo",
+   "start": "2026-10-14T20:06:33Z",
+   "end": "2026-10-14T20:06:37Z",
+   "seconds": 4.2,
+   "rc": 0,
+   "log": "evidence/lock-solution_periodic.json",
+   "log_sha256": "181a9f9c716e397e1d6a9e8a327e2353a5e902ffdb18a95f23e9783325414396",
+   "log_cid": "ba3838622bf9527286fa4e0c567943512e46be4289a739880b3664ffc306fbc4"
+  },
+  {
+   "name": "axioms-solution",
+   "cmd": [
+    "python3",
+    "/home/njoven/code/quod/scripts/axiom_gate.py",
+    "/home/njoven/code/quod/intake/openai-ns/runs/r-20261014T194322Z/repo",
+    "NavierStokes.ComparatorSolution",
+    "NavierStokes.Comparator.navier_stokes_breakdown_R3",
+    "NavierStokes.Comparator.navier_stokes_breakdown_periodic",
+    "--json"
+   ],
+   "cwd": "repo",
+   "start": "2026-10-14T20:06:37Z",
+   "end": "2026-10-14T20:06:41Z",
+   "seconds": 4.1,
+   "rc": 0,
+   "log": "evidence/axioms-solution.json",
+   "log_sha256": "0ae79b6458250b0e22485f824c0826a48cc4024dd53fc310830eb231866c5a4c",
+   "log_cid": "3d49ef4ac30cfc9f98f57b2125964586380c74d19c2059e806ed1090a15c2c91"
+  },
+  {
+   "name": "closure-challenge_R3",
+   "cmd": [
+    "python3",
+    "/home/njoven/code/quod/scripts/closure.py",
+    "/home/njoven/code/quod/intake/openai-ns/runs/r-20261014T194322Z/repo",
+    "ComparatorChallenges.NavierStokes",
+    "NavierStokes.Comparator.navier_stokes_breakdown_R3",
+    "--json"
+   ],
+   "cwd": "repo",
+   "start": "2026-10-14T20:06:41Z",
+   "end": "2026-10-14T20:06:45Z",
+   "seconds": 4.0,
+   "rc": 0,
+   "log": "evidence/closure-challenge_R3.json",
+   "log_sha256": "8319010839c5aba2b0d229f231e391ed76b8ffbffe6b10f1cb0435882dcf6e17",
+   "log_cid": "f286aad96d61faad0675df5985600d42b59bea2303994e8c06efcc92d0d37224"
+  },
+  {
+   "name": "closure-challenge_periodic",
+   "cmd": [
+    "python3",
+    "/home/njoven/code/quod/scripts/closure.py",
+    "/home/njoven/code/quod/intake/openai-ns/runs/r-20261014T194322Z/repo",
+    "ComparatorChallenges.NavierStokes",
+    "NavierStokes.Comparator.navier_stokes_breakdown_periodic",
+    "--json"
+   ],
+   "cwd": "repo",
+   "start": "2026-10-14T20:06:45Z",
+   "end": "2026-10-14T20:06:49Z",
+   "seconds": 4.2,
+   "rc": 0,
+   "log": "evidence/closure-challenge_periodic.json",
+   "log_sha256": "e97d46b22f3137a4ed13c5f8e699892c57f79676792a78db6a195b65daf6f03a",
+   "log_cid": "4bd01907f66da8965427ab1a6eeff183bb471a6cb7915e23f2a0a832e4ab836b"
+  },
+  {
+   "name": "definitions challenge R3",
+   "cmd": [
+    "python3",
+    "/home/njoven/code/quod/scripts/defs_digest.py",
+    "/home/njoven/code/quod/intake/openai-ns/runs/r-20261014T194322Z/repo",
+    "ComparatorChallenges.NavierStokes",
+    "NavierStokes.Comparator.navier_stokes_breakdown_R3",
+    "--json"
+   ],
+   "cwd": "repo",
+   "start": "2026-10-14T20:06:49Z",
+   "end": "2026-10-14T20:06:55Z",
+   "seconds": 5.7,
+   "rc": 0,
+   "log": "evidence/definitions-challenge_R3.json",
+   "log_sha256": "b0d88fce10ab7337213d1b915724c7dc4c2410567d0089337586184aeab40f59",
+   "log_cid": "22117e42a904b27efde17af39e8010e15c8cf44ace22f3f58d3565ed98a4e344"
+  },
+  {
+   "name": "definitions solution R3",
+   "cmd": [
+    "python3",
+    "/home/njoven/code/quod/scripts/defs_digest.py",
+    "/home/njoven/code/quod/intake/openai-ns/runs/r-20261014T194322Z/repo",
+    "NavierStokes.ComparatorSolution",
+    "NavierStokes.Comparator.navier_stokes_breakdown_R3",
+    "--json"
+   ],
+   "cwd": "repo",
+   "start": "2026-10-14T20:06:55Z",
+   "end": "2026-10-14T20:07:00Z",
+   "seconds": 4.9,
+   "rc": 0,
+   "log": "evidence/definitions-solution_R3.json",
+   "log_sha256": "9658ed5c4727396267da9a86ee04db06e3167d2486c7e0c937c10d04480b2037",
+   "log_cid": "a5a12f696d59e1bead40cbd2bb578343af44a1fc8c6012627f85afe7964246cc"
+  },
+  {
+   "name": "definitions challenge periodic",
+   "cmd": [
+    "python3",
+    "/home/njoven/code/quod/scripts/defs_digest.py",
+    "/home/njoven/code/quod/intake/openai-ns/runs/r-20261014T194322Z/repo",
+    "ComparatorChallenges.NavierStokes",
+    "NavierStokes.Comparator.navier_stokes_breakdown_periodic",
+    "--json"
+   ],
+   "cwd": "repo",
+   "start": "2026-10-14T20:07:00Z",
+   "end": "2026-10-14T20:07:04Z",
+   "seconds": 4.3,
+   "rc": 0,
+   "log": "evidence/definitions-challenge_periodic.json",
+   "log_sha256": "85dd7c459f83abd4e9fc6a07813d54b7630c43600d7594b62c6a15afb774239e",
+   "log_cid": "d39d7751c9e56c7e3cf35d33dc72c52efa2f5d7c912de9d1f668ef89fa96b266"
+  },
+  {
+   "name": "definitions solution periodic",
+   "cmd": [
+    "python3",
+    "/home/njoven/code/quod/scripts/defs_digest.py",
+    "/home/njoven/code/quod/intake/openai-ns/runs/r-20261014T194322Z/repo",
+    "NavierStokes.ComparatorSolution",
+    "NavierStokes.Comparator.navier_stokes_breakdown_periodic",
+    "--json"
+   ],
+   "cwd": "repo",
+   "start": "2026-10-14T20:07:04Z",
+   "end": "2026-10-14T20:07:09Z",
+   "seconds": 4.6,
+   "rc": 0,
+   "log": "evidence/definitions-solution_periodic.json",
+   "log_sha256": "f5cdd51e90d90590942efa6445a83df69a77afc0f1a02f452e6a5301466915b8",
+   "log_cid": "b7c1f04f3f7c7b4cdfca82152a581b84c929f689ed05f27285ffc67361359111"
+  },
+  {
+   "name": "lean4checker_build",
+   "cmd": [
+    "lake",
+    "build",
+    "lean4checker"
+   ],
+   "cwd": "lean4checker",
+   "start": "2026-10-14T20:07:09Z",
+   "end": "2026-10-14T20:07:09Z",
+   "seconds": 0.2,
+   "rc": 0,
+   "log": "evidence/lean4checker-build.log",
+   "log_sha256": "9d76cc00aa7d56bacefa99f6dca149fa76bb618af40ccd94011babf9244df7e8",
+   "log_cid": "7fb848ae48b01821132d839733524f96968ce2610294923246183800491eb7f5"
+  },
+  {
+   "name": "replay",
+   "cmd": [
+    "lake",
+    "env",
+    "/home/njoven/code/quod/intake/openai-ns/runs/r-20261014T194322Z/lean4checker/.lake/build/bin/lean4checker",
+    "--num-workers=2",
+    "\u2026 (610 modules)"
+   ],
+   "cwd": "repo",
+   "start": "2026-10-14T20:07:09Z",
+   "end": "2026-10-14T20:44:50Z",
+   "seconds": 2260.6,
+   "rc": 0,
+   "log": "evidence/checker.log",
+   "log_sha256": "0494e3f3a2040d4bcaa2dc80230c2ad9cbf4665adac2717a9fa7a69dd612922f",
+   "log_cid": "06a5692abc94d12f0578a351f6f945947a7a50b73fbb696ed8efb90507ef24c6"
+  },
+  {
+   "name": "toolchain_replay",
+   "cmd": [
+    "lake",
+    "env",
+    "leanchecker",
+    "-v",
+    "<chunks of 4>"
+   ],
+   "cwd": "repo",
+   "start": null,
+   "end": "2026-10-14T21:36:06Z",
+   "seconds": 3073.5,
+   "rc": 0,
+   "log": "evidence/leanchecker/summary.log",
+   "log_sha256": "7cae08257a7f1f60336a7edac3588855306eeb24ee4f04af8baa79d2d1adfc08",
+   "log_cid": "dd121b2ffd8f2bba6c85b4cf9406139b963a29b54678dda93cd88a0dcc2445f7"
+  },
+  {
+   "name": "upstream_fetch",
+   "cmd": [
+    "GET",
+    "https://raw.githubusercontent.com/google-deepmind/formal-conjectures/8bf45ed7/FormalConjectures/Millenium/NavierStokes.lean"
+   ],
+   "cwd": ".",
+   "start": null,
+   "end": "2026-10-14T21:36:06Z",
+   "seconds": 0.3,
+   "rc": 0,
+   "log": "evidence/upstream-fetch.json",
+   "log_sha256": "a138b5e8357365d91c4bc2e0598a5efd1f94daf7b0ccf677727cbe74239a5a82",
+   "log_cid": "8d59095ac0f19661529d2438cc01eedef5ac3ada70b0c637231b692827376963"
+  },
+  {
+   "name": "port_compile",
+   "cmd": [
+    "lake",
+    "env",
+    "lean",
+    "-o",
+    "/home/njoven/code/quod/intake/openai-ns/runs/r-20261014T194322Z/repo/.lake/build/lib/lean/Intake/UpstreamNavierStokes.olean",
+    "-i",
+    "/home/njoven/code/quod/intake/openai-ns/runs/r-20261014T194322Z/repo/.lake/build/lib/lean/Intake/UpstreamNavierStokes.ilean",
+    "Intake/UpstreamNavierStokes.lean"
+   ],
+   "cwd": "repo",
+   "start": "2026-10-14T21:36:07Z",
+   "end": "2026-10-14T21:36:17Z",
+   "seconds": 10.4,
+   "rc": 0,
+   "log": "evidence/port-compile.log",
+   "log_sha256": "455f07e9a2d1f3e8a6a89f56728c6307fdaf64f121df90dfafc4fcb5c2885fb9",
+   "log_cid": "f4f46654398a69aa960baac8b3e800d234108d7f66623a95cf617c96313176f3"
+  },
+  {
+   "name": "fidelity_lock upstream navier_stokes_breakdown_R3",
+   "cmd": [
+    "python3",
+    "/home/njoven/code/quod/scripts/lock.py",
+    "/home/njoven/code/quod/intake/openai-ns/runs/r-20261014T194322Z/repo",
+    "Intake.UpstreamNavierStokes",
+    "NavierStokes.Upstream.navier_stokes_breakdown_R3",
+    "--json"
+   ],
+   "cwd": "repo",
+   "start": "2026-10-14T21:36:17Z",
+   "end": "2026-10-14T21:36:22Z",
+   "seconds": 5.1,
+   "rc": 0,
+   "log": "evidence/fidelity/upstream--navier_stokes_breakdown_R3.json",
+   "log_sha256": "80b6f721b3ef1604af6395cef0b0351e918b980650e2c88ba4fe064959480227",
+   "log_cid": "08314b944035dc82d17493b7b019958664add9e7b4ef6fec966487b8c95a1c4a"
+  },
+  {
+   "name": "fidelity_lock upstream navier_stokes_breakdown_periodic",
+   "cmd": [
+    "python3",
+    "/home/njoven/code/quod/scripts/lock.py",
+    "/home/njoven/code/quod/intake/openai-ns/runs/r-20261014T194322Z/repo",
+    "Intake.UpstreamNavierStokes",
+    "NavierStokes.Upstream.navier_stokes_breakdown_periodic",
+    "--json"
+   ],
+   "cwd": "repo",
+   "start": "2026-10-14T21:36:22Z",
+   "end": "2026-10-14T21:36:27Z",
+   "seconds": 4.9,
+   "rc": 0,
+   "log": "evidence/fidelity/upstream--navier_stokes_breakdown_periodic.json",
+   "log_sha256": "0fc5d8e461a91e71029efb991230d5c37a217fa3cf25a7e8c7b829f6d86eda80",
+   "log_cid": "102d4e1ccc2eaaaf9a3394e65692057e59bbdaa993e65ab8e5873c9d75ccf7c3"
+  },
+  {
+   "name": "fidelity_lock upstream InitialVelocityConditionDecay.mk",
+   "cmd": [
+    "python3",
+    "/home/njoven/code/quod/scripts/lock.py",
+    "/home/njoven/code/quod/intake/openai-ns/runs/r-20261014T194322Z/repo",
+    "Intake.UpstreamNavierStokes",
+    "NavierStokes.Upstream.InitialVelocityConditionDecay.mk",
+    "--json"
+   ],
+   "cwd": "repo",
+   "start": "2026-10-14T21:36:27Z",
+   "end": "2026-10-14T21:36:32Z",
+   "seconds": 5.0,
+   "rc": 0,
+   "log": "evidence/fidelity/upstream--InitialVelocityConditionDecay.mk.json",
+   "log_sha256": "8c4c92fd73540c0fb7d69fd29cbcf42462030f325a1025c1ee6de5dff19e6387",
+   "log_cid": "6f35e6e7270182fdff701b366ef3128c5975b87f915c0b4f0eca6d26bdabb067"
+  },
+  {
+   "name": "fidelity_lock upstream ForceConditionDecay.mk",
+   "cmd": [
+    "python3",
+    "/home/njoven/code/quod/scripts/lock.py",
+    "/home/njoven/code/quod/intake/openai-ns/runs/r-20261014T194322Z/repo",
+    "Intake.UpstreamNavierStokes",
+    "NavierStokes.Upstream.ForceConditionDecay.mk",
+    "--json"
+   ],
+   "cwd": "repo",
+   "start": "2026-10-14T21:36:32Z",
+   "end": "2026-10-14T21:36:37Z",
+   "seconds": 5.0,
+   "rc": 0,
+   "log": "evidence/fidelity/upstream--ForceConditionDecay.mk.json",
+   "log_sha256": "bd8f4117910fabdfd185b0c5601e081149eff7c776f69619b3976a4a4e74a89b",
+   "log_cid": "859a64df560d7c97bc7905834b413db72b4fabaab22e7172d760b8f75db9d806"
+  },
+  {
+   "name": "fidelity_lock upstream NavierStokesExistenceAndSmoothnessRn.mk",
+   "cmd": [
+    "python3",
+    "/home/njoven/code/quod/scripts/lock.py",
+    "/home/njoven/code/quod/intake/openai-ns/runs/r-20261014T194322Z/repo",
+    "Intake.UpstreamNavierStokes",
+    "NavierStokes.Upstream.NavierStokesExistenceAndSmoothnessRn.mk",
+    "--json"
+   ],
+   "cwd": "repo",
+   "start": "2026-10-14T21:36:37Z",
+   "end": "2026-10-14T21:36:42Z",
+   "seconds": 4.9,
+   "rc": 0,
+   "log": "evidence/fidelity/upstream--NavierStokesExistenceAndSmoothnessRn.mk.json",
+   "log_sha256": "563d50c1c862de2908dbc665c6bccbdddab895e9f08b8f65bf477d8d0ed919f4",
+   "log_cid": "37d8d02f58a6d040e3351bfd2cfeaf6c2a97144bac3095f40851b171cd4a01e2"
+  },
+  {
+   "name": "fidelity_lock upstream InitialVelocityConditionPeriodic.mk",
+   "cmd": [
+    "python3",
+    "/home/njoven/code/quod/scripts/lock.py",
+    "/home/njoven/code/quod/intake/openai-ns/runs/r-20261014T194322Z/repo",
+    "Intake.UpstreamNavierStokes",
+    "NavierStokes.Upstream.InitialVelocityConditionPeriodic.mk",
+    "--json"
+   ],
+   "cwd": "repo",
+   "start": "2026-10-14T21:36:42Z",
+   "end": "2026-10-14T21:36:47Z",
+   "seconds": 4.9,
+   "rc": 0,
+   "log": "evidence/fidelity/upstream--InitialVelocityConditionPeriodic.mk.json",
+   "log_sha256": "53392d7e5e6a021ff405b97e17bbd4828fff9e71798d0b082d9fe699c91caa77",
+   "log_cid": "dcb4b10354ab99f5a2a9f8376d32d2583425e528d9d8173f028049c567b35930"
+  },
+  {
+   "name": "fidelity_lock upstream ForceConditionPeriodic.mk",
+   "cmd": [
+    "python3",
+    "/home/njoven/code/quod/scripts/lock.py",
+    "/home/njoven/code/quod/intake/openai-ns/runs/r-20261014T194322Z/repo",
+    "Intake.UpstreamNavierStokes",
+    "NavierStokes.Upstream.ForceConditionPeriodic.mk",
+    "--json"
+   ],
+   "cwd": "repo",
+   "start": "2026-10-14T21:36:47Z",
+   "end": "2026-10-14T21:36:52Z",
+   "seconds": 4.9,
+   "rc": 0,
+   "log": "evidence/fidelity/upstream--ForceConditionPeriodic.mk.json",
+   "log_sha256": "75da9ad568c6f2183a617f829758857ead770a0dd7b8a73ef61ef711aac6181b",
+   "log_cid": "dbba877bc2c06a4f8ae1ff83b400fd5ccc8cefd19932c667f779a3d70c4ba2cd"
+  },
+  {
+   "name": "fidelity_lock upstream NavierStokesExistenceAndSmoothnessPeriodic.mk",
+   "cmd": [
+    "python3",
+    "/home/njoven/code/quod/scripts/lock.py",
+    "/home/njoven/code/quod/intake/openai-ns/runs/r-20261014T194322Z/repo",
+    "Intake.UpstreamNavierStokes",
+    "NavierStokes.Upstream.NavierStokesExistenceAndSmoothnessPeriodic.mk",
+    "--json"
+   ],
+   "cwd": "repo",
+   "start": "2026-10-14T21:36:52Z",
+   "end": "2026-10-14T21:36:57Z",
+   "seconds": 4.8,
+   "rc": 0,
+   "log": "evidence/fidelity/upstream--NavierStokesExistenceAndSmoothnessPeriodic.mk.json",
+   "log_sha256": "b9cf36308ee9d5d7f55a36c1d39a3930c61f3f120bfabfd00fbe4337451c040d",
+   "log_cid": "16d4223cee97026ed5de03bb1bff901e19450a8aa8000cf5d780262e36aefa7b"
+  },
+  {
+   "name": "fidelity_lock upstream InitialVelocityConditionDecay",
+   "cmd": [
+    "python3",
+    "/home/njoven/code/quod/scripts/lock.py",
+    "/home/njoven/code/quod/intake/openai-ns/runs/r-20261014T194322Z/repo",
+    "Intake.UpstreamNavierStokes",
+    "NavierStokes.Upstream.InitialVelocityConditionDecay",
+    "--json"
+   ],
+   "cwd": "repo",
+   "start": "2026-10-14T21:36:57Z",
+   "end": "2026-10-14T21:37:01Z",
+   "seconds": 4.8,
+   "rc": 0,
+   "log": "evidence/fidelity/upstream--InitialVelocityConditionDecay.json",
+   "log_sha256": "968b4d94234fbb5215d8c454b30e0f7e99a8e45de0aadf22d4bb2b3c5c60a3d7",
+   "log_cid": "e458b8fb5acba2807db6e9c92300a4fd66931b4f4c2c5ed222852a99773f28ec"
+  },
+  {
+   "name": "fidelity_lock upstream ForceConditionDecay",
+   "cmd": [
+    "python3",
+    "/home/njoven/code/quod/scripts/lock.py",
+    "/home/njoven/code/quod/intake/openai-ns/runs/r-20261014T194322Z/repo",
+    "Intake.UpstreamNavierStokes",
+    "NavierStokes.Upstream.ForceConditionDecay",
+    "--json"
+   ],
+   "cwd": "repo",
+   "start": "2026-10-14T21:37:01Z",
+   "end": "2026-10-14T21:37:06Z",
+   "seconds": 4.9,
+   "rc": 0,
+   "log": "evidence/fidelity/upstream--ForceConditionDecay.json",
+   "log_sha256": "832016539c2f9d7aaeb2f6379ce9d08ba0128f4f4a27c96cdd8f148caa028fe8",
+   "log_cid": "1294ebadad837f603bf0b05dfc8f6d7c4381a3710455d8e2368d378b544f140a"
+  },
+  {
+   "name": "fidelity_lock upstream NavierStokesExistenceAndSmoothnessRn",
+   "cmd": [
+    "python3",
+    "/home/njoven/code/quod/scripts/lock.py",
+    "/home/njoven/code/quod/intake/openai-ns/runs/r-20261014T194322Z/repo",
+    "Intake.UpstreamNavierStokes",
+    "NavierStokes.Upstream.NavierStokesExistenceAndSmoothnessRn",
+    "--json"
+   ],
+   "cwd": "repo",
+   "start": "2026-10-14T21:37:06Z",
+   "end": "2026-10-14T21:37:11Z",
+   "seconds": 4.9,
+   "rc": 0,
+   "log": "evidence/fidelity/upstream--NavierStokesExistenceAndSmoothnessRn.json",
+   "log_sha256": "e1caf30ae8c868c0fa323cb07c3f478b1960db86c6f7b5c0041078096d223ad0",
+   "log_cid": "d78ef974a28e49d4ad56af8140bee68962c2da0057a5d3ad6c7f3fd3f6a9ce45"
+  },
+  {
+   "name": "fidelity_lock upstream InitialVelocityConditionPeriodic",
+   "cmd": [
+    "python3",
+    "/home/njoven/code/quod/scripts/lock.py",
+    "/home/njoven/code/quod/intake/openai-ns/runs/r-20261014T194322Z/repo",
+    "Intake.UpstreamNavierStokes",
+    "NavierStokes.Upstream.InitialVelocityConditionPeriodic",
+    "--json"
+   ],
+   "cwd": "repo",
+   "start": "2026-10-14T21:37:11Z",
+   "end": "2026-10-14T21:37:16Z",
+   "seconds": 4.9,
+   "rc": 0,
+   "log": "evidence/fidelity/upstream--InitialVelocityConditionPeriodic.json",
+   "log_sha256": "f598019fdef183a4179f9cb030a9ddddfb76720cd133f67bec2ab0b899a1c5d7",
+   "log_cid": "4c6e390a3989a6548cf58dcea0107189d3a1e8b0fe8365621d92978346249cc8"
+  },
+  {
+   "name": "fidelity_lock upstream ForceConditionPeriodic",
+   "cmd": [
+    "python3",
+    "/home/njoven/code/quod/scripts/lock.py",
+    "/home/njoven/code/quod/intake/openai-ns/runs/r-20261014T194322Z/repo",
+    "Intake.UpstreamNavierStokes",
+    "NavierStokes.Upstream.ForceConditionPeriodic",
+    "--json"
+   ],
+   "cwd": "repo",
+   "start": "2026-10-14T21:37:16Z",
+   "end": "2026-10-14T21:37:21Z",
+   "seconds": 4.9,
+   "rc": 0,
+   "log": "evidence/fidelity/upstream--ForceConditionPeriodic.json",
+   "log_sha256": "5da5a5705fe5d85695ac98233273207e90f7ca68ee403bcec296a3e05db9ffdc",
+   "log_cid": "919c5ddccfd512228992c3de122c41c31f4b00f099d28093bd196e7dfe5b7f94"
+  },
+  {
+   "name": "fidelity_lock upstream NavierStokesExistenceAndSmoothnessPeriodic",
+   "cmd": [
+    "python3",
+    "/home/njoven/code/quod/scripts/lock.py",
+    "/home/njoven/code/quod/intake/openai-ns/runs/r-20261014T194322Z/repo",
+    "Intake.UpstreamNavierStokes",
+    "NavierStokes.Upstream.NavierStokesExistenceAndSmoothnessPeriodic",
+    "--json"
+   ],
+   "cwd": "repo",
+   "start": "2026-10-14T21:37:21Z",
+   "end": "2026-10-14T21:37:26Z",
+   "seconds": 4.9,
+   "rc": 0,
+   "log": "evidence/fidelity/upstream--NavierStokesExistenceAndSmoothnessPeriodic.json",
+   "log_sha256": "a389b66b227e8245e83f7066ce75d514c627504182a6f04dfa7039a469bf36d4",
+   "log_cid": "b8923354af3eedaa16459bbf15a74f5170ff7063cd49475bb9accd0bb929e132"
+  },
+  {
+   "name": "fidelity_lock adapted navier_stokes_breakdown_R3",
+   "cmd": [
+    "python3",
+    "/home/njoven/code/quod/scripts/lock.py",
+    "/home/njoven/code/quod/intake/openai-ns/runs/r-20261014T194322Z/repo",
+    "ComparatorChallenges.NavierStokes",
+    "NavierStokes.Comparator.navier_stokes_breakdown_R3",
+    "--json"
+   ],
+   "cwd": "repo",
+   "start": "2026-10-14T21:37:26Z",
+   "end": "2026-10-14T21:37:31Z",
+   "seconds": 4.9,
+   "rc": 0,
+   "log": "evidence/fidelity/adapted--navier_stokes_breakdown_R3.json",
+   "log_sha256": "3e4b5d35b6b13744d8e921b06088e6fd407b1041aaf4c4673adbaff892d26174",
+   "log_cid": "ff9d823bedccce30f71df3c503740c8a7e71fd3b96ab4ecdd18ce24fed59805b"
+  },
+  {
+   "name": "fidelity_lock adapted navier_stokes_breakdown_periodic",
+   "cmd": [
+    "python3",
+    "/home/njoven/code/quod/scripts/lock.py",
+    "/home/njoven/code/quod/intake/openai-ns/runs/r-20261014T194322Z/repo",
+    "ComparatorChallenges.NavierStokes",
+    "NavierStokes.Comparator.navier_stokes_breakdown_periodic",
+    "--json"
+   ],
+   "cwd": "repo",
+   "start": "2026-10-14T21:37:31Z",
+   "end": "2026-10-14T21:37:36Z",
+   "seconds": 4.9,
+   "rc": 0,
+   "log": "evidence/fidelity/adapted--navier_stokes_breakdown_periodic.json",
+   "log_sha256": "b464b88413ff791dd6513a1a51fcb5785a0189ca6c875e10cd06521ac0495580",
+   "log_cid": "573cf740228709320f1daddbdfb162b8c31d19792c39afab71305a6dece2c94e"
+  },
+  {
+   "name": "fidelity_lock adapted InitialVelocityConditionDecay.mk",
+   "cmd": [
+    "python3",
+    "/home/njoven/code/quod/scripts/lock.py",
+    "/home/njoven/code/quod/intake/openai-ns/runs/r-20261014T194322Z/repo",
+    "ComparatorChallenges.NavierStokes",
+    "NavierStokes.Comparator.InitialVelocityConditionDecay.mk",
+    "--json"
+   ],
+   "cwd": "repo",
+   "start": "2026-10-14T21:37:36Z",
+   "end": "2026-10-14T21:37:42Z",
+   "seconds": 5.7,
+   "rc": 0,
+   "log": "evidence/fidelity/adapted--InitialVelocityConditionDecay.mk.json",
+   "log_sha256": "8ed36014e342fbc0a4290c113f7358f1f0536aa08fa89ef27e6d1c9ecdbd0db7",
+   "log_cid": "b876d5041aed6b2f684747fc57fdf42baca00bbca3f13ecea8059a6405dd1f15"
+  },
+  {
+   "name": "fidelity_lock adapted ForceConditionDecay.mk",
+   "cmd": [
+    "python3",
+    "/home/njoven/code/quod/scripts/lock.py",
+    "/home/njoven/code/quod/intake/openai-ns/runs/r-20261014T194322Z/repo",
+    "ComparatorChallenges.NavierStokes",
+    "NavierStokes.Comparator.ForceConditionDecay.mk",
+    "--json"
+   ],
+   "cwd": "repo",
+   "start": "2026-10-14T21:37:42Z",
+   "end": "2026-10-14T21:37:47Z",
+   "seconds": 5.5,
+   "rc": 0,
+   "log": "evidence/fidelity/adapted--ForceConditionDecay.mk.json",
+   "log_sha256": "21771f02e049869311a478bd3b1b8e502b6b499067589b433466265e09382419",
+   "log_cid": "780cdad956554f7254ef62ffe105da56677b1da261bc64e4d7fc0f4d5d953704"
+  },
+  {
+   "name": "fidelity_lock adapted NavierStokesExistenceAndSmoothnessRn.mk",
+   "cmd": [
+    "python3",
+    "/home/njoven/code/quod/scripts/lock.py",
+    "/home/njoven/code/quod/intake/openai-ns/runs/r-20261014T194322Z/repo",
+    "ComparatorChallenges.NavierStokes",
+    "NavierStokes.Comparator.NavierStokesExistenceAndSmoothnessRn.mk",
+    "--json"
+   ],
+   "cwd": "repo",
+   "start": "2026-10-14T21:37:47Z",
+   "end": "2026-10-14T21:37:52Z",
+   "seconds": 4.9,
+   "rc": 0,
+   "log": "evidence/fidelity/adapted--NavierStokesExistenceAndSmoothnessRn.mk.json",
+   "log_sha256": "41d9c32a0a044ff9b882acb984f107a33c5c7f6def4baf74153b2ea0a87f905a",
+   "log_cid": "e331c8a95e90de48a2a6d0c947c435955436c496b876d5b6637d9613024bbad6"
+  },
+  {
+   "name": "fidelity_lock adapted InitialVelocityConditionPeriodic.mk",
+   "cmd": [
+    "python3",
+    "/home/njoven/code/quod/scripts/lock.py",
+    "/home/njoven/code/quod/intake/openai-ns/runs/r-20261014T194322Z/repo",
+    "ComparatorChallenges.NavierStokes",
+    "NavierStokes.Comparator.InitialVelocityConditionPeriodic.mk",
+    "--json"
+   ],
+   "cwd": "repo",
+   "start": "2026-10-14T21:37:52Z",
+   "end": "2026-10-14T21:37:57Z",
+   "seconds": 4.8,
+   "rc": 0,
+   "log": "evidence/fidelity/adapted--InitialVelocityConditionPeriodic.mk.json",
+   "log_sha256": "647fe92b036c924d2c52271a3b2baf8f5bf10a9a362d927d48cb8d0ee76fbfeb",
+   "log_cid": "6f4836d74897156c787628a1b5c567f3560266b765a90ddf4ea83077a30ab979"
+  },
+  {
+   "name": "fidelity_lock adapted ForceConditionPeriodic.mk",
+   "cmd": [
+    "python3",
+    "/home/njoven/code/quod/scripts/lock.py",
+    "/home/njoven/code/quod/intake/openai-ns/runs/r-20261014T194322Z/repo",
+    "ComparatorChallenges.NavierStokes",
+    "NavierStokes.Comparator.ForceConditionPeriodic.mk",
+    "--json"
+   ],
+   "cwd": "repo",
+   "start": "2026-10-14T21:37:57Z",
+   "end": "2026-10-14T21:38:02Z",
+   "seconds": 4.9,
+   "rc": 0,
+   "log": "evidence/fidelity/adapted--ForceConditionPeriodic.mk.json",
+   "log_sha256": "018017a4309a46a4aa7e1fc37f22593ac620f363c8771c06203934750adee2f8",
+   "log_cid": "f1f2105df2ba032712780005325fb01b5379f4f7ebc71f1b1e154dd00a9bf76a"
+  },
+  {
+   "name": "fidelity_lock adapted NavierStokesExistenceAndSmoothnessPeriodic.mk",
+   "cmd": [
+    "python3",
+    "/home/njoven/code/quod/scripts/lock.py",
+    "/home/njoven/code/quod/intake/openai-ns/runs/r-20261014T194322Z/repo",
+    "ComparatorChallenges.NavierStokes",
+    "NavierStokes.Comparator.NavierStokesExistenceAndSmoothnessPeriodic.mk",
+    "--json"
+   ],
+   "cwd": "repo",
+   "start": "2026-10-14T21:38:02Z",
+   "end": "2026-10-14T21:38:07Z",
+   "seconds": 5.0,
+   "rc": 0,
+   "log": "evidence/fidelity/adapted--NavierStokesExistenceAndSmoothnessPeriodic.mk.json",
+   "log_sha256": "ac462f5c868d61a47282ed4bdab4f1b891f6c2f544de46711a875cd966c767e6",
+   "log_cid": "cf4b7ca963981bdcc385e323e77aacaa522705bfbe94c8c6f6352a4783d911a5"
+  },
+  {
+   "name": "fidelity_lock adapted InitialVelocityConditionDecay",
+   "cmd": [
+    "python3",
+    "/home/njoven/code/quod/scripts/lock.py",
+    "/home/njoven/code/quod/intake/openai-ns/runs/r-20261014T194322Z/repo",
+    "ComparatorChallenges.NavierStokes",
+    "NavierStokes.Comparator.InitialVelocityConditionDecay",
+    "--json"
+   ],
+   "cwd": "repo",
+   "start": "2026-10-14T21:38:07Z",
+   "end": "2026-10-14T21:38:12Z",
+   "seconds": 4.9,
+   "rc": 0,
+   "log": "evidence/fidelity/adapted--InitialVelocityConditionDecay.json",
+   "log_sha256": "5b32bfecf4b5d2b253968098d14c60327ed158817d917502d9056d04f03e8280",
+   "log_cid": "5f699b0faad891824e9b594424a3935bde665b1fcdcac50607f6d33b253d3272"
+  },
+  {
+   "name": "fidelity_lock adapted ForceConditionDecay",
+   "cmd": [
+    "python3",
+    "/home/njoven/code/quod/scripts/lock.py",
+    "/home/njoven/code/quod/intake/openai-ns/runs/r-20261014T194322Z/repo",
+    "ComparatorChallenges.NavierStokes",
+    "NavierStokes.Comparator.ForceConditionDecay",
+    "--json"
+   ],
+   "cwd": "repo",
+   "start": "2026-10-14T21:38:12Z",
+   "end": "2026-10-14T21:38:16Z",
+   "seconds": 4.8,
+   "rc": 0,
+   "log": "evidence/fidelity/adapted--ForceConditionDecay.json",
+   "log_sha256": "cf55f6c51e8dff9e6afbeafd3d38ec296c077b8b4bed1799bdb529fbe382717f",
+   "log_cid": "9f420cb0075f0a028a7d2a04ad49d8daa0828d0aa36f3b5eb5cf8560471d8b3e"
+  },
+  {
+   "name": "fidelity_lock adapted NavierStokesExistenceAndSmoothnessRn",
+   "cmd": [
+    "python3",
+    "/home/njoven/code/quod/scripts/lock.py",
+    "/home/njoven/code/quod/intake/openai-ns/runs/r-20261014T194322Z/repo",
+    "ComparatorChallenges.NavierStokes",
+    "NavierStokes.Comparator.NavierStokesExistenceAndSmoothnessRn",
+    "--json"
+   ],
+   "cwd": "repo",
+   "start": "2026-10-14T21:38:16Z",
+   "end": "2026-10-14T21:38:21Z",
+   "seconds": 4.8,
+   "rc": 0,
+   "log": "evidence/fidelity/adapted--NavierStokesExistenceAndSmoothnessRn.json",
+   "log_sha256": "ecade86bdc1d296b14bbc10fb0234bd4d2f7c76e0fba1dad43c450801979f802",
+   "log_cid": "f89938f5ef27c970e9edafe8fafe7f7c5833648ec424e682f855347dcf34872d"
+  },
+  {
+   "name": "fidelity_lock adapted InitialVelocityConditionPeriodic",
+   "cmd": [
+    "python3",
+    "/home/njoven/code/quod/scripts/lock.py",
+    "/home/njoven/code/quod/intake/openai-ns/runs/r-20261014T194322Z/repo",
+    "ComparatorChallenges.NavierStokes",
+    "NavierStokes.Comparator.InitialVelocityConditionPeriodic",
+    "--json"
+   ],
+   "cwd": "repo",
+   "start": "2026-10-14T21:38:21Z",
+   "end": "2026-10-14T21:38:26Z",
+   "seconds": 4.9,
+   "rc": 0,
+   "log": "evidence/fidelity/adapted--InitialVelocityConditionPeriodic.json",
+   "log_sha256": "d64a256fc613b676c5359bca9b3d45448d95f4972b9b530bbc8ba70b5aa334da",
+   "log_cid": "30e57648a2668000feeeb1f91b1bdca7861af01b279356d30c7084654c47230b"
+  },
+  {
+   "name": "fidelity_lock adapted ForceConditionPeriodic",
+   "cmd": [
+    "python3",
+    "/home/njoven/code/quod/scripts/lock.py",
+    "/home/njoven/code/quod/intake/openai-ns/runs/r-20261014T194322Z/repo",
+    "ComparatorChallenges.NavierStokes",
+    "NavierStokes.Comparator.ForceConditionPeriodic",
+    "--json"
+   ],
+   "cwd": "repo",
+   "start": "2026-10-14T21:38:26Z",
+   "end": "2026-10-14T21:38:31Z",
+   "seconds": 4.8,
+   "rc": 0,
+   "log": "evidence/fidelity/adapted--ForceConditionPeriodic.json",
+   "log_sha256": "ccdea7fb7d31e69e338e5498f29cad509f9650f69ab369e221df959c9e05ed4f",
+   "log_cid": "18bcf75d9eb58d3c7b280585bca3541cfd36cdae9a66bcc5ef3db2771f7e654a"
+  },
+  {
+   "name": "fidelity_lock adapted NavierStokesExistenceAndSmoothnessPeriodic",
+   "cmd": [
+    "python3",
+    "/home/njoven/code/quod/scripts/lock.py",
+    "/home/njoven/code/quod/intake/openai-ns/runs/r-20261014T194322Z/repo",
+    "ComparatorChallenges.NavierStokes",
+    "NavierStokes.Comparator.NavierStokesExistenceAndSmoothnessPeriodic",
+    "--json"
+   ],
+   "cwd": "repo",
+   "start": "2026-10-14T21:38:31Z",
+   "end": "2026-10-14T21:38:36Z",
+   "seconds": 4.9,
+   "rc": 0,
+   "log": "evidence/fidelity/adapted--NavierStokesExistenceAndSmoothnessPeriodic.json",
+   "log_sha256": "ad50f22b739ceeb8924531f11bc028cd1d5dfbfc8960993fb53d08f0268c29cf",
+   "log_cid": "7ca4dddc873abb47340d90724e59fe4e7f9a43905b1316d7a633e05427a5d59d"
+  }
+ ],
+ "pin_check": {
+  "ok": true,
+  "failures": [],
+  "verified_at": "2026-10-14T20:05:50Z"
+ },
+ "closure": {
+  "modules": 610,
+  "all_imported": 11192,
+  "std_prefixes": [
+   "Init",
+   "Lean",
+   "Std",
+   "Mathlib",
+   "Batteries",
+   "Aesop",
+   "Qq",
+   "ProofWidgets",
+   "Plausible",
+   "ImportGraph",
+   "LeanSearchClient",
+   "Lake",
+   "Cli"
+  ],
+  "targets_coimportable": false,
+  "note": "the challenge module and NavierStokes.ComparatorDefinitions declare the same names; see evidence/closure-modules-coimport.log (Q-32)"
+ },
+ "checker": {
+  "ran": true,
+  "exit": 0,
+  "finished": "2026-10-14T20:44:50Z",
+  "modules": 610,
+  "checker_sha256": "f2fb235ab1583bd6286c1bfeb9c7d85eee30f4c7fdbea39e52243b69b53c9c63",
+  "workers": 2,
+  "reused": false,
+  "seconds": 2260.6
+ },
+ "toolchain_checker": {
+  "available": true,
+  "in_progress": false,
+  "binary": "/home/njoven/.elan/toolchains/leanprover--lean4---v4.34.0-rc2/bin/leanchecker",
+  "binary_sha256": "ccef1bfe9bfeecea65137d94a69033c1a89f360711f50fa3178e7ba3e696fcbe",
+  "modules": 610,
+  "chunk": 4,
+  "chunks": 153,
+  "failed_chunks": [],
+  "exit": 0,
+  "seconds": 3073.5,
+  "log": "evidence/leanchecker/summary.log",
+  "caveat": "toolchain-shipped; its source calls itself 'not an external verifier'; descriptor only"
+ },
+ "fidelity": {
+  "all_equal_after_namespace_normalization": true,
+  "rows": 14
+ },
+ "historical_agreement": {
+  "closure_modules": {
+   "historical": 610,
+   "now": 610,
+   "same_set": true,
+   "only_now": [],
+   "only_historical": []
+  },
+  "lock_R3": {
+   "historical": "3608c95f250ae65119e583dc9e166a29bc3c5ba3e00d1bff14f90eb935c11952",
+   "now": "3608c95f250ae65119e583dc9e166a29bc3c5ba3e00d1bff14f90eb935c11952",
+   "equal": true,
+   "offered_equal_now": true
+  },
+  "lock_periodic": {
+   "historical": "486545e22b09f274b47a8ee14e24a7ba3422be7c0888199430b2f931b84a03d0",
+   "now": "486545e22b09f274b47a8ee14e24a7ba3422be7c0888199430b2f931b84a03d0",
+   "equal": true,
+   "offered_equal_now": true
+  },
+  "lean4checker_binary_sha256": {
+   "historical": "f2fb235ab1583bd6286c1bfeb9c7d85eee30f4c7fdbea39e52243b69b53c9c63",
+   "now": "f2fb235ab1583bd6286c1bfeb9c7d85eee30f4c7fdbea39e52243b69b53c9c63",
+   "equal": true
+  },
+  "upstream_file": {
+   "equals_tracked_copy": true,
+   "git_blob": "6fd45b55c78e49ec79f45f4e226a9b9f71f57a81"
+  },
+  "port_diff": {
+   "changed_lines": 22,
+   "same_changed_lines_as_historical": true
+  },
+  "fidelity": {
+   "all_equal_now": true,
+   "locks_equal_to_historical": true
+  },
+  "status_OPENAI-NS-R3": {
+   "status": "proven",
+   "verdict": "accepted",
+   "lock_equals_historical": true
+  },
+  "status_OPENAI-NS-PERIODIC": {
+   "status": "proven",
+   "verdict": "accepted",
+   "lock_equals_historical": true
+  }
+ },
+ "results": {
+  "OPENAI-NS-R3": {
+   "status": "proven",
+   "proof_verdict": "accepted",
+   "lock": "3608c95f250ae65119e583dc9e166a29bc3c5ba3e00d1bff14f90eb935c11952",
+   "lock_equal": true,
+   "axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ],
+   "grounded": true,
+   "definitions_identical": true,
+   "fidelity_equal": true
+  },
+  "OPENAI-NS-PERIODIC": {
+   "status": "proven",
+   "proof_verdict": "accepted",
+   "lock": "486545e22b09f274b47a8ee14e24a7ba3422be7c0888199430b2f931b84a03d0",
+   "lock_equal": true,
+   "axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ],
+   "grounded": true,
+   "definitions_identical": true,
+   "fidelity_equal": true
+  }
+ },
+ "cids": {
+  "RESULTS.json": "73c51b4b54d2587af083add39877740d86178429352cd2f8b11ada9a3f82c726",
+  "claims/openai-ns-periodic.yml": "0b8feb4e989acef78982685df41df671a6c8c0532c93c557dabe4e9ea29c0e5b",
+  "claims/openai-ns-r3.yml": "96b4632c320a2e77dcd315928c25249d51255920ab600a5b38b0cb8df3b32675",
+  "evidence/CIDS.json": "0bae9fabe3d593059d2842a5a14dbdea90561d053588c5a144362e4f5d2224ef"
+ },
+ "runner": {
+  "reproduce.py": "13ed88a6f5b17859f156c3d0f062801d731491b651f982b4bddb412804123c91",
+  "write_claims.py": "70cc2e48613563607ea9f4f88dcc16e6e080c98ae9283f94342f7a88fe87add5",
+  "lock.py": "d7eb4af79ad31d211a58702335ca6f04e3942470ddf121448137c3b74e464d0c",
+  "axiom_gate.py": "aed923bbb7ce405f9a61b9bb58bf2ae4c7df9f7810d21329126cb64dc50992b4",
+  "closure.py": "644e45922f305aeaa7d5b6b3b5e4e00613365dda5a499c8cc68e29c15ed2bcf6",
+  "leanenv.py": "3858a5564b21638e48d68695ce80867f979ad28df2c2f429573cbe5c7d8fe690",
+  "quod_commit": "9fe6a00f95e4d89d9cb921d52602a9c6bf284e17",
+  "quod_dirty": false
+ },
+ "exit_code": 0,
+ "prior_attempts": [
+  {
+   "run_id": "r-20261014T194322Z",
+   "started": "2026-10-14T19:43:27Z",
+   "finished": "2026-10-14T20:01:02Z",
+   "status": "failed",
+   "failed_step": "closure_modules",
+   "steps": [
+    {
+     "name": "clone",
+     "cmd": [
+      "git",
+      "clone",
+      "--no-checkout",
+      "https://github.com/openai/NavierStokesAndEuler",
+      "/home/njoven/code/quod/intake/openai-ns/runs/r-20261014T194322Z/repo"
+     ],
+     "cwd": ".",
+     "start": "2026-10-14T19:43:27Z",
+     "end": "2026-10-14T19:43:28Z",
+     "seconds": 0.6,
+     "rc": 0,
+     "log": "evidence/clone.log",
+     "log_sha256": "d5890550a4c6ba530f8d39dc507c114b4b5623f0b8fbbb5e451c70e62aed9ee8",
+     "log_cid": null
+    },
+    {
+     "name": "checkout",
+     "cmd": [
+      "git",
+      "-c",
+      "advice.detachedHead=false",
+      "checkout",
+      "f9e8bc5b38b6e212696e8a30e3e91517af887bbd"
+     ],
+     "cwd": "repo",
+     "start": "2026-10-14T19:43:28Z",
+     "end": "2026-10-14T19:43:28Z",
+     "seconds": 0.2,
+     "rc": 0,
+     "log": "evidence/checkout.log",
+     "log_sha256": "768615a65298be1ecede3b5d299f0f725c6b178b09b1cdd234c8b6c164f0d216",
+     "log_cid": null
+    },
+    {
+     "name": "elan_install",
+     "cmd": [
+      "elan",
+      "toolchain",
+      "install",
+      "leanprover/lean4:v4.34.0-rc2"
+     ],
+     "cwd": "repo",
+     "start": "2026-10-14T19:43:28Z",
+     "end": "2026-10-14T19:43:28Z",
+     "seconds": 0.0,
+     "rc": 0,
+     "log": "evidence/toolchain.log",
+     "log_sha256": "6bca7dddfeb8ccade6a8c2524ffb9abb16bb26c56a6d985dd8fb8a5cc6ea904a",
+     "log_cid": null
+    },
+    {
+     "name": "cache_get",
+     "cmd": [
+      "lake",
+      "exe",
+      "cache",
+      "get"
+     ],
+     "cwd": "repo",
+     "start": "2026-10-14T19:43:28Z",
+     "end": "2026-10-14T19:44:45Z",
+     "seconds": 76.8,
+     "rc": 0,
+     "log": "evidence/cache.log",
+     "log_sha256": "c2ffc5e418e7a236a849dd1ac2d6bc8b0e75998a45b8df50e6d5c9a01dc1a987",
+     "log_cid": null
+    },
+    {
+     "name": "build",
+     "cmd": [
+      "taskset",
+      "-c",
+      "0-5",
+      "lake",
+      "build",
+      "NavierStokes.ComparatorSolution",
+      "ComparatorChallenges.NavierStokes"
+     ],
+     "cwd": "repo",
+     "start": "2026-10-14T19:44:45Z",
+     "end": "2026-10-14T20:00:58Z",
+     "seconds": 972.9,
+     "rc": 0,
+     "log": "evidence/build.log",
+     "log_sha256": "3cbbd6997393596bf3b7bead0290d68ad40e030510bb6989b2d4437959fce65d",
+     "log_cid": null
+    },
+    {
+     "name": "closure_modules",
+     "cmd": [
+      "lake",
+      "env",
+      "lean",
+      "<header-walk>.lean"
+     ],
+     "cwd": "repo",
+     "start": null,
+     "end": "2026-10-14T20:01:02Z",
+     "seconds": 4.5,
+     "rc": 1,
+     "log": "evidence/closure-modules.log",
+     "log_sha256": "a26b199c27d3dd855c8f7745ac85170a01ba66ccb62c13f455bcdb33223664c3",
+     "log_cid": null
+    }
+   ],
+   "runner": {},
+   "closure": null
+  },
+  {
+   "run_id": "r-20261014T194322Z",
+   "started": "2026-10-14T20:03:26Z",
+   "finished": "2026-10-14T20:04:59Z",
+   "status": "failed",
+   "failed_step": "lean4checker_build",
+   "steps": [
+    {
+     "name": "elan_install",
+     "cmd": [
+      "elan",
+      "toolchain",
+      "install",
+      "leanprover/lean4:v4.34.0-rc2"
+     ],
+     "cwd": "repo",
+     "start": "2026-10-14T20:03:27Z",
+     "end": "2026-10-14T20:03:27Z",
+     "seconds": 0.0,
+     "rc": 0,
+     "log": "evidence/toolchain.log",
+     "log_sha256": "6bca7dddfeb8ccade6a8c2524ffb9abb16bb26c56a6d985dd8fb8a5cc6ea904a",
+     "log_cid": null
+    },
+    {
+     "name": "cache_get",
+     "cmd": [
+      "lake",
+      "exe",
+      "cache",
+      "get"
+     ],
+     "cwd": "repo",
+     "start": "2026-10-14T20:03:27Z",
+     "end": "2026-10-14T20:03:33Z",
+     "seconds": 6.7,
+     "rc": 0,
+     "log": "evidence/cache.log",
+     "log_sha256": "5a931ddaec4616aae75ec4452c74595fc145e4d01aa208742932fad33514707f",
+     "log_cid": null
+    },
+    {
+     "name": "build",
+     "cmd": [
+      "taskset",
+      "-c",
+      "0-5",
+      "lake",
+      "build",
+      "NavierStokes.ComparatorSolution",
+      "ComparatorChallenges.NavierStokes"
+     ],
+     "cwd": "repo",
+     "start": "2026-10-14T20:03:33Z",
+     "end": "2026-10-14T20:03:38Z",
+     "seconds": 4.9,
+     "rc": 0,
+     "log": "evidence/build.log",
+     "log_sha256": "3cb734de36c67f70303b2c87aada7b8f80bb85faa5480b0a2b29a44b475f47f0",
+     "log_cid": null
+    },
+    {
+     "name": "header_walk NavierStokes.ComparatorSolution ComparatorChallenges.NavierStokes",
+     "cmd": [
+      "lake",
+      "env",
+      "lean",
+      "<import NavierStokes.ComparatorSolution ComparatorChallenges.NavierStokes; header walk>"
+     ],
+     "cwd": "repo",
+     "start": null,
+     "end": "2026-10-14T20:03:42Z",
+     "seconds": 3.7,
+     "rc": 1,
+     "log": "evidence/closure-modules-coimport.log",
+     "log_sha256": "9bfcd508322881208dc8e70bd4d4aedf684e7b4464980d82dc2187e1f88fe962",
+     "log_cid": null
+    },
+    {
+     "name": "header_walk NavierStokes.ComparatorSolution",
+     "cmd": [
+      "lake",
+      "env",
+      "lean",
+      "<import NavierStokes.ComparatorSolution; header walk>"
+     ],
+     "cwd": "repo",
+     "start": null,
+     "end": "2026-10-14T20:03:48Z",
+     "seconds": 6.0,
+     "rc": 0,
+     "log": "evidence/closure-modules-solution.log",
+     "log_sha256": "272ac3196184d26adf1a4ea18234d6232495ad921a15fe47e3f72f3625de36b8",
+     "log_cid": null
+    },
+    {
+     "name": "header_walk ComparatorChallenges.NavierStokes",
+     "cmd": [
+      "lake",
+      "env",
+      "lean",
+      "<import ComparatorChallenges.NavierStokes; header walk>"
+     ],
+     "cwd": "repo",
+     "start": null,
+     "end": "2026-10-14T20:03:54Z",
+     "seconds": 5.6,
+     "rc": 0,
+     "log": "evidence/closure-modules-challenge.log",
+     "log_sha256": "cafd6a579b37166123914353bd1de2d923d6d6519cecbe67d4491fb0a45de4ea",
+     "log_cid": null
+    },
+    {
+     "name": "lock-challenge_R3",
+     "cmd": [
+      "python3",
+      "/home/njoven/code/quod/scripts/lock.py",
+      "/home/njoven/code/quod/intake/openai-ns/runs/r-20261014T194322Z/repo",
+      "ComparatorChallenges.NavierStokes",
+      "NavierStokes.Comparator.navier_stokes_breakdown_R3",
+      "--json"
+     ],
+     "cwd": "repo",
+     "start": "2026-10-14T20:03:54Z",
+     "end": "2026-10-14T20:03:59Z",
+     "seconds": 5.3,
+     "rc": 0,
+     "log": "evidence/lock-challenge_R3.json",
+     "log_sha256": "3e4b5d35b6b13744d8e921b06088e6fd407b1041aaf4c4673adbaff892d26174",
+     "log_cid": null
+    },
+    {
+     "name": "lock-solution_R3",
+     "cmd": [
+      "python3",
+      "/home/njoven/code/quod/scripts/lock.py",
+      "/home/njoven/code/quod/intake/openai-ns/runs/r-20261014T194322Z/repo",
+      "NavierStokes.ComparatorSolution",
+      "NavierStokes.Comparator.navier_stokes_breakdown_R3",
+      "--json"
+     ],
+     "cwd": "repo",
+     "start": "2026-10-14T20:03:59Z",
+     "end": "2026-10-14T20:04:05Z",
+     "seconds": 5.5,
+     "rc": 0,
+     "log": "evidence/lock-solution_R3.json",
+     "log_sha256": "d0585174a4f9907f0077189f41aa3ddd682de751ccdf92f95745713328011393",
+     "log_cid": null
+    },
+    {
+     "name": "lock-challenge_periodic",
+     "cmd": [
+      "python3",
+      "/home/njoven/code/quod/scripts/lock.py",
+      "/home/njoven/code/quod/intake/openai-ns/runs/r-20261014T194322Z/repo",
+      "ComparatorChallenges.NavierStokes",
+      "NavierStokes.Comparator.navier_stokes_breakdown_periodic",
+      "--json"
+     ],
+     "cwd": "repo",
+     "start": "2026-10-14T20:04:05Z",
+     "end": "2026-10-14T20:04:10Z",
+     "seconds": 5.2,
+     "rc": 0,
+     "log": "evidence/lock-challenge_periodic.json",
+     "log_sha256": "b464b88413ff791dd6513a1a51fcb5785a0189ca6c875e10cd06521ac0495580",
+     "log_cid": null
+    },
+    {
+     "name": "lock-solution_periodic",
+     "cmd": [
+      "python3",
+      "/home/njoven/code/quod/scripts/lock.py",
+      "/home/njoven/code/quod/intake/openai-ns/runs/r-20261014T194322Z/repo",
+      "NavierStokes.ComparatorSolution",
+      "NavierStokes.Comparator.navier_stokes_breakdown_periodic",
+      "--json"
+     ],
+     "cwd": "repo",
+     "start": "2026-10-14T20:04:10Z",
+     "end": "2026-10-14T20:04:15Z",
+     "seconds": 5.5,
+     "rc": 0,
+     "log": "evidence/lock-solution_periodic.json",
+     "log_sha256": "181a9f9c716e397e1d6a9e8a327e2353a5e902ffdb18a95f23e9783325414396",
+     "log_cid": null
+    },
+    {
+     "name": "axioms-solution",
+     "cmd": [
+      "python3",
+      "/home/njoven/code/quod/scripts/axiom_gate.py",
+      "/home/njoven/code/quod/intake/openai-ns/runs/r-20261014T194322Z/repo",
+      "NavierStokes.ComparatorSolution",
+      "NavierStokes.Comparator.navier_stokes_breakdown_R3",
+      "NavierStokes.Comparator.navier_stokes_breakdown_periodic",
+      "--json"
+     ],
+     "cwd": "repo",
+     "start": "2026-10-14T20:04:15Z",
+     "end": "2026-10-14T20:04:21Z",
+     "seconds": 5.3,
+     "rc": 0,
+     "log": "evidence/axioms-solution.json",
+     "log_sha256": "0ae79b6458250b0e22485f824c0826a48cc4024dd53fc310830eb231866c5a4c",
+     "log_cid": null
+    },
+    {
+     "name": "closure-challenge_R3",
+     "cmd": [
+      "python3",
+      "/home/njoven/code/quod/scripts/closure.py",
+      "/home/njoven/code/quod/intake/openai-ns/runs/r-20261014T194322Z/repo",
+      "ComparatorChallenges.NavierStokes",
+      "NavierStokes.Comparator.navier_stokes_breakdown_R3",
+      "--json"
+     ],
+     "cwd": "repo",
+     "start": "2026-10-14T20:04:21Z",
+     "end": "2026-10-14T20:04:26Z",
+     "seconds": 5.4,
+     "rc": 0,
+     "log": "evidence/closure-challenge_R3.json",
+     "log_sha256": "8319010839c5aba2b0d229f231e391ed76b8ffbffe6b10f1cb0435882dcf6e17",
+     "log_cid": null
+    },
+    {
+     "name": "closure-challenge_periodic",
+     "cmd": [
+      "python3",
+      "/home/njoven/code/quod/scripts/closure.py",
+      "/home/njoven/code/quod/intake/openai-ns/runs/r-20261014T194322Z/repo",
+      "ComparatorChallenges.NavierStokes",
+      "NavierStokes.Comparator.navier_stokes_breakdown_periodic",
+      "--json"
+     ],
+     "cwd": "repo",
+     "start": "2026-10-14T20:04:26Z",
+     "end": "2026-10-14T20:04:31Z",
+     "seconds": 5.3,
+     "rc": 0,
+     "log": "evidence/closure-challenge_periodic.json",
+     "log_sha256": "e97d46b22f3137a4ed13c5f8e699892c57f79676792a78db6a195b65daf6f03a",
+     "log_cid": null
+    },
+    {
+     "name": "definitions challenge R3",
+     "cmd": [
+      "python3",
+      "/home/njoven/code/quod/scripts/defs_digest.py",
+      "/home/njoven/code/quod/intake/openai-ns/runs/r-20261014T194322Z/repo",
+      "ComparatorChallenges.NavierStokes",
+      "NavierStokes.Comparator.navier_stokes_breakdown_R3",
+      "--json"
+     ],
+     "cwd": "repo",
+     "start": "2026-10-14T20:04:31Z",
+     "end": "2026-10-14T20:04:37Z",
+     "seconds": 5.6,
+     "rc": 0,
+     "log": "evidence/definitions-challenge_R3.json",
+     "log_sha256": "b0d88fce10ab7337213d1b915724c7dc4c2410567d0089337586184aeab40f59",
+     "log_cid": null
+    },
+    {
+     "name": "definitions solution R3",
+     "cmd": [
+      "python3",
+      "/home/njoven/code/quod/scripts/defs_digest.py",
+      "/home/njoven/code/quod/intake/openai-ns/runs/r-20261014T194322Z/repo",
+      "NavierStokes.ComparatorSolution",
+      "NavierStokes.Comparator.navier_stokes_breakdown_R3",
+      "--json"
+     ],
+     "cwd": "repo",
+     "start": "2026-10-14T20:04:37Z",
+     "end": "2026-10-14T20:04:43Z",
+     "seconds": 5.8,
+     "rc": 0,
+     "log": "evidence/definitions-solution_R3.json",
+     "log_sha256": "9658ed5c4727396267da9a86ee04db06e3167d2486c7e0c937c10d04480b2037",
+     "log_cid": null
+    },
+    {
+     "name": "definitions challenge periodic",
+     "cmd": [
+      "python3",
+      "/home/njoven/code/quod/scripts/defs_digest.py",
+      "/home/njoven/code/quod/intake/openai-ns/runs/r-20261014T194322Z/repo",
+      "ComparatorChallenges.NavierStokes",
+      "NavierStokes.Comparator.navier_stokes_breakdown_periodic",
+      "--json"
+     ],
+     "cwd": "repo",
+     "start": "2026-10-14T20:04:43Z",
+     "end": "2026-10-14T20:04:48Z",
+     "seconds": 5.5,
+     "rc": 0,
+     "log": "evidence/definitions-challenge_periodic.json",
+     "log_sha256": "85dd7c459f83abd4e9fc6a07813d54b7630c43600d7594b62c6a15afb774239e",
+     "log_cid": null
+    },
+    {
+     "name": "definitions solution periodic",
+     "cmd": [
+      "python3",
+      "/home/njoven/code/quod/scripts/defs_digest.py",
+      "/home/njoven/code/quod/intake/openai-ns/runs/r-20261014T194322Z/repo",
+      "NavierStokes.ComparatorSolution",
+      "NavierStokes.Comparator.navier_stokes_breakdown_periodic",
+      "--json"
+     ],
+     "cwd": "repo",
+     "start": "2026-10-14T20:04:48Z",
+     "end": "2026-10-14T20:04:54Z",
+     "seconds": 5.7,
+     "rc": 0,
+     "log": "evidence/definitions-solution_periodic.json",
+     "log_sha256": "f5cdd51e90d90590942efa6445a83df69a77afc0f1a02f452e6a5301466915b8",
+     "log_cid": null
+    },
+    {
+     "name": "lean4checker_clone",
+     "cmd": [
+      "git",
+      "clone",
+      "--no-checkout",
+      "https://github.com/leanprover/lean4checker",
+      "/home/njoven/code/quod/intake/openai-ns/runs/r-20261014T194322Z/lean4checker"
+     ],
+     "cwd": ".",
+     "start": "2026-10-14T20:04:54Z",
+     "end": "2026-10-14T20:04:54Z",
+     "seconds": 0.4,
+     "rc": 0,
+     "log": "evidence/lean4checker-clone.log",
+     "log_sha256": "97fb1fa3728497f8754b3668081e3a906d7ec8898fc70b6c5570b2ddfff7bea2",
+     "log_cid": null
+    },
+    {
+     "name": "lean4checker_checkout",
+     "cmd": [
+      "git",
+      "-c",
+      "advice.detachedHead=false",
+      "checkout",
+      "91a7f0e8e9dffe927089f5a6edcfeeb8a0e07709"
+     ],
+     "cwd": "lean4checker",
+     "start": "2026-10-14T20:04:54Z",
+     "end": "2026-10-14T20:04:54Z",
+     "seconds": 0.0,
+     "rc": 0,
+     "log": "evidence/lean4checker-checkout.log",
+     "log_sha256": "1621e12ee32468b7c1ce47e6a48fac1bcf5dae416e46b01c4c470ea65767d4e4",
+     "log_cid": null
+    },
+    {
+     "name": "lean4checker_patch",
+     "cmd": [
+      "git",
+      "apply",
+      "--verbose",
+      "/home/njoven/code/quod/intake/openai-ns/evidence/lean4checker-v4.34-patch.diff"
+     ],
+     "cwd": "lean4checker",
+     "start": "2026-10-14T20:04:54Z",
+     "end": "2026-10-14T20:04:54Z",
+     "seconds": 0.0,
+     "rc": 0,
+     "log": "evidence/lean4checker-patch.log",
+     "log_sha256": "c7a9552f696dc7d0a2adba226ff831fe6acb1de4265186bc7c3047cb3b978d65",
+     "log_cid": null
+    },
+    {
+     "name": "lean4checker_build",
+     "cmd": [
+      "lake",
+      "build"
+     ],
+     "cwd": "lean4checker",
+     "start": "2026-10-14T20:04:54Z",
+     "end": "2026-10-14T20:04:59Z",
+     "seconds": 4.3,
+     "rc": 1,
+     "log": "evidence/lean4checker-build.log",
+     "log_sha256": "f40858dcf333db6b6bb1c4c9aa2d09eb8ca6490425bfc4b49620a684592e0827",
+     "log_cid": null
+    }
+   ],
+   "runner": {},
+   "closure": {
+    "modules": 610,
+    "all_imported": 11192,
+    "std_prefixes": [
+     "Init",
+     "Lean",
+     "Std",
+     "Mathlib",
+     "Batteries",
+     "Aesop",
+     "Qq",
+     "ProofWidgets",
+     "Plausible",
+     "ImportGraph",
+     "LeanSearchClient",
+     "Lake",
+     "Cli"
+    ],
+    "targets_coimportable": false,
+    "note": "the challenge module and NavierStokes.ComparatorDefinitions declare the same names; see evidence/closure-modules-coimport.log (Q-32)"
+   }
+  }
+ ],
+ "preflight": {
+  "ok": true,
+  "at": "2026-10-14T20:05:50Z",
+  "upstream_head": "f9e8bc5b38b6e212696e8a30e3e91517af887bbd"
+ },
+ "definitions": {
+  "all_equal": true,
+  "constants": {
+   "R3": 15,
+   "periodic": 16
+  }
+ }
+}

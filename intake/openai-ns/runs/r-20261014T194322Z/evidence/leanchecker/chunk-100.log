@@ -1,0 +1,4 @@
+replaying NavierStokes.PrimaryPulseBounds
+replaying NavierStokes.PrimaryODE
+replaying NavierStokes.PrimaryMaterialDefect
+replaying NavierStokes.PrimaryGeometryAssembly

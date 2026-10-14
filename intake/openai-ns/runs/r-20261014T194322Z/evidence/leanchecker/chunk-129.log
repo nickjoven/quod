@@ -1,0 +1,4 @@
+replaying NavierStokes.ResidualPolarGraph
+replaying NavierStokes.ResidualCalculus
+replaying NavierStokes.ResetEnergyBounds
+replaying NavierStokes.ReservedPatches

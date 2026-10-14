@@ -1,0 +1,1 @@
+/home/njoven/code/quod/intake/openai-ns/runs/r-20261014T194322Z/repo/tmpi6o0cmno.lean:1:0: error: import ComparatorChallenges.NavierStokes failed, environment already contains 'NavierStokes.Comparator.ForceCondition.recOn' from NavierStokes.ComparatorDefinitions

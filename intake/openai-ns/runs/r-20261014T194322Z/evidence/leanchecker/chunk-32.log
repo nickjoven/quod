@@ -1,0 +1,4 @@
+replaying NavierStokes.BasePhaseGeometry
+replaying NavierStokes.BaseExterior
+replaying NavierStokes.BaseContextAssembly
+replaying NavierStokes.BaseChartJets

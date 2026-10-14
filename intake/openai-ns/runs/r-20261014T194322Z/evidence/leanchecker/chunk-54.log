@@ -1,0 +1,4 @@
+replaying NavierStokes.GaugeMomentBalances
+replaying NavierStokes.GaugeMassPreservation
+replaying NavierStokes.GaugeExcludedBounds
+replaying NavierStokes.GaugeDebtIncrement

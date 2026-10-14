@@ -1,0 +1,29 @@
+{
+ "at": "2026-10-14T20:05:50Z",
+ "checks": {
+  "elan": true,
+  "lake_proxy": true,
+  "git": true,
+  "python>=3.10": true,
+  "blake3": true,
+  "memory>=16GB": true,
+  "disk>=25GB": true,
+  "no_other_lean_process": true,
+  "upstream_reachable": true
+ },
+ "tools": {
+  "elan": "elan 4.2.4 (227caca13 2026-08-25)",
+  "lake": "/home/njoven/.elan/bin/lake",
+  "git": "git version 2.34.1",
+  "python": "3.10.12",
+  "ket": "ket 0.3.0",
+  "taskset": "/usr/bin/taskset",
+  "blake3": "1.0.8"
+ },
+ "mem_total_gb": 23.5,
+ "disk_free_gb": 735.0,
+ "other_lean_processes": [],
+ "upstream_head": "f9e8bc5b38b6e212696e8a30e3e91517af887bbd",
+ "upstream_head_is_pin": true,
+ "ok": true
+}

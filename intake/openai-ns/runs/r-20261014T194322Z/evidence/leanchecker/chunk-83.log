@@ -1,0 +1,4 @@
+replaying NavierStokes.ParametricKernelBounds
+replaying NavierStokes.ParametricHeatTail
+replaying NavierStokes.ParametricFlatFactor
+replaying NavierStokes.ParametricEvenDescent

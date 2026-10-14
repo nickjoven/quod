@@ -1,0 +1,4 @@
+replaying NavierStokes.PrimaryFieldAssembly
+replaying NavierStokes.PrimaryCovarianceBounds
+replaying NavierStokes.PrimaryCopyBridge
+replaying NavierStokes.PrimaryCopyBounds

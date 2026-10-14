@@ -1,0 +1,4 @@
+replaying NavierStokes.TorusInverse
+replaying NavierStokes.TorusAverages
+replaying NavierStokes.TimeLocalization
+replaying NavierStokes.TerminalStress

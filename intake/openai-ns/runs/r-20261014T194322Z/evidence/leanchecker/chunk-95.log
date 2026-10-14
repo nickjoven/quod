@@ -1,0 +1,4 @@
+replaying NavierStokes.PhysicalWaveSum
+replaying NavierStokes.PhysicalStageSupport
+replaying NavierStokes.PhysicalStageBounds
+replaying NavierStokes.PhysicalSignedWave

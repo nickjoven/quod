@@ -1,0 +1,4 @@
+replaying NavierStokes.ProblemStatement
+replaying NavierStokes.PrimaryTargetBounds
+replaying NavierStokes.PrimaryResidualClass
+replaying NavierStokes.PrimaryRepresentatives

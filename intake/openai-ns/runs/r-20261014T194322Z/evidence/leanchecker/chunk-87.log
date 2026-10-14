@@ -1,0 +1,4 @@
+replaying NavierStokes.PeriodicPaperComparator
+replaying NavierStokes.PeriodicLocalization
+replaying NavierStokes.PeriodicIntegration
+replaying NavierStokes.PeriodicComparatorSolution

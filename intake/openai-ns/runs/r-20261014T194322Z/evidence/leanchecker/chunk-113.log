@@ -1,0 +1,4 @@
+replaying NavierStokes.R3.LocalizedTransport
+replaying NavierStokes.R3.LocalizedTensorBounds
+replaying NavierStokes.R3.LocalizedLaplacian
+replaying NavierStokes.R3.LocalizedFluxEstimates

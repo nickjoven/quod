@@ -1,0 +1,4 @@
+replaying NavierStokes.TerminalCompensation
+replaying NavierStokes.TemporalStateCoherence
+replaying NavierStokes.TemporalMeanUpdate
+replaying NavierStokes.TangentProjection

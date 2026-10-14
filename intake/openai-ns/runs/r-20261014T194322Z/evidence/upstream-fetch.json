@@ -1,0 +1,11 @@
+{
+ "url": "https://raw.githubusercontent.com/google-deepmind/formal-conjectures/8bf45ed7/FormalConjectures/Millenium/NavierStokes.lean",
+ "commit": "8bf45ed7",
+ "path": "FormalConjectures/Millenium/NavierStokes.lean",
+ "bytes": 13691,
+ "sha256": "f446284f2aa54375f558c263a580b34e2e7bc9f44a28829637199cc72257d25d",
+ "blake3": "febd1acfb5fbc7e5a2e54ccf2dad20feb16f89769133cf670426ff44655d9be8",
+ "git_blob": "6fd45b55c78e49ec79f45f4e226a9b9f71f57a81",
+ "equals_tracked_copy": true,
+ "fetched_at": "2026-10-14T21:36:06Z"
+}

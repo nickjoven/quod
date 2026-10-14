@@ -1,0 +1,4 @@
+replaying NavierStokes.GluedStageEstimates
+replaying NavierStokes.GlobalStressSupport
+replaying NavierStokes.GlobalSlowProfiles
+replaying NavierStokes.GlobalBaseError

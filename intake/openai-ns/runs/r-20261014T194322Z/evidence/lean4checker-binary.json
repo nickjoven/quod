@@ -1,0 +1,10 @@
+{
+ "repo": "https://github.com/leanprover/lean4checker",
+ "commit": "91a7f0e8e9dffe927089f5a6edcfeeb8a0e07709",
+ "lean_toolchain": "leanprover/lean4:v4.34.0-rc2",
+ "patch": "evidence/lean4checker-applied.diff",
+ "patch_equals_recorded": true,
+ "binary_sha256": "f2fb235ab1583bd6286c1bfeb9c7d85eee30f4c7fdbea39e52243b69b53c9c63",
+ "binary_blake3": "02fd9bb12e365ae9bf61ff2bc92b2ed755b5e48e6b240d1103527d249f5519c9",
+ "binary_bytes": 234540688
+}

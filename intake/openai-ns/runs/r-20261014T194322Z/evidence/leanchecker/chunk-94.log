@@ -1,0 +1,4 @@
+replaying NavierStokes.PhysicalResidualTZ
+replaying NavierStokes.PhysicalResidualNaturality
+replaying NavierStokes.PhysicalResidualJetBounds
+replaying NavierStokes.PhysicalResidualBridge

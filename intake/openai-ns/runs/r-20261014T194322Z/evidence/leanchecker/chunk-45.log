@@ -1,0 +1,4 @@
+replaying NavierStokes.CylindricalResidual
+replaying NavierStokes.CycleStateCoherence
+replaying NavierStokes.CyclePhysicalPrefixes
+replaying NavierStokes.CycleMeanEquation

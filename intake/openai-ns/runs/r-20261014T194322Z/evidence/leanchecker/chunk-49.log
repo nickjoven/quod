@@ -1,0 +1,4 @@
+replaying NavierStokes.ExtendedHeatedOutgoing
+replaying NavierStokes.ExtendedHeatDebts
+replaying NavierStokes.ExponentLedger
+replaying NavierStokes.EvenSmoothDescent

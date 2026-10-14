@@ -1,0 +1,4 @@
+replaying NavierStokes.R3.SpatialSupportScaling
+replaying NavierStokes.R3.SpatialEnergyScaling
+replaying NavierStokes.R3.SpatialCauchySchwarz
+replaying NavierStokes.R3.SmoothSobolevL6

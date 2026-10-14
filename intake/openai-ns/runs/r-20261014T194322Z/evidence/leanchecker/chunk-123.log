@@ -1,0 +1,4 @@
+replaying NavierStokes.R3.WeightedSobolev
+replaying NavierStokes.R3.WeightedInterpolation
+replaying NavierStokes.R3.WeakTimeContinuity
+replaying NavierStokes.R3.WeakFourierUniqueness

@@ -1,0 +1,4 @@
+replaying NavierStokes.SmoothPathFamily
+replaying NavierStokes.SmoothParameterIntegral
+replaying NavierStokes.SmoothMomentRepair
+replaying NavierStokes.SmoothLoop

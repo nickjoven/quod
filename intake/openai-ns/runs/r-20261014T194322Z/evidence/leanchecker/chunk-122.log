@@ -1,0 +1,4 @@
+replaying NavierStokes.R3.ViscousEnergyBalance
+replaying NavierStokes.R3.ViscosityScaling
+replaying NavierStokes.R3.Theorem
+replaying NavierStokes.R3.TemporalTestUniqueness

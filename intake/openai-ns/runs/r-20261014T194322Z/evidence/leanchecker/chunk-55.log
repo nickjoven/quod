@@ -1,0 +1,4 @@
+replaying NavierStokes.GaussianErrorNaturality
+replaying NavierStokes.GaussianEnvelope
+replaying NavierStokes.GaugeStateCoherence
+replaying NavierStokes.GaugeRadialResidualBounds

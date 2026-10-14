@@ -434,7 +434,7 @@
 
 - id: Q-32
   severity: high
-  status: open (fix on branch claude/issue-8-reproduce; closes when a fresh-checkout run records the digests equal)
+  status: closed 2026-10-14 by intake/openai-ns/runs/r-20261014T194322Z (definitions digests equal on both sides: 15 constants for (C), 16 for (D); the targets are recorded as not co-importable); closure.py's blindness to constructor types stays open as part of Q-7's successor work
   title: the openai-ns statuses rested on lock equality between two copies of the same definitions, and closure.py never looked inside the structures
   detail: >
     The challenge theorems (ComparatorChallenges.NavierStokes) and the offered
@@ -478,3 +478,21 @@
     at the pin, and records the exit, logs and binary identities as a second
     independent replay; descriptor until its semantics are documented in
     SEMANTICS.md.
+
+- id: Q-34
+  severity: low
+  status: open
+  title: the openai-ns failure fixtures are evidence-level; no Lean-level fixture exists yet
+  detail: >
+    intake/openai-ns/fixtures.py changes one sealed record per fixture (a lock
+    value, an axiom line, a checker exit, a module list, a definitions digest)
+    and shows the writer's verdict and the integrity exit code. It shows what
+    the gates do with such evidence, not that lock.py, axiom_gate.py or the
+    replay produce it from a changed theorem, a `sorry`, or a planted kernel
+    error. Those need modules compiled under the pin and the Lean lock.
+  fix: >
+    An `Intake/Fixtures/*.lean` set compiled by reproduce.py --fixtures: a
+    same-named theorem with one changed binder (lock mismatch), one proved by
+    `sorry` (axiom gate), one whose definitions module differs in a field
+    (definitions digest), and a module whose olean is modified after the
+    build (replay failure), each run through the real gates and recorded.

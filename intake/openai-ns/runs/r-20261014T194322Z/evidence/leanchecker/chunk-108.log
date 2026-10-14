@@ -1,0 +1,4 @@
+replaying NavierStokes.R3.ForceL2Norm
+replaying NavierStokes.R3.DelayedExtension
+replaying NavierStokes.R3.ConservativeDifference
+replaying NavierStokes.R3.ComparisonYoung

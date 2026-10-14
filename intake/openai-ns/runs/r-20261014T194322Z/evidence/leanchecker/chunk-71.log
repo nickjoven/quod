@@ -1,0 +1,4 @@
+replaying NavierStokes.MeanStageRegularity
+replaying NavierStokes.MeanResidual
+replaying NavierStokes.MeanRankUpdate
+replaying NavierStokes.MeanMomentBounds

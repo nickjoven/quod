@@ -1,0 +1,95 @@
+--- /home/njoven/code/quod/intake/openai-ns/runs/r-20261014T194322Z/evidence/upstream-8bf45ed7.lean	2026-10-14 17:36:06.978893070 -0400
++++ /home/njoven/code/quod/intake/openai-ns/port/UpstreamNavierStokes.lean	2026-09-14 20:06:24.373393898 -0400
+@@ -14,7 +14,11 @@
+ limitations under the License.
+ -/
+ 
+-import FormalConjecturesUtil
++import Mathlib
++
++-- quod intake port: local notation that FormalConjecturesUtil provides upstream
++local notation "ℝ^" n:65 => EuclideanSpace ℝ (Fin n)
++local notation "ℝ³" => EuclideanSpace ℝ (Fin 3)
+ 
+ /-!
+ # Existence And Smoothness Of The Navier–Stokes Equation
+@@ -56,7 +60,7 @@
+ open ContDiff Set InnerProductSpace MeasureTheory EuclideanGeometry
+ open scoped Laplacian
+ 
+-namespace NavierStokes
++namespace NavierStokes.Upstream
+ 
+ variable {n : ℕ}
+ 
+@@ -76,24 +80,23 @@
+ notation "∇⬝" => divergence
+ 
+ /-- The divergence of a vector field is $0$ at points where `fderiv` has its junk value. -/
+-@[simp, category API, AMS 35]
++@[simp]
+ theorem divergence_of_not_differentiableAt {v : ℝ^n → ℝ^n} {x : ℝ^n}
+     (hv : ¬ DifferentiableAt ℝ v x) : ∇⬝ v x = 0 := by
+   simp [divergence, fderiv_zero_of_not_differentiableAt hv]
+ 
+ /-- The divergence of the zero vector field is zero. -/
+-@[simp, category API, AMS 35]
++@[simp]
+ theorem divergence_zero (x : ℝ^n) : ∇⬝ (0 : ℝ^n → ℝ^n) x = 0 := by
+   simp [divergence]
+ 
+ /-- The divergence of a constant vector field is zero. -/
+-@[simp, category API, AMS 35]
++@[simp]
+ theorem divergence_const (c : ℝ^n) (x : ℝ^n) :
+     ∇⬝ (fun _ : ℝ^n => c) x = 0 := by
+   simp [divergence]
+ 
+ /-- Divergence is additive at points where both vector fields are differentiable. -/
+-@[category API, AMS 35]
+ theorem divergence_add {v w : ℝ^n → ℝ^n} {x : ℝ^n}
+     (hv : DifferentiableAt ℝ v x) (hw : DifferentiableAt ℝ w x) :
+     ∇⬝ (fun y => v y + w y) x = ∇⬝ v x + ∇⬝ w x := by
+@@ -101,7 +104,6 @@
+   exact map_add _ _ _
+ 
+ /-- Divergence commutes with scalar multiplication at differentiability points. -/
+-@[category API, AMS 35]
+ theorem divergence_smul (c : ℝ) {v : ℝ^n → ℝ^n} {x : ℝ^n}
+     (hv : DifferentiableAt ℝ v x) : ∇⬝ (fun y => c • v y) x = c * ∇⬝ v x := by
+   rw [divergence, fderiv_fun_const_smul hv c]
+@@ -264,21 +266,18 @@
+ 
+ 
+ /-- (A) Existence and smoothness of Navier–Stokes solutions on ℝ³. -/
+-@[category research open, AMS 35]
+ theorem navier_stokes_existence_and_smoothness_R3 (nu : ℝ) (hnu : nu > 0)
+     (u₀ : ℝ³ → ℝ³) (hu₀ : InitialVelocityConditionDecay u₀) :
+     ∃ v p, NavierStokesExistenceAndSmoothnessRn nu u₀ (f := 0) v p := by
+   sorry
+ 
+ /-- (B) Existence and smoothness of Navier–Stokes solutions in ℝ³/ℤ³. -/
+-@[category research open, AMS 35]
+ theorem navier_stokes_existence_and_smoothness_periodic (nu : ℝ) (hnu : nu > 0)
+     (u₀ : ℝ³ → ℝ³) (hu₀ : InitialVelocityConditionPeriodic u₀) :
+     ∃ v p, NavierStokesExistenceAndSmoothnessPeriodic nu u₀ (f := 0) v p := by
+   sorry
+ 
+ /-- (C) Breakdown of Navier–Stokes solutions on ℝ³. -/
+-@[category research open, AMS 35]
+ theorem navier_stokes_breakdown_R3 (nu : ℝ) (hnu : nu > 0) :
+     ∃ (u₀ : ℝ³ → ℝ³) (f : ℝ³ → ℝ → ℝ³),
+     InitialVelocityConditionDecay u₀ ∧ ForceConditionDecay f ∧
+@@ -286,11 +285,10 @@
+   sorry
+ 
+ /-- (D) Breakdown of Navier–Stokes Solutions on ℝ³/ℤ³. -/
+-@[category research open, AMS 35]
+ theorem navier_stokes_breakdown_periodic (nu : ℝ) (hnu : nu > 0) :
+     ∃ (u₀ : ℝ³ → ℝ³) (f : ℝ³ → ℝ → ℝ³),
+     InitialVelocityConditionPeriodic u₀ ∧ ForceConditionPeriodic f ∧
+     ¬ (∃ v p, NavierStokesExistenceAndSmoothnessPeriodic nu u₀ f v p) := by
+   sorry
+ 
+-end NavierStokes
++end NavierStokes.Upstream

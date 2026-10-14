@@ -244,5 +244,10 @@ proves the bytes on disk are the bytes the records describe and nothing about
 the proof. The fresh-checkout reproduction (`reproduce.py run`) re-derives
 every gate from a new clone, and its `RUN.json` carries a
 `historical_agreement` block: whether the locks, the module set, the checker
-binary, the port diff and the statuses came out the same. The current runs and
+binary, the port diff and the statuses came out the same. The first such run, [`runs/r-20261014T194322Z`](runs/r-20261014T194322Z/RUN.json)
+(2026-10-14), came out **proven** for both claims with every comparison in
+agreement: identical locks, the same 610-module closure derived from the
+environment, a lean4checker binary with the same sha256 as September's, the
+definitions digests equal on both sides, the toolchain's own `leanchecker`
+exiting 0 over all 610 modules, and all 14 fidelity forms equal. The runs and
 their outcomes are listed in [`README.md`](README.md) § Fresh runs.

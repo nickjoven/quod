@@ -1,0 +1,4 @@
+replaying NavierStokes.ActualSignedMeanBinding
+replaying NavierStokes.ActualSignedGeometry
+replaying NavierStokes.ActualSignedGaussianCoherence
+replaying NavierStokes.ActualSignedGaussian
