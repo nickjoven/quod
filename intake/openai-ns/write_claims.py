@@ -89,6 +89,9 @@ def write(evidence, pin, cids, out_results, out_claims, closure_modules=None, ch
 
     checker = checker_record(E, checker_desc, workers, read_modules(closure_modules), read_modules(checker_modules), ket=ket)
     checker_ok = checker["ok"]
+    # Q-32: when the run compared what the statement's names MEAN on both sides, equality is required
+    defs_path = os.path.join(E, "definitions.json")
+    defs = json.load(open(defs_path)) if os.path.exists(defs_path) else None
     ax = jload(os.path.join(E, "axioms-solution.json"))
     axioms = {r["decl"]: r for r in ax["results"]}
     fid = json.load(open(os.path.join(E, "fidelity.json")))
@@ -99,11 +102,15 @@ def write(evidence, pin, cids, out_results, out_claims, closure_modules=None, ch
         lc, ls = jload(os.path.join(E, f"lock-challenge_{key}.json")), jload(os.path.join(E, f"lock-solution_{key}.json"))
         cl = jload(os.path.join(E, f"closure-challenge_{key}.json"))
         lock_eq = lc["lock"] == ls["lock"]
+        d = (defs or {}).get("per_demonstrandum", {}).get(key) if defs else None
+        defs_eq = None if d is None else bool(d.get("equal"))
         axr = axioms[full]; ax_ok = axr["ok"]
-        if lock_eq and ax_ok and checker_ok:
+        if lock_eq and defs_eq is not False and ax_ok and checker_ok:
             verdict, status = "accepted", "proven"
         elif not lock_eq:
             verdict, status = "rejected: lock mismatch", "stated"
+        elif defs_eq is False:
+            verdict, status = "rejected: definitions differ", "stated"
         elif not ax_ok:
             verdict, status = f"rejected: extra axioms {axr['extra']}", "stated"
         elif checker["ran"] and checker["exit"] == 0 and checker["covers_closure"] is False:
@@ -141,9 +148,15 @@ def write(evidence, pin, cids, out_results, out_claims, closure_modules=None, ch
                 },
                 "checker_closure_modules": checker["modules"],
                 "checker_covers_closure": checker["covers_closure"],
+                "definitions_identical": defs_eq,
+                "definitions_note": ("not checked: the historical run compared locks only (Q-32)" if defs_eq is None else
+                                     f"{d.get('constants')} non-standard constants reachable from the statement carry the same canonical "
+                                     f"type and value in the challenge module and in the solution's definitions module (evidence/definitions.json)"
+                                     if defs_eq else f"differ: {d.get('differ')}; only in challenge: {d.get('only_challenge')}; only in solution: {d.get('only_solution')}"),
             },
             "controls": [],
-            "reasons": [x for x in [None if lock_eq else "lock mismatch", None if ax_ok else f"extra axioms {axr['extra']}",
+            "reasons": [x for x in [None if lock_eq else "lock mismatch", None if defs_eq is not False else "definitions differ",
+                                    None if ax_ok else f"extra axioms {axr['extra']}",
                                     None if checker_ok else ("lean4checker pending" if not checker["ran"]
                                                              else f"lean4checker exit {checker['exit']}" if checker["exit"] != 0
                                                              else "replay did not cover the closure")] if x],
@@ -155,6 +168,7 @@ def write(evidence, pin, cids, out_results, out_claims, closure_modules=None, ch
                 "checker_cid": checker["log_cid"],
                 "checker_patch_cid": cid("lean4checker-v4.34-patch.diff") if any(k.endswith("lean4checker-v4.34-patch.diff") for k in cids)
                                      else cid("lean4checker-applied.diff"),
+                "definitions_cid": cid("definitions.json") if defs is not None else None,
             },
         }
         if toolchain_checker and toolchain_checker.get("available"):
@@ -166,7 +180,7 @@ def write(evidence, pin, cids, out_results, out_claims, closure_modules=None, ch
         with open(os.path.join(out_claims, f"{claim['id'].lower()}.yml"), "w") as f:
             yaml.safe_dump(claim, f, sort_keys=False, allow_unicode=True)
         results[claim["id"]] = {"status": status, "proof_verdict": verdict, "lock": lc["lock"], "lock_equal": lock_eq, "axioms": axr["axioms"],
-                                "grounded": cl["grounded"],
+                                "grounded": cl["grounded"], "definitions_identical": defs_eq,
                                 "fidelity_equal": claim["descriptors"]["statement_fidelity"]["canonical_forms_equal_after_namespace_normalization"]}
 
     scripts = {f: sha(os.path.join(ROOT, "scripts", f)) for f in sorted(os.listdir(os.path.join(ROOT, "scripts"))) if f.endswith((".py", ".lean", ".sh"))}

@@ -198,3 +198,36 @@ def test_unknown_closure_does_not_pretend_coverage(evidence):
     d, cids, write = evidence
     out = W.write(str(d), PIN, cids, str(d.parent / "R2.json"), str(d.parent / "c2"))
     assert out["checker"]["covers_closure"] is None and out["checker"]["ok"]
+
+
+# ----------------------------------------------------------------------------- Q-32: definitions behind the names
+
+def defs_record(equal=True, differ=()):
+    one = {"demonstrandum": "x", "equal": equal, "differ": list(differ), "only_challenge": [], "only_solution": [],
+           "digest_challenge": "a" * 64, "digest_solution": ("a" if equal else "b") * 64, "constants": 12,
+           "modules_challenge": ["ComparatorChallenges.NavierStokes"], "modules_solution": ["NavierStokes.ComparatorDefinitions"], "missing": []}
+    return {"method": "test", "all_equal": equal, "per_demonstrandum": {"R3": one, "periodic": dict(one)}}
+
+
+def test_definitions_equal_is_recorded_and_accepted(evidence):
+    d, cids, write = evidence
+    json.dump(defs_record(True), open(d / "definitions.json", "w"))
+    cids = dict(cids); cids["evidence/definitions.json"] = {"cid": "c" * 64, "sha256": "d" * 64}
+    out = W.write(str(d), PIN, cids, str(d.parent / "R3.json"), str(d.parent / "c3"),
+                  closure_modules=str(d / "closure-modules.txt"), checker_modules=str(d / "checker-modules.txt"))
+    assert all(v["status"] == "proven" and v["definitions_identical"] is True for v in out["results"].values())
+
+
+def test_definitions_differ_is_rejected_even_with_equal_locks(evidence):
+    d, cids, write = evidence
+    json.dump(defs_record(False, ["NavierStokes.Comparator.divergence"]), open(d / "definitions.json", "w"))
+    cids = dict(cids); cids["evidence/definitions.json"] = {"cid": "c" * 64, "sha256": "d" * 64}
+    out = W.write(str(d), PIN, cids, str(d.parent / "R4.json"), str(d.parent / "c4"),
+                  closure_modules=str(d / "closure-modules.txt"), checker_modules=str(d / "checker-modules.txt"))
+    assert all(v["status"] == "stated" and v["proof_verdict"] == "rejected: definitions differ" for v in out["results"].values())
+
+
+def test_historical_evidence_has_no_definitions_record(evidence):
+    d, cids, write = evidence
+    out, _ = write()
+    assert all(v["definitions_identical"] is None for v in out["results"].values())
