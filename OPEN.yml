@@ -434,7 +434,7 @@
 
 - id: Q-32
   severity: high
-  status: closed 2026-10-14 by intake/openai-ns/runs/r-20261014T194322Z (definitions digests equal on both sides: 15 constants for (C), 16 for (D); the targets are recorded as not co-importable); closure.py's blindness to constructor types stays open as part of Q-7's successor work
+  status: closed 2026-10-14 by intake/openai-ns/runs/r-20261014T194322Z (definitions digests equal on both sides: 15 constants for (C), 16 for (D); the targets are recorded as not co-importable); the generic gates (closure.py constructor walk, digest as a lock relation or a gate in calibrate.py) are github #12
   title: the openai-ns statuses rested on lock equality between two copies of the same definitions, and closure.py never looked inside the structures
   detail: >
     The challenge theorems (ComparatorChallenges.NavierStokes) and the offered
