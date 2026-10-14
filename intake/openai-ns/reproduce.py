@@ -412,6 +412,12 @@ class Run:
             "runner": {}, "exit_code": None,
         }
         self.workers, self.cpus, self.toolchain_checker, self.chunk, self.resume = workers, cpus, toolchain_checker, chunk, resume
+        # a resumed run keeps every earlier attempt's record: its full-build timing is the measurement,
+        # the incremental rebuild below is not
+        if resume and os.path.exists(self.run_json):
+            prior = json.load(open(self.run_json))
+            self.rec["prior_attempts"] = prior.pop("prior_attempts", []) + [{k: prior.get(k) for k in
+                                                                            ("run_id", "started", "finished", "status", "failed_step", "steps", "runner", "closure")}]
         self.save()
 
     # -- bookkeeping
@@ -512,9 +518,10 @@ class Run:
             cmd = ["taskset", "-c", self.cpus] + cmd
         self.step("build", cmd, self.repo, "build.log", timeout=6 * 3600)
 
-    def closure_modules(self) -> list[str]:
+    def header_walk(self, imports: list[str], log: str) -> tuple[int, list[str]]:
+        """Modules of the environment header after importing `imports`; (rc, names)."""
         from leanenv import run_lean
-        src = (f"import {SOLUTION_MODULE}\nimport {CHALLENGE_MODULE}\nopen Lean\n"
+        src = ("".join(f"import {m}\n" for m in imports) + "open Lean\n"
                "run_meta do\n  let env ← getEnv\n  for m in env.header.moduleNames do\n    IO.println s!\"MOD {m}\"\n")
         with tempfile.NamedTemporaryFile("w", suffix=".lean", dir=self.repo, delete=False) as f:
             f.write(src); path = f.name
@@ -523,21 +530,35 @@ class Run:
             r = run_lean(self.repo, path)
         finally:
             os.unlink(path)
-        logp = os.path.join(self.E, "closure-modules.log")
+        logp = os.path.join(self.E, log)
         open(logp, "w").write(r.stdout + r.stderr)
-        self.rec["steps"].append({"name": "closure_modules", "cmd": ["lake", "env", "lean", "<header-walk>.lean"], "cwd": "repo",
-                                  "start": None, "end": now(), "seconds": round(time.time() - t0, 1), "rc": r.returncode,
-                                  "log": "evidence/closure-modules.log", "log_sha256": sha256(logp), "log_cid": None})
-        if r.returncode != 0:
-            raise StepFailed("closure_modules", r.returncode)
-        names = [l.split(None, 1)[1] for l in r.stdout.splitlines() if l.startswith("MOD ")]
-        mods = nonstd_modules(names)
+        self.rec["steps"].append({"name": f"header_walk {' '.join(imports)}", "cmd": ["lake", "env", "lean", f"<import {' '.join(imports)}; header walk>"],
+                                  "cwd": "repo", "start": None, "end": now(), "seconds": round(time.time() - t0, 1), "rc": r.returncode,
+                                  "log": f"evidence/{log}", "log_sha256": sha256(logp), "log_cid": None})
+        self.save()
+        return r.returncode, [l.split(None, 1)[1] for l in r.stdout.splitlines() if l.startswith("MOD ")]
+
+    def closure_modules(self) -> list[str]:
+        """The proof's non-standard import closure = union of the two targets' headers, walked
+        separately: the challenge module and the solution's definitions module declare the same
+        names, so the two cannot be imported into one environment (Q-32); that fact is recorded."""
+        rc_both, _ = self.header_walk([SOLUTION_MODULE, CHALLENGE_MODULE], "closure-modules-coimport.log")
+        names: set[str] = set()
+        for target, log in ((SOLUTION_MODULE, "closure-modules-solution.log"), (CHALLENGE_MODULE, "closure-modules-challenge.log")):
+            rc, got = self.header_walk([target], log)
+            if rc != 0:
+                raise StepFailed(f"closure_modules ({target})", rc)
+            names |= set(got)
+        mods = nonstd_modules(sorted(names))
         if not mods or CHALLENGE_MODULE not in mods or SOLUTION_MODULE not in mods:
-            raise StepFailed("closure_modules: the header walk did not list both targets", None, EXIT_MISSING)
+            raise StepFailed("closure_modules: the header walks did not list both targets", None, EXIT_MISSING)
         open(os.path.join(self.E, "closure-modules.txt"), "w").write("\n".join(mods) + "\n")
         hist = os.path.join(HIST_EVIDENCE, "checker-modules.txt")
         hist_set = set(open(hist).read().split()) if os.path.exists(hist) else set()
-        self.rec["closure"] = {"modules": len(mods), "all_imported": len(names), "std_prefixes": STD}
+        self.rec["closure"] = {"modules": len(mods), "all_imported": len(names), "std_prefixes": STD,
+                               "targets_coimportable": rc_both == 0,
+                               "note": None if rc_both == 0 else "the challenge module and NavierStokes.ComparatorDefinitions declare the same names; "
+                                                                 "see evidence/closure-modules-coimport.log (Q-32)"}
         self.agree("closure_modules", {"historical": len(hist_set), "now": len(mods), "same_set": hist_set == set(mods),
                                        "only_now": sorted(set(mods) - hist_set)[:20], "only_historical": sorted(hist_set - set(mods))[:20]})
         say(f"closure: {len(mods)} non-standard modules in the proof's import closure (historical 610, same set: {hist_set == set(mods)})")
@@ -563,6 +584,33 @@ class Run:
             raise StepFailed("axioms-solution", rc)
         for key, decl in DEMONSTRANDA.items():
             self.gate("closure.py", [CHALLENGE_MODULE, decl], f"closure-challenge_{key}.json")
+
+    def definitions(self) -> None:
+        """Q-32: the names in the two statements are declared twice; compare what they mean.
+        scripts/defs_digest.py on each side, per demonstrandum; equal digests required for `proven`."""
+        import defs_digest as DD
+        out = {}
+        for key, decl in DEMONSTRANDA.items():
+            sides = {}
+            for side, mod in (("challenge", CHALLENGE_MODULE), ("solution", SOLUTION_MODULE)):
+                f = f"definitions-{side}_{key}.json"
+                self.step(f"definitions {side} {key}", ["python3", os.path.join(SCRIPTS, "defs_digest.py"), self.repo, mod, decl, "--json"],
+                          self.repo, f, timeout=1800)
+                sides[side] = jload_loose(os.path.join(self.E, f))
+            cmp = DD.compare(sides["challenge"]["rows"], sides["solution"]["rows"])
+            out[key] = {"demonstrandum": decl, "equal": cmp["equal"], "differ": cmp["differ"], "only_challenge": cmp["only_a"],
+                        "only_solution": cmp["only_b"], "digest_challenge": cmp["digest_a"], "digest_solution": cmp["digest_b"],
+                        "constants": len(sides["challenge"]["rows"]),
+                        "modules_challenge": sides["challenge"]["modules"], "modules_solution": sides["solution"]["modules"],
+                        "missing": sorted(set(sides["challenge"]["missing"]) | set(sides["solution"]["missing"]))}
+            say(f"definitions {key}: {len(sides['challenge']['rows'])} constants, digests {'EQUAL' if cmp['equal'] else 'DIFFER ' + str(cmp['differ'][:5])}")
+        rep = {"method": "scripts/defs_digest.py: every non-standard constant reachable from the statement through types, definition "
+                         "values and constructor types, canonical pp.all type and value, BLAKE3 over the sorted rows (modules excluded); "
+                         "computed in the challenge module's environment and in the solution module's environment",
+               "all_equal": all(v["equal"] for v in out.values()), "per_demonstrandum": out}
+        json.dump(rep, open(os.path.join(self.E, "definitions.json"), "w"), indent=1)
+        self.rec["definitions"] = {"all_equal": rep["all_equal"], "constants": {k: v["constants"] for k, v in out.items()}}
+        self.save()
 
     def build_lean4checker(self) -> str:
         binp = os.path.join(self.checker_dir, ".lake", "build", "bin", "lean4checker")
@@ -806,6 +854,7 @@ def run(args) -> int:
         R.fetch(); R.verify_pin(); R.toolchain(); R.build()
         mods = R.closure_modules()
         R.locks_and_gates()
+        R.definitions()
         binp = R.build_lean4checker()
         R.replay(binp, mods)
         if args.toolchain_checker:

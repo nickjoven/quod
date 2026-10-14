@@ -131,6 +131,8 @@ def check_intake():
                 if v.get("status") not in STATUS: bad(rres, f"{cid} status {v.get('status')!r} not in lattice")
                 if v.get("status") == "proven" and not (ck.get("ran") and ck.get("exit") == 0 and ck.get("covers_closure") is True):
                     bad(rres, f"{cid} proven without a passing replay over the whole closure")
+                if v.get("status") == "proven" and v.get("definitions_identical") is not True:
+                    bad(rres, f"{cid} proven in a fresh run without the definitions digests equal (Q-32)")
             if run.get("status") == "ok" and any(v.get("proof_verdict") != "accepted" for v in res.get("results", {}).values()):
                 bad(rr, "status ok but a verdict is not accepted")
             if not HEX64.match(str((run.get("cids") or {}).get("RESULTS.json", ""))): bad(rr, "cids.RESULTS.json malformed")
