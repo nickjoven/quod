@@ -164,7 +164,10 @@ def other_lean_processes() -> list[str]:
 
 
 def lean_path_env() -> dict:
-    return {**os.environ, "PATH": os.path.expanduser("~/.elan/bin") + os.pathsep + os.environ.get("PATH", "")}
+    """elan's proxies first; the user's global git config ignored, since a clone/checkout/apply of pinned
+    commits needs none of it and an old git rejects newer option values in it (recorded in RUN.json)."""
+    return {**os.environ, "PATH": os.path.expanduser("~/.elan/bin") + os.pathsep + os.environ.get("PATH", ""),
+            "GIT_CONFIG_GLOBAL": os.devnull}
 
 
 # ----------------------------------------------------------------------------- pure checks (tested)
@@ -796,6 +799,8 @@ def run(args) -> int:
     R = Run(workdir, run_id, args.workers, args.cpus, args.toolchain_checker, args.chunk, args.resume, not args.no_ket)
     R.lock_fh = lock  # held until the process exits
     R.rec["resources"]["lean_lock"] = LEAN_LOCK
+    os.environ["GIT_CONFIG_GLOBAL"] = os.devnull  # every git call in this process, not only the stepped ones
+    R.rec["host"]["git_config_global"] = os.devnull
     R.rec["preflight"] = {"ok": True, "at": pf["at"], "upstream_head": pf["upstream_head"]}
     try:
         R.fetch(); R.verify_pin(); R.toolchain(); R.build()

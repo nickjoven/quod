@@ -80,11 +80,40 @@ the toolchain and replay with it.
 
 ## Reproduce
 
+Three commands, three different assurances. None of them consults the
+historical `PIN-verified.txt`; a run re-derives everything from bytes.
+
 ```
-intake/openai-ns/build.sh        # pin check, toolchain, cache, build (12 min)
-python3 scripts/lock.py intake/openai-ns/repo ComparatorChallenges.NavierStokes NavierStokes.Comparator.navier_stokes_breakdown_R3 --json
-python3 scripts/axiom_gate.py intake/openai-ns/repo NavierStokes.ComparatorSolution NavierStokes.Comparator.navier_stokes_breakdown_R3 NavierStokes.Comparator.navier_stokes_breakdown_periodic --json
-intake/openai-ns/fidelity.sh     # the port and the 28 locks
-intake/openai-ns/checker.sh      # lean4checker over the 610-module closure (79 min)
-python3 intake/openai-ns/write_claims.py
+python3 intake/openai-ns/reproduce.py preflight    # can this host run it? (toolchain manager, memory, disk, no other Lean job, pin reachable)
+python3 intake/openai-ns/reproduce.py integrity    # ARTIFACT INTEGRITY ONLY: every cited byte vs its CID; no Lean runs; says nothing about the proof
+python3 intake/openai-ns/reproduce.py run [--toolchain-checker]   # FULL REPLAY into runs/<id>/ (about 2 h; 3.5 h with the second checker)
 ```
+
+`run` clones the pinned commit into `runs/<id>/repo`, verifies commit,
+toolchain, dependency revisions and the statement-file hashes afresh
+(`evidence/pin-check.json`; any drift exits 2), builds the two targets,
+derives the proof's non-standard import closure from the environment
+header rather than a pasted list, locks the four statements, runs the axiom
+gate and the closure survey, clones lean4checker at `91a7f0e8`, applies the
+recorded one-line patch, builds it, replays the whole closure with two
+workers, optionally replays again with the `leanchecker` binary the pinned
+toolchain itself ships (no patch; chunked because it spawns one task per
+module), re-fetches the upstream DeepMind file at `8bf45ed7` and locks all
+14 canonical forms on both sides, then writes `claims/` and `RESULTS.json`
+from that evidence alone. `RUN.json` records every command, exit code,
+wall time, log CID, host and resource setting, the runner's hashes and the
+quod commit, and how each result compares with the historical record. CIDs
+are BLAKE3 of the bytes, so `b3sum` verifies the package without any store.
+A failed command, a stale pin, an absent checker result, or a replay that
+does not cover the closure fails the run with a recorded reason; `--resume`
+reuses a checkout or a passing replay already in the directory. The run
+holds the fleet's `flock` on `lock.lean` so it never overlaps another Lean
+job on the box.
+
+Prerequisites, measured on the recording host: 24 cores, 23 GB RAM, Lean
+toolchain via `elan`, Python ≥ 3.10 with `blake3` and `pyyaml`, about 12 GB
+of disk per run (Mathlib cache 6.6 GB, closure build, two checker builds).
+
+Historical scripts (`build.sh`, `checker.sh`, `checker-chunked.sh`,
+`fidelity.sh`, `supervise.sh`) are kept as the record of how the 2026-09-13
+evidence was produced; they are not the reproduction path.
